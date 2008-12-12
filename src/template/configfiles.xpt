@@ -1,0 +1,1062 @@
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT template::papdconfigfiles»
+«IMPORT template::j2eeconfigfiles»
+
+«EXTENSION template::ServicegenExtensions»
+
+«REM»
+Contiene i template per la definizione dei file di configurazione necessari per
+l'implementazione della Specific Platform (CSI over J2EE) 
+«ENDREM»
+
+
+«DEFINE ejbpafiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+  «EXPAND papdconfigfiles::defpafile (svn_project_dir, model, serviceDef) FOR this»
+  «EXPAND j2eeconfigfiles::defejbjarfiles (svn_project_dir, model, serviceDef) FOR this»
+  «EXPAND papdconfigfiles::defpdejbfile (svn_project_dir, model, serviceDef) FOR this»
+  «IF serviceDef.monitorable || serviceDef.diagEnabled»
+  	«EXPAND papdconfigfiles::coopdiagfile(svn_project_dir, model, serviceDef) FOR this»
+  «ENDIF»
+  «LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
+	  «IF asynchOps.size>0»
+	  	«EXPAND papdconfigfiles::asynchCfgFiles(svn_project_dir, model, this) FOR serviceDef»
+	  «ENDIF»
+  «ENDLET»
+«ENDDEFINE»
+
+«DEFINE serviceFiles (String svn_project_dir, SOABEModel model) FOR ServiceDef»
+  
+  «FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS pa»
+    «EXPAND ejbpafiles(svn_project_dir, model, this) FOR pa»
+    
+  «ENDFOREACH»
+  
+  «FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabr»
+    «EXPAND soappabrfiles(svn_project_dir, model ,this) FOR pabr»
+  «ENDFOREACH»
+  
+  «FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
+    «EXPAND wsfadfiles(svn_project_dir, model, this) FOR wsfad»
+  «ENDFOREACH»
+  
+  «LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOps»
+  «IF asynchOps.size>0»
+  «FILE svn_project_dir+"/"+getSQLSrcDir(model.codProdotto,model.codComponente)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
+
+DROP TABLE «asynchCounterTableName(this)» CASCADE CONSTRAINTS ; 
+
+CREATE TABLE «asynchCounterTableName(this)» ( 
+  MSGID         VARCHAR2 (500)  NOT NULL, 
+  TARGETID      VARCHAR2 (100)  NOT NULL, 
+  NUM_ATTEMPTS  NUMBER, 
+  CONSTRAINT PRIMARY_KEY
+  PRIMARY KEY ( MSGID, TARGETID ) 
+ ); 
+
+COMMIT;
+  «ENDFILE»
+  «ENDIF»
+  «ENDLET»
+«ENDDEFINE»
+
+
+
+
+
+
+
+
+
+«REM»
+*************************************
+	File del bridge soap (web-app)
+*************************************
+«ENDREM»
+«DEFINE soappabrfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
+	«EXPAND j2eeconfigfiles::soappabrwebxml(svn_project_dir,model, serviceDef) FOR this»
+	«EXPAND papdconfigfiles::soappabrdeploy(svn_project_dir,model, serviceDef) FOR this»
+	«EXPAND papdconfigfiles::defpdsoapfile (svn_project_dir, model, serviceDef) FOR this»
+«ENDDEFINE»
+
+
+
+
+«REM»
+******************************************
+	File per front adapter web-services
+******************************************
+«ENDREM»
+«DEFINE wsfadfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+	«EXPAND j2eeconfigfiles::wsfadwebxml(svn_project_dir,model, serviceDef) FOR this»
+	«EXPAND axisstaticresources(svn_project_dir,model, serviceDef) FOR this»
+	«EXPAND serverconfigwsdd(svn_project_dir,model,serviceDef) FOR this»
+	«EXPAND papdconfigfiles::defpdejbembeddedinwsfad(svn_project_dir,model,serviceDef) FOR this»
+«ENDDEFINE»
+
+
+«DEFINE axisstaticresources (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/index.html"»<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>FrontAdapter WebServices per Infrastruttura di Cooperazione Applicativa C.S.I</title>
+</head>
+
+<body bgcolor="#eeffff">
+
+<h1 align="center">FrontAdapter WebServices per Infrastruttura di Cooperazione Applicativa C.S.I</h1>
+Quello che stai vedendo &egrave; l'endpoint di un front-adapter per l'esposizione a web services di servizi
+gi&agrave; disponibili mediante l'infrastruttura di cooperazione applicativa C.S.I.
+<p>(Powered by <em>Apache-Axis</em>)</p>
+
+<p>What do you want to do today?</p>
+
+<ul>
+    <li><a href="happyaxis.jsp">Valida</a>
+        la configurazione dell'installazione</li>
+    <li><a href="servlet/AxisServlet">Mostra</a>
+        la lista dei servizi SOAP installati su questo server</li>
+</ul>
+<!--To enable the disabled features, uncomment the appropriate declarations in
+WEB-INF/web.xml in the webapplication and restart it.-->
+<hr>
+<!--Se la pagina di validazione restituisce un errore, si tratta sicuramente di un problema
+di configurazione. Consult the Axis documentation for specific details
+on your server, or the axis-user mailing list. Sometimes that page
+returns a jasper error: if this is the case it is related to XML parser
+versions. We strongly recommend you download and install
+<a href="http://xml.apache.org/xerces2-j/">Xerces</a>-->
+</body>
+</html>
+«ENDFILE»
+«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/happyaxis.jsp"»<html>
+<%@ page import="java.io.InputStream,
+                 java.io.IOException,
+                 javax.xml.parsers.SAXParser,
+                 javax.xml.parsers.SAXParserFactory"
+   session="false" %>
+ <%
+    /*
+     * The Apache Software License, Version 1.1
+     *
+     * Copyright (c) 2002 The Apache Software Foundation.  All rights
+     * reserved.
+     *
+     * Redistribution and use in source and binary forms, with or without
+     * modification, are permitted provided that the following conditions
+     * are met:
+     *
+     * 1. Redistributions of source code must retain the above copyright
+     *    notice, this list of conditions and the following disclaimer.
+     *
+     * 2. Redistributions in binary form must reproduce the above copyright
+     *    notice, this list of conditions and the following disclaimer in
+     *    the documentation and/or other materials provided with the
+     *    distribution.
+     *
+     * 3. The end-user documentation included with the redistribution, if
+     *    any, must include the following acknowlegement:
+     *       "This product includes software developed by the
+     *        Apache Software Foundation (http://www.apache.org/)."
+     *    Alternately, this acknowlegement may appear in the software itself,
+     *    if and wherever such third-party acknowlegements normally appear.
+     *
+     * 4. The names "The Jakarta Project", "Ant", and "Apache Software
+     *    Foundation" must not be used to endorse or promote products derived
+     *    from this software without prior written permission. For written
+     *    permission, please contact apache@apache.org.
+     *
+     * 5. Products derived from this software may not be called "Apache"
+     *    nor may "Apache" appear in their names without prior written
+     *    permission of the Apache Group.
+     *
+     * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
+     * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+     * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+     * DISCLAIMED.  IN NO EVENT SHALL THE APACHE SOFTWARE FOUNDATION OR
+     * ITS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+     * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+     * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+     * USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+     * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+     * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT
+     * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+     * SUCH DAMAGE.
+     * ====================================================================
+     *
+     * This software consists of voluntary contributions made by many
+     * individuals on behalf of the Apache Software Foundation.  For more
+     * information on the Apache Software Foundation, please see
+     * <http://www.apache.org/>.
+     */
+%>
+<head>
+<title>Axis Happiness Page</title>
+</head>
+<body bgcolor='#ffffff'>
+<%!
+
+    /*
+     * Happiness tests for axis. These look at the classpath and warn if things
+     * are missing. Normally addng this much code in a JSP page is mad
+     * but here we want to validate JSP compilation too, and have a drop-in
+     * page for easy re-use
+     * @author Steve 'configuration problems' Loughran
+     * @author dims
+     * @author Brian Ewins
+     */
+
+
+    /**
+     * Get a string providing install information.
+     * TODO: make this platform aware and give specific hints
+     */
+    public String getInstallHints(HttpServletRequest request) {
+
+        String hint=
+            "<B><I>Note:</I></B> On Tomcat 4.x and Java1.4, you may need to put libraries that contain "
+            +"java.* or javax.* packages into CATALINA_HOME/common/lib"
+            +"<br>jaxrpc.jar and saaj.jar are two such libraries.";
+        return hint;
+    }
+
+    /**
+     * test for a class existing
+     * @param classname
+     * @return class iff present
+     */
+    Class classExists(String classname) {
+        try {
+            return Class.forName(classname);
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    /**
+     * test for resource on the classpath
+     * @param resource
+     * @return true iff present
+     */
+    boolean resourceExists(String resource) {
+        boolean found;
+        InputStream instream=this.getClass().getResourceAsStream(resource);
+        found=instream!=null;
+        if(instream!=null) {
+            try {
+                instream.close();
+            } catch (IOException e) {
+            }
+        }
+        return found;
+    }
+
+    /**
+     * probe for a class, print an error message is missing
+     * @param out stream to print stuff
+     * @param category text like "warning" or "error"
+     * @param classname class to look for
+     * @param jarFile where this class comes from
+     * @param errorText extra error text
+     * @param homePage where to d/l the library
+     * @return the number of missing classes
+     * @throws IOException
+     */
+    int probeClass(JspWriter out,
+                   String category,
+                   String classname,
+                   String jarFile,
+                   String description,
+                   String errorText,
+                   String homePage) throws IOException {
+        try {
+            Class clazz = classExists(classname);
+            if(clazz == null)  {
+               String url="";
+               if(homePage!=null) {
+                  url="<br>  See <a href="+homePage+">"+homePage+"</a>";
+               }
+               out.write("<p>"+category+": could not find class "+classname
+                   +" from file <b>"+jarFile
+                   +"</b><br>  "+errorText
+                   +url
+                   +"<p>");
+               return 1;
+            } else {
+               String location = getLocation(out, clazz);
+               if(location == null) {
+                  out.write("Found "+ description + " (" + classname + ")<br>");
+               }
+               else {
+                  out.write("Found "+ description + " (" + classname + ") at " + location + "<br>");
+               }
+               return 0;
+            }
+        } catch(NoClassDefFoundError ncdfe) { 
+            String url="";
+            if(homePage!=null) {
+                url="<br>  See <a href="+homePage+">"+homePage+"</a>";
+            }
+            out.write("<p>"+category+": could not find a dependency"
+                    +" of class "+classname
+                    +" from file <b>"+jarFile
+                    +"</b><br> "+errorText
+                    +url
+                    +"<br>The root cause was: "+ncdfe.getMessage()
+                    +"<br>This can happen e.g. if "+classname+" is in" 
+                    +" the 'common' classpath, but a dependency like "
+                    +" activation.jar is only in the webapp classpath."
+                    +"<p>");
+            return 1;
+        }
+    }
+
+    /**
+     * get the location of a class
+     * @param out
+     * @param clazz
+     * @return the jar file or path where a class was found
+     */
+
+    String getLocation(JspWriter out,
+                       Class clazz) {
+        try {
+            java.net.URL url = clazz.getProtectionDomain().getCodeSource().getLocation();
+            String location = url.toString();
+            if(location.startsWith("jar")) {
+                url = ((java.net.JarURLConnection)url.openConnection()).getJarFileURL();
+                location = url.toString();
+            } 
+            
+            if(location.startsWith("file")) {
+                java.io.File file = new java.io.File(url.getFile());
+                return file.getAbsolutePath();
+            } else {
+                return url.toString();
+            }
+        } catch (Throwable t){
+        }
+        return null;
+    }
+
+    /**
+     * a class we need if a class is missing
+     * @param out stream to print stuff
+     * @param classname class to look for
+     * @param jarFile where this class comes from
+     * @param errorText extra error text
+     * @param homePage where to d/l the library
+     * @throws IOException when needed
+     * @return the number of missing libraries (0 or 1)
+     */
+    int needClass(JspWriter out,
+                   String classname,
+                   String jarFile,
+                   String description,
+                   String errorText,
+                   String homePage) throws IOException {
+        return probeClass(out,
+                "<b>Error</b>",
+                classname,
+                jarFile,
+                description,
+                errorText,
+                homePage);
+    }
+
+    /**
+     * print warning message if a class is missing
+     * @param out stream to print stuff
+     * @param classname class to look for
+     * @param jarFile where this class comes from
+     * @param errorText extra error text
+     * @param homePage where to d/l the library
+     * @throws IOException when needed
+     * @return the number of missing libraries (0 or 1)
+     */
+    int wantClass(JspWriter out,
+                   String classname,
+                   String jarFile,
+                   String description,
+                   String errorText,
+                   String homePage) throws IOException {
+        return probeClass(out,
+                "<b>Warning</b>",
+                classname,
+                jarFile,
+                description,
+                errorText,
+                homePage);
+    }
+
+    /**
+     * probe for a resource existing,
+     * @param out
+     * @param resource
+     * @param errorText
+     * @throws Exception
+     */
+    int wantResource(JspWriter out,
+                      String resource,
+                      String errorText) throws Exception {
+        if(!resourceExists(resource)) {
+            out.write("<p><b>Warning</b>: could not find resource "+resource
+                        +"<br>"
+                        +errorText);
+            return 0;
+        } else {
+            out.write("found "+resource+"<br>");
+            return 1;
+        }
+    }
+
+
+    /**
+     *  get servlet version string
+     *
+     */
+
+    public String getServletVersion() {
+        ServletContext context=getServletConfig().getServletContext();
+        int major = context.getMajorVersion();
+        int minor = context.getMinorVersion();
+        return Integer.toString(major) + '.' + Integer.toString(minor);
+    }
+
+
+
+    /**
+     * what parser are we using.
+     * @return the classname of the parser
+     */
+    private String getParserName() {
+        SAXParser saxParser = getSAXParser();
+        if (saxParser == null) {
+            return "Could not create an XML Parser";
+        }
+
+        // check to what is in the classname
+        String saxParserName = saxParser.getClass().getName();
+        return saxParserName;
+    }
+
+    /**
+     * Create a JAXP SAXParser
+     * @return parser or null for trouble
+     */
+    private SAXParser getSAXParser() {
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+        if (saxParserFactory == null) {
+            return null;
+        }
+        SAXParser saxParser = null;
+        try {
+            saxParser = saxParserFactory.newSAXParser();
+        } catch (Exception e) {
+        }
+        return saxParser;
+    }
+
+    /**
+     * get the location of the parser
+     * @return path or null for trouble in tracking it down
+     */
+
+    private String getParserLocation(JspWriter out) {
+        SAXParser saxParser = getSAXParser();
+        if (saxParser == null) {
+            return null;
+        }
+        String location = getLocation(out,saxParser.getClass());
+        return location;
+    }
+    %>
+<html><head><title>Axis Happiness Page</title></head>
+<body>
+<h1>Axis Happiness Page</h1>
+<h2>Examining webapp configuration</h2>
+
+<p>
+<h3>Needed Components</h3>
+<%
+    int needed=0,wanted=0;
+
+    /**
+     * the essentials, without these Axis is not going to work
+     */
+    needed=needClass(out, "javax.xml.soap.SOAPMessage",
+            "saaj.jar",
+            "SAAJ API",
+            "Axis will not work",
+            "http://xml.apache.org/axis/");
+
+    needed+=needClass(out, "javax.xml.rpc.Service",
+            "jaxrpc.jar",
+            "JAX-RPC API",
+            "Axis will not work",
+            "http://xml.apache.org/axis/");
+
+    needed+=needClass(out, "org.apache.axis.transport.http.AxisServlet",
+            "axis.jar",
+            "Apache-Axis",
+            "Axis will not work",
+            "http://xml.apache.org/axis/");
+
+    needed+=needClass(out, "org.apache.commons.discovery.Resource",
+            "commons-discovery.jar",
+            "Jakarta-Commons Discovery",
+            "Axis will not work",
+            "http://jakarta.apache.org/commons/discovery.html");
+
+    needed+=needClass(out, "org.apache.commons.logging.Log",
+            "commons-logging.jar",
+            "Jakarta-Commons Logging",
+            "Axis will not work",
+            "http://jakarta.apache.org/commons/logging.html");
+
+    needed+=needClass(out, "org.apache.log4j.Layout",
+            "log4j-1.2.4.jar",
+            "Log4j",
+            "Axis may not work",
+            "http://jakarta.apache.org/log4j");
+
+    //should we search for a javax.wsdl file here, to hint that it needs
+    //to go into an approved directory? because we dont seem to need to do that.
+    needed+=needClass(out, "com.ibm.wsdl.factory.WSDLFactoryImpl",
+            "wsdl4j.jar",
+            "IBM's WSDL4Java",
+            "Axis will not work",
+            null);
+
+    needed+=needClass(out, "javax.xml.parsers.SAXParserFactory",
+            "xerces.jar",
+            "JAXP implementation",
+            "Axis will not work",
+            "http://xml.apache.org/xerces-j/");
+
+    needed+=needClass(out,"javax.activation.DataHandler",
+            "activation.jar",
+            "Activation API",
+            "Axis will not work",
+            "http://java.sun.com/products/javabeans/glasgow/jaf.html");
+%>
+<h3>Optional Components</h3>
+<%
+    /*
+     * now the stuff we can live without
+     */
+    wanted+=wantClass(out,"javax.mail.internet.MimeMessage",
+            "mail.jar",
+            "Mail API",
+            "Attachments will not work",
+            "http://java.sun.com/products/javamail/");
+
+    wanted+=wantClass(out,"org.apache.xml.security.Init",
+            "xmlsec.jar",
+            "XML Security API",
+            "XML Security is not supported",
+            "http://xml.apache.org/security/");
+
+    /*
+     * resources on the classpath path
+     */
+    /* broken; this is a file, not a resource
+    wantResource(out,"/server-config.wsdd",
+            "There is no server configuration file;"
+            +"run AdminClient to create one");
+    */
+    /* add more libraries here */
+
+    out.write("<h3>");
+    //is everythng we need here
+    if(needed==0) {
+       //yes, be happy
+        out.write("<i>The core axis libraries are present. </i>");
+    } else {
+        //no, be very unhappy
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        out.write("<i>"
+                +needed
+                +" core axis librar"
+                +(needed==1?"y is":"ies are")
+                +" missing</i>");
+    }
+    //now look at wanted stuff
+    if(wanted>0) {
+        out.write("<i>"
+                +wanted
+                +" optional axis librar"
+                +(wanted==1?"y is":"ies are")
+                +" missing</i>");
+    } else {
+        out.write("The optional components are present.");
+    }
+    out.write("</h3>");
+    //hint if anything is missing
+    if(needed>0 || wanted>0 ) {
+        out.write(getInstallHints(request));
+    }
+
+    %>
+    <p>
+    <B><I>Note:</I></B> Even if everything this page probes for is present, there is no guarantee your
+    web service will work, because there are many configuration options that we do
+    not check for. These tests are <i>necessary</i> but not <i>sufficient</i>
+    <hr>
+
+    <h2>Examining Application Server</h2>
+    <%
+        String servletVersion=getServletVersion();
+        String xmlParser=getParserName();
+        String xmlParserLocation = getParserLocation(out);
+
+    %>
+    <table>
+        <tr><td>Servlet version</td><td><%= servletVersion %></td></tr>
+        <tr><td>XML Parser</td><td><%= xmlParser %></td></tr>
+        <tr><td>XML ParserLocation</td><td><%= xmlParserLocation %></td></tr>
+    </table>
+<% if(xmlParser.indexOf("crimson")>=0) { %>
+    <p>
+    <b>We recommend <a href="http://xml.apache.org/xerces2-j/">Xerces 2</a>
+        over Crimson as the XML parser for Axis</b>
+    </p>
+<%    } %>
+
+    <h2>Examining System Properties</h2>
+<%
+    /** 
+     * Dump the system properties
+     */
+    java.util.Enumeration e=null;
+    try {
+        e= System.getProperties().propertyNames();
+    } catch (SecurityException se) {
+    }
+    if(e!=null) {
+        out.write("<pre>");
+        for (;e.hasMoreElements();) {
+            String key = (String) e.nextElement();
+            out.write(key + "=" + System.getProperty(key)+"\n");
+        }
+        out.write("</pre><p>");
+    } else {
+        out.write("System properties are not accessible<p>");
+    }
+%>
+    <hr>
+    Platform: <%= getServletConfig().getServletContext().getServerInfo()  %>
+</body>
+</html>
+«ENDFILE»
+«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/fingerprint.jsp"»<%@ page import="java.io.File,
+                 java.io.IOException,
+                 java.util.Date"
+    session="false" %>
+<html>
+<head>
+<title>System Fingerprint</title>
+</head>
+<body bgcolor=#ffffff>
+<%!
+
+    /*
+     * Fingerprint the users system. This is mainly for use in
+     * diagnosing classpath problems. It is intended to dump out
+     * a copy of the environment this webapp is running in,
+     * and additionally attempt to identify versions of each jar
+     * in the classpath.
+     *
+     * @author Brian Ewins
+     */
+
+    private java.util.Properties versionProps=new java.util.Properties();
+
+    /**
+     * Identify the version of a jar file. This uses a properties file
+     * containing known names and sizes in the format
+     * 'name(size)=version'. Version strings should be like 'xerces-1.4'
+     * ie they should include the name of the library.
+     */
+    public String getFileVersion(File file) throws IOException {
+        String key="<td>"+file.getName()+"</td>";
+        key+= "<td>"+file.length()+"</td>";
+        Date timestamp=new Date(file.lastModified());
+        key+= "<td>"+timestamp.toString()+"</td>";
+        return key;
+
+        /* TODO: implement
+        String value=versionProps.getProperty(key);
+        if (value==null) {
+            // make it possible to have jars without version nos
+            value=versionProps.getProperty(file.getName());
+        }
+        if (value==null) {
+            // fall back on something obvious
+            value=key;
+            Date timestamp=new Date(file.lastModified());
+            value+=" / "+timestamp.toString();
+        }
+        return value;
+        */
+    }
+
+    /**
+     * Split up a classpath-like variable. Returns a list of files.
+     * TODO: this can't cope with relative paths. I think theres code in BCEL that
+     * can be used for this?
+     */
+    File[] splitClasspath(String path) throws IOException {
+        java.util.StringTokenizer st=
+            new java.util.StringTokenizer(path,
+                            System.getProperty("path.separator"));
+        int toks=st.countTokens();
+        File[] files=new File[toks];
+        for(int i=0;i<toks;i++) {
+            files[i]=new File(st.nextToken());
+        }
+        return files;
+    }
+
+    /** given a list of files, return a list of jars which actually exist */
+    File[] scanFiles(File[] files) throws IOException {
+        File[] jars=new File[files.length];
+        int found=0;
+        for (int i=0; i<files.length; i++) {
+            if (files[i].getName().toLowerCase().endsWith(".jar")
+                    && files[i].exists()) {
+                jars[found]=files[i];
+                found++;
+            }
+        }
+        if (found<files.length) {
+            File[] temp=new File[found];
+            System.arraycopy(jars,0,temp,0,found);
+            jars=temp;
+        }
+        return jars;    
+    }
+
+    private static final File[] NO_FILES=new File[0];
+
+    /** scan a directory for jars */    
+    public File[] scanDir(String dir) throws IOException 
+        { 
+        return scanDir(new File(dir)); 
+        }
+        
+    public File[] scanDir(File dir) throws IOException {
+        if (!dir.exists() || !dir.isDirectory()) {
+            return NO_FILES;
+        }
+        return scanFiles(dir.listFiles());
+    }
+
+    /** scan a classpath for jars */    
+    public File[] scanClasspath(String path) throws IOException {
+        if (path==null) {
+            return NO_FILES;
+        }
+        return scanFiles(splitClasspath(path));
+    }
+
+    /** 
+     * scan a 'dirpath' (like the java.ext.dirs system property) for jars 
+     */   
+    public File[] scanDirpath(String path) throws IOException {
+        if (path==null) {
+            return NO_FILES;
+        }
+        File[] current=new File[0];
+        File[] dirs=splitClasspath(path);
+        for(int i=0; i<dirs.length; i++) {
+            File[] jars=scanDir(dirs[i]);
+            File[] temp=new File[current.length+jars.length];
+            System.arraycopy(current,0,temp,0,current.length);
+            System.arraycopy(jars,0,temp,current.length,jars.length);
+            current=temp;
+        }
+        return scanFiles(current);
+    }
+
+    /** print out the jar versions for a directory */
+    public void listDirectory(String title, JspWriter out,String dir, String comment) throws IOException {
+        listVersions(title, out,scanDir(dir), comment);
+    }
+
+    /** print out the jar versions for a directory-like system property */
+    public void listDirProperty(String title, JspWriter out,String key, String comment) throws IOException {
+        listVersions(title, out,scanDir(System.getProperty(key)), comment);
+    }
+
+    /** print out the jar versions for a classpath-like system property */
+    public void listClasspathProperty(String title, JspWriter out,String key, String comment) throws IOException {
+        listVersions(title, out,scanClasspath(System.getProperty(key)), comment);
+    }
+
+    /** print out the jar versions for a 'java.ext.dirs'-like system property */
+    public void listDirpathProperty(String title, JspWriter out,String key, String comment) throws IOException {
+        listVersions(title, out,scanDirpath(System.getProperty(key)), comment);
+    }
+
+    /** print out the jar versions for a context-relative directory */
+    public void listContextPath(String title, JspWriter out, String path, String comment)  throws IOException {
+        listVersions(title, out,scanDir(getServletConfig().getServletContext().getRealPath(path)), comment);
+    }
+
+    /** print out the jar versions for a given list of files */
+    public void listVersions(String title, JspWriter out,File[] jars, String comment) throws IOException {
+        out.print("<h2>");
+        out.print(title);
+        out.println("</h2>");
+        out.println("<table>");
+        for (int i=0; i<jars.length; i++) {
+            out.println("<tr>"+getFileVersion(jars[i])+"</tr>");
+        }
+        out.println("</table>");
+        if(comment!=null && comment.length()>0) {
+            out.println("<p>");
+            out.println(comment);
+            out.println("<p>");
+        }
+    }
+
+%>
+<h1>System Fingerprint</h1>
+<h2>JVM and Server Version</h2>
+<table>
+<tr>
+    <td>Servlet Engine</td>
+    <td><%= getServletConfig().getServletContext().getServerInfo() %></td>
+    <td><%= getServletConfig().getServletContext().getMajorVersion() %></td>
+    <td><%= getServletConfig().getServletContext().getMinorVersion() %></td>
+</tr>
+<tr>
+    <td>Java VM</td>
+    <td><%= System.getProperty("java.vm.vendor") %></td>
+    <td><%= System.getProperty("java.vm.name") %></td>
+    <td><%= System.getProperty("java.vm.version") %></td>
+</tr>
+<tr>
+    <td>Java RE</td>
+    <td><%= System.getProperty("java.vendor") %></td>
+    <td><%= System.getProperty("java.version") %></td>
+    <td> </td>
+</tr>
+<tr>
+    <td>Platform</td>
+    <td><%= System.getProperty("os.name") %></td>
+    <td><%= System.getProperty("os.arch") %></td>
+    <td><%= System.getProperty("os.version") %></td>
+</tr>
+</table>
+
+<%
+listClasspathProperty("Boot jars", out,"sun.boot.class.path", "Only valid on a sun jvm");
+listClasspathProperty("System jars", out,"java.class.path", null);
+listDirpathProperty("Extra system jars", out,"java.ext.dirs", null);
+listContextPath("Webapp jars", out, "/WEB-INF/lib", null);
+// identify the container...
+String container=getServletConfig().getServletContext().getServerInfo();
+if (container.startsWith("Tomcat Web Server/3.2")) {
+    String home=System.getProperty("tomcat.home");
+    if(home!=null) {
+        listDirectory("Tomcat 3.2 Common Jars", out,
+                      home+File.separator
+                      +"lib",
+                      null);
+    }
+} else if (container.startsWith("Tomcat Web Server/3.3")) {
+    String home=System.getProperty("tomcat.home");
+    if(home!=null) {
+        listDirectory("Tomcat 3.3 Container Jars", out,
+                      home+File.separator
+                      +"lib"+File.separator
+                      +"container",
+                      null);
+        listDirectory("Tomcat 3.3 Common Jars", out,
+                      home+File.separator
+                      +"lib"+File.separator
+                      +"common",
+                      null);
+    }
+} else if (container.startsWith("Apache Tomcat/4.0")) {
+    //handle catalina common dir
+    String home=System.getProperty("catalina.home");
+    if(home!=null) {
+        listDirectory("Tomcat 4.0 Common Jars", out,
+                      home+File.separator
+                      +"common"+File.separator
+                      +"lib",
+                      null);
+    }
+} else if (container.startsWith("Apache Tomcat/4.1")) {
+    //handle catalina common dir
+    String home=System.getProperty("catalina.home");
+    if(home!=null) {
+        listDirectory("Tomcat 4.1 Common Jars", out,
+                      home+File.separator
+                      +"shared"+File.separator
+                      +"lib",
+                      null);
+    }
+} else if (System.getProperty("resin.home")!=null) {
+    String home=System.getProperty("resin.home");
+    if(home!=null) {
+        listDirectory("Resin Common Jars", out,
+                      home+File.separator
+                      +"lib",
+                      null);
+    }    
+} else if (System.getProperty("weblogic.httpd.servlet.classpath")!=null) {
+    listClasspathProperty("Weblogic Servlet Jars", out,
+                  "weblogic.httpd.servlet.classpath",
+                  null);
+} else {
+    //TODO: identify more servlet engine classpaths.
+}
+%>
+</body>
+</html>
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE serverconfigwsdd (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/server-config.wsdd"»<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="attachments"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="axis.sendMinimizedElements" value="true"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <service name="Version2" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+
+ <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler">
+  <parameter name="wsdlPortType" value="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" />
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="defPDResource" value="/defpdelegata_embedded_«removeSeparator(serviceDef.codServizio).toLowerCase()».xml"/>
+  <parameter name="className" value="«fullQualifiedServiceInterfaceName(serviceDef, model.codProdotto, model.codComponente)»"/>
+  <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UnrecoverableException" qname="ns5:UnrecoverableException" xmlns:ns5="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <!-- mapping delle user defined entities -->
+  «FOREACH serviceDef.types.types.typeSelect(Entity) AS bean»
+  <beanMapping languageSpecificType="java:«fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,serviceDef.codServizio)».«bean.name»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  «ENDFOREACH»
+  <!-- mapping delle user defined exceptions -->
+  «FOREACH serviceDef.types.types.typeSelect(Exception) AS exception»
+  <beanMapping languageSpecificType="java:«fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,serviceDef.codServizio)».«exception.name»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  «ENDFOREACH»
+ </service>
+
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»frammento log4j con log e stopwatch«ENDREM»
+«DEFINE log4jfiles(String svn_project_dir) FOR SOABEModel»
+«FILE svn_project_dir+"/"+getDocsRootDir()+"/log4j_"+this.codComponente+".properties"»
+#-------------------------------------------------------------------
+# configurazione dei logger per il componente «this.codComponente»
+#-------------------------------------------------------------------
+«LET getLoggerPrefixForComponent(this.codProdotto,this.codComponente) AS logger_name»
+log4j.logger.«logger_name»=INFO, «logger_name».file
+log4j.additivity.«logger_name»=false
+#tipologia di appender
+log4j.appender.«logger_name».file=org.apache.log4j.RollingFileAppender
+log4j.appender.«logger_name».file.File=/usr/prod/«this.codComponente»/logs/«this.codComponente»_[srvInstance].log
+#politica di back-up
+log4j.appender.«logger_name».file.MaxFileSize=3Mb
+log4j.appender.«logger_name».file.MaxBackupIndex=5
+#conversion pattern
+log4j.appender.«logger_name».file.layout=org.apache.log4j.PatternLayout
+log4j.appender.«logger_name».file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss} [«logger_name»] %p <%c> <%t> %m%n
+
+#--------------------------------------------------------------------
+# configurazione dello stopwatch per il componente «codComponente»
+#--------------------------------------------------------------------
+log4j.logger.«logger_name».util.stopwatch=INFO, «logger_name».util.stopwatch.file
+log4j.additivity.«logger_name».util.stopwatch=false
+log4j.appender.«logger_name».util.stopwatch.file=org.apache.log4j.RollingFileAppender
+log4j.appender.«logger_name».util.stopwatch.file.File=/usr/prod/«this.codComponente»/logs/«this.codComponente»_perf_[srvInstance].csv
+log4j.appender.«logger_name».util.stopwatch.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.«logger_name».util.stopwatch.file.layout.ConversionPattern=%t,%d{yyyy-MM-dd HH:mm:ss},%X{«logger_name».stopwatch.context},%X{«logger_name».stopwatch.elapsed},%m%n
+«IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
+	«EXPAND papdconfigfiles::cooptrace_logger_cfg FOR this»
+«ENDIF»
+#---------------------------------------------------------------------
+# fine sezione logger del componente «this.codComponente»
+#---------------------------------------------------------------------
+«ENDLET»
+«ENDFILE»
+
+«FILE svn_project_dir+"/"+getDocsRootDir()+"/README.txt"»
+Istruzioni per l'utilizzo dei files contenuti in questa directory.
+
+- «"log4j_"+this.codComponente+".properties"»: 
+  E'il frammento di configurazione di log4j da inserire nel file di configurazione
+  del server (occorre completare i path di destinazione dei file di log).
+  Contiene:
+  - le configurazioni del log applicativo
+  - le configurazioni dello stopwatch
+  - le configurazioni necessarie per abilitare coop-trace (se previsto) 
+
+- «"log4j_"+this.codComponente+".xml"»:
+  E'il frammento di configuraizone di log4j necessario per configurare l'appender
+  JMS che serve alle librerie coop-trace per tracciare le chiamate a servizi.
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+
+
+

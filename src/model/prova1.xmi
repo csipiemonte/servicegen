@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicegen:SOABEModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" xmlns:typedef="http://www.csi.it/mddtools/typedef" xsi:schemaLocation="http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/servicegen ../metamodel/servicegen_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore" codProdotto="provaprod" codComponente="provacomp" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <baseTypes>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIInteger"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIBoolean" code="CSIBoolean"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIByte" code="CSIByte"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIDate" code="CSIDate"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIDouble" code="CSIDouble"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIFloat" code="CSIFloat"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSILong" code="CSILong"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIString" code="CSIString"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedInteger" nillable="true"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedBoolean" code="CSIBoolean" nillable="true"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedDouble" code="CSIDouble" nillable="true"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedFloat" code="CSIFloat" nillable="true"/>
+    <baseTypes xsi:type="typedef:CSIDatatype" name="CSIWrappedLong" code="CSILong" nillable="true"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIInteger" componentType="//@baseTypes.0/@baseTypes.0"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIBoolean" componentType="//@baseTypes.0/@baseTypes.1"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIByte" componentType="//@baseTypes.0/@baseTypes.2"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIDate" componentType="//@baseTypes.0/@baseTypes.3"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIDouble" componentType="//@baseTypes.0/@baseTypes.4"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIFloat" componentType="//@baseTypes.0/@baseTypes.5"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSILong" componentType="//@baseTypes.0/@baseTypes.6"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIString" componentType="//@baseTypes.0/@baseTypes.7"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedInteger" componentType="//@baseTypes.0/@baseTypes.8"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedBoolean" componentType="//@baseTypes.0/@baseTypes.9"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedDouble" componentType="//@baseTypes.0/@baseTypes.10"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedFloat" componentType="//@baseTypes.0/@baseTypes.11"/>
+    <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedLong" componentType="//@baseTypes.0/@baseTypes.12"/>
+  </baseTypes>
+  <serviceimplementations provides="//@serviceDefs.0"/>
+  <serviceDefs codServizio="provaservice" monitorable="true" diagEnabled="true" versione="1.0.0">
+    <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+    <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
+    <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.0" since="1,0">
+      <params name="p1" type="//@baseTypes.0/@baseTypes.0"/>
+    </operations>
+    <types>
+      <types xsi:type="typedef:Entity" name="DummyEntity">
+        <features name="fieldA" type="//@baseTypes.0/@baseTypes.0"/>
+      </types>
+      <types xsi:type="typedef:Exception" name="DummyException"/>
+    </types>
+  </serviceDefs>
+  <targetPlatform code="JBoss43"/>
+</servicegen:SOABEModel>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="servicedef"
+    nsURI="http://www.csi.it/mddtools/servicedef" nsPrefix="servicedef">
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentRoot">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="service" upperBound="-1"
+        eType="#//ServiceDef" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceDef">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codServizio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
+        eType="#//ServiceBinding" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="monitorable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//Operation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versione" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" eType="#//Types"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceType" eType="#//SrvTypeEnum"
+        defaultValueLiteral="appl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="authLevel" eType="#//AuthLevelEnum"
+        defaultValueLiteral="A0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
+        eType="#//Role" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceBinding" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codBinding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EJBPABinding" eSuperTypes="#//ServiceBinding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SOAPPABRBinding" eSuperTypes="#//ServiceBinding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSFADBinding" eSuperTypes="#//ServiceBinding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//Param" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="opType" eType="#//OpTypeEnum"
+        defaultValueLiteral="synch"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass typedef_metamodel.ecore#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="throws" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Exception"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="txType" eType="#//TXTypeEnum"
+        defaultValueLiteral="noTX"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="since" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="authorizedRoles" upperBound="-1"
+        eType="#//Role"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Param">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass typedef_metamodel.ecore#//Type"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OpTypeEnum">
+    <eLiterals name="synch"/>
+    <eLiterals name="asynch"/>
+    <eLiterals name="notify"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Types">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseTypes">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TXTypeEnum">
+    <eLiterals name="noTX"/>
+    <eLiterals name="newLocalTX"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SrvTypeEnum">
+    <eLiterals name="infr"/>
+    <eLiterals name="appl"/>
+    <eLiterals name="orch"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AuthLevelEnum">
+    <eLiterals name="A0"/>
+    <eLiterals name="A1"/>
+    <eLiterals name="A2"/>
+    <eLiterals name="A3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

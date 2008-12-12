@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="servicegen"
+    nsURI="http://www.csi.it/mddtools/servicegen" nsPrefix="servicegen">
+  <eClassifiers xsi:type="ecore:EClass" name="SOABEModel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
+        eType="#//BaseTypes" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceimplementations"
+        upperBound="-1" eType="#//ServiceImpl" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceDefs" upperBound="-1"
+        eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetPlatform" eType="#//TargetPlatform"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseTypes">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceImpl">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="provides" eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TargetPlatform">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//TargetPlatformCodes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TargetPlatformCodes">
+    <eLiterals name="WLS92"/>
+    <eLiterals name="JBoss43"/>
+  </eClassifiers>
+</ecore:EPackage>

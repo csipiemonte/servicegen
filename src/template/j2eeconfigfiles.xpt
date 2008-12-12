@@ -1,0 +1,687 @@
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+
+«EXTENSION template::ServicegenExtensions»
+
+«DEFINE defejbjarfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+«REM»ejb-jar.xml«ENDREM»
+«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar>
+
+	<enterprise-beans>
+	    <!-- 
+			===================================================================
+			Implementazione del servizio
+			===================================================================
+		-->
+		<session>
+			<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+			<!--<home>«fullQualifiedServiceHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</home>
+			<remote>«fullQualifiedServiceRemoteInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</remote>-->
+			<local-home>«fullQualifiedServiceLocalHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local-home>
+			<local>«fullQualifiedServiceLocalInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local>
+			<ejb-class>«fullQualifiedServiceBeanClassName(model.codProdotto, model.codComponente, serviceDef)»</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>				
+		</session>				
+		
+		<!-- 
+			===================================================================
+			Porta applicativa del servizio
+			===================================================================
+		-->
+		<session>
+			<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+			<home>it.csi.csi.porte.ejb20.PortaApplicativaHome</home>
+			<remote>it.csi.csi.porte.ejb20.PortaApplicativaEJB</remote>
+			<ejb-class>
+				it.csi.csi.porte.ejb20.PortaApplicativaBean
+			</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+			<env-entry>
+				<env-entry-name>defpa</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>/«paDefFileName(serviceDef)»</env-entry-value>
+			</env-entry>
+			<ejb-local-ref>
+				<description>reference all bean che implementa il servizio</description>
+				<ejb-ref-name>«getServiceBeanName(serviceDef)»</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+				<local-home>«fullQualifiedServiceLocalHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local-home>
+				<local>«fullQualifiedServiceLocalInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local>
+				<ejb-link>«getServiceBeanName(serviceDef)»</ejb-link>
+			</ejb-local-ref>
+		</session>
+		«LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+		«IF asynchOps.size>0»
+		<!--
+			===================================================================
+			Queue manager del servizio
+			===================================================================
+		-->
+		<session>
+            <ejb-name>«getQMGRBeanName(serviceDef)»</ejb-name>
+            <home>it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome</home>
+            <remote>it.csi.csi.asynch.queuemgr.ejb.QueueMgr</remote>
+            <ejb-class>it.csi.csi.asynch.queuemgr.ejb.QueueMgrBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <env-entry>
+                <description />
+                <env-entry-name>defqmgr</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>/«qmgrDefFileName(serviceDef)»</env-entry-value>
+            </env-entry>
+            <resource-ref>
+                <description />
+                <res-ref-name>jdbc/counterDS</res-ref-name>
+                <res-type>javax.sql.DataSource</res-type>
+                <res-auth>Container</res-auth>
+            </resource-ref>
+        </session>
+        
+        <!--
+			===================================================================
+			ServiceActivator del servizio
+			===================================================================
+		-->
+        <message-driven>
+            <display-name>«getAsyncLtrBeanName(serviceDef)»</display-name>
+            <ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
+            <ejb-class>it.csi.csi.asynch.queuemgr.ejb.QueueListenerBean</ejb-class>
+            <transaction-type>Container</transaction-type>
+            <message-driven-destination>
+                <destination-type>javax.jms.Queue</destination-type>
+            </message-driven-destination>
+            <env-entry>
+                <description />
+                <env-entry-name>defasynchmgr</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>/«qmgrDefFileName(serviceDef)»</env-entry-value> 
+            </env-entry>
+            <env-entry>
+                <description />
+                <env-entry-name>defpa</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>/«paDefFileName(serviceDef)»</env-entry-value>
+            </env-entry>
+            <ejb-ref>
+                <description />
+                <ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
+                <ejb-ref-type>Session</ejb-ref-type>
+                <home>it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome</home>
+                <remote>it.csi.csi.asynch.queuemgr.ejb.QueueMgr</remote>
+            </ejb-ref>
+            <ejb-ref>
+                <description />
+                <ejb-ref-name>ejb/pa</ejb-ref-name>
+                <ejb-ref-type>Session</ejb-ref-type>
+                <home>it.csi.csi.porte.ejb20.PortaApplicativaHome</home>
+                <remote>it.csi.csi.porte.ejb20.PortaApplicativaEJB</remote>
+            </ejb-ref>
+        </message-driven>
+		«ENDIF»
+		«ENDLET»
+	</enterprise-beans>
+	
+	<assembly-descriptor>
+		<!-- ruoli di sicurezza -->
+		«IF serviceDef.authLevel!=null && serviceDef.authLevel!=AuthLevelEnum::A0»
+		«FOREACH serviceDef.roles AS currRole»
+		<security-role>
+			<description>
+	    		Ruolo «currRole.name»
+			</description>
+			<role-name>«currRole.name»</role-name>
+    	</security-role>
+		«ENDFOREACH»
+		
+		<!-- autorizzazioni sui metodi della PA: aperta a tutti i ruoli -->
+		<method-permission>
+		    <unchecked/>
+		    <method>
+		    	<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+				<method-intf>Home</method-intf>
+				<method-name>*</method-name>
+			</method>
+			<method>
+		    	<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+				<method-intf>Remote</method-intf>
+				<method-name>*</method-name>
+			</method>
+		</method-permission>
+		
+		«IF serviceDef.monitorable»
+		<!-- il metodo testResources e' pubblico-->
+		<method-permission>
+		    <unchecked/>
+		    <method>
+		    	<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-intf>Local</method-intf>
+				<method-name>testResources</method-name>
+			</method>
+		</method-permission>
+		«ENDIF»
+		
+		«IF serviceDef.diagEnabled»
+		<!-- i metod della diagnostica sono pubblici-->
+		<method-permission>
+		    <unchecked/>
+		    <method>
+		    	<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-intf>Local</method-intf>
+				<method-name>hasSelfCheck</method-name>
+			</method>
+		</method-permission>
+		<method-permission>
+		    <unchecked/>
+		    <method>
+		    	<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-intf>Local</method-intf>
+				<method-name>selfCheck</method-name>
+			</method>
+		</method-permission>
+		«ENDIF»
+		
+		<!-- autorizzazioni sugli specifici metodi del servizio: i metodi di
+		     home sono aperti mentre quelli del servizio sono ristretti -->
+		«FOREACH serviceDef.operations AS currOp»
+		
+		<method-permission>
+		    <unchecked/>
+		    <method>
+		    	<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-intf>LocalHome</method-intf>
+				<method-name>*</method-name>
+			</method>
+		</method-permission>
+		<method-permission>
+			«FOREACH currOp.authorizedRoles AS currRole»
+		    <role-name>«currRole.name»</role-name>
+		    «ENDFOREACH»
+			<method>
+		    	<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-intf>Local</method-intf>
+				<method-name>«currOp.name»</method-name>
+			</method>
+		</method-permission>
+
+		«ENDFOREACH»
+		
+		«ENDIF»
+		
+		<!-- transazioni -->
+		«LET serviceDef.operations.select(e|e.txType==servicedef::TXTypeEnum::noTX) AS notxOps»
+			«IF notxOps.size>0»
+		<container-transaction>
+		«IF serviceDef.monitorable»
+			<method>
+				<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-name>testResources</method-name>
+			</method>
+		«ENDIF»
+		«IF serviceDef.diagEnabled»
+			<method>
+				<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-name>selfCheck</method-name>
+			</method>
+			<method>
+				<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-name>hasSelfCheck</method-name>
+			</method>
+		«ENDIF»
+		«FOREACH notxOps AS op»
+			<method>
+				<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-name>«op.name»</method-name>
+			</method>
+		«ENDFOREACH»
+		<trans-attribute>NotSupported</trans-attribute>
+		</container-transaction>
+			«ENDIF»			
+		«ENDLET»
+				
+		«LET serviceDef.operations.select(e|e.txType==servicedef::TXTypeEnum::newLocalTX) AS nltxOps»
+			«IF nltxOps.size>0»
+		<container-transaction>
+			«FOREACH nltxOps AS op»
+			<method>
+				<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+				<method-name>«op.name»</method-name>
+			</method>
+		«ENDFOREACH»
+		<trans-attribute>RequiresNew</trans-attribute>
+		</container-transaction>
+			«ENDIF»			
+		«ENDLET»
+		
+		<container-transaction>
+			<method>
+				<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>NotSupported</trans-attribute>
+		</container-transaction>
+	</assembly-descriptor>
+	
+</ejb-jar>
+«ENDFILE»
+
+«REM»weblogic-ejb-jar.xml«ENDREM»
+«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/weblogic-ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-ejb-jar
+  xmlns="http://www.bea.com/ns/weblogic/90" 
+  xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+	</weblogic-enterprise-bean>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+		<jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente,serviceDef)»</jndi-name>
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(model.codComponente+serviceDef.codServizio+"PATimeout")»
+		<!-- modificare il valore di timeout se necessario (non verra' sovrascritto nelle rigenerazioni -->
+		<remote-client-timeout>30</remote-client-timeout>
+		«ENDPROTECT»
+	</weblogic-enterprise-bean>
+	
+	«LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+	«IF asynchOps.size>0»
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Queue manager del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+        <ejb-name>«getQMGRBeanName(serviceDef)»</ejb-name>
+        <stateless-session-descriptor/>
+        <resource-description>
+	        <res-ref-name>jdbc/counterDS</res-ref-name>
+    	    <jndi-name>«counterDSJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+        </resource-description>
+
+        <jndi-name>«fullQMGRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+    </weblogic-enterprise-bean>
+    
+    <!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Service activator del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <weblogic-enterprise-bean>
+        <ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
+		<message-driven-descriptor>
+		  <pool>
+			<max-beans-in-free-pool>1</max-beans-in-free-pool>
+			<initial-beans-in-free-pool>1</initial-beans-in-free-pool>
+		  </pool>
+		  <destination-jndi-name>«paQueueJndiName(model.codProdotto, model.codComponente, serviceDef,codBinding)»</destination-jndi-name>
+		  <connection-factory-jndi-name>«queueConnectionFactoryJndiName()»</connection-factory-jndi-name>
+		</message-driven-descriptor>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
+			<jndi-name>«fullQMGRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+		</ejb-reference-description>
+		<ejb-reference-description>
+			<ejb-ref-name>ejb/pa</ejb-ref-name>
+			<jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+		</ejb-reference-description>
+        <jndi-name>«fullLTRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+	</weblogic-enterprise-bean>
+	«ENDIF»
+	«ENDLET»
+	
+	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	<!-- configurazioni per la security: i "principal" associati ai vari ruoli 
+	     devono essere dei gruppi con lo stesso nome dei ruoli -->
+	«FOREACH serviceDef.roles AS currRole»
+	<security-role-assignment>
+		<role-name>«currRole.name»</role-name>
+		<principal-name>«currRole.name»</principal-name>
+	</security-role-assignment>
+	«ENDFOREACH»
+		
+	«ENDIF»
+</weblogic-ejb-jar>
+«ENDFILE»
+
+
+«REM»jboss.xml«ENDREM»
+«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/jboss.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
+
+<jboss>
+    «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	<!-- Gli utenti del servizio devono essere definiti nel realm "services" -->
+	<security-domain>java:/jaas/services</security-domain> 
+	«ENDIF»
+   	<enterprise-beans>
+
+    <!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+        <jndi-name>«fullServiceJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+    </session>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+        <jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+    </session>
+
+    
+    
+    
+   </enterprise-beans>
+
+     <!--
+       To specify your own assembly descriptor info here, add a file to your
+       XDoclet merge directory called jboss-assembly-descriptor.xml that contains
+       the <assembly-descriptor></assembly-descriptor> markup.
+     -->
+   <assembly-descriptor>
+    <!-- message destinations -->
+     <!--
+       To specify additional message-destination elements, add a file in the merge
+       directory called jboss-message-destinations.ent that contains them.
+     -->
+   </assembly-descriptor>
+
+   <resource-managers>
+   </resource-managers>
+
+  <!--
+    | for container settings, you can merge in jboss-container.xml
+    | this can contain <invoker-proxy-bindings/> and <container-configurations/>
+  -->
+
+</jboss>
+«ENDFILE»
+
+«ENDDEFINE»
+
+
+«DEFINE applicationfiles (String svn_project_dir) FOR SOABEModel»
+«FILE svn_project_dir+"/conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	version="1.4" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>«codComponente»</display-name>
+
+  <!-- moduli relativi ai vari binding -->
+  «FOREACH serviceimplementations AS serviceimpl»
+  «LET serviceimpl.provides AS service»
+  	«FOREACH service.bindings.typeSelect(servicedef::EJBPABinding) AS ejbpa»
+  	<!-- ejb module relativo alla PA del servizio con codice binding=«ejbpa.codBinding». -->
+	<module>
+		<ejb>«getEJBPAJarName(codComponente,service.codServizio,ejbpa.codBinding,service.serviceType.toString())»</ejb>
+  	</module>
+  	«ENDFOREACH»
+  	«FOREACH service.bindings.typeSelect(servicedef::SOAPPABRBinding) AS soapbr»
+  	<!-- web module relativo al bridge SOAP della PA del servizio «service.codServizio» con codice binding=«soapbr.codBinding». --> 
+  	<module>
+    	<web>
+      		<web-uri>«getPABRWarName(codComponente,service.codServizio,soapbr.codBinding,service.serviceType.toString())»</web-uri>
+      		<context-root>«pabrWebContext(codComponente,service.codServizio,soapbr.codBinding,service.serviceType.toString())»</context-root>
+    	</web>
+  	</module>
+  	«ENDFOREACH»
+    «FOREACH service.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
+  	<!-- web module relativo al front-adapter web-services della PA con codice binding=«wsfad.codBinding». --> 
+  	<module>
+    	<web>
+      		<web-uri>«getWSFADWarName(codComponente,service.codServizio,wsfad.codBinding,service.serviceType.toString())»</web-uri>
+     		<context-root>«wsfadWebContext(codComponente,service.codServizio,wsfad.codBinding,service.serviceType.toString())»</context-root>
+    	</web>
+  	</module>
+  «ENDFOREACH»	
+  «ENDLET»
+  «ENDFOREACH»
+</application>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE soappabrwebxml (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr", removeSeparator(serviceDef.codServizio))+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>SOAP PABR «serviceDef.codServizio»</display-name>
+  <description>no description</description>
+  <servlet>
+	<description>Autoinstalla i servizi soap di bridge</description>
+	<display-name>Apache-SOAP Autoinstaller (CSI)</display-name>
+    <servlet-name>autoinstaller</servlet-name>
+    <servlet-class>it.csi.csi.porte.soap.apache.AutoInstallerServlet</servlet-class>
+    <init-param>
+      <param-name>servicedef-pabr1</param-name>
+      <param-value>/WEB-INF/deploysoapejb-«removeSeparator(serviceDef.codServizio).toLowerCase()».xml</param-value>
+    </init-param>
+    <load-on-startup>1000</load-on-startup>
+  </servlet>
+  <servlet>
+	<description>no description</description>
+	<display-name>Apache-SOAP RPC Router</display-name>
+    <servlet-name>rpcrouter</servlet-name>
+    <servlet-class>org.apache.soap.server.http.RPCRouterServlet</servlet-class>
+    <init-param>
+      <param-name>faultListener</param-name>
+      <param-value>org.apache.soap.server.DOMFaultListener</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>autoinstaller</servlet-name>
+    <url-pattern>/servlet/autoinstaller</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>rpcrouter</servlet-name>
+    <url-pattern>/servlet/rpcrouter</url-pattern>
+  </servlet-mapping>
+  <!-- imposto la scadenza sessione al minimo possibile 
+       per aumentare il parallelismo -->
+  <session-config>
+  	<session-timeout>1</session-timeout>
+  </session-config>
+  
+  «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+  <!-- impostazioni di security -->
+  <security-constraint>
+	<!-- A collection of protected resources along with the access mechanism -->
+	<web-resource-collection>
+		<web-resource-name>Restricted to Secure role</web-resource-name>
+		<description>protezione «codBinding»</description>
+		<url-pattern>/*</url-pattern>
+		<http-method>GET</http-method> 
+  		<http-method>POST</http-method>
+	</web-resource-collection>
+	<!-- The list of roles that can access the resource. -->
+	<auth-constraint>
+		«FOREACH serviceDef.roles AS role»
+		<role-name>«role.name»</role-name>
+		«ENDFOREACH»
+	</auth-constraint>
+  </security-constraint>
+  <login-config>
+  	<auth-method>BASIC</auth-method> 
+  	<realm-name>applications</realm-name> 
+  </login-config>
+  «FOREACH serviceDef.roles AS role»
+  <security-role>
+	<role-name>«role.name»</role-name>
+  </security-role>
+  «ENDFOREACH» 
+«ENDIF»
+</web-app>
+«ENDFILE»
+
+
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio))+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	<security-domain>java:/jaas/services</security-domain>
+	«ENDIF»
+</jboss-web>
+«ENDFILE»
+
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio))+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
+  «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+  <!-- impostazioni di sicurezza: i ruoli devono corrispondere ai principal (groups) -->
+  «FOREACH serviceDef.roles AS currRole»
+  <security-role-assignment>
+  	<role-name>«currRole.name»</role-name>
+  	<principal-name>«currRole.name»</principal-name>
+  </security-role-assignment>
+  «ENDFOREACH»
+  «ENDIF»
+</weblogic-web-app>
+«ENDFILE»
+
+
+«ENDDEFINE»
+
+
+
+
+
+«DEFINE wsfadwebxml (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>WS Front-adapter «serviceDef.codServizio»</display-name>
+  <description>no description</description>
+  <servlet>
+    <description>Axis admin Servlet</description>
+  	<display-name>Axis Admin Servlet</display-name>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <servlet>
+	<description>Apache-Axis Servlet</description>
+  	<display-name>Apache-Axis Servlet</display-name>
+    <servlet-name>AxisServlet</servlet-name>
+    <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+  </servlet>
+  <servlet>
+	<description>SOAPMonitorService</description>
+	<display-name>SOAPMonitorService</display-name>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <servlet-class>org.apache.axis.monitor.SOAPMonitorService</servlet-class>
+    <init-param>
+      <param-name>SOAPMonitorPort</param-name>
+      <param-value>5001</param-value>
+    </init-param>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>*.jws</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SOAPMonitorService</servlet-name>
+    <url-pattern>/SOAPMonitor</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/servlet/AxisServlet</url-pattern>
+  </servlet-mapping>
+  <!-- imposto la scadenza sessione al minimo possibile 
+       per aumentare il parallelismo -->
+  <session-config>
+  	<session-timeout>1</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+  <!-- impostazioni di security -->
+  <security-constraint>
+	<!-- A collection of protected resources along with the access mechanism -->
+	<web-resource-collection>
+		<web-resource-name>Restricted to Secure role</web-resource-name>
+		<description>protezione «codBinding»</description>
+		<url-pattern>/*</url-pattern>
+		<http-method>GET</http-method> 
+  		<http-method>POST</http-method>
+	</web-resource-collection>
+	<!-- The list of roles that can access the resource. -->
+	<auth-constraint>
+		«FOREACH serviceDef.roles AS role»
+		<role-name>«role.name»</role-name>
+		«ENDFOREACH»
+	</auth-constraint>
+  </security-constraint>
+  <login-config>
+  	<auth-method>BASIC</auth-method> 
+  	<realm-name>applications</realm-name> 
+  </login-config>
+  «FOREACH serviceDef.roles AS role»
+  <security-role>
+	<role-name>«role.name»</role-name>
+  </security-role>
+  «ENDFOREACH» 
+«ENDIF»
+</web-app>
+«ENDFILE»
+
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	<security-domain>java:/jaas/services</security-domain>
+	«ENDIF»
+</jboss-web>
+«ENDFILE»
+
+«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
+  «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+  <!-- impostazioni di sicurezza: i ruoli devono corrispondere ai principal (groups) -->
+  «FOREACH serviceDef.roles AS currRole»
+  <security-role-assignment>
+  	<role-name>«currRole.name»</role-name>
+  	<principal-name>«currRole.name»</principal-name>
+  </security-role-assignment>
+  «ENDFOREACH»
+  «ENDIF»
+</weblogic-web-app>
+«ENDFILE»
+
+«ENDDEFINE»

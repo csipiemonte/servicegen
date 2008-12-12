@@ -1,0 +1,737 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package it.csi.mddtools.typedef;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Package</b> for the model.
+ * It contains accessors for the meta objects to represent
+ * <ul>
+ *   <li>each class,</li>
+ *   <li>each feature of each class,</li>
+ *   <li>each enum,</li>
+ *   <li>and each data type</li>
+ * </ul>
+ * <!-- end-user-doc -->
+ * @see it.csi.mddtools.typedef.TypedefFactory
+ * @model kind="package"
+ * @generated
+ */
+public interface TypedefPackage extends EPackage {
+	/**
+	 * The package name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNAME = "typedef";
+
+	/**
+	 * The package namespace URI.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_URI = "http://www.csi.it/mddtools/typedef";
+
+	/**
+	 * The package namespace name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	String eNS_PREFIX = "typedef";
+
+	/**
+	 * The singleton instance of the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	TypedefPackage eINSTANCE = it.csi.mddtools.typedef.impl.TypedefPackageImpl.init();
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.DocumentRootImpl <em>Document Root</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.DocumentRootImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getDocumentRoot()
+	 * @generated
+	 */
+	int DOCUMENT_ROOT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT__TYPES = 0;
+
+	/**
+	 * The number of structural features of the '<em>Document Root</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOCUMENT_ROOT_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TypeImpl <em>Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TypeImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getType()
+	 * @generated
+	 */
+	int TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.CSIDatatypeImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatype()
+	 * @generated
+	 */
+	int CSI_DATATYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE__CODE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Nillable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE__NILLABLE = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>CSI Datatype</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.EntityImpl <em>Entity</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.EntityImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEntity()
+	 * @generated
+	 */
+	int ENTITY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY__FEATURES = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Versionuid</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY__VERSIONUID = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Entity</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.FeatureImpl <em>Feature</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.FeatureImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getFeature()
+	 * @generated
+	 */
+	int FEATURE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__TYPE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Feature</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TypedArrayImpl <em>Typed Array</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TypedArrayImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypedArray()
+	 * @generated
+	 */
+	int TYPED_ARRAY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Component Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__COMPONENT_TYPE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Typed Array</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.ExceptionImpl <em>Exception</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.ExceptionImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getException()
+	 * @generated
+	 */
+	int EXCEPTION = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Exception Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION__EXCEPTION_TYPE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Exception</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.CSIDatatypeCodes
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
+	 * @generated
+	 */
+	int CSI_DATATYPE_CODES = 7;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.CSIExceptionTypes
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
+	 * @generated
+	 */
+	int CSI_EXCEPTION_TYPES = 8;
+
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.DocumentRoot <em>Document Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Document Root</em>'.
+	 * @see it.csi.mddtools.typedef.DocumentRoot
+	 * @generated
+	 */
+	EClass getDocumentRoot();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.DocumentRoot#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Types</em>'.
+	 * @see it.csi.mddtools.typedef.DocumentRoot#getTypes()
+	 * @see #getDocumentRoot()
+	 * @generated
+	 */
+	EReference getDocumentRoot_Types();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.Type <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type</em>'.
+	 * @see it.csi.mddtools.typedef.Type
+	 * @generated
+	 */
+	EClass getType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.Type#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.typedef.Type#getName()
+	 * @see #getType()
+	 * @generated
+	 */
+	EAttribute getType_Name();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.CSIDatatype <em>CSI Datatype</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>CSI Datatype</em>'.
+	 * @see it.csi.mddtools.typedef.CSIDatatype
+	 * @generated
+	 */
+	EClass getCSIDatatype();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.CSIDatatype#getCode <em>Code</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Code</em>'.
+	 * @see it.csi.mddtools.typedef.CSIDatatype#getCode()
+	 * @see #getCSIDatatype()
+	 * @generated
+	 */
+	EAttribute getCSIDatatype_Code();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.CSIDatatype#isNillable <em>Nillable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nillable</em>'.
+	 * @see it.csi.mddtools.typedef.CSIDatatype#isNillable()
+	 * @see #getCSIDatatype()
+	 * @generated
+	 */
+	EAttribute getCSIDatatype_Nillable();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.Entity <em>Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Entity</em>'.
+	 * @see it.csi.mddtools.typedef.Entity
+	 * @generated
+	 */
+	EClass getEntity();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.Entity#getFeatures <em>Features</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Features</em>'.
+	 * @see it.csi.mddtools.typedef.Entity#getFeatures()
+	 * @see #getEntity()
+	 * @generated
+	 */
+	EReference getEntity_Features();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.Entity#getVersionuid <em>Versionuid</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Versionuid</em>'.
+	 * @see it.csi.mddtools.typedef.Entity#getVersionuid()
+	 * @see #getEntity()
+	 * @generated
+	 */
+	EAttribute getEntity_Versionuid();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.Feature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature</em>'.
+	 * @see it.csi.mddtools.typedef.Feature
+	 * @generated
+	 */
+	EClass getFeature();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.Feature#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.typedef.Feature#getName()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EAttribute getFeature_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.typedef.Feature#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Type</em>'.
+	 * @see it.csi.mddtools.typedef.Feature#getType()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EReference getFeature_Type();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TypedArray <em>Typed Array</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Typed Array</em>'.
+	 * @see it.csi.mddtools.typedef.TypedArray
+	 * @generated
+	 */
+	EClass getTypedArray();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.typedef.TypedArray#getComponentType <em>Component Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Component Type</em>'.
+	 * @see it.csi.mddtools.typedef.TypedArray#getComponentType()
+	 * @see #getTypedArray()
+	 * @generated
+	 */
+	EReference getTypedArray_ComponentType();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.Exception <em>Exception</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Exception</em>'.
+	 * @see it.csi.mddtools.typedef.Exception
+	 * @generated
+	 */
+	EClass getException();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.Exception#getExceptionType <em>Exception Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Exception Type</em>'.
+	 * @see it.csi.mddtools.typedef.Exception#getExceptionType()
+	 * @see #getException()
+	 * @generated
+	 */
+	EAttribute getException_ExceptionType();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>CSI Datatype Codes</em>'.
+	 * @see it.csi.mddtools.typedef.CSIDatatypeCodes
+	 * @generated
+	 */
+	EEnum getCSIDatatypeCodes();
+
+	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>CSI Exception Types</em>'.
+	 * @see it.csi.mddtools.typedef.CSIExceptionTypes
+	 * @generated
+	 */
+	EEnum getCSIExceptionTypes();
+
+	/**
+	 * Returns the factory that creates the instances of the model.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the factory that creates the instances of the model.
+	 * @generated
+	 */
+	TypedefFactory getTypedefFactory();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.DocumentRootImpl <em>Document Root</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.DocumentRootImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getDocumentRoot()
+		 * @generated
+		 */
+		EClass DOCUMENT_ROOT = eINSTANCE.getDocumentRoot();
+
+		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DOCUMENT_ROOT__TYPES = eINSTANCE.getDocumentRoot_Types();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TypeImpl <em>Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TypeImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getType()
+		 * @generated
+		 */
+		EClass TYPE = eINSTANCE.getType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE__NAME = eINSTANCE.getType_Name();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.CSIDatatypeImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatype()
+		 * @generated
+		 */
+		EClass CSI_DATATYPE = eINSTANCE.getCSIDatatype();
+
+		/**
+		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CSI_DATATYPE__CODE = eINSTANCE.getCSIDatatype_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Nillable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CSI_DATATYPE__NILLABLE = eINSTANCE.getCSIDatatype_Nillable();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.EntityImpl <em>Entity</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.EntityImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEntity()
+		 * @generated
+		 */
+		EClass ENTITY = eINSTANCE.getEntity();
+
+		/**
+		 * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY__FEATURES = eINSTANCE.getEntity_Features();
+
+		/**
+		 * The meta object literal for the '<em><b>Versionuid</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENTITY__VERSIONUID = eINSTANCE.getEntity_Versionuid();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.FeatureImpl <em>Feature</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.FeatureImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getFeature()
+		 * @generated
+		 */
+		EClass FEATURE = eINSTANCE.getFeature();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FEATURE__NAME = eINSTANCE.getFeature_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE__TYPE = eINSTANCE.getFeature_Type();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TypedArrayImpl <em>Typed Array</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TypedArrayImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypedArray()
+		 * @generated
+		 */
+		EClass TYPED_ARRAY = eINSTANCE.getTypedArray();
+
+		/**
+		 * The meta object literal for the '<em><b>Component Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPED_ARRAY__COMPONENT_TYPE = eINSTANCE.getTypedArray_ComponentType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.ExceptionImpl <em>Exception</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.ExceptionImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getException()
+		 * @generated
+		 */
+		EClass EXCEPTION = eINSTANCE.getException();
+
+		/**
+		 * The meta object literal for the '<em><b>Exception Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCEPTION__EXCEPTION_TYPE = eINSTANCE.getException_ExceptionType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.CSIDatatypeCodes
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
+		 * @generated
+		 */
+		EEnum CSI_DATATYPE_CODES = eINSTANCE.getCSIDatatypeCodes();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.CSIExceptionTypes
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
+		 * @generated
+		 */
+		EEnum CSI_EXCEPTION_TYPES = eINSTANCE.getCSIExceptionTypes();
+
+	}
+
+} //TypedefPackage

@@ -1,0 +1,82 @@
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT template::configfiles»
+«IMPORT template::papdconfigfiles»
+
+«EXTENSION template::CsiServiceAppExtensions»
+
+«DEFINE main FOR SOABEModel»
+«EXPAND main2 FOR this»
+«ENDDEFINE»
+
+«DEFINE main2 FOR SOABEModel»
+«EXPAND main_prodotto FOR this»
+«ENDDEFINE»
+ 
+«DEFINE main_prodotto FOR SOABEModel»
+«EXPAND svn_project FOR this»
+«ENDDEFINE»
+
+
+
+
+«DEFINE svn_project FOR SOABEModel»
+«LET codComponente AS svn_project_dir»
+«REM»
+per ogni componente è necessario creare la struttura del progetto SVN:
+- build.xml
+- build.properties
+- ivy
+- ivyconf
+- ...
+ 
+«ENDREM»
+ «EXPAND buildfiles::buildfile (svn_project_dir) FOR this»
+ «EXPAND buildfiles::buildproperties (svn_project_dir) FOR this»
+ «EXPAND buildfiles::buildEnvProperties (svn_project_dir) FOR this»
+ «EXPAND buildfiles::ivyfiles (svn_project_dir)FOR this»
+ «EXPAND buildfiles::aboutfiles (svn_project_dir) FOR this»
+ 
+ «REM»
+ poi è necessario configurare i componenti j2ee necessari per l'implementazione 
+ della platform CSI over J2EE:
+ - per tutti:
+ -- application xml che contiene tutti i moduli (1 per binding in sostanza)
+ - per ogni PA ejb:
+ -- defpa.xml
+ -- ejb-jar.xml
+ -- weblogic-ejb-jar.xml 
+ -- defpd-ejb.xml (da passare ai fruitori)
+ - per ogni PABR
+ -- web.xml
+ -- tutti i file del template di applicazione (???)
+ -- defpd-soap.xml (da passare ai fornitori)
+ -- file di deploy bridge da inserire nell'autoinstaller servlet
+ - per ogni WSFAD
+ -- server-config.wsdd
+ -- tutti i file del template di applicazione
+ -- defpd-ejb.xml da includere nel pacchetto
+ «ENDREM»
+ 
+ «REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
+ 
+ 
+ «EXPAND j2eeconfigfiles::applicationfiles (svn_project_dir) FOR this»
+ «LET serviceDefs AS services»
+ 	«EXPAND configfiles::serviceFiles(svn_project_dir, this) FOREACH services»
+ 	«EXPAND javafiles::serviceFiles (svn_project_dir, this)FOREACH services»
+ 	«FOREACH services AS currsrv»
+ 		«EXPAND javafiles::typedefs (svn_project_dir, this,currsrv.codServizio) FOR currsrv.types»
+ 	«ENDFOREACH» 	
+ «ENDLET»
+ 
+ «REM»il file log4j è unico per tutto il componente«ENDREM»
+ «EXPAND configfiles::log4jfiles(svn_project_dir) FOR this»
+ «REM»se c'e' almeno un servizio cooptrace enabled creao le config di log apposite«ENDREM»
+ «IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
+ 	«EXPAND papdconfigfiles::cooptracefiles(svn_project_dir) FOR this»
+ «ENDIF»
+«ENDLET»	
+«ENDDEFINE»
+
