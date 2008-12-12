@@ -23,6 +23,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceImpl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="provides" eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceComponent" eType="#//ServiceComponent"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implCartridge" eType="#//LogicImplCartridge"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TargetPlatform">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//TargetPlatformCodes"/>
@@ -31,4 +35,25 @@
     <eLiterals name="WLS92"/>
     <eLiterals name="JBoss43"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceComponent" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="implCartridge" eType="#//LogicImplCartridge"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleSC" abstract="true" eSuperTypes="#//ServiceComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeSC" abstract="true" eSuperTypes="#//ServiceComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceBasedSC" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resourceSet" eType="ecore:EClass resources_metamodel.ecore#//ResourceSet"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceBasedSimpleSC" eSuperTypes="#//SimpleSC #//ResourceBasedSC"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrchestrationFlowCompositeSC" eSuperTypes="#//CompositeSC #//FlowBasedSC #//ResourceBasedSC"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowBasedSC" abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicImplCartridge" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ManualImplCartridge" eSuperTypes="#//LogicImplCartridge"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomTemplateBasedImplCartridge" eSuperTypes="#//LogicImplCartridge">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="template" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelBasedImplCartridge" abstract="true"
+      eSuperTypes="#//LogicImplCartridge"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowModelImplCartridge" eSuperTypes="#//ModelBasedImplCartridge"/>
 </ecore:EPackage>

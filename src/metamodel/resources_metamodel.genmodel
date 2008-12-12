@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
+    modelPluginID="servicegen" modelName="Resources_metamodel" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>resources_metamodel.ecore</foreignModel>
+  <genPackages prefix="Appresources" basePackage="it.csi.mddtools" disposableProviderFactory="true"
+      ecorePackage="resources_metamodel.ecore#/">
+    <genClasses image="false" ecoreClass="resources_metamodel.ecore#//ResourceConnector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ResourceConnector/code"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//PDPAServiceConnector">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//PDPAServiceConnector/selector"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//FileSystemConnector"/>
+    <genClasses ecoreClass="resources_metamodel.ecore#//JDBCDataSourceConnector"/>
+    <genClasses ecoreClass="resources_metamodel.ecore#//LdapJndiConnector"/>
+    <genClasses ecoreClass="resources_metamodel.ecore#//RPCWebServiceConnector">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//RPCWebServiceConnector/selector"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//ServiceSelector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codProd"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codServ"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/verServ"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codEnte"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/istanza"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/ambiente"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codBinding"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//ResourceSet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//ResourceSet/resources"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
