@@ -65,6 +65,11 @@ public class ServicegenFactoryImpl extends EFactoryImpl implements ServicegenFac
 			case ServicegenPackage.BASE_TYPES: return createBaseTypes();
 			case ServicegenPackage.SERVICE_IMPL: return createServiceImpl();
 			case ServicegenPackage.TARGET_PLATFORM: return createTargetPlatform();
+			case ServicegenPackage.RESOURCE_BASED_SIMPLE_SC: return createResourceBasedSimpleSC();
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC: return createOrchestrationFlowCompositeSC();
+			case ServicegenPackage.MANUAL_IMPL_CARTRIDGE: return createManualImplCartridge();
+			case ServicegenPackage.CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE: return createCustomTemplateBasedImplCartridge();
+			case ServicegenPackage.FLOW_MODEL_IMPL_CARTRIDGE: return createFlowModelImplCartridge();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -138,6 +143,56 @@ public class ServicegenFactoryImpl extends EFactoryImpl implements ServicegenFac
 	public TargetPlatform createTargetPlatform() {
 		TargetPlatformImpl targetPlatform = new TargetPlatformImpl();
 		return targetPlatform;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResourceBasedSimpleSC createResourceBasedSimpleSC() {
+		ResourceBasedSimpleSCImpl resourceBasedSimpleSC = new ResourceBasedSimpleSCImpl();
+		return resourceBasedSimpleSC;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrchestrationFlowCompositeSC createOrchestrationFlowCompositeSC() {
+		OrchestrationFlowCompositeSCImpl orchestrationFlowCompositeSC = new OrchestrationFlowCompositeSCImpl();
+		return orchestrationFlowCompositeSC;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ManualImplCartridge createManualImplCartridge() {
+		ManualImplCartridgeImpl manualImplCartridge = new ManualImplCartridgeImpl();
+		return manualImplCartridge;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomTemplateBasedImplCartridge createCustomTemplateBasedImplCartridge() {
+		CustomTemplateBasedImplCartridgeImpl customTemplateBasedImplCartridge = new CustomTemplateBasedImplCartridgeImpl();
+		return customTemplateBasedImplCartridge;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowModelImplCartridge createFlowModelImplCartridge() {
+		FlowModelImplCartridgeImpl flowModelImplCartridge = new FlowModelImplCartridgeImpl();
+		return flowModelImplCartridge;
 	}
 
 	/**

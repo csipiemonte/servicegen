@@ -199,13 +199,31 @@ public interface ServicegenPackage extends EPackage {
 	int SERVICE_IMPL__PROVIDES = 0;
 
 	/**
+	 * The feature id for the '<em><b>Service Component</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_IMPL__SERVICE_COMPONENT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_IMPL__IMPL_CARTRIDGE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Service Impl</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_IMPL_FEATURE_COUNT = 1;
+	int SERVICE_IMPL_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.
@@ -236,6 +254,315 @@ public interface ServicegenPackage extends EPackage {
 	int TARGET_PLATFORM_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ServiceComponentImpl <em>Service Component</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.ServiceComponentImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getServiceComponent()
+	 * @generated
+	 */
+	int SERVICE_COMPONENT = 4;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_COMPONENT__IMPL_CARTRIDGE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Service Component</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_COMPONENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.SimpleSCImpl <em>Simple SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.SimpleSCImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getSimpleSC()
+	 * @generated
+	 */
+	int SIMPLE_SC = 5;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_SC__IMPL_CARTRIDGE = SERVICE_COMPONENT__IMPL_CARTRIDGE;
+
+	/**
+	 * The number of structural features of the '<em>Simple SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_SC_FEATURE_COUNT = SERVICE_COMPONENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.CompositeSCImpl <em>Composite SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.CompositeSCImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getCompositeSC()
+	 * @generated
+	 */
+	int COMPOSITE_SC = 6;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_SC__IMPL_CARTRIDGE = SERVICE_COMPONENT__IMPL_CARTRIDGE;
+
+	/**
+	 * The number of structural features of the '<em>Composite SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_SC_FEATURE_COUNT = SERVICE_COMPONENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSC()
+	 * @generated
+	 */
+	int RESOURCE_BASED_SC = 7;
+
+	/**
+	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_BASED_SC__RESOURCE_SET = 0;
+
+	/**
+	 * The number of structural features of the '<em>Resource Based SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_BASED_SC_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl <em>Resource Based Simple SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSimpleSC()
+	 * @generated
+	 */
+	int RESOURCE_BASED_SIMPLE_SC = 8;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_BASED_SIMPLE_SC__IMPL_CARTRIDGE = SIMPLE_SC__IMPL_CARTRIDGE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET = SIMPLE_SC_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Resource Based Simple SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_BASED_SIMPLE_SC_FEATURE_COUNT = SIMPLE_SC_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl <em>Orchestration Flow Composite SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getOrchestrationFlowCompositeSC()
+	 * @generated
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC = 9;
+
+	/**
+	 * The feature id for the '<em><b>Impl Cartridge</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC__IMPL_CARTRIDGE = COMPOSITE_SC__IMPL_CARTRIDGE;
+
+	/**
+	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET = COMPOSITE_SC_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Orchestration Flow Composite SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC_FEATURE_COUNT = COMPOSITE_SC_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.FlowBasedSC
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getFlowBasedSC()
+	 * @generated
+	 */
+	int FLOW_BASED_SC = 10;
+
+	/**
+	 * The number of structural features of the '<em>Flow Based SC</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_BASED_SC_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.LogicImplCartridgeImpl <em>Logic Impl Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.LogicImplCartridgeImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getLogicImplCartridge()
+	 * @generated
+	 */
+	int LOGIC_IMPL_CARTRIDGE = 11;
+
+	/**
+	 * The number of structural features of the '<em>Logic Impl Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ManualImplCartridgeImpl <em>Manual Impl Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.ManualImplCartridgeImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getManualImplCartridge()
+	 * @generated
+	 */
+	int MANUAL_IMPL_CARTRIDGE = 12;
+
+	/**
+	 * The number of structural features of the '<em>Manual Impl Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MANUAL_IMPL_CARTRIDGE_FEATURE_COUNT = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl <em>Custom Template Based Impl Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getCustomTemplateBasedImplCartridge()
+	 * @generated
+	 */
+	int CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Template</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE__TEMPLATE = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Custom Template Based Impl Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE_FEATURE_COUNT = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ModelBasedImplCartridgeImpl <em>Model Based Impl Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.ModelBasedImplCartridgeImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getModelBasedImplCartridge()
+	 * @generated
+	 */
+	int MODEL_BASED_IMPL_CARTRIDGE = 14;
+
+	/**
+	 * The number of structural features of the '<em>Model Based Impl Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_BASED_IMPL_CARTRIDGE_FEATURE_COUNT = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.FlowModelImplCartridgeImpl <em>Flow Model Impl Cartridge</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicegen.impl.FlowModelImplCartridgeImpl
+	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getFlowModelImplCartridge()
+	 * @generated
+	 */
+	int FLOW_MODEL_IMPL_CARTRIDGE = 15;
+
+	/**
+	 * The number of structural features of the '<em>Flow Model Impl Cartridge</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_MODEL_IMPL_CARTRIDGE_FEATURE_COUNT = MODEL_BASED_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -243,7 +570,7 @@ public interface ServicegenPackage extends EPackage {
 	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getTargetPlatformCodes()
 	 * @generated
 	 */
-	int TARGET_PLATFORM_CODES = 4;
+	int TARGET_PLATFORM_CODES = 16;
 
 
 	/**
@@ -387,6 +714,28 @@ public interface ServicegenPackage extends EPackage {
 	EReference getServiceImpl_Provides();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicegen.ServiceImpl#getServiceComponent <em>Service Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Service Component</em>'.
+	 * @see it.csi.mddtools.servicegen.ServiceImpl#getServiceComponent()
+	 * @see #getServiceImpl()
+	 * @generated
+	 */
+	EReference getServiceImpl_ServiceComponent();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicegen.ServiceImpl#getImplCartridge <em>Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.ServiceImpl#getImplCartridge()
+	 * @see #getServiceImpl()
+	 * @generated
+	 */
+	EReference getServiceImpl_ImplCartridge();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.TargetPlatform <em>Target Platform</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -406,6 +755,159 @@ public interface ServicegenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTargetPlatform_Code();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ServiceComponent <em>Service Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Service Component</em>'.
+	 * @see it.csi.mddtools.servicegen.ServiceComponent
+	 * @generated
+	 */
+	EClass getServiceComponent();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicegen.ServiceComponent#getImplCartridge <em>Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.ServiceComponent#getImplCartridge()
+	 * @see #getServiceComponent()
+	 * @generated
+	 */
+	EReference getServiceComponent_ImplCartridge();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.SimpleSC <em>Simple SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Simple SC</em>'.
+	 * @see it.csi.mddtools.servicegen.SimpleSC
+	 * @generated
+	 */
+	EClass getSimpleSC();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.CompositeSC <em>Composite SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Composite SC</em>'.
+	 * @see it.csi.mddtools.servicegen.CompositeSC
+	 * @generated
+	 */
+	EClass getCompositeSC();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Resource Based SC</em>'.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+	 * @generated
+	 */
+	EClass getResourceBasedSC();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicegen.ResourceBasedSC#getResourceSet <em>Resource Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Resource Set</em>'.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSC#getResourceSet()
+	 * @see #getResourceBasedSC()
+	 * @generated
+	 */
+	EReference getResourceBasedSC_ResourceSet();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC <em>Resource Based Simple SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Resource Based Simple SC</em>'.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSimpleSC
+	 * @generated
+	 */
+	EClass getResourceBasedSimpleSC();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC <em>Orchestration Flow Composite SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Orchestration Flow Composite SC</em>'.
+	 * @see it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC
+	 * @generated
+	 */
+	EClass getOrchestrationFlowCompositeSC();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Flow Based SC</em>'.
+	 * @see it.csi.mddtools.servicegen.FlowBasedSC
+	 * @generated
+	 */
+	EClass getFlowBasedSC();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.LogicImplCartridge <em>Logic Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Logic Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.LogicImplCartridge
+	 * @generated
+	 */
+	EClass getLogicImplCartridge();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ManualImplCartridge <em>Manual Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Manual Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.ManualImplCartridge
+	 * @generated
+	 */
+	EClass getManualImplCartridge();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge <em>Custom Template Based Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Template Based Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge
+	 * @generated
+	 */
+	EClass getCustomTemplateBasedImplCartridge();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge#getTemplate <em>Template</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template</em>'.
+	 * @see it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge#getTemplate()
+	 * @see #getCustomTemplateBasedImplCartridge()
+	 * @generated
+	 */
+	EAttribute getCustomTemplateBasedImplCartridge_Template();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ModelBasedImplCartridge <em>Model Based Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Model Based Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.ModelBasedImplCartridge
+	 * @generated
+	 */
+	EClass getModelBasedImplCartridge();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.FlowModelImplCartridge <em>Flow Model Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Flow Model Impl Cartridge</em>'.
+	 * @see it.csi.mddtools.servicegen.FlowModelImplCartridge
+	 * @generated
+	 */
+	EClass getFlowModelImplCartridge();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicegen.TargetPlatformCodes <em>Target Platform Codes</em>}'.
@@ -550,6 +1052,22 @@ public interface ServicegenPackage extends EPackage {
 		EReference SERVICE_IMPL__PROVIDES = eINSTANCE.getServiceImpl_Provides();
 
 		/**
+		 * The meta object literal for the '<em><b>Service Component</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_IMPL__SERVICE_COMPONENT = eINSTANCE.getServiceImpl_ServiceComponent();
+
+		/**
+		 * The meta object literal for the '<em><b>Impl Cartridge</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_IMPL__IMPL_CARTRIDGE = eINSTANCE.getServiceImpl_ImplCartridge();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.TargetPlatformImpl <em>Target Platform</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -566,6 +1084,150 @@ public interface ServicegenPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TARGET_PLATFORM__CODE = eINSTANCE.getTargetPlatform_Code();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ServiceComponentImpl <em>Service Component</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.ServiceComponentImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getServiceComponent()
+		 * @generated
+		 */
+		EClass SERVICE_COMPONENT = eINSTANCE.getServiceComponent();
+
+		/**
+		 * The meta object literal for the '<em><b>Impl Cartridge</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_COMPONENT__IMPL_CARTRIDGE = eINSTANCE.getServiceComponent_ImplCartridge();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.SimpleSCImpl <em>Simple SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.SimpleSCImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getSimpleSC()
+		 * @generated
+		 */
+		EClass SIMPLE_SC = eINSTANCE.getSimpleSC();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.CompositeSCImpl <em>Composite SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.CompositeSCImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getCompositeSC()
+		 * @generated
+		 */
+		EClass COMPOSITE_SC = eINSTANCE.getCompositeSC();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSC()
+		 * @generated
+		 */
+		EClass RESOURCE_BASED_SC = eINSTANCE.getResourceBasedSC();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Set</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_BASED_SC__RESOURCE_SET = eINSTANCE.getResourceBasedSC_ResourceSet();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl <em>Resource Based Simple SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSimpleSC()
+		 * @generated
+		 */
+		EClass RESOURCE_BASED_SIMPLE_SC = eINSTANCE.getResourceBasedSimpleSC();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl <em>Orchestration Flow Composite SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getOrchestrationFlowCompositeSC()
+		 * @generated
+		 */
+		EClass ORCHESTRATION_FLOW_COMPOSITE_SC = eINSTANCE.getOrchestrationFlowCompositeSC();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.FlowBasedSC
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getFlowBasedSC()
+		 * @generated
+		 */
+		EClass FLOW_BASED_SC = eINSTANCE.getFlowBasedSC();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.LogicImplCartridgeImpl <em>Logic Impl Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.LogicImplCartridgeImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getLogicImplCartridge()
+		 * @generated
+		 */
+		EClass LOGIC_IMPL_CARTRIDGE = eINSTANCE.getLogicImplCartridge();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ManualImplCartridgeImpl <em>Manual Impl Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.ManualImplCartridgeImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getManualImplCartridge()
+		 * @generated
+		 */
+		EClass MANUAL_IMPL_CARTRIDGE = eINSTANCE.getManualImplCartridge();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl <em>Custom Template Based Impl Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getCustomTemplateBasedImplCartridge()
+		 * @generated
+		 */
+		EClass CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE = eINSTANCE.getCustomTemplateBasedImplCartridge();
+
+		/**
+		 * The meta object literal for the '<em><b>Template</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE__TEMPLATE = eINSTANCE.getCustomTemplateBasedImplCartridge_Template();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ModelBasedImplCartridgeImpl <em>Model Based Impl Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.ModelBasedImplCartridgeImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getModelBasedImplCartridge()
+		 * @generated
+		 */
+		EClass MODEL_BASED_IMPL_CARTRIDGE = eINSTANCE.getModelBasedImplCartridge();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.FlowModelImplCartridgeImpl <em>Flow Model Impl Cartridge</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicegen.impl.FlowModelImplCartridgeImpl
+		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getFlowModelImplCartridge()
+		 * @generated
+		 */
+		EClass FLOW_MODEL_IMPL_CARTRIDGE = eINSTANCE.getFlowModelImplCartridge();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.TargetPlatformCodes <em>Target Platform Codes</em>}' enum.

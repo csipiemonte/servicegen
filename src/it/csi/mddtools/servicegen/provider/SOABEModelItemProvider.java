@@ -7,6 +7,7 @@
 package it.csi.mddtools.servicegen.provider;
 
 
+import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicegen.SOABEModel;
 import it.csi.mddtools.servicegen.ServicegenFactory;
 import it.csi.mddtools.servicegen.ServicegenPackage;
@@ -71,7 +72,6 @@ public class SOABEModelItemProvider
 			addCodComponentePropertyDescriptor(object);
 			addVersioneProdottoPropertyDescriptor(object);
 			addVersioneComponentePropertyDescriptor(object);
-			addServiceDefsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -165,28 +165,6 @@ public class SOABEModelItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Service Defs feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addServiceDefsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SOABEModel_serviceDefs_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SOABEModel_serviceDefs_feature", "_UI_SOABEModel_type"),
-				 ServicegenPackage.Literals.SOABE_MODEL__SERVICE_DEFS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -200,6 +178,7 @@ public class SOABEModelItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ServicegenPackage.Literals.SOABE_MODEL__BASE_TYPES);
 			childrenFeatures.add(ServicegenPackage.Literals.SOABE_MODEL__SERVICEIMPLEMENTATIONS);
+			childrenFeatures.add(ServicegenPackage.Literals.SOABE_MODEL__SERVICE_DEFS);
 			childrenFeatures.add(ServicegenPackage.Literals.SOABE_MODEL__TARGET_PLATFORM);
 		}
 		return childrenFeatures;
@@ -263,6 +242,7 @@ public class SOABEModelItemProvider
 				return;
 			case ServicegenPackage.SOABE_MODEL__BASE_TYPES:
 			case ServicegenPackage.SOABE_MODEL__SERVICEIMPLEMENTATIONS:
+			case ServicegenPackage.SOABE_MODEL__SERVICE_DEFS:
 			case ServicegenPackage.SOABE_MODEL__TARGET_PLATFORM:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -290,6 +270,11 @@ public class SOABEModelItemProvider
 			(createChildParameter
 				(ServicegenPackage.Literals.SOABE_MODEL__SERVICEIMPLEMENTATIONS,
 				 ServicegenFactory.eINSTANCE.createServiceImpl()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicegenPackage.Literals.SOABE_MODEL__SERVICE_DEFS,
+				 ServicedefFactory.eINSTANCE.createServiceDef()));
 
 		newChildDescriptors.add
 			(createChildParameter

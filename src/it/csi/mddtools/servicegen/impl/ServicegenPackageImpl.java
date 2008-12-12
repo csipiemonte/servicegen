@@ -6,13 +6,26 @@
  */
 package it.csi.mddtools.servicegen.impl;
 
+import it.csi.mddtools.appresources.AppresourcesPackage;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 
 import it.csi.mddtools.servicegen.BaseTypes;
+import it.csi.mddtools.servicegen.CompositeSC;
+import it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge;
+import it.csi.mddtools.servicegen.FlowBasedSC;
+import it.csi.mddtools.servicegen.FlowModelImplCartridge;
+import it.csi.mddtools.servicegen.LogicImplCartridge;
+import it.csi.mddtools.servicegen.ManualImplCartridge;
+import it.csi.mddtools.servicegen.ModelBasedImplCartridge;
+import it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC;
+import it.csi.mddtools.servicegen.ResourceBasedSC;
+import it.csi.mddtools.servicegen.ResourceBasedSimpleSC;
 import it.csi.mddtools.servicegen.SOABEModel;
+import it.csi.mddtools.servicegen.ServiceComponent;
 import it.csi.mddtools.servicegen.ServiceImpl;
 import it.csi.mddtools.servicegen.ServicegenFactory;
 import it.csi.mddtools.servicegen.ServicegenPackage;
+import it.csi.mddtools.servicegen.SimpleSC;
 import it.csi.mddtools.servicegen.TargetPlatform;
 import it.csi.mddtools.servicegen.TargetPlatformCodes;
 
@@ -60,6 +73,90 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * @generated
 	 */
 	private EClass targetPlatformEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass serviceComponentEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass simpleSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compositeSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass resourceBasedSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass resourceBasedSimpleSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orchestrationFlowCompositeSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass flowBasedSCEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass logicImplCartridgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass manualImplCartridgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customTemplateBasedImplCartridgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modelBasedImplCartridgeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass flowModelImplCartridgeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,6 +222,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		isInited = true;
 
 		// Initialize simple dependencies
+		AppresourcesPackage.eINSTANCE.eClass();
 		ServicedefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -261,6 +359,24 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getServiceImpl_ServiceComponent() {
+		return (EReference)serviceImplEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceImpl_ImplCartridge() {
+		return (EReference)serviceImplEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTargetPlatform() {
 		return targetPlatformEClass;
 	}
@@ -272,6 +388,141 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 */
 	public EAttribute getTargetPlatform_Code() {
 		return (EAttribute)targetPlatformEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getServiceComponent() {
+		return serviceComponentEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceComponent_ImplCartridge() {
+		return (EReference)serviceComponentEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSimpleSC() {
+		return simpleSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCompositeSC() {
+		return compositeSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getResourceBasedSC() {
+		return resourceBasedSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getResourceBasedSC_ResourceSet() {
+		return (EReference)resourceBasedSCEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getResourceBasedSimpleSC() {
+		return resourceBasedSimpleSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOrchestrationFlowCompositeSC() {
+		return orchestrationFlowCompositeSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFlowBasedSC() {
+		return flowBasedSCEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLogicImplCartridge() {
+		return logicImplCartridgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getManualImplCartridge() {
+		return manualImplCartridgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomTemplateBasedImplCartridge() {
+		return customTemplateBasedImplCartridgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomTemplateBasedImplCartridge_Template() {
+		return (EAttribute)customTemplateBasedImplCartridgeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getModelBasedImplCartridge() {
+		return modelBasedImplCartridgeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getFlowModelImplCartridge() {
+		return flowModelImplCartridgeEClass;
 	}
 
 	/**
@@ -326,9 +577,38 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 		serviceImplEClass = createEClass(SERVICE_IMPL);
 		createEReference(serviceImplEClass, SERVICE_IMPL__PROVIDES);
+		createEReference(serviceImplEClass, SERVICE_IMPL__SERVICE_COMPONENT);
+		createEReference(serviceImplEClass, SERVICE_IMPL__IMPL_CARTRIDGE);
 
 		targetPlatformEClass = createEClass(TARGET_PLATFORM);
 		createEAttribute(targetPlatformEClass, TARGET_PLATFORM__CODE);
+
+		serviceComponentEClass = createEClass(SERVICE_COMPONENT);
+		createEReference(serviceComponentEClass, SERVICE_COMPONENT__IMPL_CARTRIDGE);
+
+		simpleSCEClass = createEClass(SIMPLE_SC);
+
+		compositeSCEClass = createEClass(COMPOSITE_SC);
+
+		resourceBasedSCEClass = createEClass(RESOURCE_BASED_SC);
+		createEReference(resourceBasedSCEClass, RESOURCE_BASED_SC__RESOURCE_SET);
+
+		resourceBasedSimpleSCEClass = createEClass(RESOURCE_BASED_SIMPLE_SC);
+
+		orchestrationFlowCompositeSCEClass = createEClass(ORCHESTRATION_FLOW_COMPOSITE_SC);
+
+		flowBasedSCEClass = createEClass(FLOW_BASED_SC);
+
+		logicImplCartridgeEClass = createEClass(LOGIC_IMPL_CARTRIDGE);
+
+		manualImplCartridgeEClass = createEClass(MANUAL_IMPL_CARTRIDGE);
+
+		customTemplateBasedImplCartridgeEClass = createEClass(CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE);
+		createEAttribute(customTemplateBasedImplCartridgeEClass, CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE__TEMPLATE);
+
+		modelBasedImplCartridgeEClass = createEClass(MODEL_BASED_IMPL_CARTRIDGE);
+
+		flowModelImplCartridgeEClass = createEClass(FLOW_MODEL_IMPL_CARTRIDGE);
 
 		// Create enums
 		targetPlatformCodesEEnum = createEEnum(TARGET_PLATFORM_CODES);
@@ -360,12 +640,24 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		// Obtain other dependent packages
 		ServicedefPackage theServicedefPackage = (ServicedefPackage)EPackage.Registry.INSTANCE.getEPackage(ServicedefPackage.eNS_URI);
 		TypedefPackage theTypedefPackage = (TypedefPackage)EPackage.Registry.INSTANCE.getEPackage(TypedefPackage.eNS_URI);
+		AppresourcesPackage theAppresourcesPackage = (AppresourcesPackage)EPackage.Registry.INSTANCE.getEPackage(AppresourcesPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		simpleSCEClass.getESuperTypes().add(this.getServiceComponent());
+		compositeSCEClass.getESuperTypes().add(this.getServiceComponent());
+		resourceBasedSimpleSCEClass.getESuperTypes().add(this.getSimpleSC());
+		resourceBasedSimpleSCEClass.getESuperTypes().add(this.getResourceBasedSC());
+		orchestrationFlowCompositeSCEClass.getESuperTypes().add(this.getCompositeSC());
+		orchestrationFlowCompositeSCEClass.getESuperTypes().add(this.getFlowBasedSC());
+		orchestrationFlowCompositeSCEClass.getESuperTypes().add(this.getResourceBasedSC());
+		manualImplCartridgeEClass.getESuperTypes().add(this.getLogicImplCartridge());
+		customTemplateBasedImplCartridgeEClass.getESuperTypes().add(this.getLogicImplCartridge());
+		modelBasedImplCartridgeEClass.getESuperTypes().add(this.getLogicImplCartridge());
+		flowModelImplCartridgeEClass.getESuperTypes().add(this.getModelBasedImplCartridge());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(soabeModelEClass, SOABEModel.class, "SOABEModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -383,9 +675,38 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 		initEClass(serviceImplEClass, ServiceImpl.class, "ServiceImpl", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getServiceImpl_Provides(), theServicedefPackage.getServiceDef(), null, "provides", null, 0, 1, ServiceImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceImpl_ServiceComponent(), this.getServiceComponent(), null, "serviceComponent", null, 0, 1, ServiceImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceImpl_ImplCartridge(), this.getLogicImplCartridge(), null, "implCartridge", null, 0, 1, ServiceImpl.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(targetPlatformEClass, TargetPlatform.class, "TargetPlatform", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTargetPlatform_Code(), this.getTargetPlatformCodes(), "code", null, 0, 1, TargetPlatform.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(serviceComponentEClass, ServiceComponent.class, "ServiceComponent", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getServiceComponent_ImplCartridge(), this.getLogicImplCartridge(), null, "implCartridge", null, 0, 1, ServiceComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(simpleSCEClass, SimpleSC.class, "SimpleSC", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(compositeSCEClass, CompositeSC.class, "CompositeSC", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(resourceBasedSCEClass, ResourceBasedSC.class, "ResourceBasedSC", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getResourceBasedSC_ResourceSet(), theAppresourcesPackage.getResourceSet(), null, "resourceSet", null, 0, 1, ResourceBasedSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(resourceBasedSimpleSCEClass, ResourceBasedSimpleSC.class, "ResourceBasedSimpleSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(orchestrationFlowCompositeSCEClass, OrchestrationFlowCompositeSC.class, "OrchestrationFlowCompositeSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(flowBasedSCEClass, FlowBasedSC.class, "FlowBasedSC", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(logicImplCartridgeEClass, LogicImplCartridge.class, "LogicImplCartridge", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(manualImplCartridgeEClass, ManualImplCartridge.class, "ManualImplCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(customTemplateBasedImplCartridgeEClass, CustomTemplateBasedImplCartridge.class, "CustomTemplateBasedImplCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomTemplateBasedImplCartridge_Template(), ecorePackage.getEString(), "template", null, 0, 1, CustomTemplateBasedImplCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modelBasedImplCartridgeEClass, ModelBasedImplCartridge.class, "ModelBasedImplCartridge", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(flowModelImplCartridgeEClass, FlowModelImplCartridge.class, "FlowModelImplCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");

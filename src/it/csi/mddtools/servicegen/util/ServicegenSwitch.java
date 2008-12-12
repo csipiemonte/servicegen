@@ -111,6 +111,92 @@ public class ServicegenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ServicegenPackage.SERVICE_COMPONENT: {
+				ServiceComponent serviceComponent = (ServiceComponent)theEObject;
+				T result = caseServiceComponent(serviceComponent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.SIMPLE_SC: {
+				SimpleSC simpleSC = (SimpleSC)theEObject;
+				T result = caseSimpleSC(simpleSC);
+				if (result == null) result = caseServiceComponent(simpleSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.COMPOSITE_SC: {
+				CompositeSC compositeSC = (CompositeSC)theEObject;
+				T result = caseCompositeSC(compositeSC);
+				if (result == null) result = caseServiceComponent(compositeSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.RESOURCE_BASED_SC: {
+				ResourceBasedSC resourceBasedSC = (ResourceBasedSC)theEObject;
+				T result = caseResourceBasedSC(resourceBasedSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.RESOURCE_BASED_SIMPLE_SC: {
+				ResourceBasedSimpleSC resourceBasedSimpleSC = (ResourceBasedSimpleSC)theEObject;
+				T result = caseResourceBasedSimpleSC(resourceBasedSimpleSC);
+				if (result == null) result = caseSimpleSC(resourceBasedSimpleSC);
+				if (result == null) result = caseResourceBasedSC(resourceBasedSimpleSC);
+				if (result == null) result = caseServiceComponent(resourceBasedSimpleSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC: {
+				OrchestrationFlowCompositeSC orchestrationFlowCompositeSC = (OrchestrationFlowCompositeSC)theEObject;
+				T result = caseOrchestrationFlowCompositeSC(orchestrationFlowCompositeSC);
+				if (result == null) result = caseCompositeSC(orchestrationFlowCompositeSC);
+				if (result == null) result = caseFlowBasedSC(orchestrationFlowCompositeSC);
+				if (result == null) result = caseResourceBasedSC(orchestrationFlowCompositeSC);
+				if (result == null) result = caseServiceComponent(orchestrationFlowCompositeSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.FLOW_BASED_SC: {
+				FlowBasedSC flowBasedSC = (FlowBasedSC)theEObject;
+				T result = caseFlowBasedSC(flowBasedSC);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.LOGIC_IMPL_CARTRIDGE: {
+				LogicImplCartridge logicImplCartridge = (LogicImplCartridge)theEObject;
+				T result = caseLogicImplCartridge(logicImplCartridge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.MANUAL_IMPL_CARTRIDGE: {
+				ManualImplCartridge manualImplCartridge = (ManualImplCartridge)theEObject;
+				T result = caseManualImplCartridge(manualImplCartridge);
+				if (result == null) result = caseLogicImplCartridge(manualImplCartridge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE: {
+				CustomTemplateBasedImplCartridge customTemplateBasedImplCartridge = (CustomTemplateBasedImplCartridge)theEObject;
+				T result = caseCustomTemplateBasedImplCartridge(customTemplateBasedImplCartridge);
+				if (result == null) result = caseLogicImplCartridge(customTemplateBasedImplCartridge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.MODEL_BASED_IMPL_CARTRIDGE: {
+				ModelBasedImplCartridge modelBasedImplCartridge = (ModelBasedImplCartridge)theEObject;
+				T result = caseModelBasedImplCartridge(modelBasedImplCartridge);
+				if (result == null) result = caseLogicImplCartridge(modelBasedImplCartridge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicegenPackage.FLOW_MODEL_IMPL_CARTRIDGE: {
+				FlowModelImplCartridge flowModelImplCartridge = (FlowModelImplCartridge)theEObject;
+				T result = caseFlowModelImplCartridge(flowModelImplCartridge);
+				if (result == null) result = caseModelBasedImplCartridge(flowModelImplCartridge);
+				if (result == null) result = caseLogicImplCartridge(flowModelImplCartridge);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -172,6 +258,186 @@ public class ServicegenSwitch<T> {
 	 * @generated
 	 */
 	public T caseTargetPlatform(TargetPlatform object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Service Component</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Service Component</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServiceComponent(ServiceComponent object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Simple SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Simple SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSimpleSC(SimpleSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositeSC(CompositeSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Based SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Based SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceBasedSC(ResourceBasedSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Based Simple SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Based Simple SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceBasedSimpleSC(ResourceBasedSimpleSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Orchestration Flow Composite SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Orchestration Flow Composite SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOrchestrationFlowCompositeSC(OrchestrationFlowCompositeSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Flow Based SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Flow Based SC</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFlowBasedSC(FlowBasedSC object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Logic Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Logic Impl Cartridge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLogicImplCartridge(LogicImplCartridge object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Manual Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Manual Impl Cartridge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseManualImplCartridge(ManualImplCartridge object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Template Based Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Template Based Impl Cartridge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCustomTemplateBasedImplCartridge(CustomTemplateBasedImplCartridge object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Model Based Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Model Based Impl Cartridge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModelBasedImplCartridge(ModelBasedImplCartridge object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Flow Model Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Flow Model Impl Cartridge</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFlowModelImplCartridge(FlowModelImplCartridge object) {
 		return null;
 	}
 

@@ -62,6 +62,51 @@ public interface ServicegenFactory extends EFactory {
 	TargetPlatform createTargetPlatform();
 
 	/**
+	 * Returns a new object of class '<em>Resource Based Simple SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Resource Based Simple SC</em>'.
+	 * @generated
+	 */
+	ResourceBasedSimpleSC createResourceBasedSimpleSC();
+
+	/**
+	 * Returns a new object of class '<em>Orchestration Flow Composite SC</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Orchestration Flow Composite SC</em>'.
+	 * @generated
+	 */
+	OrchestrationFlowCompositeSC createOrchestrationFlowCompositeSC();
+
+	/**
+	 * Returns a new object of class '<em>Manual Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Manual Impl Cartridge</em>'.
+	 * @generated
+	 */
+	ManualImplCartridge createManualImplCartridge();
+
+	/**
+	 * Returns a new object of class '<em>Custom Template Based Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Template Based Impl Cartridge</em>'.
+	 * @generated
+	 */
+	CustomTemplateBasedImplCartridge createCustomTemplateBasedImplCartridge();
+
+	/**
+	 * Returns a new object of class '<em>Flow Model Impl Cartridge</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Flow Model Impl Cartridge</em>'.
+	 * @generated
+	 */
+	FlowModelImplCartridge createFlowModelImplCartridge();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

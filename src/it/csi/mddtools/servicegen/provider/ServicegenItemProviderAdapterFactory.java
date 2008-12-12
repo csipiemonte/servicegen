@@ -168,6 +168,121 @@ public class ServicegenItemProviderAdapterFactory extends ServicegenAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ResourceBasedSimpleSCItemProvider resourceBasedSimpleSCItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createResourceBasedSimpleSCAdapter() {
+		if (resourceBasedSimpleSCItemProvider == null) {
+			resourceBasedSimpleSCItemProvider = new ResourceBasedSimpleSCItemProvider(this);
+		}
+
+		return resourceBasedSimpleSCItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OrchestrationFlowCompositeSCItemProvider orchestrationFlowCompositeSCItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOrchestrationFlowCompositeSCAdapter() {
+		if (orchestrationFlowCompositeSCItemProvider == null) {
+			orchestrationFlowCompositeSCItemProvider = new OrchestrationFlowCompositeSCItemProvider(this);
+		}
+
+		return orchestrationFlowCompositeSCItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicegen.ManualImplCartridge} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ManualImplCartridgeItemProvider manualImplCartridgeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicegen.ManualImplCartridge}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createManualImplCartridgeAdapter() {
+		if (manualImplCartridgeItemProvider == null) {
+			manualImplCartridgeItemProvider = new ManualImplCartridgeItemProvider(this);
+		}
+
+		return manualImplCartridgeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomTemplateBasedImplCartridgeItemProvider customTemplateBasedImplCartridgeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomTemplateBasedImplCartridgeAdapter() {
+		if (customTemplateBasedImplCartridgeItemProvider == null) {
+			customTemplateBasedImplCartridgeItemProvider = new CustomTemplateBasedImplCartridgeItemProvider(this);
+		}
+
+		return customTemplateBasedImplCartridgeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicegen.FlowModelImplCartridge} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FlowModelImplCartridgeItemProvider flowModelImplCartridgeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicegen.FlowModelImplCartridge}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createFlowModelImplCartridgeAdapter() {
+		if (flowModelImplCartridgeItemProvider == null) {
+			flowModelImplCartridgeItemProvider = new FlowModelImplCartridgeItemProvider(this);
+		}
+
+		return flowModelImplCartridgeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -270,6 +385,11 @@ public class ServicegenItemProviderAdapterFactory extends ServicegenAdapterFacto
 		if (baseTypesItemProvider != null) baseTypesItemProvider.dispose();
 		if (serviceImplItemProvider != null) serviceImplItemProvider.dispose();
 		if (targetPlatformItemProvider != null) targetPlatformItemProvider.dispose();
+		if (resourceBasedSimpleSCItemProvider != null) resourceBasedSimpleSCItemProvider.dispose();
+		if (orchestrationFlowCompositeSCItemProvider != null) orchestrationFlowCompositeSCItemProvider.dispose();
+		if (manualImplCartridgeItemProvider != null) manualImplCartridgeItemProvider.dispose();
+		if (customTemplateBasedImplCartridgeItemProvider != null) customTemplateBasedImplCartridgeItemProvider.dispose();
+		if (flowModelImplCartridgeItemProvider != null) flowModelImplCartridgeItemProvider.dispose();
 	}
 
 }

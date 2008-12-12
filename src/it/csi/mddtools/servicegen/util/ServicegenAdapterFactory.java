@@ -88,6 +88,54 @@ public class ServicegenAdapterFactory extends AdapterFactoryImpl {
 				return createTargetPlatformAdapter();
 			}
 			@Override
+			public Adapter caseServiceComponent(ServiceComponent object) {
+				return createServiceComponentAdapter();
+			}
+			@Override
+			public Adapter caseSimpleSC(SimpleSC object) {
+				return createSimpleSCAdapter();
+			}
+			@Override
+			public Adapter caseCompositeSC(CompositeSC object) {
+				return createCompositeSCAdapter();
+			}
+			@Override
+			public Adapter caseResourceBasedSC(ResourceBasedSC object) {
+				return createResourceBasedSCAdapter();
+			}
+			@Override
+			public Adapter caseResourceBasedSimpleSC(ResourceBasedSimpleSC object) {
+				return createResourceBasedSimpleSCAdapter();
+			}
+			@Override
+			public Adapter caseOrchestrationFlowCompositeSC(OrchestrationFlowCompositeSC object) {
+				return createOrchestrationFlowCompositeSCAdapter();
+			}
+			@Override
+			public Adapter caseFlowBasedSC(FlowBasedSC object) {
+				return createFlowBasedSCAdapter();
+			}
+			@Override
+			public Adapter caseLogicImplCartridge(LogicImplCartridge object) {
+				return createLogicImplCartridgeAdapter();
+			}
+			@Override
+			public Adapter caseManualImplCartridge(ManualImplCartridge object) {
+				return createManualImplCartridgeAdapter();
+			}
+			@Override
+			public Adapter caseCustomTemplateBasedImplCartridge(CustomTemplateBasedImplCartridge object) {
+				return createCustomTemplateBasedImplCartridgeAdapter();
+			}
+			@Override
+			public Adapter caseModelBasedImplCartridge(ModelBasedImplCartridge object) {
+				return createModelBasedImplCartridgeAdapter();
+			}
+			@Override
+			public Adapter caseFlowModelImplCartridge(FlowModelImplCartridge object) {
+				return createFlowModelImplCartridgeAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -160,6 +208,174 @@ public class ServicegenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTargetPlatformAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.ServiceComponent <em>Service Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.ServiceComponent
+	 * @generated
+	 */
+	public Adapter createServiceComponentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.SimpleSC <em>Simple SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.SimpleSC
+	 * @generated
+	 */
+	public Adapter createSimpleSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.CompositeSC <em>Composite SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.CompositeSC
+	 * @generated
+	 */
+	public Adapter createCompositeSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+	 * @generated
+	 */
+	public Adapter createResourceBasedSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC <em>Resource Based Simple SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSimpleSC
+	 * @generated
+	 */
+	public Adapter createResourceBasedSimpleSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC <em>Orchestration Flow Composite SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC
+	 * @generated
+	 */
+	public Adapter createOrchestrationFlowCompositeSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.FlowBasedSC
+	 * @generated
+	 */
+	public Adapter createFlowBasedSCAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.LogicImplCartridge <em>Logic Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.LogicImplCartridge
+	 * @generated
+	 */
+	public Adapter createLogicImplCartridgeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.ManualImplCartridge <em>Manual Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.ManualImplCartridge
+	 * @generated
+	 */
+	public Adapter createManualImplCartridgeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge <em>Custom Template Based Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge
+	 * @generated
+	 */
+	public Adapter createCustomTemplateBasedImplCartridgeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.ModelBasedImplCartridge <em>Model Based Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.ModelBasedImplCartridge
+	 * @generated
+	 */
+	public Adapter createModelBasedImplCartridgeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicegen.FlowModelImplCartridge <em>Flow Model Impl Cartridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicegen.FlowModelImplCartridge
+	 * @generated
+	 */
+	public Adapter createFlowModelImplCartridgeAdapter() {
 		return null;
 	}
 
