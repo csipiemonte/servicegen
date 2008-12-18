@@ -1,5 +1,13 @@
 package it.csi.mddtools.servicegen.genutils;
 
+import it.csi.mddtools.typedef.CSIDatatype;
+import it.csi.mddtools.typedef.CSIDatatypeCodes;
+import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypedArray;
+import it.csi.mddtools.typedef.TypedefFactory;
+
+import java.lang.reflect.Array;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,5 +67,101 @@ public class CodeGenerationUtils {
 		if (src.length()==0)
 			return src;
 		return src.substring(0,1).toUpperCase()+src.substring(1);
+	}
+	
+	////////////////
+	
+	public static Type[] generateCSIBaseTypes(){
+	    // tipi semplici
+		//basicTypesMap = new Hashtable();
+		CSIDatatype csiInteger = createDT("CSIInteger", CSIDatatypeCodes.CSI_INTEGER, false);
+		//basicTypesMap.put(Integer.TYPE, csiInteger);
+		CSIDatatype csiBoolean = createDT("CSIBoolean", CSIDatatypeCodes.CSI_BOOLEAN, false);
+		//basicTypesMap.put(Boolean.TYPE, csiBoolean);
+		CSIDatatype csiByte = createDT("CSIByte", CSIDatatypeCodes.CSI_BYTE, false);
+		//basicTypesMap.put(Byte.TYPE, csiByte);
+		CSIDatatype csiDate = createDT("CSIDate", CSIDatatypeCodes.CSI_DATE, false);
+		//basicTypesMap.put(java.util.Date.class, csiDate);
+		CSIDatatype csiDouble = createDT("CSIDouble", CSIDatatypeCodes.CSI_DOUBLE, false);
+		//basicTypesMap.put(Double.TYPE, csiDouble);
+		CSIDatatype csiFloat = createDT("CSIFloat", CSIDatatypeCodes.CSI_FLOAT, false);
+		//basicTypesMap.put(Float.TYPE, csiFloat);
+		CSIDatatype csiLong = createDT("CSILong", CSIDatatypeCodes.CSI_LONG, false);
+		//basicTypesMap.put(Long.TYPE, csiLong);
+		CSIDatatype csiString = createDT("CSIString", CSIDatatypeCodes.CSI_STRING, false);
+		//basicTypesMap.put(String.class, csiString);
+		// tipi wrapped (nillable)
+		CSIDatatype csiWInteger = createDT("CSIWrappedInteger", CSIDatatypeCodes.CSI_INTEGER, true);
+		//basicTypesMap.put(Integer.class, csiWInteger);
+		CSIDatatype csiWBoolean = createDT("CSIWrappedBoolean", CSIDatatypeCodes.CSI_BOOLEAN, true);
+		//basicTypesMap.put(Boolean.class, csiWBoolean);
+		CSIDatatype csiWDouble = createDT("CSIWrappedDouble", CSIDatatypeCodes.CSI_DOUBLE, true);
+		//basicTypesMap.put(Double.class, csiWDouble);
+		CSIDatatype csiWFloat = createDT("CSIWrappedFloat", CSIDatatypeCodes.CSI_FLOAT, true);
+		//basicTypesMap.put(Float.class, csiWFloat);
+		CSIDatatype csiWLong = createDT("CSIWrappedLong", CSIDatatypeCodes.CSI_LONG, true);
+		//basicTypesMap.put(Long.class, csiWLong);
+		// array di tipi semplici
+		TypedArray csiIntegerArray = createTA("Array of CSIInteger", csiInteger);
+		//basicTypesMap.put(getTypedArrayClass(Integer.TYPE), csiIntegerArray);
+		TypedArray csiBooleanArray = createTA("Array of CSIBoolean", csiBoolean);
+		//basicTypesMap.put(getTypedArrayClass(Boolean.TYPE), csiBooleanArray);
+		TypedArray csiByteArray = createTA("Array of CSIByte", csiByte);
+		//basicTypesMap.put(getTypedArrayClass(Byte.TYPE), csiByteArray);
+		TypedArray csiDateArray = createTA("Array of CSIDate", csiDate);
+		//basicTypesMap.put(getTypedArrayClass(java.util.Date.class), csiDateArray);
+		TypedArray csiDoubleArray = createTA("Array of CSIDouble", csiDouble);
+		//basicTypesMap.put(getTypedArrayClass(Double.TYPE), csiDoubleArray);
+		TypedArray csiFloatArray = createTA("Array of CSIFloat", csiFloat);
+		//basicTypesMap.put(getTypedArrayClass(Float.TYPE), csiFloatArray);
+		TypedArray csiLongArray = createTA("Array of CSILong", csiLong);
+		//basicTypesMap.put(getTypedArrayClass(Long.TYPE), csiLongArray);
+		TypedArray csiStringArray = createTA("Array of CSIString", csiString);
+		//basicTypesMap.put(getTypedArrayClass(String.class), csiStringArray);
+		// array di tipi wrapped
+		TypedArray csiWIntegerArray = createTA("Array of CSIWrappedInteger", csiWInteger);
+		//basicTypesMap.put(getTypedArrayClass(Integer.class), csiWIntegerArray);
+		TypedArray csiWBooleanArray = createTA("Array of CSIWrappedBoolean", csiWBoolean);
+		//basicTypesMap.put(getTypedArrayClass(Boolean.class), csiWBooleanArray);
+		TypedArray csiWDoubleArray = createTA("Array of CSIWrappedDouble", csiWDouble);
+		//basicTypesMap.put(getTypedArrayClass(Double.class), csiWDoubleArray);
+		TypedArray csiWFloatArray = createTA("Array of CSIWrappedFloat", csiWFloat);
+		//basicTypesMap.put(getTypedArrayClass(Float.class), csiWFloatArray);
+		TypedArray csiWLongArray = createTA("Array of CSIWrappedLong", csiWLong);
+		//basicTypesMap.put(getTypedArrayClass(Long.class), csiWLongArray);
+		
+		Type [] types = new Type[]{
+				csiInteger,csiBoolean,csiByte,csiDate,csiDouble,csiFloat,csiLong,csiString,
+				csiWInteger,csiWBoolean,csiWDouble,csiWFloat,csiWLong,
+				csiIntegerArray,csiBooleanArray,csiByteArray,csiDateArray,csiDoubleArray,csiFloatArray,csiLongArray,csiStringArray,
+				csiWIntegerArray,csiWBooleanArray,csiWDoubleArray,csiWFloatArray,csiWLongArray
+		};
+		return types;
+	}
+	
+	public static Class getTypedArrayClass(Class javaCompType){
+		Object dummyArray = Array.newInstance(javaCompType, 0);
+		return dummyArray.getClass();
+	}
+	public static CSIDatatype createDT(String name, CSIDatatypeCodes code, boolean nillable){
+		CSIDatatype dt = TypedefFactory.eINSTANCE.createCSIDatatype();
+		dt.setName(name);
+		dt.setCode(code);
+		dt.setNillable(nillable);
+		return dt;
+	}
+
+	public static TypedArray createTA(String name,CSIDatatype dt){
+		TypedArray ta = TypedefFactory.eINSTANCE.createTypedArray();
+		ta.setName(name);
+		ta.setComponentType(dt);
+		return ta;
+	}
+
+	public static TypedArray createTA(String name,Entity dt){
+		TypedArray ta = TypedefFactory.eINSTANCE.createTypedArray();
+		ta.setName(name);
+		ta.setComponentType(dt);
+		return ta;
 	}
 }
