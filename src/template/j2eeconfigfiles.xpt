@@ -4,9 +4,9 @@
 
 «EXTENSION template::ServicegenExtensions»
 
-«DEFINE defejbjarfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+«DEFINE defejbjarfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
 «REM»ejb-jar.xml«ENDREM»
-«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE paConfigDir(serviceDef, model)+"/META-INF/ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
 <ejb-jar>
 
@@ -18,11 +18,11 @@
 		-->
 		<session>
 			<ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
-			<!--<home>«fullQualifiedServiceHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</home>
-			<remote>«fullQualifiedServiceRemoteInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</remote>-->
-			<local-home>«fullQualifiedServiceLocalHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local-home>
-			<local>«fullQualifiedServiceLocalInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local>
-			<ejb-class>«fullQualifiedServiceBeanClassName(model.codProdotto, model.codComponente, serviceDef)»</ejb-class>
+			<!--<home>«fullQualifiedServiceHomeInterfaceName(serviceDef, model)»</home>
+			<remote>«fullQualifiedServiceRemoteInterfaceName(serviceDef,model)»</remote>-->
+			<local-home>«fullQualifiedServiceLocalHomeInterfaceName(serviceDef, model)»</local-home>
+			<local>«fullQualifiedServiceLocalInterfaceName(serviceDef, model)»</local>
+			<ejb-class>«fullQualifiedServiceBeanClassName(serviceDef, model)»</ejb-class>
 			<session-type>Stateless</session-type>
 			<transaction-type>Container</transaction-type>				
 		</session>				
@@ -50,8 +50,8 @@
 				<description>reference all bean che implementa il servizio</description>
 				<ejb-ref-name>«getServiceBeanName(serviceDef)»</ejb-ref-name>
 				<ejb-ref-type>Session</ejb-ref-type>
-				<local-home>«fullQualifiedServiceLocalHomeInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local-home>
-				<local>«fullQualifiedServiceLocalInterfaceName(model.codProdotto, model.codComponente, serviceDef)»</local>
+				<local-home>«fullQualifiedServiceLocalHomeInterfaceName(serviceDef, model)»</local-home>
+				<local>«fullQualifiedServiceLocalInterfaceName(serviceDef, model)»</local>
 				<ejb-link>«getServiceBeanName(serviceDef)»</ejb-link>
 			</ejb-local-ref>
 		</session>
@@ -271,7 +271,7 @@
 «ENDFILE»
 
 «REM»weblogic-ejb-jar.xml«ENDREM»
-«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/weblogic-ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE paConfigDir(serviceDef, model)+"/META-INF/weblogic-ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <weblogic-ejb-jar
   xmlns="http://www.bea.com/ns/weblogic/90" 
   xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" 
@@ -295,7 +295,7 @@
 	<weblogic-enterprise-bean>
 		<ejb-name>«getPABeanName(serviceDef)»</ejb-name>
 		<enable-call-by-reference>true</enable-call-by-reference>
-		<jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente,serviceDef)»</jndi-name>
+		<jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
 		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(model.codComponente+serviceDef.codServizio+"PATimeout")»
 		<!-- modificare il valore di timeout se necessario (non verra' sovrascritto nelle rigenerazioni -->
 		<remote-client-timeout>30</remote-client-timeout>
@@ -314,10 +314,10 @@
         <stateless-session-descriptor/>
         <resource-description>
 	        <res-ref-name>jdbc/counterDS</res-ref-name>
-    	    <jndi-name>«counterDSJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+    	    <jndi-name>«counterDSJndiName(serviceDef, model)»</jndi-name>
         </resource-description>
 
-        <jndi-name>«fullQMGRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+        <jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
     </weblogic-enterprise-bean>
     
     <!--  
@@ -332,18 +332,18 @@
 			<max-beans-in-free-pool>1</max-beans-in-free-pool>
 			<initial-beans-in-free-pool>1</initial-beans-in-free-pool>
 		  </pool>
-		  <destination-jndi-name>«paQueueJndiName(model.codProdotto, model.codComponente, serviceDef,codBinding)»</destination-jndi-name>
+		  <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
 		  <connection-factory-jndi-name>«queueConnectionFactoryJndiName()»</connection-factory-jndi-name>
 		</message-driven-descriptor>
 		<ejb-reference-description>
 			<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
-			<jndi-name>«fullQMGRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+			<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
 		</ejb-reference-description>
 		<ejb-reference-description>
 			<ejb-ref-name>ejb/pa</ejb-ref-name>
-			<jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+			<jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
 		</ejb-reference-description>
-        <jndi-name>«fullLTRJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+        <jndi-name>«fullLTRJndiName(serviceDef, model)»</jndi-name>
 	</weblogic-enterprise-bean>
 	«ENDIF»
 	«ENDLET»
@@ -364,7 +364,7 @@
 
 
 «REM»jboss.xml«ENDREM»
-«FILE svn_project_dir+"/"+paConfigDir(model.codComponente, serviceDef)+"/META-INF/jboss.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE paConfigDir(serviceDef, model)+"/META-INF/jboss.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
 
 <jboss>
@@ -381,7 +381,7 @@
 	-->
     <session>
         <ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
-        <jndi-name>«fullServiceJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+        <jndi-name>«fullServiceJndiName(serviceDef, model)»</jndi-name>
     </session>
 
 	<!--  
@@ -391,7 +391,7 @@
 	-->
     <session>
         <ejb-name>«getPABeanName(serviceDef)»</ejb-name>
-        <jndi-name>«fullPAJndiName(model.codProdotto, model.codComponente, serviceDef)»</jndi-name>
+        <jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
     </session>
 
     
@@ -426,8 +426,8 @@
 «ENDDEFINE»
 
 
-«DEFINE applicationfiles (String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE applicationfiles  FOR SOABEModel»
+«FILE "conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://java.sun.com/xml/ns/j2ee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	version="1.4" 
@@ -440,15 +440,15 @@
   	«FOREACH service.bindings.typeSelect(servicedef::EJBPABinding) AS ejbpa»
   	<!-- ejb module relativo alla PA del servizio con codice binding=«ejbpa.codBinding». -->
 	<module>
-		<ejb>«getEJBPAJarName(codComponente,service.codServizio,ejbpa.codBinding,service.serviceType.toString())»</ejb>
+		<ejb>«getEJBPAJarName(service.codServizio,ejbpa.codBinding,service.serviceType.toString(), this)»</ejb>
   	</module>
   	«ENDFOREACH»
   	«FOREACH service.bindings.typeSelect(servicedef::SOAPPABRBinding) AS soapbr»
   	<!-- web module relativo al bridge SOAP della PA del servizio «service.codServizio» con codice binding=«soapbr.codBinding». --> 
   	<module>
     	<web>
-      		<web-uri>«getPABRWarName(codComponente,service.codServizio,soapbr.codBinding,service.serviceType.toString())»</web-uri>
-      		<context-root>«pabrWebContext(codComponente,service.codServizio,soapbr.codBinding,service.serviceType.toString())»</context-root>
+      		<web-uri>«getPABRWarName(service.codServizio,soapbr.codBinding,service.serviceType.toString(),this)»</web-uri>
+      		<context-root>«pabrWebContext(service.codServizio,soapbr.codBinding,service.serviceType.toString(), this)»</context-root>
     	</web>
   	</module>
   	«ENDFOREACH»
@@ -456,8 +456,8 @@
   	<!-- web module relativo al front-adapter web-services della PA con codice binding=«wsfad.codBinding». --> 
   	<module>
     	<web>
-      		<web-uri>«getWSFADWarName(codComponente,service.codServizio,wsfad.codBinding,service.serviceType.toString())»</web-uri>
-     		<context-root>«wsfadWebContext(codComponente,service.codServizio,wsfad.codBinding,service.serviceType.toString())»</context-root>
+      		<web-uri>«getWSFADWarName(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</web-uri>
+     		<context-root>«wsfadWebContext(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</context-root>
     	</web>
   	</module>
   «ENDFOREACH»	
@@ -468,8 +468,8 @@
 «ENDDEFINE»
 
 
-«DEFINE soappabrwebxml (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr", removeSeparator(serviceDef.codServizio))+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE soappabrwebxml (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
+«FILE getSpecificWarConfigRootDir("pabr", removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" 
 	xmlns="http://java.sun.com/xml/ns/j2ee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -544,7 +544,7 @@
 «ENDFILE»
 
 
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio))+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
 	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
 	<security-domain>java:/jaas/services</security-domain>
@@ -552,7 +552,7 @@
 </jboss-web>
 «ENDFILE»
 
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio))+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
   «IF serviceDef.authLevel!=AuthLevelEnum::A0»
   <!-- impostazioni di sicurezza: i ruoli devono corrispondere ai principal (groups) -->
@@ -573,8 +573,8 @@
 
 
 
-«DEFINE wsfadwebxml (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE wsfadwebxml (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" 
 	xmlns="http://java.sun.com/xml/ns/j2ee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -662,7 +662,7 @@
 </web-app>
 «ENDFILE»
 
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
 	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
 	<security-domain>java:/jaas/services</security-domain>
@@ -670,7 +670,7 @@
 </jboss-web>
 «ENDFILE»
 
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/weblogic.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
   «IF serviceDef.authLevel!=AuthLevelEnum::A0»
   <!-- impostazioni di sicurezza: i ruoli devono corrispondere ai principal (groups) -->

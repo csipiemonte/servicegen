@@ -4,32 +4,32 @@
 
 «EXTENSION template::ServicegenExtensions»
 
-«DEFINE serviceFiles(String svn_project_dir,SOABEModel model)FOR servicedef::ServiceDef»
+«DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDef»
 	«REM»file del servizio«ENDREM»
-	«EXPAND javaCsiInterfaceFile (svn_project_dir, model) FOR this»
-	«EXPAND javaEJBServiceRemoteInterfaceFile (svn_project_dir, model)FOR this»
-	«EXPAND javaEJBServiceHomeInterfaceFile (svn_project_dir, model)FOR this»
-	«EXPAND javaEJBServiceBeanFile (svn_project_dir, model)FOR this»
+	«EXPAND javaCsiInterfaceFile (model) FOR this»
+	«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR this»
+	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
+	«EXPAND javaEJBServiceBeanFile (model)FOR this»
 	«IF this.serviceType==SrvTypeEnum::orch»
-		«EXPAND javaOrchServiceDelegateClassFile (svn_project_dir, model)FOR this»
-		«EXPAND svcflowFiles (svn_project_dir, model)FOR this»
+		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
+		«EXPAND svcflowFiles (model)FOR this»
 	«ELSE»
-		«EXPAND javaServiceDelegateClassFile (svn_project_dir, model)FOR this»
+		«EXPAND javaServiceDelegateClassFile (model)FOR this»
 	«ENDIF»
 	«REM»file per test«ENDREM»
-	«EXPAND javaServiceTestClassFile(svn_project_dir, model) FOR this»
+	«EXPAND javaServiceTestClassFile(model) FOR this»
 «ENDDEFINE»
 
 «REM»file per os workflow«ENDREM»
-«DEFINE svcflowFiles(String svn_project_dir, SOABEModel model) FOR ServiceDef»
-	«EXPAND svcflowConfigFiles(svn_project_dir,model) FOR this»
+«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDef»
+	«EXPAND svcflowConfigFiles(model) FOR this»
 	«FOREACH operations AS op»
-		«EXPAND svcflowDefinitionFile(svn_project_dir,model, this) FOR op»
+		«EXPAND svcflowDefinitionFile(this, model) FOR op»
 	«ENDFOREACH»
 «ENDDEFINE»
 
-«DEFINE svcflowConfigFiles(String svn_project_dir, SOABEModel model) FOR ServiceDef»
-	«FILE svn_project_dir+"/"+svcflowConfDirForService(model.codProdotto, model.codComponente, this.codServizio)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
+	«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
 	<osworkflow>
   <persistence class="com.opensymphony.workflow.spi.memory.MemoryWorkflowStore"/>
   <factory class="com.opensymphony.workflow.loader.XMLWorkflowFactory">
@@ -38,7 +38,7 @@
 </osworkflow>
 	«ENDFILE»
 	
-	«FILE svn_project_dir+"/"+svcflowConfDirForService(model.codProdotto, model.codComponente, this.codServizio)+"/workflows.xml"»
+	«FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"»
 <workflows>
 «FOREACH operations AS op»
 	<workflow name="«removeSeparator(codServizio)+op.name.toFirstUpper()»" type="resource" location="«svcflowDefinitionFileName(op,this.codServizio)»" />
@@ -47,11 +47,11 @@
 </workflows>
 	«ENDFILE»
 	
-	«EXPAND svcflowDefinitionFile(svn_project_dir, model, this) FOREACH operations»
+	«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»
 «ENDDEFINE»
 
-«DEFINE svcflowDefinitionFile(String svn_project_dir, SOABEModel model, ServiceDef sd) FOR Operation»
-	«FILE svn_project_dir+"/"+svcflowConfDirForService(model.codProdotto, model.codComponente,sd.codServizio)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
+	«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("svcflow"+model.codComponente+sd.codServizio+name)»
 <!-- inserire qui la definizione del workflow (verra' preservata nelle successive
@@ -89,12 +89,12 @@
 interfaccia pubblica del servizio C.S.I
 ***************************************
 «ENDREM»
-«DEFINE javaCsiInterfaceFile (String svn_project_dir,SOABEModel model)FOR servicedef::ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceInterfaceDir(model.codProdotto, model.codComponente,codServizio)+"/"+serviceInterfaceName()+".java" »
-package «fullQualifiedServiceInterfacePkg(model.codProdotto, model.codComponente)»;
+«DEFINE javaCsiInterfaceFile (SOABEModel model)FOR servicedef::ServiceDef»
+	«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" »
+package «fullQualifiedServiceInterfacePkg(model)»;
 
-import «fullQualifiedEntitiesPkg(model.codProdotto, model.codComponente, codServizio)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto, model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
   «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServizio)»
   /**
@@ -151,7 +151,7 @@ public interface «serviceInterfaceName()»{
    «FOREACH params AS par»
    * @param «par.name» [documentazione del parametro (vedere sopra per consigli sulla documentazione)]
    «ENDFOREACH»
-   * @return «map2javaType(this.returnType, model.codProdotto,model.codComponente,codServ)»
+   * @return «map2javaType(this.returnType, codServ, model)»
    «FOREACH throws AS exc»
    * @throws «exc.name»
    «ENDFOREACH»
@@ -160,7 +160,7 @@ public interface «serviceInterfaceName()»{
    * @throws UnrecoverableException in caso di errore imprevisto e non recuperabile
    */
   «ENDPROTECT»
-  public «map2javaType(this.returnType,model.codProdotto,model.codComponente, codServ)» «this.name» (
+  public «map2javaType(this.returnType,codServ, model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -177,7 +177,7 @@ public interface «serviceInterfaceName()»{
 «ENDDEFINE»
 
 «DEFINE operationDeclaration4Remote (SOABEModel model, String codServ) FOR Operation»
-  public «map2javaType(this.returnType,model.codProdotto, model.codComponente, codServ)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -195,11 +195,11 @@ public interface «serviceInterfaceName()»{
 «ENDDEFINE»
 
 «DEFINE paramDef (SOABEModel model, String codServ, boolean addComma) FOR Param»
-	«map2javaType(this.type,model.codProdotto, model.codComponente, codServ)» «name»«IF addComma»,«ENDIF»
+	«map2javaType(this.type,codServ,model)» «name»«IF addComma»,«ENDIF»
 «ENDDEFINE»
 
 «DEFINE exceptionInThrowsClause (SOABEModel model,String codServ)FOR Exception»
-  ,«fullQualifiedServiceExceptionPkg(model.codProdotto, model.codComponente,codServ)+"."+this.name.toFirstUpper()»
+  ,«fullQualifiedServiceExceptionPkg(codServ,model)+"."+this.name.toFirstUpper()»
 «ENDDEFINE»
 
 
@@ -208,12 +208,12 @@ public interface «serviceInterfaceName()»{
 interfaccia remota dell'EJB che implementa il servizio
 ******************************************************
 «ENDREM»
-«DEFINE javaEJBServiceRemoteInterfaceFile (String svn_project_dir,SOABEModel model) FOR servicedef::ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceRemoteInterfaceName()+".java" »
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaEJBServiceRemoteInterfaceFile (SOABEModel model) FOR servicedef::ServiceDef»
+	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" »
+package «getFullServiceEJBPkg(codServizio, model)»;
 
-import «fullQualifiedEntitiesPkg(model.codProdotto, model.codComponente,codServizio)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto, model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
 /**
  * Interfaccia remota dell'EJB che implementa il servizio «this.codServizio».
@@ -232,16 +232,16 @@ public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
 }
 	«ENDFILE»
 	
-	«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceLocalInterfaceName()+".java" »
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalInterfaceName()+".java" »
+package «getFullServiceEJBPkg(codServizio, model)»;
 
-import «fullQualifiedEntitiesPkg(model.codProdotto, model.codComponente,codServizio)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto, model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
 /**
  * Interfaccia locale dell'EJB che implementa il servizio «this.codServizio».
  */
-public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject, «fullQualifiedServiceInterfaceName(model.codProdotto,model.codComponente)»{
+public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject, «fullQualifiedServiceInterfaceName(model)»{
 	«IF this.monitorable»
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
 	«ENDIF»
@@ -260,9 +260,9 @@ public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject,
 home interface dell'ejb che implementa il servizio
 **************************************************
 «ENDREM»
-«DEFINE javaEJBServiceHomeInterfaceFile (String svn_project_dir,SOABEModel model)FOR ServiceDef»
-«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceHomeInterfaceName()+".java" »
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaEJBServiceHomeInterfaceFile (SOABEModel model)FOR ServiceDef»
+«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceHomeInterfaceName()+".java" »
+package «getFullServiceEJBPkg(codServizio, model)»;
 
 import java.rmi.*;
 import javax.ejb.*;
@@ -272,8 +272,8 @@ public interface «serviceHomeInterfaceName()» extends EJBHome{
 }
 «ENDFILE»
 
-«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceLocalHomeInterfaceName()+".java" »
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalHomeInterfaceName()+".java" »
+package «getFullServiceEJBPkg(codServizio, model)»;
 
 import java.rmi.*;
 import javax.ejb.*;
@@ -290,15 +290,15 @@ public interface «serviceLocalHomeInterfaceName()» extends EJBLocalHome{
 classe dell'EJB che implementa il servizio (tramite delegate)
 *************************************************************
 «ENDREM»
-«DEFINE javaEJBServiceBeanFile (String svn_project_dir,SOABEModel model)FOR ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto, model.codComponente,codServizio)+"/"+serviceBeanClassName()+".java"»
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
+	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
+package «getFullServiceEJBPkg(codServizio, model)»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
-import «fullQualifiedEntitiesPkg(model.codProdotto, model.codComponente,codServizio)».*;
-import «fullQualifiedServiceInterfacePkg(model.codProdotto, model.codComponente)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto, model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceInterfacePkg(model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
 import java.rmi.RemoteException;
 
@@ -417,7 +417,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 «ENDDEFINE»
 
 «DEFINE operationDelegation (SOABEModel model,String codServ, ServiceDef sd) FOR Operation»
-  public «map2javaType(this.returnType,model.codProdotto,model.codComponente,codServ)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -462,15 +462,15 @@ In caso di livello di sicurezza > A0 viene aggiunto un parametro
 che conterrà il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
-«DEFINE javaServiceDelegateClassFile (String svn_project_dir,SOABEModel model)FOR ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto, model.codComponente,codServizio)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
+	«FILE fullServiceEJBClassesDir(codServizio,model)+"/"+serviceImplClassName()+".java"»
+package «getFullServiceEJBPkg(codServizio, model)»;
 
 import it.csi.csi.wrapper.*;
 
-import «fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,codServizio)».*;
-import «fullQualifiedServiceInterfacePkg(model.codProdotto, model.codComponente)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceInterfacePkg(model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 «IF monitorable||diagEnabled»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
@@ -586,17 +586,17 @@ classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
 ***************************************************************
 «ENDREM»
-«DEFINE javaOrchServiceDelegateClassFile (String svn_project_dir,SOABEModel model)FOR ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceEJBClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
+	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceImplClassName()+".java"»
+package «getFullServiceEJBPkg(codServizio, model)»;
 
 import it.csi.csi.wrapper.*;
 import it.csi.svcflow.orchestrator.engine.OswMainEngine;
 import com.opensymphony.workflow.WorkflowException;
 
-import «fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,codServizio)».*;
-import «fullQualifiedServiceInterfacePkg(model.codProdotto,model.codComponente)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceInterfacePkg(model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 «IF monitorable||diagEnabled»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
@@ -712,15 +712,15 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 test junit del servizio
 ***********************
 «ENDREM»
-«DEFINE javaServiceTestClassFile (String svn_project_dir,SOABEModel model)FOR ServiceDef»
-	«FILE svn_project_dir+"/"+fullServiceTestClassesDir(model.codProdotto,model.codComponente,codServizio)+"/"+serviceTestClassName()+".java"»
-package «getFullServiceTestPkg(model.codProdotto, model.codComponente,codServizio)»;
+«DEFINE javaServiceTestClassFile (SOABEModel model)FOR ServiceDef»
+	«FILE fullServiceTestClassesDir(codServizio, model)+"/"+serviceTestClassName()+".java"»
+package «getFullServiceTestPkg(codServizio,model)»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
-import «fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,codServizio)».*;
-import «fullQualifiedServiceInterfacePkg(model.codProdotto,model.codComponente)».*;
-import «fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,codServizio)».*;
+import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+import «fullQualifiedServiceInterfacePkg(model)».*;
+import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 import it.csi.csi.util.xml.*;
 import it.csi.csi.porte.*;
 import it.csi.csi.porte.proxy.*;
@@ -732,11 +732,11 @@ public class «serviceTestClassName()» extends TestCase{
 
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
-	«fullQualifiedServiceInterfaceName(model.codProdotto,model.codComponente)» pd = null;
+	«fullQualifiedServiceInterfaceName(model)» pd = null;
 	
 	public void setUp() throws Exception{
 		InfoPortaDelegata info = PDConfigReader.read("test/java/test/«removeSeparator(codServizio)+"/"+pdEJBDefFileName(this.bindings.typeSelect(EJBPABinding).first(),this)»");
-		pd = («fullQualifiedServiceInterfaceName(model.codProdotto,model.codComponente)»)
+		pd = («fullQualifiedServiceInterfaceName(model)»)
 			PDProxy.newInstance(info);
 	}
 	
@@ -788,7 +788,7 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-  public «map2javaType(this.returnType,model.codProdotto,model.codComponente, codServ)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -845,7 +845,7 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-  public «map2javaType(this.returnType,model.codProdotto,model.codComponente, codServ)» «this.name» (
+  public «map2javaType(this.returnType,codServ, model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -904,7 +904,7 @@ public class «serviceTestClassName()» extends TestCase{
 	     logger.debug("[«implClassName»::«name»] - END");
      «IF returnType!=null»
      	
-     	return («map2javaType(returnType,model.codProdotto,model.codComponente,codServ)»)persistentParams.get("result");
+     	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
      «ENDIF»
      «ENDPROTECT»
      	}
@@ -935,9 +935,9 @@ public class «serviceTestClassName()» extends TestCase{
 	}
 «ENDDEFINE»
 
-«DEFINE typedefs (String svn_project_dir, SOABEModel model,String codServ) FOR Types»
-	«EXPAND javaEntityClass(svn_project_dir, model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity)»
-	«EXPAND javaExceptionClass(svn_project_dir, model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception)»
+«DEFINE typedefs (SOABEModel model,String codServ) FOR Types»
+	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity)»
+	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception)»
 «ENDDEFINE»
 
 
@@ -946,9 +946,9 @@ public class «serviceTestClassName()» extends TestCase{
 classe dei dto (entity) usate nella signature del servizio
 **********************************************************
 «ENDREM»
-«DEFINE javaEntityClass (String svn_project_dir,SOABEModel model,String codServ)FOR Entity»
-	«FILE svn_project_dir+"/"+fullEntitiesDir(model.codProdotto,model.codComponente,codServ)+"/"+name+".java"»
-package «fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,codServ)»;
+«DEFINE javaEntityClass (SOABEModel model,String codServ)FOR Entity»
+	«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
+package «fullQualifiedEntitiesPkg(codServ, model)»;
 
   «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
   /**
@@ -977,9 +977,9 @@ public class «name» implements java.io.Serializable {
 «ENDDEFINE»
 
 «DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR Feature»
-	private «map2javaType(type,model.codProdotto, model.codComponente,codServ)» _«name» = «defaultInitVal(type)»;
+	private «map2javaType(type,codServ,model)» _«name» = «defaultInitVal(type)»;
 	
-	public void set«name.toFirstUpper()»(«map2javaType(type,model.codProdotto, model.codComponente,codServ)» val){
+	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
 		_«name» = val;
 	}
 	
@@ -1000,7 +1000,7 @@ public class «name» implements java.io.Serializable {
      *      </ul> 
    	 */
   	«ENDPROTECT»
-	public «map2javaType(type,model.codProdotto, model.codComponente,codServ)» get«name.toFirstUpper()»(){
+	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
 		return _«name»;
 	}
 «ENDDEFINE»
@@ -1011,9 +1011,9 @@ public class «name» implements java.io.Serializable {
 classe delle eccezioni custom
 ********************************
 «ENDREM»
-«DEFINE javaExceptionClass (String svn_project_dir,SOABEModel model,String codServ)FOR Exception»
-	«FILE svn_project_dir+"/"+fullServiceExceptionsDir(model.codProdotto,model.codComponente,codServ)+"/"+name+".java"»
-package «fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,codServ)»;
+«DEFINE javaExceptionClass (SOABEModel model,String codServ)FOR Exception»
+	«FILE fullServiceExceptionsDir(codServ, model)+"/"+name+".java"»
+package «fullQualifiedServiceExceptionPkg(codServ, model)»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UserException;

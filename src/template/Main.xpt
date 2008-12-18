@@ -4,7 +4,7 @@
 «IMPORT template::configfiles»
 «IMPORT template::papdconfigfiles»
 
-«EXTENSION template::CsiServiceAppExtensions»
+«EXTENSION template::ServicegenExtensions»
 
 «DEFINE main FOR SOABEModel»
 «EXPAND main2 FOR this»
@@ -32,11 +32,11 @@ per ogni componente è necessario creare la struttura del progetto SVN:
 - ...
  
 «ENDREM»
- «EXPAND buildfiles::buildfile (svn_project_dir) FOR this»
- «EXPAND buildfiles::buildproperties (svn_project_dir) FOR this»
- «EXPAND buildfiles::buildEnvProperties (svn_project_dir) FOR this»
- «EXPAND buildfiles::ivyfiles (svn_project_dir)FOR this»
- «EXPAND buildfiles::aboutfiles (svn_project_dir) FOR this»
+ «EXPAND buildfiles::buildfile FOR this»
+ «EXPAND buildfiles::buildproperties  FOR this»
+ «EXPAND buildfiles::buildEnvProperties FOR this»
+ «EXPAND buildfiles::ivyfiles FOR this»
+ «EXPAND buildfiles::aboutfiles FOR this»
  
  «REM»
  poi è necessario configurare i componenti j2ee necessari per l'implementazione 
@@ -62,20 +62,20 @@ per ogni componente è necessario creare la struttura del progetto SVN:
  «REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
  
  
- «EXPAND j2eeconfigfiles::applicationfiles (svn_project_dir) FOR this»
+ «EXPAND j2eeconfigfiles::applicationfiles  FOR this»
  «LET serviceDefs AS services»
- 	«EXPAND configfiles::serviceFiles(svn_project_dir, this) FOREACH services»
- 	«EXPAND javafiles::serviceFiles (svn_project_dir, this)FOREACH services»
+ 	«EXPAND configfiles::serviceFiles(this) FOREACH services»
+ 	«EXPAND javafiles::serviceFiles (this)FOREACH services»
  	«FOREACH services AS currsrv»
- 		«EXPAND javafiles::typedefs (svn_project_dir, this,currsrv.codServizio) FOR currsrv.types»
+ 		«EXPAND javafiles::typedefs (this,currsrv.codServizio) FOR currsrv.types»
  	«ENDFOREACH» 	
  «ENDLET»
  
  «REM»il file log4j è unico per tutto il componente«ENDREM»
- «EXPAND configfiles::log4jfiles(svn_project_dir) FOR this»
+ «EXPAND configfiles::log4jfiles FOR this»
  «REM»se c'e' almeno un servizio cooptrace enabled creao le config di log apposite«ENDREM»
  «IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
- 	«EXPAND papdconfigfiles::cooptracefiles(svn_project_dir) FOR this»
+ 	«EXPAND papdconfigfiles::cooptracefiles FOR this»
  «ENDIF»
 «ENDLET»	
 «ENDDEFINE»

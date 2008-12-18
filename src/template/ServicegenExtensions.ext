@@ -3,54 +3,52 @@ import typedef;
 import servicedef;
 
 /// standard generici J2EE Csi piemonte
-String getGeneratedJavaSrcDir() :
+String getGeneratedJavaSrcDir(SOABEModel model) :
 	"src/java";
 
-String getConfigRootDir() :
+String getConfigRootDir(SOABEModel model) :
   "conf";
 
-String getDocsRootDir() :
+String getDocsRootDir(SOABEModel model) :
   "docs";
 
-String getTestDir() :
+String getTestDir(SOABEModel model) :
   "test";
   
-String getTestJavaDir() :
+String getTestJavaDir(SOABEModel model) :
   "test/java";
  
-String getEjbConfigRootDir() :
-  getConfigRootDir()+"/ejb";
+String getEjbConfigRootDir(SOABEModel model) :
+  getConfigRootDir(model)+"/ejb";
   
-String getTestXmlFilesDir(String codServizio) :
-	getTestDir()+"/java/test/"+removeSeparator(codServizio);
+String getTestXmlFilesDir(String codServizio, SOABEModel model) :
+	getTestDir(model)+"/java/test/"+removeSeparator(codServizio);
   
   
-String getSpecificEjbConfigRootDir(String codEjb) :
-  getEjbConfigRootDir()+"/"+codEjb;
+String getSpecificEjbConfigRootDir(String codEjb, SOABEModel model) :
+  getEjbConfigRootDir(model)+"/"+codEjb;
   
-String getWarConfigRootDir() :
-  getConfigRootDir()+"/web";
+String getWarConfigRootDir(SOABEModel model) :
+  getConfigRootDir(model)+"/web";
   
 // conf/<tipobinding>/<codwar>
-String getSpecificWarConfigRootDir(String codBinding, String codWar) :
-  getWarConfigRootDir()+"/"+codBinding+"/"+codWar;
+String getSpecificWarConfigRootDir(String codBinding, String codWar, SOABEModel model) :
+  getWarConfigRootDir(model)+"/"+codBinding+"/"+codWar;
 
-String getWarResourcesRootDir() :
+String getWarResourcesRootDir(SOABEModel model) :
   "src/web";
   
-String getSpecificWarResourcesRootDir(String codBinding, String codWar) :
-  getWarResourcesRootDir()+"/"+codBinding+"/"+codWar;
+String getSpecificWarResourcesRootDir(String codBinding, String codWar, SOABEModel model) :
+  getWarResourcesRootDir(model)+"/"+codBinding+"/"+codWar;
   
-String getComponentJavaPkg(SOABEModel comp, String codProd) :
-  "it.csi."+codProd.toLowerCase()+"."+comp.codComponente.toLowerCase();
   
-String fullEjbStdClassesDir(String codProd, String codComp) :
-    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/business";
-    
-String getFullEJBStdPkg(String codProd, String codComp) :
-	    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".business";
+String fullEjbStdClassesDir(SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/business";
 
-String getSQLSrcDir(String codProd,String codComp) :
+String getFullEJBStdPkg(SOABEModel model) :
+	    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".business";
+	        
+String getSQLSrcDir(SOABEModel model) :
 	"src/sql";
 	    
 // STD: DSP_STD_0000_GUI_081007_V02_Logging.pdf#4.2
@@ -64,19 +62,19 @@ String getLoggerPrefixForComponent(String codProd, String codComponent) :
 ///// NAMING PACKAGE JAVA
 
 // full qualified name dell'interfaccia pubblica del servizio (java)
-String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, String codProd, String codComp) :
-    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
+String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, SOABEModel model) :
+    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
 
-String fullQualifiedEntitiesPkg(String codProd, String codComp, String codServ) :
-    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".dto."+removeSeparator(codServ);
+String fullQualifiedEntitiesPkg(String codServ, SOABEModel model) :
+    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".dto."+removeSeparator(codServ);
 
-String fullQualifiedServiceExceptionPkg(String codProd, String codComp, String codServ) :
-    "it.csi."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".exception."+removeSeparator(codServ);
+String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
+    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
 
-String getFullServiceEJBPkg(String codProd, String codComp, String codServ) :
-	getFullEJBStdPkg(codProd,codComp)+"."+removeSeparator(codServ);
+String getFullServiceEJBPkg(String codServ, SOABEModel model) :
+	getFullEJBStdPkg(model)+"."+removeSeparator(codServ);
 
-String getFullServiceTestPkg(String codProd, String codComp, String codServ) :
+String getFullServiceTestPkg(String codServ, SOABEModel model) :
 	"test"+"."+removeSeparator(codServ);
 	
 //// NAMING CLASSI
@@ -84,8 +82,8 @@ String getFullServiceTestPkg(String codProd, String codComp, String codServ) :
 String serviceInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Srv";
     	
-String fullQualifiedServiceInterfaceName(ServiceDef sd, String codProd, String codComp) :
-    fullQualifiedServiceInterfacePkg(sd,codProd,codComp)+"."+serviceInterfaceName(sd);
+String fullQualifiedServiceInterfaceName(ServiceDef sd, SOABEModel model) :
+    fullQualifiedServiceInterfacePkg(sd,model)+"."+serviceInterfaceName(sd);
 
 String serviceRemoteInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Remote";
@@ -94,11 +92,11 @@ String serviceLocalInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Local";
 
 
-String fullQualifiedServiceRemoteInterfaceName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio)+"."+serviceRemoteInterfaceName(sd);    
+String fullQualifiedServiceRemoteInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceRemoteInterfaceName(sd);    
     
-String fullQualifiedServiceLocalInterfaceName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio)+"."+serviceLocalInterfaceName(sd);
+String fullQualifiedServiceLocalInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceLocalInterfaceName(sd);
         
 String serviceHomeInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Home";
@@ -106,17 +104,17 @@ String serviceHomeInterfaceName(ServiceDef sd) :
 String serviceLocalHomeInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"LocalHome";
 	
-String fullQualifiedServiceHomeInterfaceName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio.toLowerCase())+"."+serviceHomeInterfaceName(sd);
+String fullQualifiedServiceHomeInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio.toLowerCase(), model)+"."+serviceHomeInterfaceName(sd);
 
-String fullQualifiedServiceLocalHomeInterfaceName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio.toLowerCase())+"."+serviceLocalHomeInterfaceName(sd);
+String fullQualifiedServiceLocalHomeInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio.toLowerCase(), model)+"."+serviceLocalHomeInterfaceName(sd);
  
 String serviceBeanClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Bean";
 
-String fullQualifiedServiceBeanClassName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio)+"."+serviceBeanClassName(sd);  
+String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
 
 String serviceImplClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Impl";
@@ -124,45 +122,45 @@ String serviceImplClassName(ServiceDef sd) :
 String serviceTestClassName(ServiceDef sd) :
 	"Test"+toCamel(sd.codServizio);	
 
-String fullQualifiedServiceImplClassName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceEJBPkg(codProd,codComp,sd.codServizio)+"."+serviceImplClassName(sd);  
+String fullQualifiedServiceImplClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceImplClassName(sd);  
 
-String fullQualifiedServiceTestClassName(EJBPABinding sb, String codProd, String codComp,ServiceDef sd) :
-    getFullServiceTestPkg(codProd,codComp,sd.codServizio)+"."+serviceTestClassName(sd);  
+String fullQualifiedServiceTestClassName(EJBPABinding sb,ServiceDef sd, SOABEModel model) :
+    getFullServiceTestPkg(sd.codServizio, model)+"."+serviceTestClassName(sd);  
 
 
 //// NAMING DIRECTORY
-String fullServiceInterfaceDir(ServiceDef sd, String codProd, String codComp,String codServ) :
-    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/interfacecsi/"+removeSeparator(codServ);
+String fullServiceInterfaceDir(ServiceDef sd, String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/interfacecsi/"+removeSeparator(codServ);
     
-String fullEntitiesDir(String codProd, String codComp, String codServ) :
-    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/dto/"+removeSeparator(codServ);
+String fullEntitiesDir(String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/dto/"+removeSeparator(codServ);
 
-String fullServiceExceptionsDir(String codProd, String codComp, String codServ) :
-    getGeneratedJavaSrcDir()+"/it/csi/"+codProd.toLowerCase()+"/"+codComp.toLowerCase()+"/exception/"+removeSeparator(codServ);
+String fullServiceExceptionsDir(String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/exception/"+removeSeparator(codServ);
 
-String fullServiceEJBClassesDir(String codProd, String codComp, String codServ) :
-    fullEjbStdClassesDir(codProd,codComp)+"/"+removeSeparator(codServ);
+String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
+    fullEjbStdClassesDir(model)+"/"+removeSeparator(codServ);
 
-String fullServiceTestClassesDir(String codProd, String codComp, String codServ) :
-    getTestJavaDir()+"/test"+"/"+removeSeparator(codServ);
+String fullServiceTestClassesDir(String codServ, SOABEModel model) :
+    getTestJavaDir(model)+"/test"+"/"+removeSeparator(codServ);
         
 // da par. 3.7 linee guida gestione oggetti SOA        
-String fullCSIRegistryConfigDir(String codProd, String codComp) :
-	getConfigRootDir()+"/registry";
+String fullCSIRegistryConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/registry";
 
 // da Dev. guide CSI
-String getfullRegistryDDFileName(String codProd, String codComp) :
-    fullCSIRegistryConfigDir(codProd,codComp)+"/deploy-descriptor.xml";
+String getfullRegistryDDFileName(SOABEModel model) :
+    fullCSIRegistryConfigDir(model)+"/deploy-descriptor.xml";
     
-String getFullRegistryServiceDir(String codProd, String codComp, ServiceDef sd) :
-	fullCSIRegistryConfigDir(codProd,codComp)+"/"+removeSeparator(sd.codServizio);
+String getFullRegistryServiceDir(ServiceDef sd, SOABEModel model) :
+	fullCSIRegistryConfigDir(model)+"/"+removeSeparator(sd.codServizio);
 
-String getRegistryPDFileName(String codProd, String codComp, ServiceDef sd, ServiceBinding bind, TargetPlatform tp) :
+String getRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
 	"defpd_"+removeSeparator(sd.codServizio)+"_"+decodeTipoInter(bind, tp)+".xml";
 	
-String getFullRegistryPDFileName(String codProd, String codComp, ServiceDef sd, ServiceBinding bind, TargetPlatform tp) :
-    fullCSIRegistryConfigDir(codProd,codComp)+"/"+getRegistryPDFileName(codProd,codComp,sd,bind,tp);
+String getFullRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
+    fullCSIRegistryConfigDir(model)+"/"+getRegistryPDFileName(sd,bind,tp, model);
     
 String decodeTipoInter(ServiceBinding sd, TargetPlatform tp) :
 	(sd.metaType==EJBPABinding ? 
@@ -173,7 +171,7 @@ String decodeTipoInter(ServiceBinding sd, TargetPlatform tp) :
      
     
 // metto anche i files di config svcflow divisi per modulo
-String svcflowConfDirForService(String codProd, String codComponente, String codServizio) :
+String svcflowConfDirForService(String codServizio, SOABEModel model) :
 	"conf/orchestrator/descriptor/"+removeSeparator(codServizio);	
 	
 //// NAMING per J2EE DESCRIPTORS e CONFIG PAPD
@@ -191,12 +189,12 @@ String getAsyncLtrBeanName(EJBPABinding pa, ServiceDef sd) :
 	toCamel(sd.codServizio)+"LTR";
 		
 // nome simbolico della PA
-String paSymName(EJBPABinding ejbpa, String codProd, String codComp, ServiceDef sd):
-    codComp+"."+toCamel(sd.codServizio)+"PA";
+String paSymName(EJBPABinding ejbpa, ServiceDef sd, SOABEModel model):
+    model.codComponente+"."+toCamel(sd.codServizio)+"PA";
 
 // posizione nel project svn delle configurazioni della singola PA
-String paConfigDir(String codComp, ServiceDef sd) :
-	getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio));
+String paConfigDir(ServiceDef sd, SOABEModel model) :
+	getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio), model);
 
 // è necessario differenziare con il codServ per evitare sovrapposizioni nel classloading
 String paDefFileName(EJBPABinding pa, ServiceDef sd) :
@@ -220,19 +218,19 @@ String svcflowDefinitionFileName(Operation op, String codServizio) :
 	removeSeparator(codServizio)+op.name.toFirstUpper()+".xml";
 	
 ///// NAMING JNDI e WEB
-String fullPAJndiName(String codProd, String codComp, ServiceDef sd) :
-    codComp+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
+String fullPAJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
 
-String fullQMGRJndiName(String codProd, String codComp, ServiceDef sd) :
-    codComp+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
+String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
     
 
 /// in realtà non dovrebbe servire...
-String fullLTRJndiName(String codProd, String codComp, ServiceDef sd) :
-    codComp+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
+String fullLTRJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
     
-String fullServiceJndiName(EJBPABinding sb, String codProd, String codComp, ServiceDef sd) :
-    codComp+".ejb."+toCamel(sd.codServizio)+"Srv";    
+String fullServiceJndiName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
 
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // § 3.4.1
@@ -246,38 +244,38 @@ String topicConnectionFactoryJndiName() :
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // § 3.4.2.2
 // nota: uso '.' invece che '/' perchè le librerie lo cercano col punto...
-String  paQueueJndiName(String codProd, String codComp, ServiceDef sd, String codBinding) :
-	codComp.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
+String  paQueueJndiName(ServiceDef sd, String codBinding, SOABEModel model) :
+	model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
 	
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // § 3.4.3
-String  paTopicJndiName(String codProd, String codComp, ServiceDef sd) :
-	codComp.toLowerCase()+"/jms/"+toCamel(sd.codServizio)+"Topic";
+String  paTopicJndiName(ServiceDef sd, SOABEModel model) :
+	model.codComponente.toLowerCase()+"/jms/"+toCamel(sd.codServizio)+"Topic";
 
-String counterDSJndiName(String codProd, String codComp, ServiceDef sd) :
-	codComp.toLowerCase()+"/jdbc/Counter"+toCamel(sd.codServizio)+"TxDS";
+String counterDSJndiName(ServiceDef sd, SOABEModel model) :
+	model.codComponente.toLowerCase()+"/jdbc/Counter"+toCamel(sd.codServizio)+"TxDS";
 	 	
 // tolto dal context l'ulteriore suffisso pabrsoap perchè appesantiva il context
 // senza dare valore aggiunto (il cod binding dovrebbe già discriminare)
-String pabrWebContext(String codComp, String codServ, String codBinding, String serviceType) :
-	codComp.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+String pabrWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
+	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
 
 // tolto dal context l'ulteriore suffisso wsfad perchè appesantiva il context
 // senza dare valore aggiunto (il cod binding dovrebbe già discriminare)
-String wsfadWebContext(String codComp, String codServ, String codBinding, String serviceType) :
-	codComp.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+String wsfadWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
+	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
     
 String asynchCounterTableName(ServiceDef sd) :
 	removeSeparator(sd.codServizio).toUpperCase()+"_COUNTER";    
 
 /// NAMING PACCHETTI
-String getEJBPAJarName(String codComp, String codServ, String codBinding, String srvType) :
+String getEJBPAJarName(String codServ, String codBinding, String srvType, SOABEModel model) :
 	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".jar";
 
-String getPABRWarName(String codComp, String codServ, String codBinding, String srvType) :
+String getPABRWarName(String codServ, String codBinding, String srvType, SOABEModel model) :
 	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".war";
 
-String getWSFADWarName(String codComp, String codServ, String codBinding, String srvType) :
+String getWSFADWarName(String codServ, String codBinding, String srvType, SOABEModel model) :
 	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".war";
 
 
@@ -315,15 +313,15 @@ String map2javaSimpleType(Type type) :
 	else 
   	"???";
 
-String map2javaType(Type type, String codProd, String codComp, String codServ) :
+String map2javaType(Type type, String codServ, SOABEModel model) :
 if (type==null) then
 	"void"
 else if (type.metaType==CSIDatatype) then
 	map2javaSimpleType(type)
 else if (type.metaType==Entity) then
-      fullQualifiedEntitiesPkg(codProd,codComp,codServ)+"."+type.name.toFirstUpper() 
+      fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
 else 
-	map2javaType(((TypedArray)type).componentType, codProd, codComp, codServ)+"[]";
+	map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
 
 String defaultInitVal(Type type) :
 	if(type==null) then

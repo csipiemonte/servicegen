@@ -9,8 +9,8 @@
 creazione del build.xml per ANT
 ********************************
 «ENDREM»
-«DEFINE buildfile (String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/build.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE buildfile  FOR SOABEModel»
+«FILE "build.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!--
 		Copyright 2006 (c) CSI Piemonte.
 
@@ -573,7 +573,7 @@ AS sharedLibsPath»
 </project>
 «ENDFILE»
 
-«FILE svn_project_dir+"/buildfiles/build.javadoc.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE "buildfiles/build.javadoc.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <project name="JAVADOC" default="javadoc" basedir=".">
 
     <target name="javadoc">
@@ -591,7 +591,7 @@ AS sharedLibsPath»
 </project>
 «ENDFILE»
 
-«FILE svn_project_dir+"/buildfiles/buildAxisTestStubs.xml"»<?xml version="1.0" encoding="UTF-8"?>
+«FILE "buildfiles/buildAxisTestStubs.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!--
 		Copyright 2006 (c) CSI Piemonte.
 
@@ -716,8 +716,8 @@ creazione del build.properties richiamato dal build ANT
 *******************************************************
 «ENDREM»
 
-«DEFINE buildproperties (String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/buildfiles/build.properties"»
+«DEFINE buildproperties  FOR SOABEModel»
+«FILE "buildfiles/build.properties"»
 #==================
 # General settings
 #==================
@@ -819,7 +819,7 @@ web.enabled = true
 
 «ENDFILE»
 
-«FILE svn_project_dir+"/buildfiles/dev.properties"»
+«FILE "buildfiles/dev.properties"»
 #file di configurazione per l'ambiente DEV
 «PROTECT CSTART '##<' CEND '##>' ID "devprops"+codComponente»
 «ENDPROTECT»
@@ -834,8 +834,8 @@ creazione del file di configurazione IVY
 ****************************************
 «ENDREM»
 
-«DEFINE ivyfiles (String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/buildfiles/ivy.xml"»
+«DEFINE ivyfiles  FOR SOABEModel»
+«FILE "buildfiles/ivy.xml"»
 <ivy-module version="1.0">
 
 	<info organisation="csipiemonte" module="«codComponente.toLowerCase()»" />
@@ -926,7 +926,7 @@ creazione del file di configurazione IVY
 </ivy-module>
 «ENDFILE»
 
-«FILE svn_project_dir+"/buildfiles/ivyconf.xml"»
+«FILE "buildfiles/ivyconf.xml"»
 <ivyconf>
   <conf defaultCache="build/cache" defaultResolver="myUrlResolver"/>
   <resolvers>
@@ -950,8 +950,8 @@ creazione del file di configurazione IVY
 creazione dei file 'about' previsto dagli standard
 **************************************************
 «ENDREM»
-«DEFINE aboutfiles (String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/buildfiles/about.txt"»
+«DEFINE aboutfiles  FOR SOABEModel»
+«FILE "buildfiles/about.txt"»
 TARGET PUBBLICI
 
  **********************************************************************
@@ -999,7 +999,7 @@ TARGET PUBBLICI
  
 «ENDFILE»
 
-«FILE svn_project_dir+"/buildfiles/aboutCustom.txt"»
+«FILE "buildfiles/aboutCustom.txt"»
  TARGET
 
  **********************************************************************
@@ -1010,8 +1010,8 @@ TARGET PUBBLICI
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE buildEnvProperties(String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/buildfiles/env.properties"»
+«DEFINE buildEnvProperties FOR SOABEModel»
+«FILE "buildfiles/env.properties"»
 JAVA_HOME=jdk_1_5_0_11
 JAVA_HOME_SERVER=jdk_1_5_0_11
 JAVA_HOME_CLIENT=jdk_1_4_2_05

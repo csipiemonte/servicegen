@@ -4,22 +4,22 @@
 
 «EXTENSION template::ServicegenExtensions»
 
-«DEFINE defpafile (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
-«FILE svn_project_dir+"/"+paConfigDir(model.codComponente,serviceDef)+"/"+paDefFileName(serviceDef)»<porta-applicativa name="«this.paSymName(model.codProdotto, model.codComponente,serviceDef)»"
-	public-interface-class="«serviceDef.fullQualifiedServiceInterfaceName(model.codProdotto,model.codComponente)»">
+«DEFINE defpafile (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+«FILE paConfigDir(serviceDef, model)+"/"+paDefFileName(serviceDef)»<porta-applicativa name="«this.paSymName(serviceDef, model)»"
+	public-interface-class="«serviceDef.fullQualifiedServiceInterfaceName(model)»">
 
 	<listener class="it.csi.csi.porte.ejb20.PortaApplicativaEJB" listening-url="**NOT USED IN THIS BINDING TYPE**" />
 
 	<adapter class="it.csi.csi.wrapper.StatelessEJBAdapter">
 		<properties>
 			<!--<property name="jndi-name"
-				value="«fullServiceJndiName(model.codProdotto, model.codComponente, serviceDef)»" />-->
+				value="«fullServiceJndiName(serviceDef, model)»" />-->
 			<property name="jndi-name"
 				value="java:comp/env/«getServiceBeanName(serviceDef)»" />				
 			<property name="home-class"
-				value="«fullQualifiedServiceLocalHomeInterfaceName(model.codProdotto,model.codComponente,serviceDef)»" />
+				value="«fullQualifiedServiceLocalHomeInterfaceName(serviceDef, model)»" />
 			<property name="local-class"
-				value="«fullQualifiedServiceLocalInterfaceName(model.codProdotto,model.codComponente,serviceDef)»" />
+				value="«fullQualifiedServiceLocalInterfaceName(serviceDef, model)»" />
 		</properties>
 	</adapter>
 	<options>
@@ -40,8 +40,8 @@
 
 
 «REM»file di configurazione per coop-diag«ENDREM»
-«DEFINE coopdiagfile(String svn_project_dir, servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-	«FILE svn_project_dir+"/"+getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio))+"/checked_resources_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="utf-8"?>
+«DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
+	«FILE getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio),model)+"/checked_resources_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="utf-8"?>
 <DiagnosticEngineConfig>
 «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("calledResources"+model.codComponente+sd.codServizio)»
 	<!--
@@ -98,8 +98,8 @@
 «ENDDEFINE»
 
 «REM»crea il file di PD nella directory test/xml«ENDREM»
-«DEFINE defpdejbfile (String svn_project_dir, servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«FILE svn_project_dir+"/"+getTestXmlFilesDir(sd.codServizio)+"/"+pdEJBDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
+«FILE getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
   </services>
@@ -109,8 +109,8 @@
       <pluggable-pd
         name="«removeSeparator(sd.codServizio)»"
         class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
-        url-pa="«fullPAJndiName(model.codProdotto, model.codComponente,sd)»"
-        url-qm="«fullQMGRJndiName(model.codProdotto, model.codComponente, sd)»">
+        url-pa="«fullPAJndiName(sd,model)»"
+        url-qm="«fullQMGRJndiName(sd, model)»">
         <properties>
           <property name="java.naming.provider.url" value="@be.pa.url@"/>
           «IF model.targetPlatform.code==TargetPlatformCodes::WLS92»
@@ -139,8 +139,8 @@
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE defpdsoapfile (String svn_project_dir, servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
-«FILE svn_project_dir+"/"+getTestXmlFilesDir(sd.codServizio)+"/"+pdSOAPDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
+«FILE getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
   </services>
@@ -150,7 +150,7 @@
       <pluggable-pd
         name="«removeSeparator(sd.codServizio)»"
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-        url-pa="@url_pabr@/«pabrWebContext(model.codComponente, sd.codServizio, this.codBinding, sd.serviceType.toString())»/servlet/rpcrouter"
+        url-pa="@url_pabr@/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)»/servlet/rpcrouter"
         url-qm="">
         <properties>
           <!--<property name="csi.ssl.keystore.location" value="c:/progetti/test_csi/resource/client.keystore" />-->
@@ -169,7 +169,7 @@
 
 «REM»invariante per le varie pd«ENDREM»
 «DEFINE pdservicedef(SOABEModel model) FOR ServiceDef»
-<service name="«removeSeparator(codServizio)»" public-interface-class="«fullQualifiedServiceInterfaceName(this, model.codProdotto, model.codComponente)»" top-version="«versione»">
+<service name="«removeSeparator(codServizio)»" public-interface-class="«fullQualifiedServiceInterfaceName(this, model)»" top-version="«versione»">
       <operations>
       «EXPAND pdopdef (model, codServizio)FOREACH this.operations»
       «IF monitorable»
@@ -206,7 +206,7 @@
           <param name="datiMsg" type="it.csi.csi.util.DatiMessaggio" />
           «ENDIF»
           </param-list>
-          «LET map2javaType(returnType, model.codProdotto, model.codComponente, codServ) AS retType»
+          «LET map2javaType(returnType, codServ, model) AS retType»
           	«LET retType==null?"void":retType AS retTypeOrVoid»
           	<ret-val type="«retTypeOrVoid»"/>
           	«ENDLET»
@@ -215,11 +215,11 @@
 «ENDDEFINE»
 
 «DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param»
-			<param name="name" type="«map2javaType(type, model.codProdotto, model.codComponente, codServ)»" />
+			<param name="name" type="«map2javaType(type, codServ, model)»" />
 «ENDDEFINE»
 
-«DEFINE defpdejbembeddedinwsfad (String svn_project_dir, servicegen::SOABEModel model, ServiceDef sd) FOR WSFADBinding»
-«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(sd.codServizio))+"/defpdelegata_embedded_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+«DEFINE defpdejbembeddedinwsfad (servicegen::SOABEModel model, ServiceDef sd) FOR WSFADBinding»
+«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(sd.codServizio),model)+"/defpdelegata_embedded_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
   </services>
@@ -229,7 +229,7 @@
       <pluggable-pd
         name="«removeSeparator(sd.codServizio)»"
         class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
-        url-pa="«fullPAJndiName(model.codProdotto, model.codComponente, sd)»"
+        url-pa="«fullPAJndiName(sd, model)»"
         url-qm="">
         <properties>
         </properties>
@@ -288,13 +288,13 @@
 
 
 «REM»artefatti per deploy in servizio di naming (1 per componente prodotto)«ENDREM»
-«DEFINE registryArtifacts(String svn_project_dir, TargetPlatform tp) FOR SOABEModel»
-	«EXPAND registryDeployFile (svn_project_dir,tp) FOR this»
-	«EXPAND registryPD(svn_project_dir, this) FOREACH this.serviceimplementations»
+«DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModel»
+	«EXPAND registryDeployFile (tp) FOR this»
+	«EXPAND registryPD(this) FOREACH this.serviceimplementations»
 «ENDDEFINE»
 
-«DEFINE registryDeployFile(String svn_project_dir, TargetPlatform tp) FOR SOABEModel»
-«FILE svn_project_dir+"/"+getfullRegistryDDFileName(codProdotto,codComponente)»<?xml version="1.0" encoding="UTF-8" ?>
+«DEFINE registryDeployFile(TargetPlatform tp) FOR SOABEModel»
+«FILE getfullRegistryDDFileName(this)»<?xml version="1.0" encoding="UTF-8" ?>
 <deploy-descriptor 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
@@ -339,11 +339,11 @@
 		  <endpoint>
 		  «IF currBind.metaType!=WSFADBinding»
 		  	<csi-endpoint 
-                      pd-file="«removeSeparator(currSD.codServizio)+"/"+getRegistryPDFileName(codProdotto,codComponente,currSD,currBind,tp)»">
+                      pd-file="«removeSeparator(currSD.codServizio)+"/"+getRegistryPDFileName(currSD,currBind,tp, this)»">
 		    </csi-endpoint>
 		  «ELSE»
 		    <ws-endpoint>
-		    	<url>${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}/«wsfadWebContext(codComponente,removeSeparator(currSD.codServizio),currBind.codBinding,currSD.serviceType.toString())»</url>
+		    	<url>${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}/«wsfadWebContext(removeSeparator(currSD.codServizio),currBind.codBinding,currSD.serviceType.toString(), this)»</url>
 		    	<wsdl>#####TODO######</wsdl>
 		    </ws-endpoint>
 		  «ENDIF»
@@ -362,7 +362,7 @@
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE registryPD(String svn_project_dir, SOABEModel model) FOR ServiceImpl»
+«DEFINE registryPD(SOABEModel model) FOR ServiceImpl»
 «ENDDEFINE»
 
 
@@ -370,8 +370,8 @@
 
 «REM»file di configurazione per features asincrone«ENDREM»
 
-«DEFINE asynchCfgFiles(String svn_project_dir, SOABEModel model, EJBPABinding pa) FOR ServiceDef»
-«FILE svn_project_dir+"/"+paConfigDir(model.codComponente,this)+"/"+qmgrDefFileName(this)»<queue-manager-conf
+«DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDef»
+«FILE paConfigDir(model)+"/"+qmgrDefFileName(this)»<queue-manager-conf
   listening-url="*not-used*" name="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)».PDD_QMGR" >
   <jms-queue-jndi-props>
 <!-- la configurazione jndi del server jms e' implicita nella maggiorparte dei casi -->
@@ -380,7 +380,7 @@
   </jms-queue-jndi-props>
   <jms-queue-connection-factory jndi-name="«queueConnectionFactoryJndiName()»" />
   <service-activator-config
-    activated-interface="«fullQualifiedServiceInterfaceName(this, model.codProdotto, model.codComponente)»"
+    activated-interface="«fullQualifiedServiceInterfaceName(this, model)»"
     retry-delay="10000"
     max-retry="10"
     counter-name="«asynchCounterTableName(this)»"
@@ -390,13 +390,13 @@
   <port-queue-map>
     <!-- il nome della porta deve coincidere con il nasme nel pluggable-pd del client! -->
     <map port-name="«removeSeparator(codServizio)»" 
-    	 queue-jndi-name="«paQueueJndiName(model.codProdotto, model.codComponente, this, pa.codBinding)»" />
+    	 queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
   </port-queue-map>
 </queue-manager-conf>
 «ENDFILE»
 
 «REM»file di istruzioni per creazione code e tabelle«ENDREM»
-«FILE svn_project_dir+"/"+getDocsRootDir()+"/"+removeSeparator(codServizio)+"/README_ASYNCH.txt"»
+«FILE getDocsRootDir(model)+"/"+removeSeparator(codServizio)+"/README_ASYNCH.txt"»
 Istruzioni per la creazione degli oggetti di supporto all'asincronicità
 del servizio "«codServizio»".
 
@@ -406,19 +406,19 @@ del servizio "«codServizio»".
    di nome "«queueConnectionFactoryJndiName()»";
 3) creare un datasource con le seguenti caratteristiche:
    - name: Counter«toCamel(codServizio)»TxDS (standard opzionale)
-   - jndi-name: «counterDSJndiName(model.codProdotto, model.codComponente, this)»;
+   - jndi-name: «counterDSJndiName(this, model)»;
    - puntamento al DB che ospita la tabella creata al punto (1);
-4) creare la coda associata alla PA del servizio, con jndi name = «paQueueJndiName(model.codProdotto, model.codComponente, this, pa.codBinding)»;
+4) creare la coda associata alla PA del servizio, con jndi name = «paQueueJndiName(this, pa.codBinding, model)»;
 «ENDFILE»
 «ENDDEFINE»
 
 
-«DEFINE soappabrdeploy (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio))+"/WEB-INF/deploysoapejb-"+removeSeparator(serviceDef.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE soappabrdeploy (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
+«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio), model)+"/WEB-INF/deploysoapejb-"+removeSeparator(serviceDef.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="UTF-8"?>
 <isd:service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:«removeSeparator(serviceDef.codServizio)»">
   <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
                 scope="Application" methods="invokeSynch invokeAsynch">
-    <isd:option key="JNDIName" value="«fullPAJndiName(model.codProdotto, model.codComponente,serviceDef)»"/>
+    <isd:option key="JNDIName" value="«fullPAJndiName(serviceDef, model)»"/>
     <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
   </isd:provider>
   <isd:faultListener>org.apache.soap.server.ExceptionFaultListener</isd:faultListener>
@@ -438,8 +438,8 @@ del servizio "«codServizio»".
 		-inserimento nelle def pd e pa dei PFH di coop-trace (viene fatto in appositi template richiamati dai template che creano 
 		 le def pd e pa  
 «ENDREM»
-«DEFINE cooptracefiles(String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/"+getDocsRootDir()+"/log4j_"+codComponente+".xml"»<?xml version="1.0" encoding="UTF-8" ?>
+«DEFINE cooptracefiles FOR SOABEModel»
+«FILE getDocsRootDir(this)+"/log4j_"+this.codComponente+".xml"»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <!-- deve essere inserito nella directory 
     /appserv/bea/beahome/beaConfigManaged/config/<dominio> -->

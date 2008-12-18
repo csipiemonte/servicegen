@@ -5,7 +5,7 @@
 	<property name="model" value="${modelfile}" />
 	
 	
-	<property name="src-gen" value="src-gen" />
+	<property name="src-gen" value="../provasrv" />
 	
 	
 	<!-- set up EMF for standalone execution -->

@@ -12,38 +12,38 @@ l'implementazione della Specific Platform (CSI over J2EE)
 «ENDREM»
 
 
-«DEFINE ejbpafiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
-  «EXPAND papdconfigfiles::defpafile (svn_project_dir, model, serviceDef) FOR this»
-  «EXPAND j2eeconfigfiles::defejbjarfiles (svn_project_dir, model, serviceDef) FOR this»
-  «EXPAND papdconfigfiles::defpdejbfile (svn_project_dir, model, serviceDef) FOR this»
+«DEFINE ejbpafiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+  «EXPAND papdconfigfiles::defpafile (model, serviceDef) FOR this»
+  «EXPAND j2eeconfigfiles::defejbjarfiles (model, serviceDef) FOR this»
+  «EXPAND papdconfigfiles::defpdejbfile (model, serviceDef) FOR this»
   «IF serviceDef.monitorable || serviceDef.diagEnabled»
-  	«EXPAND papdconfigfiles::coopdiagfile(svn_project_dir, model, serviceDef) FOR this»
+  	«EXPAND papdconfigfiles::coopdiagfile(model, serviceDef) FOR this»
   «ENDIF»
   «LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
 	  «IF asynchOps.size>0»
-	  	«EXPAND papdconfigfiles::asynchCfgFiles(svn_project_dir, model, this) FOR serviceDef»
+	  	«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDef»
 	  «ENDIF»
   «ENDLET»
 «ENDDEFINE»
 
-«DEFINE serviceFiles (String svn_project_dir, SOABEModel model) FOR ServiceDef»
+«DEFINE serviceFiles (SOABEModel model) FOR ServiceDef»
   
   «FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS pa»
-    «EXPAND ejbpafiles(svn_project_dir, model, this) FOR pa»
+    «EXPAND ejbpafiles(model, this) FOR pa»
     
   «ENDFOREACH»
   
   «FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabr»
-    «EXPAND soappabrfiles(svn_project_dir, model ,this) FOR pabr»
+    «EXPAND soappabrfiles(model ,this) FOR pabr»
   «ENDFOREACH»
   
   «FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
-    «EXPAND wsfadfiles(svn_project_dir, model, this) FOR wsfad»
+    «EXPAND wsfadfiles(model, this) FOR wsfad»
   «ENDFOREACH»
   
   «LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOps»
   «IF asynchOps.size>0»
-  «FILE svn_project_dir+"/"+getSQLSrcDir(model.codProdotto,model.codComponente)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
+  «FILE getSQLSrcDir(model)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
 
 DROP TABLE «asynchCounterTableName(this)» CASCADE CONSTRAINTS ; 
 
@@ -74,10 +74,10 @@ COMMIT;
 	File del bridge soap (web-app)
 *************************************
 «ENDREM»
-«DEFINE soappabrfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
-	«EXPAND j2eeconfigfiles::soappabrwebxml(svn_project_dir,model, serviceDef) FOR this»
-	«EXPAND papdconfigfiles::soappabrdeploy(svn_project_dir,model, serviceDef) FOR this»
-	«EXPAND papdconfigfiles::defpdsoapfile (svn_project_dir, model, serviceDef) FOR this»
+«DEFINE soappabrfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
+	«EXPAND j2eeconfigfiles::soappabrwebxml(model, serviceDef) FOR this»
+	«EXPAND papdconfigfiles::soappabrdeploy(model, serviceDef) FOR this»
+	«EXPAND papdconfigfiles::defpdsoapfile (model, serviceDef) FOR this»
 «ENDDEFINE»
 
 
@@ -88,16 +88,16 @@ COMMIT;
 	File per front adapter web-services
 ******************************************
 «ENDREM»
-«DEFINE wsfadfiles (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-	«EXPAND j2eeconfigfiles::wsfadwebxml(svn_project_dir,model, serviceDef) FOR this»
-	«EXPAND axisstaticresources(svn_project_dir,model, serviceDef) FOR this»
-	«EXPAND serverconfigwsdd(svn_project_dir,model,serviceDef) FOR this»
-	«EXPAND papdconfigfiles::defpdejbembeddedinwsfad(svn_project_dir,model,serviceDef) FOR this»
+«DEFINE wsfadfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+	«EXPAND j2eeconfigfiles::wsfadwebxml(model, serviceDef) FOR this»
+	«EXPAND axisstaticresources(model, serviceDef) FOR this»
+	«EXPAND serverconfigwsdd(model,serviceDef) FOR this»
+	«EXPAND papdconfigfiles::defpdejbembeddedinwsfad(model,serviceDef) FOR this»
 «ENDDEFINE»
 
 
-«DEFINE axisstaticresources (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/index.html"»<html>
+«DEFINE axisstaticresources (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/index.html"»<html>
 
 <head>
 <meta http-equiv="Content-Type"
@@ -132,7 +132,7 @@ versions. We strongly recommend you download and install
 </body>
 </html>
 «ENDFILE»
-«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/happyaxis.jsp"»<html>
+«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/happyaxis.jsp"»<html>
 <%@ page import="java.io.InputStream,
                  java.io.IOException,
                  javax.xml.parsers.SAXParser,
@@ -652,7 +652,7 @@ versions. We strongly recommend you download and install
 </body>
 </html>
 «ENDFILE»
-«FILE svn_project_dir+"/"+getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/fingerprint.jsp"»<%@ page import="java.io.File,
+«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/fingerprint.jsp"»<%@ page import="java.io.File,
                  java.io.IOException,
                  java.util.Date"
     session="false" %>
@@ -924,8 +924,8 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE serverconfigwsdd (String svn_project_dir, servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-«FILE svn_project_dir+"/"+getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio))+"/WEB-INF/server-config.wsdd"»<?xml version="1.0" encoding="UTF-8"?>
+«DEFINE serverconfigwsdd (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
+«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/server-config.wsdd"»<?xml version="1.0" encoding="UTF-8"?>
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
  <globalConfiguration>
   <parameter name="adminPassword" value="admin"/>
@@ -963,7 +963,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <parameter name="wsdlPortType" value="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" />
   <parameter name="allowedMethods" value="*"/>
   <parameter name="defPDResource" value="/defpdelegata_embedded_«removeSeparator(serviceDef.codServizio).toLowerCase()».xml"/>
-  <parameter name="className" value="«fullQualifiedServiceInterfaceName(serviceDef, model.codProdotto, model.codComponente)»"/>
+  <parameter name="className" value="«fullQualifiedServiceInterfaceName(serviceDef, model)»"/>
   <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
@@ -972,11 +972,11 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   <!-- mapping delle user defined entities -->
   «FOREACH serviceDef.types.types.typeSelect(Entity) AS bean»
-  <beanMapping languageSpecificType="java:«fullQualifiedEntitiesPkg(model.codProdotto,model.codComponente,serviceDef.codServizio)».«bean.name»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:«fullQualifiedEntitiesPkg(serviceDef.codServizio,model)».«bean.name»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   «ENDFOREACH»
   <!-- mapping delle user defined exceptions -->
   «FOREACH serviceDef.types.types.typeSelect(Exception) AS exception»
-  <beanMapping languageSpecificType="java:«fullQualifiedServiceExceptionPkg(model.codProdotto,model.codComponente,serviceDef.codServizio)».«exception.name»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:«fullQualifiedServiceExceptionPkg(serviceDef.codServizio,model)».«exception.name»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   «ENDFOREACH»
  </service>
 
@@ -1002,8 +1002,8 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 
 
 «REM»frammento log4j con log e stopwatch«ENDREM»
-«DEFINE log4jfiles(String svn_project_dir) FOR SOABEModel»
-«FILE svn_project_dir+"/"+getDocsRootDir()+"/log4j_"+this.codComponente+".properties"»
+«DEFINE log4jfiles FOR SOABEModel»
+«FILE getDocsRootDir()+"/log4j_"+this.codComponente+".properties"»
 #-------------------------------------------------------------------
 # configurazione dei logger per il componente «this.codComponente»
 #-------------------------------------------------------------------
@@ -1038,7 +1038,7 @@ log4j.appender.«logger_name».util.stopwatch.file.layout.ConversionPattern=%t,%d{
 «ENDLET»
 «ENDFILE»
 
-«FILE svn_project_dir+"/"+getDocsRootDir()+"/README.txt"»
+«FILE getDocsRootDir()+"/README.txt"»
 Istruzioni per l'utilizzo dei files contenuti in questa directory.
 
 - «"log4j_"+this.codComponente+".properties"»: 
