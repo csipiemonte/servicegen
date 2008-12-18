@@ -12,8 +12,8 @@
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
-            uri="http://www.csi.it/mddtools/typedef"
-            class="it.csi.mddtools.typedef.provider.TypedefItemProviderAdapterFactory"
+            uri="http://www.csi.it/mddtools/servicegen"
+            class="it.csi.mddtools.servicegen.provider.ServicegenItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider
@@ -24,9 +24,9 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://www.csi.it/mddtools/typedef"
-            class="it.csi.mddtools.typedef.TypedefPackage"
-            genModel="src/metamodel/typedef_metamodel.genmodel"/>
+            uri="http://www.csi.it/mddtools/servicegen"
+            class="it.csi.mddtools.servicegen.ServicegenPackage"
+            genModel="src/metamodel/servicegen_metamodel.genmodel"/>
    </extension>
 
 </plugin>

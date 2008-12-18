@@ -8,7 +8,16 @@ Bundle-Activator: it.csi.mddtools.typedef.provider.Typedef_metamodelEditPlugin$I
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Export-Package: it.csi.mddtools.servicedef,
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.edit;visibility:=reexport,
+ org.openarchitectureware.dependencies;bundle-version="4.3.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: it.csi.mddtools.appresources,
+ it.csi.mddtools.appresources.impl,
+ it.csi.mddtools.appresources.provider,
+ it.csi.mddtools.appresources.util,
+ it.csi.mddtools.servicedef,
  it.csi.mddtools.servicedef.impl,
  it.csi.mddtools.servicedef.provider,
  it.csi.mddtools.servicedef.util,
@@ -21,8 +30,3 @@ Export-Package: it.csi.mddtools.servicedef,
  it.csi.mddtools.typedef.impl,
  it.csi.mddtools.typedef.provider,
  it.csi.mddtools.typedef.util
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.edit;visibility:=reexport,
- org.openarchitectureware.dependencies;bundle-version="4.3.0"
-Bundle-ActivationPolicy: lazy
