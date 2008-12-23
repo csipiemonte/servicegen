@@ -46,10 +46,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="since" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="authorizedRoles" upperBound="-1"
         eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" eType="#//InputValidator"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Param">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass typedef_metamodel.ecore#//Type"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" eType="#//ParamValidator"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OpTypeEnum">
     <eLiterals name="synch"/>
@@ -82,4 +87,67 @@
   <eClassifiers xsi:type="ecore:EClass" name="Role">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputValidator">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ParamConstraint"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParamValidator">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueRangeConstraint" abstract="true"
+      eSuperTypes="#//SimpleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueValorizationConstraint" eSuperTypes="#//SimpleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mustNotBeNull" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomConstraint" eSuperTypes="#//SimpleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkMethodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelativeConstraint" eSuperTypes="#//SimpleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueConstraint" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleParamCoinstraint" eSuperTypes="#//ParamConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//Param"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeParamConstraint" abstract="true"
+      eSuperTypes="#//ParamConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+        eType="#//ParamConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDParamConstraint" eSuperTypes="#//CompositeParamConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ORParamConstraint" eSuperTypes="#//CompositeParamConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParamConstraint" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTParamConstraint" eSuperTypes="#//CompositeParamConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeValueConstraint" abstract="true"
+      eSuperTypes="#//ValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+        eType="#//ValueConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDValueConstraint" eSuperTypes="#//CompositeValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ORValueConstraint" eSuperTypes="#//CompositeValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTValueConstraint" eSuperTypes="#//CompositeValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleValueConstraint" abstract="true"
+      eSuperTypes="#//ValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EClass0"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ContinuousRangeConstraint" eSuperTypes="#//ValueRangeConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DiscreteRangeConstraint" eSuperTypes="#//ValueRangeConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="literals" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureConstraint" abstract="true" eSuperTypes="#//ValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeFeatureConstraint" abstract="true"
+      eSuperTypes="#//FeatureConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleFeatureConstraint" eSuperTypes="#//FeatureConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="ecore:EClass typedef_metamodel.ecore#//Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass typedef_metamodel.ecore#//Feature"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ORFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint"/>
 </ecore:EPackage>

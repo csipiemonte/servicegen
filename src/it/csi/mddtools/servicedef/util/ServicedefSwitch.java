@@ -156,6 +156,212 @@ public class ServicedefSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ServicedefPackage.INPUT_VALIDATOR: {
+				InputValidator inputValidator = (InputValidator)theEObject;
+				T result = caseInputValidator(inputValidator);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.PARAM_VALIDATOR: {
+				ParamValidator paramValidator = (ParamValidator)theEObject;
+				T result = caseParamValidator(paramValidator);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.VALUE_RANGE_CONSTRAINT: {
+				ValueRangeConstraint valueRangeConstraint = (ValueRangeConstraint)theEObject;
+				T result = caseValueRangeConstraint(valueRangeConstraint);
+				if (result == null) result = caseSimpleValueConstraint(valueRangeConstraint);
+				if (result == null) result = caseValueConstraint(valueRangeConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.VALUE_VALORIZATION_CONSTRAINT: {
+				ValueValorizationConstraint valueValorizationConstraint = (ValueValorizationConstraint)theEObject;
+				T result = caseValueValorizationConstraint(valueValorizationConstraint);
+				if (result == null) result = caseSimpleValueConstraint(valueValorizationConstraint);
+				if (result == null) result = caseValueConstraint(valueValorizationConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.CUSTOM_CONSTRAINT: {
+				CustomConstraint customConstraint = (CustomConstraint)theEObject;
+				T result = caseCustomConstraint(customConstraint);
+				if (result == null) result = caseSimpleValueConstraint(customConstraint);
+				if (result == null) result = caseValueConstraint(customConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.RELATIVE_CONSTRAINT: {
+				RelativeConstraint relativeConstraint = (RelativeConstraint)theEObject;
+				T result = caseRelativeConstraint(relativeConstraint);
+				if (result == null) result = caseSimpleValueConstraint(relativeConstraint);
+				if (result == null) result = caseValueConstraint(relativeConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.VALUE_CONSTRAINT: {
+				ValueConstraint valueConstraint = (ValueConstraint)theEObject;
+				T result = caseValueConstraint(valueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.SIMPLE_PARAM_COINSTRAINT: {
+				SimpleParamCoinstraint simpleParamCoinstraint = (SimpleParamCoinstraint)theEObject;
+				T result = caseSimpleParamCoinstraint(simpleParamCoinstraint);
+				if (result == null) result = caseParamConstraint(simpleParamCoinstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.COMPOSITE_PARAM_CONSTRAINT: {
+				CompositeParamConstraint compositeParamConstraint = (CompositeParamConstraint)theEObject;
+				T result = caseCompositeParamConstraint(compositeParamConstraint);
+				if (result == null) result = caseParamConstraint(compositeParamConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.AND_PARAM_CONSTRAINT: {
+				ANDParamConstraint andParamConstraint = (ANDParamConstraint)theEObject;
+				T result = caseANDParamConstraint(andParamConstraint);
+				if (result == null) result = caseCompositeParamConstraint(andParamConstraint);
+				if (result == null) result = caseParamConstraint(andParamConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.OR_PARAM_CONSTRAINT: {
+				ORParamConstraint orParamConstraint = (ORParamConstraint)theEObject;
+				T result = caseORParamConstraint(orParamConstraint);
+				if (result == null) result = caseCompositeParamConstraint(orParamConstraint);
+				if (result == null) result = caseParamConstraint(orParamConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.PARAM_CONSTRAINT: {
+				ParamConstraint paramConstraint = (ParamConstraint)theEObject;
+				T result = caseParamConstraint(paramConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.NOT_PARAM_CONSTRAINT: {
+				NOTParamConstraint notParamConstraint = (NOTParamConstraint)theEObject;
+				T result = caseNOTParamConstraint(notParamConstraint);
+				if (result == null) result = caseCompositeParamConstraint(notParamConstraint);
+				if (result == null) result = caseParamConstraint(notParamConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.COMPOSITE_VALUE_CONSTRAINT: {
+				CompositeValueConstraint compositeValueConstraint = (CompositeValueConstraint)theEObject;
+				T result = caseCompositeValueConstraint(compositeValueConstraint);
+				if (result == null) result = caseValueConstraint(compositeValueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.AND_VALUE_CONSTRAINT: {
+				ANDValueConstraint andValueConstraint = (ANDValueConstraint)theEObject;
+				T result = caseANDValueConstraint(andValueConstraint);
+				if (result == null) result = caseCompositeValueConstraint(andValueConstraint);
+				if (result == null) result = caseValueConstraint(andValueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.OR_VALUE_CONSTRAINT: {
+				ORValueConstraint orValueConstraint = (ORValueConstraint)theEObject;
+				T result = caseORValueConstraint(orValueConstraint);
+				if (result == null) result = caseCompositeValueConstraint(orValueConstraint);
+				if (result == null) result = caseValueConstraint(orValueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.NOT_VALUE_CONSTRAINT: {
+				NOTValueConstraint notValueConstraint = (NOTValueConstraint)theEObject;
+				T result = caseNOTValueConstraint(notValueConstraint);
+				if (result == null) result = caseCompositeValueConstraint(notValueConstraint);
+				if (result == null) result = caseValueConstraint(notValueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.SIMPLE_VALUE_CONSTRAINT: {
+				SimpleValueConstraint simpleValueConstraint = (SimpleValueConstraint)theEObject;
+				T result = caseSimpleValueConstraint(simpleValueConstraint);
+				if (result == null) result = caseValueConstraint(simpleValueConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.ECLASS0: {
+				EClass0 eClass0 = (EClass0)theEObject;
+				T result = caseEClass0(eClass0);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.CONTINUOUS_RANGE_CONSTRAINT: {
+				ContinuousRangeConstraint continuousRangeConstraint = (ContinuousRangeConstraint)theEObject;
+				T result = caseContinuousRangeConstraint(continuousRangeConstraint);
+				if (result == null) result = caseValueRangeConstraint(continuousRangeConstraint);
+				if (result == null) result = caseSimpleValueConstraint(continuousRangeConstraint);
+				if (result == null) result = caseValueConstraint(continuousRangeConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.DISCRETE_RANGE_CONSTRAINT: {
+				DiscreteRangeConstraint discreteRangeConstraint = (DiscreteRangeConstraint)theEObject;
+				T result = caseDiscreteRangeConstraint(discreteRangeConstraint);
+				if (result == null) result = caseValueRangeConstraint(discreteRangeConstraint);
+				if (result == null) result = caseSimpleValueConstraint(discreteRangeConstraint);
+				if (result == null) result = caseValueConstraint(discreteRangeConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.FEATURE_CONSTRAINT: {
+				FeatureConstraint featureConstraint = (FeatureConstraint)theEObject;
+				T result = caseFeatureConstraint(featureConstraint);
+				if (result == null) result = caseValueConstraint(featureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.COMPOSITE_FEATURE_CONSTRAINT: {
+				CompositeFeatureConstraint compositeFeatureConstraint = (CompositeFeatureConstraint)theEObject;
+				T result = caseCompositeFeatureConstraint(compositeFeatureConstraint);
+				if (result == null) result = caseFeatureConstraint(compositeFeatureConstraint);
+				if (result == null) result = caseValueConstraint(compositeFeatureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.SIMPLE_FEATURE_CONSTRAINT: {
+				SimpleFeatureConstraint simpleFeatureConstraint = (SimpleFeatureConstraint)theEObject;
+				T result = caseSimpleFeatureConstraint(simpleFeatureConstraint);
+				if (result == null) result = caseFeatureConstraint(simpleFeatureConstraint);
+				if (result == null) result = caseValueConstraint(simpleFeatureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.AND_FEATURE_CONSTRAINT: {
+				ANDFeatureConstraint andFeatureConstraint = (ANDFeatureConstraint)theEObject;
+				T result = caseANDFeatureConstraint(andFeatureConstraint);
+				if (result == null) result = caseCompositeFeatureConstraint(andFeatureConstraint);
+				if (result == null) result = caseFeatureConstraint(andFeatureConstraint);
+				if (result == null) result = caseValueConstraint(andFeatureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.OR_FEATURE_CONSTRAINT: {
+				ORFeatureConstraint orFeatureConstraint = (ORFeatureConstraint)theEObject;
+				T result = caseORFeatureConstraint(orFeatureConstraint);
+				if (result == null) result = caseCompositeFeatureConstraint(orFeatureConstraint);
+				if (result == null) result = caseFeatureConstraint(orFeatureConstraint);
+				if (result == null) result = caseValueConstraint(orFeatureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.NOT_FEATURE_CONSTRAINT: {
+				NOTFeatureConstraint notFeatureConstraint = (NOTFeatureConstraint)theEObject;
+				T result = caseNOTFeatureConstraint(notFeatureConstraint);
+				if (result == null) result = caseCompositeFeatureConstraint(notFeatureConstraint);
+				if (result == null) result = caseFeatureConstraint(notFeatureConstraint);
+				if (result == null) result = caseValueConstraint(notFeatureConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -322,6 +528,411 @@ public class ServicedefSwitch<T> {
 	 * @generated
 	 */
 	public T caseRole(Role object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Input Validator</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Input Validator</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInputValidator(InputValidator object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Param Validator</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Param Validator</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseParamValidator(ParamValidator object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Value Range Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Value Range Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseValueRangeConstraint(ValueRangeConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Value Valorization Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Value Valorization Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseValueValorizationConstraint(ValueValorizationConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCustomConstraint(CustomConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Relative Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Relative Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRelativeConstraint(RelativeConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseValueConstraint(ValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Simple Param Coinstraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Simple Param Coinstraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSimpleParamCoinstraint(SimpleParamCoinstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Param Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositeParamConstraint(CompositeParamConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>AND Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>AND Param Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseANDParamConstraint(ANDParamConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>OR Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>OR Param Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseORParamConstraint(ORParamConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Param Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseParamConstraint(ParamConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>NOT Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>NOT Param Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNOTParamConstraint(NOTParamConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositeValueConstraint(CompositeValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>AND Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>AND Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseANDValueConstraint(ANDValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>OR Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>OR Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseORValueConstraint(ORValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>NOT Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>NOT Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNOTValueConstraint(NOTValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Simple Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Simple Value Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSimpleValueConstraint(SimpleValueConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EClass0</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EClass0</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEClass0(EClass0 object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Continuous Range Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Continuous Range Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseContinuousRangeConstraint(ContinuousRangeConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Discrete Range Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Discrete Range Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDiscreteRangeConstraint(DiscreteRangeConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFeatureConstraint(FeatureConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCompositeFeatureConstraint(CompositeFeatureConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Simple Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Simple Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSimpleFeatureConstraint(SimpleFeatureConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>AND Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>AND Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseANDFeatureConstraint(ANDFeatureConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>OR Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>OR Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseORFeatureConstraint(ORFeatureConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>NOT Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>NOT Feature Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNOTFeatureConstraint(NOTFeatureConstraint object) {
 		return null;
 	}
 

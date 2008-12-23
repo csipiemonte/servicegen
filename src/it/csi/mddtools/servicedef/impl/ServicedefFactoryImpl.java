@@ -71,6 +71,25 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.TYPES: return createTypes();
 			case ServicedefPackage.BASE_TYPES: return createBaseTypes();
 			case ServicedefPackage.ROLE: return createRole();
+			case ServicedefPackage.INPUT_VALIDATOR: return createInputValidator();
+			case ServicedefPackage.PARAM_VALIDATOR: return createParamValidator();
+			case ServicedefPackage.VALUE_VALORIZATION_CONSTRAINT: return createValueValorizationConstraint();
+			case ServicedefPackage.CUSTOM_CONSTRAINT: return createCustomConstraint();
+			case ServicedefPackage.RELATIVE_CONSTRAINT: return createRelativeConstraint();
+			case ServicedefPackage.SIMPLE_PARAM_COINSTRAINT: return createSimpleParamCoinstraint();
+			case ServicedefPackage.AND_PARAM_CONSTRAINT: return createANDParamConstraint();
+			case ServicedefPackage.OR_PARAM_CONSTRAINT: return createORParamConstraint();
+			case ServicedefPackage.NOT_PARAM_CONSTRAINT: return createNOTParamConstraint();
+			case ServicedefPackage.AND_VALUE_CONSTRAINT: return createANDValueConstraint();
+			case ServicedefPackage.OR_VALUE_CONSTRAINT: return createORValueConstraint();
+			case ServicedefPackage.NOT_VALUE_CONSTRAINT: return createNOTValueConstraint();
+			case ServicedefPackage.ECLASS0: return createEClass0();
+			case ServicedefPackage.CONTINUOUS_RANGE_CONSTRAINT: return createContinuousRangeConstraint();
+			case ServicedefPackage.DISCRETE_RANGE_CONSTRAINT: return createDiscreteRangeConstraint();
+			case ServicedefPackage.SIMPLE_FEATURE_CONSTRAINT: return createSimpleFeatureConstraint();
+			case ServicedefPackage.AND_FEATURE_CONSTRAINT: return createANDFeatureConstraint();
+			case ServicedefPackage.OR_FEATURE_CONSTRAINT: return createORFeatureConstraint();
+			case ServicedefPackage.NOT_FEATURE_CONSTRAINT: return createNOTFeatureConstraint();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -216,6 +235,196 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public Role createRole() {
 		RoleImpl role = new RoleImpl();
 		return role;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InputValidator createInputValidator() {
+		InputValidatorImpl inputValidator = new InputValidatorImpl();
+		return inputValidator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParamValidator createParamValidator() {
+		ParamValidatorImpl paramValidator = new ParamValidatorImpl();
+		return paramValidator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueValorizationConstraint createValueValorizationConstraint() {
+		ValueValorizationConstraintImpl valueValorizationConstraint = new ValueValorizationConstraintImpl();
+		return valueValorizationConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomConstraint createCustomConstraint() {
+		CustomConstraintImpl customConstraint = new CustomConstraintImpl();
+		return customConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RelativeConstraint createRelativeConstraint() {
+		RelativeConstraintImpl relativeConstraint = new RelativeConstraintImpl();
+		return relativeConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimpleParamCoinstraint createSimpleParamCoinstraint() {
+		SimpleParamCoinstraintImpl simpleParamCoinstraint = new SimpleParamCoinstraintImpl();
+		return simpleParamCoinstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ANDParamConstraint createANDParamConstraint() {
+		ANDParamConstraintImpl andParamConstraint = new ANDParamConstraintImpl();
+		return andParamConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ORParamConstraint createORParamConstraint() {
+		ORParamConstraintImpl orParamConstraint = new ORParamConstraintImpl();
+		return orParamConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NOTParamConstraint createNOTParamConstraint() {
+		NOTParamConstraintImpl notParamConstraint = new NOTParamConstraintImpl();
+		return notParamConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ANDValueConstraint createANDValueConstraint() {
+		ANDValueConstraintImpl andValueConstraint = new ANDValueConstraintImpl();
+		return andValueConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ORValueConstraint createORValueConstraint() {
+		ORValueConstraintImpl orValueConstraint = new ORValueConstraintImpl();
+		return orValueConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NOTValueConstraint createNOTValueConstraint() {
+		NOTValueConstraintImpl notValueConstraint = new NOTValueConstraintImpl();
+		return notValueConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass0 createEClass0() {
+		EClass0Impl eClass0 = new EClass0Impl();
+		return eClass0;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContinuousRangeConstraint createContinuousRangeConstraint() {
+		ContinuousRangeConstraintImpl continuousRangeConstraint = new ContinuousRangeConstraintImpl();
+		return continuousRangeConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiscreteRangeConstraint createDiscreteRangeConstraint() {
+		DiscreteRangeConstraintImpl discreteRangeConstraint = new DiscreteRangeConstraintImpl();
+		return discreteRangeConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SimpleFeatureConstraint createSimpleFeatureConstraint() {
+		SimpleFeatureConstraintImpl simpleFeatureConstraint = new SimpleFeatureConstraintImpl();
+		return simpleFeatureConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ANDFeatureConstraint createANDFeatureConstraint() {
+		ANDFeatureConstraintImpl andFeatureConstraint = new ANDFeatureConstraintImpl();
+		return andFeatureConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ORFeatureConstraint createORFeatureConstraint() {
+		ORFeatureConstraintImpl orFeatureConstraint = new ORFeatureConstraintImpl();
+		return orFeatureConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NOTFeatureConstraint createNOTFeatureConstraint() {
+		NOTFeatureConstraintImpl notFeatureConstraint = new NOTFeatureConstraintImpl();
+		return notFeatureConstraint;
 	}
 
 	/**

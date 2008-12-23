@@ -116,6 +116,114 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createRoleAdapter();
 			}
 			@Override
+			public Adapter caseInputValidator(InputValidator object) {
+				return createInputValidatorAdapter();
+			}
+			@Override
+			public Adapter caseParamValidator(ParamValidator object) {
+				return createParamValidatorAdapter();
+			}
+			@Override
+			public Adapter caseValueRangeConstraint(ValueRangeConstraint object) {
+				return createValueRangeConstraintAdapter();
+			}
+			@Override
+			public Adapter caseValueValorizationConstraint(ValueValorizationConstraint object) {
+				return createValueValorizationConstraintAdapter();
+			}
+			@Override
+			public Adapter caseCustomConstraint(CustomConstraint object) {
+				return createCustomConstraintAdapter();
+			}
+			@Override
+			public Adapter caseRelativeConstraint(RelativeConstraint object) {
+				return createRelativeConstraintAdapter();
+			}
+			@Override
+			public Adapter caseValueConstraint(ValueConstraint object) {
+				return createValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseSimpleParamCoinstraint(SimpleParamCoinstraint object) {
+				return createSimpleParamCoinstraintAdapter();
+			}
+			@Override
+			public Adapter caseCompositeParamConstraint(CompositeParamConstraint object) {
+				return createCompositeParamConstraintAdapter();
+			}
+			@Override
+			public Adapter caseANDParamConstraint(ANDParamConstraint object) {
+				return createANDParamConstraintAdapter();
+			}
+			@Override
+			public Adapter caseORParamConstraint(ORParamConstraint object) {
+				return createORParamConstraintAdapter();
+			}
+			@Override
+			public Adapter caseParamConstraint(ParamConstraint object) {
+				return createParamConstraintAdapter();
+			}
+			@Override
+			public Adapter caseNOTParamConstraint(NOTParamConstraint object) {
+				return createNOTParamConstraintAdapter();
+			}
+			@Override
+			public Adapter caseCompositeValueConstraint(CompositeValueConstraint object) {
+				return createCompositeValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseANDValueConstraint(ANDValueConstraint object) {
+				return createANDValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseORValueConstraint(ORValueConstraint object) {
+				return createORValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseNOTValueConstraint(NOTValueConstraint object) {
+				return createNOTValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseSimpleValueConstraint(SimpleValueConstraint object) {
+				return createSimpleValueConstraintAdapter();
+			}
+			@Override
+			public Adapter caseEClass0(EClass0 object) {
+				return createEClass0Adapter();
+			}
+			@Override
+			public Adapter caseContinuousRangeConstraint(ContinuousRangeConstraint object) {
+				return createContinuousRangeConstraintAdapter();
+			}
+			@Override
+			public Adapter caseDiscreteRangeConstraint(DiscreteRangeConstraint object) {
+				return createDiscreteRangeConstraintAdapter();
+			}
+			@Override
+			public Adapter caseFeatureConstraint(FeatureConstraint object) {
+				return createFeatureConstraintAdapter();
+			}
+			@Override
+			public Adapter caseCompositeFeatureConstraint(CompositeFeatureConstraint object) {
+				return createCompositeFeatureConstraintAdapter();
+			}
+			@Override
+			public Adapter caseSimpleFeatureConstraint(SimpleFeatureConstraint object) {
+				return createSimpleFeatureConstraintAdapter();
+			}
+			@Override
+			public Adapter caseANDFeatureConstraint(ANDFeatureConstraint object) {
+				return createANDFeatureConstraintAdapter();
+			}
+			@Override
+			public Adapter caseORFeatureConstraint(ORFeatureConstraint object) {
+				return createORFeatureConstraintAdapter();
+			}
+			@Override
+			public Adapter caseNOTFeatureConstraint(NOTFeatureConstraint object) {
+				return createNOTFeatureConstraintAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -286,6 +394,384 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRoleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.InputValidator <em>Input Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.InputValidator
+	 * @generated
+	 */
+	public Adapter createInputValidatorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ParamValidator <em>Param Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ParamValidator
+	 * @generated
+	 */
+	public Adapter createParamValidatorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ValueRangeConstraint <em>Value Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ValueRangeConstraint
+	 * @generated
+	 */
+	public Adapter createValueRangeConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ValueValorizationConstraint <em>Value Valorization Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ValueValorizationConstraint
+	 * @generated
+	 */
+	public Adapter createValueValorizationConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.CustomConstraint <em>Custom Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.CustomConstraint
+	 * @generated
+	 */
+	public Adapter createCustomConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.RelativeConstraint <em>Relative Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.RelativeConstraint
+	 * @generated
+	 */
+	public Adapter createRelativeConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ValueConstraint <em>Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ValueConstraint
+	 * @generated
+	 */
+	public Adapter createValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint <em>Simple Param Coinstraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.SimpleParamCoinstraint
+	 * @generated
+	 */
+	public Adapter createSimpleParamCoinstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.CompositeParamConstraint <em>Composite Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.CompositeParamConstraint
+	 * @generated
+	 */
+	public Adapter createCompositeParamConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ANDParamConstraint <em>AND Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ANDParamConstraint
+	 * @generated
+	 */
+	public Adapter createANDParamConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ORParamConstraint <em>OR Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ORParamConstraint
+	 * @generated
+	 */
+	public Adapter createORParamConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ParamConstraint <em>Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ParamConstraint
+	 * @generated
+	 */
+	public Adapter createParamConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.NOTParamConstraint <em>NOT Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.NOTParamConstraint
+	 * @generated
+	 */
+	public Adapter createNOTParamConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.CompositeValueConstraint <em>Composite Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.CompositeValueConstraint
+	 * @generated
+	 */
+	public Adapter createCompositeValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ANDValueConstraint <em>AND Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ANDValueConstraint
+	 * @generated
+	 */
+	public Adapter createANDValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ORValueConstraint <em>OR Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ORValueConstraint
+	 * @generated
+	 */
+	public Adapter createORValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.NOTValueConstraint <em>NOT Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.NOTValueConstraint
+	 * @generated
+	 */
+	public Adapter createNOTValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.SimpleValueConstraint <em>Simple Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.SimpleValueConstraint
+	 * @generated
+	 */
+	public Adapter createSimpleValueConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.EClass0 <em>EClass0</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.EClass0
+	 * @generated
+	 */
+	public Adapter createEClass0Adapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint <em>Continuous Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ContinuousRangeConstraint
+	 * @generated
+	 */
+	public Adapter createContinuousRangeConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.DiscreteRangeConstraint <em>Discrete Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.DiscreteRangeConstraint
+	 * @generated
+	 */
+	public Adapter createDiscreteRangeConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.FeatureConstraint <em>Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.FeatureConstraint
+	 * @generated
+	 */
+	public Adapter createFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.CompositeFeatureConstraint <em>Composite Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.CompositeFeatureConstraint
+	 * @generated
+	 */
+	public Adapter createCompositeFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.SimpleFeatureConstraint <em>Simple Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.SimpleFeatureConstraint
+	 * @generated
+	 */
+	public Adapter createSimpleFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ANDFeatureConstraint <em>AND Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ANDFeatureConstraint
+	 * @generated
+	 */
+	public Adapter createANDFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ORFeatureConstraint <em>OR Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ORFeatureConstraint
+	 * @generated
+	 */
+	public Adapter createORFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.NOTFeatureConstraint <em>NOT Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.NOTFeatureConstraint
+	 * @generated
+	 */
+	public Adapter createNOTFeatureConstraintAdapter() {
 		return null;
 	}
 

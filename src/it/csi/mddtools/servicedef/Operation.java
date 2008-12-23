@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getTxType <em>Tx Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getSince <em>Since</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getAuthorizedRoles <em>Authorized Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Operation#getValidator <em>Validator</em>}</li>
  * </ul>
  * </p>
  *
@@ -221,5 +222,31 @@ public interface Operation extends EObject {
 	 * @generated
 	 */
 	EList<Role> getAuthorizedRoles();
+
+	/**
+	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validator</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validator</em>' containment reference.
+	 * @see #setValidator(InputValidator)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Validator()
+	 * @model containment="true"
+	 * @generated
+	 */
+	InputValidator getValidator();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Operation#getValidator <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validator</em>' containment reference.
+	 * @see #getValidator()
+	 * @generated
+	 */
+	void setValidator(InputValidator value);
 
 } // Operation

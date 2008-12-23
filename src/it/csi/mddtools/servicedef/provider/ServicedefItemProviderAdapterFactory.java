@@ -306,6 +306,443 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.InputValidator} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InputValidatorItemProvider inputValidatorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.InputValidator}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInputValidatorAdapter() {
+		if (inputValidatorItemProvider == null) {
+			inputValidatorItemProvider = new InputValidatorItemProvider(this);
+		}
+
+		return inputValidatorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ParamValidator} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParamValidatorItemProvider paramValidatorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ParamValidator}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParamValidatorAdapter() {
+		if (paramValidatorItemProvider == null) {
+			paramValidatorItemProvider = new ParamValidatorItemProvider(this);
+		}
+
+		return paramValidatorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ValueValorizationConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ValueValorizationConstraintItemProvider valueValorizationConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ValueValorizationConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createValueValorizationConstraintAdapter() {
+		if (valueValorizationConstraintItemProvider == null) {
+			valueValorizationConstraintItemProvider = new ValueValorizationConstraintItemProvider(this);
+		}
+
+		return valueValorizationConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.CustomConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomConstraintItemProvider customConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.CustomConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomConstraintAdapter() {
+		if (customConstraintItemProvider == null) {
+			customConstraintItemProvider = new CustomConstraintItemProvider(this);
+		}
+
+		return customConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.RelativeConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RelativeConstraintItemProvider relativeConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.RelativeConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRelativeConstraintAdapter() {
+		if (relativeConstraintItemProvider == null) {
+			relativeConstraintItemProvider = new RelativeConstraintItemProvider(this);
+		}
+
+		return relativeConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.SimpleParamCoinstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SimpleParamCoinstraintItemProvider simpleParamCoinstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.SimpleParamCoinstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSimpleParamCoinstraintAdapter() {
+		if (simpleParamCoinstraintItemProvider == null) {
+			simpleParamCoinstraintItemProvider = new SimpleParamCoinstraintItemProvider(this);
+		}
+
+		return simpleParamCoinstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ANDParamConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ANDParamConstraintItemProvider andParamConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ANDParamConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createANDParamConstraintAdapter() {
+		if (andParamConstraintItemProvider == null) {
+			andParamConstraintItemProvider = new ANDParamConstraintItemProvider(this);
+		}
+
+		return andParamConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ORParamConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ORParamConstraintItemProvider orParamConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ORParamConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createORParamConstraintAdapter() {
+		if (orParamConstraintItemProvider == null) {
+			orParamConstraintItemProvider = new ORParamConstraintItemProvider(this);
+		}
+
+		return orParamConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.NOTParamConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NOTParamConstraintItemProvider notParamConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.NOTParamConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNOTParamConstraintAdapter() {
+		if (notParamConstraintItemProvider == null) {
+			notParamConstraintItemProvider = new NOTParamConstraintItemProvider(this);
+		}
+
+		return notParamConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ANDValueConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ANDValueConstraintItemProvider andValueConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ANDValueConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createANDValueConstraintAdapter() {
+		if (andValueConstraintItemProvider == null) {
+			andValueConstraintItemProvider = new ANDValueConstraintItemProvider(this);
+		}
+
+		return andValueConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ORValueConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ORValueConstraintItemProvider orValueConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ORValueConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createORValueConstraintAdapter() {
+		if (orValueConstraintItemProvider == null) {
+			orValueConstraintItemProvider = new ORValueConstraintItemProvider(this);
+		}
+
+		return orValueConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.NOTValueConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NOTValueConstraintItemProvider notValueConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.NOTValueConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNOTValueConstraintAdapter() {
+		if (notValueConstraintItemProvider == null) {
+			notValueConstraintItemProvider = new NOTValueConstraintItemProvider(this);
+		}
+
+		return notValueConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.EClass0} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EClass0ItemProvider eClass0ItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.EClass0}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEClass0Adapter() {
+		if (eClass0ItemProvider == null) {
+			eClass0ItemProvider = new EClass0ItemProvider(this);
+		}
+
+		return eClass0ItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ContinuousRangeConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ContinuousRangeConstraintItemProvider continuousRangeConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ContinuousRangeConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createContinuousRangeConstraintAdapter() {
+		if (continuousRangeConstraintItemProvider == null) {
+			continuousRangeConstraintItemProvider = new ContinuousRangeConstraintItemProvider(this);
+		}
+
+		return continuousRangeConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.DiscreteRangeConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DiscreteRangeConstraintItemProvider discreteRangeConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.DiscreteRangeConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createDiscreteRangeConstraintAdapter() {
+		if (discreteRangeConstraintItemProvider == null) {
+			discreteRangeConstraintItemProvider = new DiscreteRangeConstraintItemProvider(this);
+		}
+
+		return discreteRangeConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.SimpleFeatureConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SimpleFeatureConstraintItemProvider simpleFeatureConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.SimpleFeatureConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSimpleFeatureConstraintAdapter() {
+		if (simpleFeatureConstraintItemProvider == null) {
+			simpleFeatureConstraintItemProvider = new SimpleFeatureConstraintItemProvider(this);
+		}
+
+		return simpleFeatureConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ANDFeatureConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ANDFeatureConstraintItemProvider andFeatureConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ANDFeatureConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createANDFeatureConstraintAdapter() {
+		if (andFeatureConstraintItemProvider == null) {
+			andFeatureConstraintItemProvider = new ANDFeatureConstraintItemProvider(this);
+		}
+
+		return andFeatureConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ORFeatureConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ORFeatureConstraintItemProvider orFeatureConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ORFeatureConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createORFeatureConstraintAdapter() {
+		if (orFeatureConstraintItemProvider == null) {
+			orFeatureConstraintItemProvider = new ORFeatureConstraintItemProvider(this);
+		}
+
+		return orFeatureConstraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.NOTFeatureConstraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NOTFeatureConstraintItemProvider notFeatureConstraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.NOTFeatureConstraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createNOTFeatureConstraintAdapter() {
+		if (notFeatureConstraintItemProvider == null) {
+			notFeatureConstraintItemProvider = new NOTFeatureConstraintItemProvider(this);
+		}
+
+		return notFeatureConstraintItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -414,6 +851,25 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (typesItemProvider != null) typesItemProvider.dispose();
 		if (baseTypesItemProvider != null) baseTypesItemProvider.dispose();
 		if (roleItemProvider != null) roleItemProvider.dispose();
+		if (inputValidatorItemProvider != null) inputValidatorItemProvider.dispose();
+		if (paramValidatorItemProvider != null) paramValidatorItemProvider.dispose();
+		if (valueValorizationConstraintItemProvider != null) valueValorizationConstraintItemProvider.dispose();
+		if (customConstraintItemProvider != null) customConstraintItemProvider.dispose();
+		if (relativeConstraintItemProvider != null) relativeConstraintItemProvider.dispose();
+		if (simpleParamCoinstraintItemProvider != null) simpleParamCoinstraintItemProvider.dispose();
+		if (andParamConstraintItemProvider != null) andParamConstraintItemProvider.dispose();
+		if (orParamConstraintItemProvider != null) orParamConstraintItemProvider.dispose();
+		if (notParamConstraintItemProvider != null) notParamConstraintItemProvider.dispose();
+		if (andValueConstraintItemProvider != null) andValueConstraintItemProvider.dispose();
+		if (orValueConstraintItemProvider != null) orValueConstraintItemProvider.dispose();
+		if (notValueConstraintItemProvider != null) notValueConstraintItemProvider.dispose();
+		if (eClass0ItemProvider != null) eClass0ItemProvider.dispose();
+		if (continuousRangeConstraintItemProvider != null) continuousRangeConstraintItemProvider.dispose();
+		if (discreteRangeConstraintItemProvider != null) discreteRangeConstraintItemProvider.dispose();
+		if (simpleFeatureConstraintItemProvider != null) simpleFeatureConstraintItemProvider.dispose();
+		if (andFeatureConstraintItemProvider != null) andFeatureConstraintItemProvider.dispose();
+		if (orFeatureConstraintItemProvider != null) orFeatureConstraintItemProvider.dispose();
+		if (notFeatureConstraintItemProvider != null) notFeatureConstraintItemProvider.dispose();
 	}
 
 }

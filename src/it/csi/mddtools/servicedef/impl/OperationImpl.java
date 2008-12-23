@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.servicedef.impl;
 
+import it.csi.mddtools.servicedef.InputValidator;
 import it.csi.mddtools.servicedef.OpTypeEnum;
 import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.Param;
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getTxType <em>Tx Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getSince <em>Since</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getAuthorizedRoles <em>Authorized Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getValidator <em>Validator</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,6 +174,16 @@ public class OperationImpl extends EObjectImpl implements Operation {
 	 * @ordered
 	 */
 	protected EList<Role> authorizedRoles;
+
+	/**
+	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidator()
+	 * @generated
+	 * @ordered
+	 */
+	protected InputValidator validator;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -355,11 +367,56 @@ public class OperationImpl extends EObjectImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public InputValidator getValidator() {
+		return validator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValidator(InputValidator newValidator, NotificationChain msgs) {
+		InputValidator oldValidator = validator;
+		validator = newValidator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicedefPackage.OPERATION__VALIDATOR, oldValidator, newValidator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidator(InputValidator newValidator) {
+		if (newValidator != validator) {
+			NotificationChain msgs = null;
+			if (validator != null)
+				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.OPERATION__VALIDATOR, null, msgs);
+			if (newValidator != null)
+				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.OPERATION__VALIDATOR, null, msgs);
+			msgs = basicSetValidator(newValidator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.OPERATION__VALIDATOR, newValidator, newValidator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ServicedefPackage.OPERATION__PARAMS:
 				return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
+			case ServicedefPackage.OPERATION__VALIDATOR:
+				return basicSetValidator(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -389,6 +446,8 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				return getSince();
 			case ServicedefPackage.OPERATION__AUTHORIZED_ROLES:
 				return getAuthorizedRoles();
+			case ServicedefPackage.OPERATION__VALIDATOR:
+				return getValidator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -429,6 +488,9 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				getAuthorizedRoles().clear();
 				getAuthorizedRoles().addAll((Collection<? extends Role>)newValue);
 				return;
+			case ServicedefPackage.OPERATION__VALIDATOR:
+				setValidator((InputValidator)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -465,6 +527,9 @@ public class OperationImpl extends EObjectImpl implements Operation {
 			case ServicedefPackage.OPERATION__AUTHORIZED_ROLES:
 				getAuthorizedRoles().clear();
 				return;
+			case ServicedefPackage.OPERATION__VALIDATOR:
+				setValidator((InputValidator)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -493,6 +558,8 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				return SINCE_EDEFAULT == null ? since != null : !SINCE_EDEFAULT.equals(since);
 			case ServicedefPackage.OPERATION__AUTHORIZED_ROLES:
 				return authorizedRoles != null && !authorizedRoles.isEmpty();
+			case ServicedefPackage.OPERATION__VALIDATOR:
+				return validator != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -401,13 +401,22 @@ public interface ServicedefPackage extends EPackage {
 	int OPERATION__AUTHORIZED_ROLES = 7;
 
 	/**
+	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPERATION__VALIDATOR = 8;
+
+	/**
 	 * The number of structural features of the '<em>Operation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_FEATURE_COUNT = 8;
+	int OPERATION_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ParamImpl <em>Param</em>}' class.
@@ -438,13 +447,31 @@ public interface ServicedefPackage extends EPackage {
 	int PARAM__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM__VALIDATOR = 2;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM__CONSTRAINT = 3;
+
+	/**
 	 * The number of structural features of the '<em>Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAM_FEATURE_COUNT = 2;
+	int PARAM_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
@@ -531,6 +558,699 @@ public interface ServicedefPackage extends EPackage {
 	int ROLE_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.InputValidatorImpl <em>Input Validator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.InputValidatorImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getInputValidator()
+	 * @generated
+	 */
+	int INPUT_VALIDATOR = 11;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_VALIDATOR__CONSTRAINT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Input Validator</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INPUT_VALIDATOR_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ParamValidatorImpl <em>Param Validator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ParamValidatorImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamValidator()
+	 * @generated
+	 */
+	int PARAM_VALIDATOR = 12;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM_VALIDATOR__CONSTRAINT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Param Validator</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM_VALIDATOR_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ValueConstraintImpl <em>Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueConstraint()
+	 * @generated
+	 */
+	int VALUE_CONSTRAINT = 17;
+
+	/**
+	 * The number of structural features of the '<em>Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_CONSTRAINT_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.SimpleValueConstraintImpl <em>Simple Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.SimpleValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleValueConstraint()
+	 * @generated
+	 */
+	int SIMPLE_VALUE_CONSTRAINT = 28;
+
+	/**
+	 * The number of structural features of the '<em>Simple Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT = VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ValueRangeConstraintImpl <em>Value Range Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ValueRangeConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueRangeConstraint()
+	 * @generated
+	 */
+	int VALUE_RANGE_CONSTRAINT = 13;
+
+	/**
+	 * The number of structural features of the '<em>Value Range Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_RANGE_CONSTRAINT_FEATURE_COUNT = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ValueValorizationConstraintImpl <em>Value Valorization Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ValueValorizationConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueValorizationConstraint()
+	 * @generated
+	 */
+	int VALUE_VALORIZATION_CONSTRAINT = 14;
+
+	/**
+	 * The feature id for the '<em><b>Must Not Be Null</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_VALORIZATION_CONSTRAINT__MUST_NOT_BE_NULL = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Value Valorization Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_VALORIZATION_CONSTRAINT_FEATURE_COUNT = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.CustomConstraintImpl <em>Custom Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.CustomConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCustomConstraint()
+	 * @generated
+	 */
+	int CUSTOM_CONSTRAINT = 15;
+
+	/**
+	 * The feature id for the '<em><b>Check Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONSTRAINT__CHECK_METHOD_NAME = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Custom Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONSTRAINT_FEATURE_COUNT = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.RelativeConstraintImpl <em>Relative Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.RelativeConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getRelativeConstraint()
+	 * @generated
+	 */
+	int RELATIVE_CONSTRAINT = 16;
+
+	/**
+	 * The number of structural features of the '<em>Relative Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RELATIVE_CONSTRAINT_FEATURE_COUNT = SIMPLE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ParamConstraintImpl <em>Param Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ParamConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamConstraint()
+	 * @generated
+	 */
+	int PARAM_CONSTRAINT = 22;
+
+	/**
+	 * The number of structural features of the '<em>Param Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM_CONSTRAINT_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.SimpleParamCoinstraintImpl <em>Simple Param Coinstraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.SimpleParamCoinstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleParamCoinstraint()
+	 * @generated
+	 */
+	int SIMPLE_PARAM_COINSTRAINT = 18;
+
+	/**
+	 * The feature id for the '<em><b>Param</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_PARAM_COINSTRAINT__PARAM = PARAM_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_PARAM_COINSTRAINT__CONSTRAINT = PARAM_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Simple Param Coinstraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_PARAM_COINSTRAINT_FEATURE_COUNT = PARAM_CONSTRAINT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.CompositeParamConstraintImpl <em>Composite Param Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.CompositeParamConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeParamConstraint()
+	 * @generated
+	 */
+	int COMPOSITE_PARAM_CONSTRAINT = 19;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_PARAM_CONSTRAINT__COMPONENT = PARAM_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Composite Param Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_PARAM_CONSTRAINT_FEATURE_COUNT = PARAM_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ANDParamConstraintImpl <em>AND Param Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ANDParamConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDParamConstraint()
+	 * @generated
+	 */
+	int AND_PARAM_CONSTRAINT = 20;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_PARAM_CONSTRAINT__COMPONENT = COMPOSITE_PARAM_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>AND Param Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_PARAM_CONSTRAINT_FEATURE_COUNT = COMPOSITE_PARAM_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ORParamConstraintImpl <em>OR Param Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ORParamConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORParamConstraint()
+	 * @generated
+	 */
+	int OR_PARAM_CONSTRAINT = 21;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_PARAM_CONSTRAINT__COMPONENT = COMPOSITE_PARAM_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>OR Param Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_PARAM_CONSTRAINT_FEATURE_COUNT = COMPOSITE_PARAM_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.NOTParamConstraintImpl <em>NOT Param Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.NOTParamConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTParamConstraint()
+	 * @generated
+	 */
+	int NOT_PARAM_CONSTRAINT = 23;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_PARAM_CONSTRAINT__COMPONENT = COMPOSITE_PARAM_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>NOT Param Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_PARAM_CONSTRAINT_FEATURE_COUNT = COMPOSITE_PARAM_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.CompositeValueConstraintImpl <em>Composite Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.CompositeValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeValueConstraint()
+	 * @generated
+	 */
+	int COMPOSITE_VALUE_CONSTRAINT = 24;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_VALUE_CONSTRAINT__COMPONENT = VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Composite Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_VALUE_CONSTRAINT_FEATURE_COUNT = VALUE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ANDValueConstraintImpl <em>AND Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ANDValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDValueConstraint()
+	 * @generated
+	 */
+	int AND_VALUE_CONSTRAINT = 25;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_VALUE_CONSTRAINT__COMPONENT = COMPOSITE_VALUE_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>AND Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_VALUE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ORValueConstraintImpl <em>OR Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ORValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORValueConstraint()
+	 * @generated
+	 */
+	int OR_VALUE_CONSTRAINT = 26;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_VALUE_CONSTRAINT__COMPONENT = COMPOSITE_VALUE_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>OR Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_VALUE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.NOTValueConstraintImpl <em>NOT Value Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.NOTValueConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTValueConstraint()
+	 * @generated
+	 */
+	int NOT_VALUE_CONSTRAINT = 27;
+
+	/**
+	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_VALUE_CONSTRAINT__COMPONENT = COMPOSITE_VALUE_CONSTRAINT__COMPONENT;
+
+	/**
+	 * The number of structural features of the '<em>NOT Value Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_VALUE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.EClass0Impl <em>EClass0</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.EClass0Impl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getEClass0()
+	 * @generated
+	 */
+	int ECLASS0 = 29;
+
+	/**
+	 * The number of structural features of the '<em>EClass0</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ECLASS0_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl <em>Continuous Range Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getContinuousRangeConstraint()
+	 * @generated
+	 */
+	int CONTINUOUS_RANGE_CONSTRAINT = 30;
+
+	/**
+	 * The feature id for the '<em><b>Lowerbound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTINUOUS_RANGE_CONSTRAINT__LOWERBOUND = VALUE_RANGE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Upperbound</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTINUOUS_RANGE_CONSTRAINT__UPPERBOUND = VALUE_RANGE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Continuous Range Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTINUOUS_RANGE_CONSTRAINT_FEATURE_COUNT = VALUE_RANGE_CONSTRAINT_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.DiscreteRangeConstraintImpl <em>Discrete Range Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.DiscreteRangeConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getDiscreteRangeConstraint()
+	 * @generated
+	 */
+	int DISCRETE_RANGE_CONSTRAINT = 31;
+
+	/**
+	 * The feature id for the '<em><b>Literals</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISCRETE_RANGE_CONSTRAINT__LITERALS = VALUE_RANGE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Discrete Range Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DISCRETE_RANGE_CONSTRAINT_FEATURE_COUNT = VALUE_RANGE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.FeatureConstraintImpl <em>Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.FeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getFeatureConstraint()
+	 * @generated
+	 */
+	int FEATURE_CONSTRAINT = 32;
+
+	/**
+	 * The number of structural features of the '<em>Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_CONSTRAINT_FEATURE_COUNT = VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.CompositeFeatureConstraintImpl <em>Composite Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.CompositeFeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeFeatureConstraint()
+	 * @generated
+	 */
+	int COMPOSITE_FEATURE_CONSTRAINT = 33;
+
+	/**
+	 * The number of structural features of the '<em>Composite Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_FEATURE_CONSTRAINT_FEATURE_COUNT = FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl <em>Simple Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleFeatureConstraint()
+	 * @generated
+	 */
+	int SIMPLE_FEATURE_CONSTRAINT = 34;
+
+	/**
+	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_FEATURE_CONSTRAINT__CONSTRAINT = FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Entity</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_FEATURE_CONSTRAINT__ENTITY = FEATURE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_FEATURE_CONSTRAINT__FEATURE = FEATURE_CONSTRAINT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Simple Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_FEATURE_CONSTRAINT_FEATURE_COUNT = FEATURE_CONSTRAINT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ANDFeatureConstraintImpl <em>AND Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ANDFeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDFeatureConstraint()
+	 * @generated
+	 */
+	int AND_FEATURE_CONSTRAINT = 35;
+
+	/**
+	 * The number of structural features of the '<em>AND Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND_FEATURE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ORFeatureConstraintImpl <em>OR Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ORFeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORFeatureConstraint()
+	 * @generated
+	 */
+	int OR_FEATURE_CONSTRAINT = 36;
+
+	/**
+	 * The number of structural features of the '<em>OR Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR_FEATURE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.NOTFeatureConstraintImpl <em>NOT Feature Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.NOTFeatureConstraintImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTFeatureConstraint()
+	 * @generated
+	 */
+	int NOT_FEATURE_CONSTRAINT = 37;
+
+	/**
+	 * The number of structural features of the '<em>NOT Feature Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_FEATURE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -538,7 +1258,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 11;
+	int OP_TYPE_ENUM = 38;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -548,7 +1268,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 12;
+	int TX_TYPE_ENUM = 39;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -558,7 +1278,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 13;
+	int SRV_TYPE_ENUM = 40;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -568,7 +1288,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 14;
+	int AUTH_LEVEL_ENUM = 41;
 
 
 	/**
@@ -873,6 +1593,17 @@ public interface ServicedefPackage extends EPackage {
 	EReference getOperation_AuthorizedRoles();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.Operation#getValidator <em>Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Validator</em>'.
+	 * @see it.csi.mddtools.servicedef.Operation#getValidator()
+	 * @see #getOperation()
+	 * @generated
+	 */
+	EReference getOperation_Validator();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Param <em>Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -903,6 +1634,28 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getParam_Type();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.Param#getValidator <em>Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Validator</em>'.
+	 * @see it.csi.mddtools.servicedef.Param#getValidator()
+	 * @see #getParam()
+	 * @generated
+	 */
+	EReference getParam_Validator();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicedef.Param#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.Param#getConstraint()
+	 * @see #getParam()
+	 * @generated
+	 */
+	EReference getParam_Constraint();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Types <em>Types</em>}'.
@@ -966,6 +1719,430 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRole_Name();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.InputValidator <em>Input Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Input Validator</em>'.
+	 * @see it.csi.mddtools.servicedef.InputValidator
+	 * @generated
+	 */
+	EClass getInputValidator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.InputValidator#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.InputValidator#getConstraint()
+	 * @see #getInputValidator()
+	 * @generated
+	 */
+	EReference getInputValidator_Constraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ParamValidator <em>Param Validator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Param Validator</em>'.
+	 * @see it.csi.mddtools.servicedef.ParamValidator
+	 * @generated
+	 */
+	EClass getParamValidator();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.ParamValidator#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ParamValidator#getConstraint()
+	 * @see #getParamValidator()
+	 * @generated
+	 */
+	EReference getParamValidator_Constraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ValueRangeConstraint <em>Value Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Value Range Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ValueRangeConstraint
+	 * @generated
+	 */
+	EClass getValueRangeConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ValueValorizationConstraint <em>Value Valorization Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Value Valorization Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ValueValorizationConstraint
+	 * @generated
+	 */
+	EClass getValueValorizationConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ValueValorizationConstraint#isMustNotBeNull <em>Must Not Be Null</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Must Not Be Null</em>'.
+	 * @see it.csi.mddtools.servicedef.ValueValorizationConstraint#isMustNotBeNull()
+	 * @see #getValueValorizationConstraint()
+	 * @generated
+	 */
+	EAttribute getValueValorizationConstraint_MustNotBeNull();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.CustomConstraint <em>Custom Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.CustomConstraint
+	 * @generated
+	 */
+	EClass getCustomConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.CustomConstraint#getCheckMethodName <em>Check Method Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Check Method Name</em>'.
+	 * @see it.csi.mddtools.servicedef.CustomConstraint#getCheckMethodName()
+	 * @see #getCustomConstraint()
+	 * @generated
+	 */
+	EAttribute getCustomConstraint_CheckMethodName();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.RelativeConstraint <em>Relative Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Relative Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.RelativeConstraint
+	 * @generated
+	 */
+	EClass getRelativeConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ValueConstraint <em>Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ValueConstraint
+	 * @generated
+	 */
+	EClass getValueConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint <em>Simple Param Coinstraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Simple Param Coinstraint</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleParamCoinstraint
+	 * @generated
+	 */
+	EClass getSimpleParamCoinstraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint#getParam <em>Param</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Param</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleParamCoinstraint#getParam()
+	 * @see #getSimpleParamCoinstraint()
+	 * @generated
+	 */
+	EReference getSimpleParamCoinstraint_Param();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleParamCoinstraint#getConstraint()
+	 * @see #getSimpleParamCoinstraint()
+	 * @generated
+	 */
+	EReference getSimpleParamCoinstraint_Constraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.CompositeParamConstraint <em>Composite Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Composite Param Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.CompositeParamConstraint
+	 * @generated
+	 */
+	EClass getCompositeParamConstraint();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.CompositeParamConstraint#getComponent <em>Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Component</em>'.
+	 * @see it.csi.mddtools.servicedef.CompositeParamConstraint#getComponent()
+	 * @see #getCompositeParamConstraint()
+	 * @generated
+	 */
+	EReference getCompositeParamConstraint_Component();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ANDParamConstraint <em>AND Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>AND Param Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ANDParamConstraint
+	 * @generated
+	 */
+	EClass getANDParamConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ORParamConstraint <em>OR Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>OR Param Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ORParamConstraint
+	 * @generated
+	 */
+	EClass getORParamConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ParamConstraint <em>Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Param Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ParamConstraint
+	 * @generated
+	 */
+	EClass getParamConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.NOTParamConstraint <em>NOT Param Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>NOT Param Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.NOTParamConstraint
+	 * @generated
+	 */
+	EClass getNOTParamConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.CompositeValueConstraint <em>Composite Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Composite Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.CompositeValueConstraint
+	 * @generated
+	 */
+	EClass getCompositeValueConstraint();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.CompositeValueConstraint#getComponent <em>Component</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Component</em>'.
+	 * @see it.csi.mddtools.servicedef.CompositeValueConstraint#getComponent()
+	 * @see #getCompositeValueConstraint()
+	 * @generated
+	 */
+	EReference getCompositeValueConstraint_Component();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ANDValueConstraint <em>AND Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>AND Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ANDValueConstraint
+	 * @generated
+	 */
+	EClass getANDValueConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ORValueConstraint <em>OR Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>OR Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ORValueConstraint
+	 * @generated
+	 */
+	EClass getORValueConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.NOTValueConstraint <em>NOT Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>NOT Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.NOTValueConstraint
+	 * @generated
+	 */
+	EClass getNOTValueConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.SimpleValueConstraint <em>Simple Value Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Simple Value Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleValueConstraint
+	 * @generated
+	 */
+	EClass getSimpleValueConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.EClass0 <em>EClass0</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>EClass0</em>'.
+	 * @see it.csi.mddtools.servicedef.EClass0
+	 * @generated
+	 */
+	EClass getEClass0();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint <em>Continuous Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Continuous Range Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ContinuousRangeConstraint
+	 * @generated
+	 */
+	EClass getContinuousRangeConstraint();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint#getLowerbound <em>Lowerbound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lowerbound</em>'.
+	 * @see it.csi.mddtools.servicedef.ContinuousRangeConstraint#getLowerbound()
+	 * @see #getContinuousRangeConstraint()
+	 * @generated
+	 */
+	EAttribute getContinuousRangeConstraint_Lowerbound();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint#getUpperbound <em>Upperbound</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Upperbound</em>'.
+	 * @see it.csi.mddtools.servicedef.ContinuousRangeConstraint#getUpperbound()
+	 * @see #getContinuousRangeConstraint()
+	 * @generated
+	 */
+	EAttribute getContinuousRangeConstraint_Upperbound();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.DiscreteRangeConstraint <em>Discrete Range Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Discrete Range Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.DiscreteRangeConstraint
+	 * @generated
+	 */
+	EClass getDiscreteRangeConstraint();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link it.csi.mddtools.servicedef.DiscreteRangeConstraint#getLiterals <em>Literals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Literals</em>'.
+	 * @see it.csi.mddtools.servicedef.DiscreteRangeConstraint#getLiterals()
+	 * @see #getDiscreteRangeConstraint()
+	 * @generated
+	 */
+	EAttribute getDiscreteRangeConstraint_Literals();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.FeatureConstraint <em>Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.FeatureConstraint
+	 * @generated
+	 */
+	EClass getFeatureConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.CompositeFeatureConstraint <em>Composite Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Composite Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.CompositeFeatureConstraint
+	 * @generated
+	 */
+	EClass getCompositeFeatureConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.SimpleFeatureConstraint <em>Simple Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Simple Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleFeatureConstraint
+	 * @generated
+	 */
+	EClass getSimpleFeatureConstraint();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.SimpleFeatureConstraint#getConstraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleFeatureConstraint#getConstraint()
+	 * @see #getSimpleFeatureConstraint()
+	 * @generated
+	 */
+	EReference getSimpleFeatureConstraint_Constraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicedef.SimpleFeatureConstraint#getEntity <em>Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Entity</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleFeatureConstraint#getEntity()
+	 * @see #getSimpleFeatureConstraint()
+	 * @generated
+	 */
+	EReference getSimpleFeatureConstraint_Entity();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicedef.SimpleFeatureConstraint#getFeature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature</em>'.
+	 * @see it.csi.mddtools.servicedef.SimpleFeatureConstraint#getFeature()
+	 * @see #getSimpleFeatureConstraint()
+	 * @generated
+	 */
+	EReference getSimpleFeatureConstraint_Feature();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ANDFeatureConstraint <em>AND Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>AND Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ANDFeatureConstraint
+	 * @generated
+	 */
+	EClass getANDFeatureConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ORFeatureConstraint <em>OR Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>OR Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.ORFeatureConstraint
+	 * @generated
+	 */
+	EClass getORFeatureConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.NOTFeatureConstraint <em>NOT Feature Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>NOT Feature Constraint</em>'.
+	 * @see it.csi.mddtools.servicedef.NOTFeatureConstraint
+	 * @generated
+	 */
+	EClass getNOTFeatureConstraint();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}'.
@@ -1268,6 +2445,14 @@ public interface ServicedefPackage extends EPackage {
 		EReference OPERATION__AUTHORIZED_ROLES = eINSTANCE.getOperation_AuthorizedRoles();
 
 		/**
+		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPERATION__VALIDATOR = eINSTANCE.getOperation_Validator();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ParamImpl <em>Param</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1292,6 +2477,22 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PARAM__TYPE = eINSTANCE.getParam_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Validator</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARAM__VALIDATOR = eINSTANCE.getParam_Validator();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARAM__CONSTRAINT = eINSTANCE.getParam_Constraint();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
@@ -1346,6 +2547,388 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ROLE__NAME = eINSTANCE.getRole_Name();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.InputValidatorImpl <em>Input Validator</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.InputValidatorImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getInputValidator()
+		 * @generated
+		 */
+		EClass INPUT_VALIDATOR = eINSTANCE.getInputValidator();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INPUT_VALIDATOR__CONSTRAINT = eINSTANCE.getInputValidator_Constraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ParamValidatorImpl <em>Param Validator</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ParamValidatorImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamValidator()
+		 * @generated
+		 */
+		EClass PARAM_VALIDATOR = eINSTANCE.getParamValidator();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARAM_VALIDATOR__CONSTRAINT = eINSTANCE.getParamValidator_Constraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ValueRangeConstraintImpl <em>Value Range Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ValueRangeConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueRangeConstraint()
+		 * @generated
+		 */
+		EClass VALUE_RANGE_CONSTRAINT = eINSTANCE.getValueRangeConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ValueValorizationConstraintImpl <em>Value Valorization Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ValueValorizationConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueValorizationConstraint()
+		 * @generated
+		 */
+		EClass VALUE_VALORIZATION_CONSTRAINT = eINSTANCE.getValueValorizationConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Must Not Be Null</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VALUE_VALORIZATION_CONSTRAINT__MUST_NOT_BE_NULL = eINSTANCE.getValueValorizationConstraint_MustNotBeNull();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.CustomConstraintImpl <em>Custom Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.CustomConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCustomConstraint()
+		 * @generated
+		 */
+		EClass CUSTOM_CONSTRAINT = eINSTANCE.getCustomConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Check Method Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CUSTOM_CONSTRAINT__CHECK_METHOD_NAME = eINSTANCE.getCustomConstraint_CheckMethodName();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.RelativeConstraintImpl <em>Relative Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.RelativeConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getRelativeConstraint()
+		 * @generated
+		 */
+		EClass RELATIVE_CONSTRAINT = eINSTANCE.getRelativeConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ValueConstraintImpl <em>Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueConstraint()
+		 * @generated
+		 */
+		EClass VALUE_CONSTRAINT = eINSTANCE.getValueConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.SimpleParamCoinstraintImpl <em>Simple Param Coinstraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.SimpleParamCoinstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleParamCoinstraint()
+		 * @generated
+		 */
+		EClass SIMPLE_PARAM_COINSTRAINT = eINSTANCE.getSimpleParamCoinstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Param</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIMPLE_PARAM_COINSTRAINT__PARAM = eINSTANCE.getSimpleParamCoinstraint_Param();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIMPLE_PARAM_COINSTRAINT__CONSTRAINT = eINSTANCE.getSimpleParamCoinstraint_Constraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.CompositeParamConstraintImpl <em>Composite Param Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.CompositeParamConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeParamConstraint()
+		 * @generated
+		 */
+		EClass COMPOSITE_PARAM_CONSTRAINT = eINSTANCE.getCompositeParamConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Component</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPOSITE_PARAM_CONSTRAINT__COMPONENT = eINSTANCE.getCompositeParamConstraint_Component();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ANDParamConstraintImpl <em>AND Param Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ANDParamConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDParamConstraint()
+		 * @generated
+		 */
+		EClass AND_PARAM_CONSTRAINT = eINSTANCE.getANDParamConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ORParamConstraintImpl <em>OR Param Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ORParamConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORParamConstraint()
+		 * @generated
+		 */
+		EClass OR_PARAM_CONSTRAINT = eINSTANCE.getORParamConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ParamConstraintImpl <em>Param Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ParamConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamConstraint()
+		 * @generated
+		 */
+		EClass PARAM_CONSTRAINT = eINSTANCE.getParamConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.NOTParamConstraintImpl <em>NOT Param Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.NOTParamConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTParamConstraint()
+		 * @generated
+		 */
+		EClass NOT_PARAM_CONSTRAINT = eINSTANCE.getNOTParamConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.CompositeValueConstraintImpl <em>Composite Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.CompositeValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeValueConstraint()
+		 * @generated
+		 */
+		EClass COMPOSITE_VALUE_CONSTRAINT = eINSTANCE.getCompositeValueConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Component</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPOSITE_VALUE_CONSTRAINT__COMPONENT = eINSTANCE.getCompositeValueConstraint_Component();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ANDValueConstraintImpl <em>AND Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ANDValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDValueConstraint()
+		 * @generated
+		 */
+		EClass AND_VALUE_CONSTRAINT = eINSTANCE.getANDValueConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ORValueConstraintImpl <em>OR Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ORValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORValueConstraint()
+		 * @generated
+		 */
+		EClass OR_VALUE_CONSTRAINT = eINSTANCE.getORValueConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.NOTValueConstraintImpl <em>NOT Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.NOTValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTValueConstraint()
+		 * @generated
+		 */
+		EClass NOT_VALUE_CONSTRAINT = eINSTANCE.getNOTValueConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.SimpleValueConstraintImpl <em>Simple Value Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.SimpleValueConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleValueConstraint()
+		 * @generated
+		 */
+		EClass SIMPLE_VALUE_CONSTRAINT = eINSTANCE.getSimpleValueConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.EClass0Impl <em>EClass0</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.EClass0Impl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getEClass0()
+		 * @generated
+		 */
+		EClass ECLASS0 = eINSTANCE.getEClass0();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl <em>Continuous Range Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getContinuousRangeConstraint()
+		 * @generated
+		 */
+		EClass CONTINUOUS_RANGE_CONSTRAINT = eINSTANCE.getContinuousRangeConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Lowerbound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTINUOUS_RANGE_CONSTRAINT__LOWERBOUND = eINSTANCE.getContinuousRangeConstraint_Lowerbound();
+
+		/**
+		 * The meta object literal for the '<em><b>Upperbound</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONTINUOUS_RANGE_CONSTRAINT__UPPERBOUND = eINSTANCE.getContinuousRangeConstraint_Upperbound();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.DiscreteRangeConstraintImpl <em>Discrete Range Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.DiscreteRangeConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getDiscreteRangeConstraint()
+		 * @generated
+		 */
+		EClass DISCRETE_RANGE_CONSTRAINT = eINSTANCE.getDiscreteRangeConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Literals</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DISCRETE_RANGE_CONSTRAINT__LITERALS = eINSTANCE.getDiscreteRangeConstraint_Literals();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.FeatureConstraintImpl <em>Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.FeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getFeatureConstraint()
+		 * @generated
+		 */
+		EClass FEATURE_CONSTRAINT = eINSTANCE.getFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.CompositeFeatureConstraintImpl <em>Composite Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.CompositeFeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeFeatureConstraint()
+		 * @generated
+		 */
+		EClass COMPOSITE_FEATURE_CONSTRAINT = eINSTANCE.getCompositeFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl <em>Simple Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleFeatureConstraint()
+		 * @generated
+		 */
+		EClass SIMPLE_FEATURE_CONSTRAINT = eINSTANCE.getSimpleFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraint</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIMPLE_FEATURE_CONSTRAINT__CONSTRAINT = eINSTANCE.getSimpleFeatureConstraint_Constraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Entity</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIMPLE_FEATURE_CONSTRAINT__ENTITY = eINSTANCE.getSimpleFeatureConstraint_Entity();
+
+		/**
+		 * The meta object literal for the '<em><b>Feature</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SIMPLE_FEATURE_CONSTRAINT__FEATURE = eINSTANCE.getSimpleFeatureConstraint_Feature();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ANDFeatureConstraintImpl <em>AND Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ANDFeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDFeatureConstraint()
+		 * @generated
+		 */
+		EClass AND_FEATURE_CONSTRAINT = eINSTANCE.getANDFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ORFeatureConstraintImpl <em>OR Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ORFeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORFeatureConstraint()
+		 * @generated
+		 */
+		EClass OR_FEATURE_CONSTRAINT = eINSTANCE.getORFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.NOTFeatureConstraintImpl <em>NOT Feature Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.NOTFeatureConstraintImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTFeatureConstraint()
+		 * @generated
+		 */
+		EClass NOT_FEATURE_CONSTRAINT = eINSTANCE.getNOTFeatureConstraint();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.

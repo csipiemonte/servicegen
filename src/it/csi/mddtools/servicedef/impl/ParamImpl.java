@@ -7,11 +7,14 @@
 package it.csi.mddtools.servicedef.impl;
 
 import it.csi.mddtools.servicedef.Param;
+import it.csi.mddtools.servicedef.ParamValidator;
 import it.csi.mddtools.servicedef.ServicedefPackage;
+import it.csi.mddtools.servicedef.ValueConstraint;
 
 import it.csi.mddtools.typedef.Type;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -28,6 +31,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getType <em>Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getValidator <em>Validator</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getConstraint <em>Constraint</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +68,26 @@ public class ParamImpl extends EObjectImpl implements Param {
 	 * @ordered
 	 */
 	protected Type type;
+
+	/**
+	 * The cached value of the '{@link #getValidator() <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidator()
+	 * @generated
+	 * @ordered
+	 */
+	protected ParamValidator validator;
+
+	/**
+	 * The cached value of the '{@link #getConstraint() <em>Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraint()
+	 * @generated
+	 * @ordered
+	 */
+	protected ValueConstraint constraint;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,6 +172,101 @@ public class ParamImpl extends EObjectImpl implements Param {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ParamValidator getValidator() {
+		return validator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetValidator(ParamValidator newValidator, NotificationChain msgs) {
+		ParamValidator oldValidator = validator;
+		validator = newValidator;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicedefPackage.PARAM__VALIDATOR, oldValidator, newValidator);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidator(ParamValidator newValidator) {
+		if (newValidator != validator) {
+			NotificationChain msgs = null;
+			if (validator != null)
+				msgs = ((InternalEObject)validator).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.PARAM__VALIDATOR, null, msgs);
+			if (newValidator != null)
+				msgs = ((InternalEObject)newValidator).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.PARAM__VALIDATOR, null, msgs);
+			msgs = basicSetValidator(newValidator, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.PARAM__VALIDATOR, newValidator, newValidator));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueConstraint getConstraint() {
+		if (constraint != null && constraint.eIsProxy()) {
+			InternalEObject oldConstraint = (InternalEObject)constraint;
+			constraint = (ValueConstraint)eResolveProxy(oldConstraint);
+			if (constraint != oldConstraint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ServicedefPackage.PARAM__CONSTRAINT, oldConstraint, constraint));
+			}
+		}
+		return constraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueConstraint basicGetConstraint() {
+		return constraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConstraint(ValueConstraint newConstraint) {
+		ValueConstraint oldConstraint = constraint;
+		constraint = newConstraint;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.PARAM__CONSTRAINT, oldConstraint, constraint));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ServicedefPackage.PARAM__VALIDATOR:
+				return basicSetValidator(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -155,6 +275,11 @@ public class ParamImpl extends EObjectImpl implements Param {
 			case ServicedefPackage.PARAM__TYPE:
 				if (resolve) return getType();
 				return basicGetType();
+			case ServicedefPackage.PARAM__VALIDATOR:
+				return getValidator();
+			case ServicedefPackage.PARAM__CONSTRAINT:
+				if (resolve) return getConstraint();
+				return basicGetConstraint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -172,6 +297,12 @@ public class ParamImpl extends EObjectImpl implements Param {
 				return;
 			case ServicedefPackage.PARAM__TYPE:
 				setType((Type)newValue);
+				return;
+			case ServicedefPackage.PARAM__VALIDATOR:
+				setValidator((ParamValidator)newValue);
+				return;
+			case ServicedefPackage.PARAM__CONSTRAINT:
+				setConstraint((ValueConstraint)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -191,6 +322,12 @@ public class ParamImpl extends EObjectImpl implements Param {
 			case ServicedefPackage.PARAM__TYPE:
 				setType((Type)null);
 				return;
+			case ServicedefPackage.PARAM__VALIDATOR:
+				setValidator((ParamValidator)null);
+				return;
+			case ServicedefPackage.PARAM__CONSTRAINT:
+				setConstraint((ValueConstraint)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -207,6 +344,10 @@ public class ParamImpl extends EObjectImpl implements Param {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ServicedefPackage.PARAM__TYPE:
 				return type != null;
+			case ServicedefPackage.PARAM__VALIDATOR:
+				return validator != null;
+			case ServicedefPackage.PARAM__CONSTRAINT:
+				return constraint != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -245,6 +245,7 @@ public class OperationItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ServicedefPackage.Literals.OPERATION__PARAMS);
+			childrenFeatures.add(ServicedefPackage.Literals.OPERATION__VALIDATOR);
 		}
 		return childrenFeatures;
 	}
@@ -306,6 +307,7 @@ public class OperationItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ServicedefPackage.OPERATION__PARAMS:
+			case ServicedefPackage.OPERATION__VALIDATOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -327,6 +329,11 @@ public class OperationItemProvider
 			(createChildParameter
 				(ServicedefPackage.Literals.OPERATION__PARAMS,
 				 ServicedefFactory.eINSTANCE.createParam()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.OPERATION__VALIDATOR,
+				 ServicedefFactory.eINSTANCE.createInputValidator()));
 	}
 
 	/**

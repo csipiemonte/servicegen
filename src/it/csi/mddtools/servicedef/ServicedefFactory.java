@@ -116,6 +116,177 @@ public interface ServicedefFactory extends EFactory {
 	Role createRole();
 
 	/**
+	 * Returns a new object of class '<em>Input Validator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Input Validator</em>'.
+	 * @generated
+	 */
+	InputValidator createInputValidator();
+
+	/**
+	 * Returns a new object of class '<em>Param Validator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Param Validator</em>'.
+	 * @generated
+	 */
+	ParamValidator createParamValidator();
+
+	/**
+	 * Returns a new object of class '<em>Value Valorization Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Value Valorization Constraint</em>'.
+	 * @generated
+	 */
+	ValueValorizationConstraint createValueValorizationConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Custom Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Constraint</em>'.
+	 * @generated
+	 */
+	CustomConstraint createCustomConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Relative Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Relative Constraint</em>'.
+	 * @generated
+	 */
+	RelativeConstraint createRelativeConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Simple Param Coinstraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Simple Param Coinstraint</em>'.
+	 * @generated
+	 */
+	SimpleParamCoinstraint createSimpleParamCoinstraint();
+
+	/**
+	 * Returns a new object of class '<em>AND Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>AND Param Constraint</em>'.
+	 * @generated
+	 */
+	ANDParamConstraint createANDParamConstraint();
+
+	/**
+	 * Returns a new object of class '<em>OR Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>OR Param Constraint</em>'.
+	 * @generated
+	 */
+	ORParamConstraint createORParamConstraint();
+
+	/**
+	 * Returns a new object of class '<em>NOT Param Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>NOT Param Constraint</em>'.
+	 * @generated
+	 */
+	NOTParamConstraint createNOTParamConstraint();
+
+	/**
+	 * Returns a new object of class '<em>AND Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>AND Value Constraint</em>'.
+	 * @generated
+	 */
+	ANDValueConstraint createANDValueConstraint();
+
+	/**
+	 * Returns a new object of class '<em>OR Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>OR Value Constraint</em>'.
+	 * @generated
+	 */
+	ORValueConstraint createORValueConstraint();
+
+	/**
+	 * Returns a new object of class '<em>NOT Value Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>NOT Value Constraint</em>'.
+	 * @generated
+	 */
+	NOTValueConstraint createNOTValueConstraint();
+
+	/**
+	 * Returns a new object of class '<em>EClass0</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>EClass0</em>'.
+	 * @generated
+	 */
+	EClass0 createEClass0();
+
+	/**
+	 * Returns a new object of class '<em>Continuous Range Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Continuous Range Constraint</em>'.
+	 * @generated
+	 */
+	ContinuousRangeConstraint createContinuousRangeConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Discrete Range Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Discrete Range Constraint</em>'.
+	 * @generated
+	 */
+	DiscreteRangeConstraint createDiscreteRangeConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Simple Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Simple Feature Constraint</em>'.
+	 * @generated
+	 */
+	SimpleFeatureConstraint createSimpleFeatureConstraint();
+
+	/**
+	 * Returns a new object of class '<em>AND Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>AND Feature Constraint</em>'.
+	 * @generated
+	 */
+	ANDFeatureConstraint createANDFeatureConstraint();
+
+	/**
+	 * Returns a new object of class '<em>OR Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>OR Feature Constraint</em>'.
+	 * @generated
+	 */
+	ORFeatureConstraint createORFeatureConstraint();
+
+	/**
+	 * Returns a new object of class '<em>NOT Feature Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>NOT Feature Constraint</em>'.
+	 * @generated
+	 */
+	NOTFeatureConstraint createNOTFeatureConstraint();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

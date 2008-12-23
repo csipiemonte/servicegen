@@ -111,16 +111,26 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
    * <li> Inserire informazioni quali il livello di securizzazione A0-A3
    * <li> Inserire varie ed eventuali... 
    * </ul>
+   * @generated
    */
   «ENDPROTECT»
 public interface «serviceInterfaceName()»{
 	«EXPAND operationDeclaration (model, codServizio)FOREACH this.operations»
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
 	«ENDIF»
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException;
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
 	«ENDIF»
 }
@@ -158,6 +168,7 @@ public interface «serviceInterfaceName()»{
    * @throws CSIException (eccezione base rilanciata dall'infrastruttura di cooperazione)
    * @throws SystemException in caso di errore di sistema (connessione, comunicazione, ecc.)
    * @throws UnrecoverableException in caso di errore imprevisto e non recuperabile
+   * @generated
    */
   «ENDPROTECT»
   public «map2javaType(this.returnType,codServ, model)» «this.name» (
@@ -177,6 +188,9 @@ public interface «serviceInterfaceName()»{
 «ENDDEFINE»
 
 «DEFINE operationDeclaration4Remote (SOABEModel model, String codServ) FOR Operation»
+  /**
+   * @generated
+   */
   public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
@@ -217,16 +231,26 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
 /**
  * Interfaccia remota dell'EJB che implementa il servizio «this.codServizio».
+ * @generated
  */
 public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
 	«EXPAND operationDeclaration4Remote (model,codServizio)FOREACH this.operations»
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
 	«ENDIF»
 	
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
 	«ENDIF»
 }
@@ -240,15 +264,25 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 
 /**
  * Interfaccia locale dell'EJB che implementa il servizio «this.codServizio».
+ * @generated
  */
 public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject, «fullQualifiedServiceInterfaceName(model)»{
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
 	«ENDIF»
 	
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException;
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
 	«ENDIF»
 }
@@ -267,7 +301,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 import java.rmi.*;
 import javax.ejb.*;
 
+/**
+ * @generated
+ */
 public interface «serviceHomeInterfaceName()» extends EJBHome{
+    /**
+	 * @generated
+	 */
 	public «serviceRemoteInterfaceName()» create() throws RemoteException, CreateException;
 }
 «ENDFILE»
@@ -278,7 +318,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 import java.rmi.*;
 import javax.ejb.*;
 
+/**
+ * @generated
+ */
 public interface «serviceLocalHomeInterfaceName()» extends EJBLocalHome{
+    /**
+	 * @generated
+	 */
 	public «serviceLocalInterfaceName()» create() throws CreateException;
 }
 «ENDFILE»
@@ -310,12 +356,20 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import org.apache.log4j.*;
 
-
+/**
+ * @generated
+ */
 public class «serviceBeanClassName()» implements SessionBean{
 
 	// business delegate contenente le implementazioni del servizio
+	/**
+	 * @generated
+	 */
 	protected «serviceImplClassName()» delegate = null;
 	
+	/**
+	 * @generated
+	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
 	
 	/// Operazioni esposte dal servizio
@@ -323,15 +377,24 @@ public class «serviceBeanClassName()» implements SessionBean{
 	«EXPAND operationDelegation (model,codServizio, this)FOREACH this.operations»
 	
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		return delegate.testResources();
 	}
 	«ENDIF»
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
 		return delegate.selfCheck(alreadyChecked);
 	}
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return delegate.hasSelfCheck();
 	}
@@ -339,29 +402,45 @@ public class «serviceBeanClassName()» implements SessionBean{
 	
 	/// lifecycle dell EJB
 	
+	/**
+	 * @generated
+	 */
 	public void ejbActivate() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
+    /**
+	 * @generated
+	 */
 	public void ejbPassivate() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 
+    /**
+	 * @generated
+	 */
 	public void ejbRemove() throws EJBException, RemoteException {
 		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * @generated
+	 */
 	public void ejbCreate() {
     }
 	  
-
+    /**
+	 * @generated
+	 */
 	SessionContext ctx = null;
 	
 	
-	
+	/**
+	 * @generated
+	 */
 	public void createImpl(Object initOptions) throws EJBException{
 		Logger logger = getLogger(null);
 	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
@@ -378,6 +457,9 @@ public class «serviceBeanClassName()» implements SessionBean{
 		}
 	}
 	
+	/**
+	 * @generated
+	 */
 	public void setSessionContext(SessionContext ctx) throws EJBException, RemoteException {
 	  
 	    /// META-TODO: forse sarebbe opportuno accodare il nome del servizio al logger...
@@ -405,6 +487,9 @@ public class «serviceBeanClassName()» implements SessionBean{
 		logger.debug("[«serviceBeanClassName()»::setSessionContext] - END");
 	}
 	
+	/**
+	 * @generated
+	 */
 	protected Logger getLogger(String subsystem){
 	  if (subsystem!=null)
 	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
@@ -417,6 +502,9 @@ public class «serviceBeanClassName()» implements SessionBean{
 «ENDDEFINE»
 
 «DEFINE operationDelegation (SOABEModel model,String codServ, ServiceDef sd) FOR Operation»
+  /**
+   * @generated
+   */
   public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
@@ -483,8 +571,13 @@ import org.apache.log4j.*;
 // verranno preservate in rigenerazioni successive del progetto
 «ENDPROTECT»
 
+/**
+ * @generated
+ */
 public class «serviceImplClassName()» {
-
+    /**
+	 * @generated
+	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
@@ -497,14 +590,26 @@ public class «serviceImplClassName()» {
 	«EXPAND operationImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
 	«IF this.monitorable || this.diagEnabled»
 	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
+	/**
+	 * @generated
+	 */
 	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
+	/**
+	 * @generated
+	 */
 	String _codR = "«removeSeparator(codServizio)»";
+	/**
+	 * @generated
+	 */
 	String [] _suppS = new String[]{
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
 	// inserire qui i codici sistema dei supplier diretti (se ci sono)
 	// es: "Sistema1","Sistema2"
 	«ENDPROTECT»
 	};
+	/**
+	 * @generated
+	 */
 	String [] _suppR = new String[]{
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
 	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
@@ -514,11 +619,17 @@ public class «serviceImplClassName()» {
 	«ENDPROTECT»
 	};
 	
+	/**
+	 * @generated
+	 */
 	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
 					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
 	
 	«ENDIF»
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
 		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
@@ -535,6 +646,9 @@ public class «serviceImplClassName()» {
 	}
 	«ENDIF»
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
 	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
@@ -550,12 +664,18 @@ public class «serviceImplClassName()» {
 		return in;
 	}
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return true;
 	}
 	«ENDIF»
 	
 	/// inizializzazione
+	/**
+	 * @generated
+	 */
 	public void init(Object initOptions){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
 	// inserire qui il codice di inizializzazione della implementazione
@@ -563,6 +683,9 @@ public class «serviceImplClassName()» {
 	«ENDPROTECT»
 	}
 	
+	/**
+	 * @generated
+	 */
 	protected Logger getLogger(String subsystem){
 	  if (subsystem!=null)
 	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
@@ -609,8 +732,14 @@ import org.apache.log4j.*;
 // verranno preservate in rigenerazioni successive del progetto
 «ENDPROTECT»
 
+/**
+ * @generated
+ */
 public class «serviceImplClassName()» implements «serviceInterfaceName()»{
-
+    
+    /**
+	 * @generated
+	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
@@ -623,14 +752,29 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	«EXPAND operationOrchImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
 	«IF this.monitorable || this.diagEnabled»
 	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
+	/**
+	 * @generated
+	 */
 	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
+	
+	/**
+	 * @generated
+	 */
 	String _codR = "«removeSeparator(codServizio)»";
+	
+	/**
+	 * @generated
+	 */
 	String [] _suppS = new String[]{
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
 	// inserire qui i codici sistema dei supplier diretti (se ci sono)
 	// es: "Sistema1","Sistema2"
 	«ENDPROTECT»
 	};
+	
+	/**
+	 * @generated
+	 */
 	String [] _suppR = new String[]{
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
 	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
@@ -640,11 +784,17 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	«ENDPROTECT»
 	};
 	
+	/**
+	 * @generated
+	 */
 	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
 					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
 	
 	«ENDIF»
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
 		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
@@ -661,6 +811,9 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	}
 	«ENDIF»
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
 	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
@@ -676,12 +829,18 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 		return in;
 	}
 	
+	/**
+	 * @generated
+	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return true;
 	}
 	«ENDIF»
 	
 	/// inizializzazione
+	/**
+	 * @generated
+	 */
 	public void init(Object initOptions){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
 	// inserire qui il codice di inizializzazione della implementazione
@@ -689,6 +848,9 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	«ENDPROTECT»
 	}
 	
+	/**
+	 * @generated
+	 */
 	protected Logger getLogger(String subsystem){
 	  if (subsystem!=null)
 	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
@@ -728,12 +890,24 @@ import javax.sql.DataSource;
 import org.apache.log4j.*;
 import junit.framework.TestCase;
 
+/**
+ * @generated
+ */
 public class «serviceTestClassName()» extends TestCase{
-
+    
+    /**
+	 * @generated
+	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
+	/**
+	 * @generated
+	 */
 	«fullQualifiedServiceInterfaceName(model)» pd = null;
 	
+	/**
+	 * @generated
+	 */
 	public void setUp() throws Exception{
 		InfoPortaDelegata info = PDConfigReader.read("test/java/test/«removeSeparator(codServizio)+"/"+pdEJBDefFileName(this.bindings.typeSelect(EJBPABinding).first(),this)»");
 		pd = («fullQualifiedServiceInterfaceName(model)»)
@@ -751,6 +925,9 @@ public class «serviceTestClassName()» extends TestCase{
 	«EXPAND operationTestDeclaration (model, codServizio)FOREACH this.operations»
 	
 	«IF this.monitorable»
+	/**
+	 * @generated
+	 */
 	public void testTestResources(){
 		try{
 			pd.testResources();
@@ -761,6 +938,9 @@ public class «serviceTestClassName()» extends TestCase{
 	}
 	«ENDIF»
 	«IF this.diagEnabled»
+	/**
+	 * @generated
+	 */
 	public void testSelfCheck(){
 		try{
 			pd.selfCheck(null);
@@ -770,6 +950,9 @@ public class «serviceTestClassName()» extends TestCase{
 		}
 	}
 	«ENDIF»
+	/**
+	 * @generated
+	 */
 	protected Logger getLogger(String subsystem){
 	  if (subsystem!=null)
 	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
@@ -788,6 +971,9 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+  /**
+   * @generated
+   */
   public «map2javaType(this.returnType,codServ,model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
@@ -845,6 +1031,9 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+  /**
+   * @generated
+   */
   public «map2javaType(this.returnType,codServ, model)» «this.name» (
     «IF params != null && params.size > 0»
     	«IF params.size==1»
@@ -927,6 +1116,9 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationTestDeclaration(SOABEModel model,String codServ) FOR Operation»
+	/**
+	 * @generated
+	 */
 	public void testOperation«name.toFirstUpper()»(){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test_"+codServ+"_"+name) »
 	/// inserire qui la logica di test per l'operazione.
@@ -964,10 +1156,14 @@ package «fullQualifiedEntitiesPkg(codServ, model)»;
    *      la state machine qui o nella documentazione dell'interfaccia del servizio
    *      che manipola quest'oggetto
    * </ul>
+   * @generated
    */
   «ENDPROTECT»
 public class «name» implements java.io.Serializable {
 	// il serial version UID è impostato in base a quanto configurato nel modello
+	/**
+	 * @generated
+	 */
 	static final long serialVersionUID = «this.versionuid»;
 	
 «EXPAND featureDef (model,codServ,name) FOREACH features»
@@ -977,8 +1173,14 @@ public class «name» implements java.io.Serializable {
 «ENDDEFINE»
 
 «DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR Feature»
+	/**
+	 * @generated
+	 */
 	private «map2javaType(type,codServ,model)» _«name» = «defaultInitVal(type)»;
 	
+	/**
+	 * @generated
+	 */
 	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
 		_«name» = val;
 	}
@@ -997,7 +1199,8 @@ public class «name» implements java.io.Serializable {
      *      <li>se ci sono particolari vincoli di valorizzazione relativi al valore di
      *          altri attributi della stessa classe.
      *      <li>...
-     *      </ul> 
+     *      </ul>
+     * @generated 
    	 */
   	«ENDPROTECT»
 	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
@@ -1030,6 +1233,7 @@ import it.csi.csi.wrapper.UnrecoverableException;
    *      eccezione quanto la documentazione delle clausole "throws" nei metodi
    *      che rilanciano effettivamente quest'eccezione
    * </ul>
+   * @generated
    */
   «ENDPROTECT»
 public class «name» extends 
@@ -1039,22 +1243,37 @@ public class «name» extends
 	«ENDIF»
 {
 
-    // il serial version UID di una eccezione csi è sempre "1" perchè le
-    // eccezioni CSI non possono contenere features aggiuntive
+    /**
+     * il serial version UID di una eccezione csi è sempre "1" perchè le
+     * eccezioni CSI non possono contenere features aggiuntive
+	 * @generated
+	 */
 	static final long serialVersionUID = 1;
 	
+	/**
+	 * @generated
+	 */
 	public «name»(String msg, String nestedExcClassName, String nestedExcMessage, String nestedExcStackTrace) {
 		super(msg, nestedExcClassName, nestedExcMessage, nestedExcStackTrace);
 	}
 
+    /**
+	 * @generated
+	 */
 	public «name»(String msg, String nestedExcClassName, String nestedExcMessage) {
 		super(msg, nestedExcClassName, nestedExcMessage);
 	}
-
+    
+    /**
+	 * @generated
+	 */
 	public «name»(String msg, Throwable nested) {
 		super(msg, nested);
 	}
 
+    /**
+	 * @generated
+	 */
 	public «name»(String msg) {
 		super(msg);		
 	}

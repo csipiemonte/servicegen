@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.Param#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Param#getType <em>Type</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Param#getValidator <em>Validator</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Param#getConstraint <em>Constraint</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,5 +81,57 @@ public interface Param extends EObject {
 	 * @generated
 	 */
 	void setType(Type value);
+
+	/**
+	 * Returns the value of the '<em><b>Validator</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validator</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validator</em>' containment reference.
+	 * @see #setValidator(ParamValidator)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getParam_Validator()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ParamValidator getValidator();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Param#getValidator <em>Validator</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validator</em>' containment reference.
+	 * @see #getValidator()
+	 * @generated
+	 */
+	void setValidator(ParamValidator value);
+
+	/**
+	 * Returns the value of the '<em><b>Constraint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constraint</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constraint</em>' reference.
+	 * @see #setConstraint(ValueConstraint)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getParam_Constraint()
+	 * @model
+	 * @generated
+	 */
+	ValueConstraint getConstraint();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Param#getConstraint <em>Constraint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Constraint</em>' reference.
+	 * @see #getConstraint()
+	 * @generated
+	 */
+	void setConstraint(ValueConstraint value);
 
 } // Param
