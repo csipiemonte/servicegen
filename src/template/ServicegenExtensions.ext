@@ -2,7 +2,27 @@ import servicegen;
 import typedef;
 import servicedef;
 
+
 /// standard generici J2EE Csi piemonte
+/// N.B: prevista la possibilità di modificare il nome della organization, 
+/// nel rispetto del resto degli standard, per permettere la gestione di situazioni
+/// tipo il progetto doqui
+/// il prefisso di packaging e directory di default sarà it.csi e it/csi, ma può essere 
+/// sovrascritto inserendo le properties:
+/// - javapackage-organization-name    (es. organization-name=it.doqui)
+/// verrà automaticamente trasformato nel formato con '/' in tutti i punti in cui serve un
+/// path e non un nome di package 
+
+String getOrganizationNamePkgPrefix() :
+	getProperty("javapackage-organization-name")==null||getProperty("javapackage-organization-name").length==0?
+	"it.csi":
+	getProperty("javapackage-organization-name");
+
+String getOrganizationNamePathPrefix() :	
+	getProperty("javapackage-organization-name")==null||getProperty("javapackage-organization-name").length==0?
+	"it/csi":
+	getProperty("javapackage-organization-name").replaceAll("\\p{Punct}","/");
+	
 String getGeneratedJavaSrcDir(SOABEModel model) :
 	"src/java";
 
@@ -43,10 +63,10 @@ String getSpecificWarResourcesRootDir(String codBinding, String codWar, SOABEMod
   
   
 String fullEjbStdClassesDir(SOABEModel model) :
-    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/business";
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/business";
 
 String getFullEJBStdPkg(SOABEModel model) :
-	    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".business";
+	    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".business";
 	        
 String getSQLSrcDir(SOABEModel model) :
 	"src/sql";
@@ -63,16 +83,17 @@ String getLoggerPrefixForComponent(String codProd, String codComponent) :
 
 // full qualified name dell'interfaccia pubblica del servizio (java)
 String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, SOABEModel model) :
-    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
 
 String fullQualifiedEntitiesPkg(String codServ, SOABEModel model) :
-    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".dto."+removeSeparator(codServ);
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".dto."+removeSeparator(codServ);
 
 String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
-    "it.csi."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
 
 String getFullServiceEJBPkg(String codServ, SOABEModel model) :
 	getFullEJBStdPkg(model)+"."+removeSeparator(codServ);
+
 
 String getFullServiceTestPkg(String codServ, SOABEModel model) :
 	"test"+"."+removeSeparator(codServ);
@@ -119,25 +140,31 @@ String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEMo
 String serviceImplClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Impl";
 	
+String serviceValidatorClassName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"ValidatorFH";
+	
 String serviceTestClassName(ServiceDef sd) :
 	"Test"+toCamel(sd.codServizio);	
 
 String fullQualifiedServiceImplClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
     getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceImplClassName(sd);  
 
+String fullQualifiedServiceValidatorClassName(ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceValidatorClassName(sd);
+    
 String fullQualifiedServiceTestClassName(EJBPABinding sb,ServiceDef sd, SOABEModel model) :
     getFullServiceTestPkg(sd.codServizio, model)+"."+serviceTestClassName(sd);  
 
 
 //// NAMING DIRECTORY
 String fullServiceInterfaceDir(ServiceDef sd, String codServ, SOABEModel model) :
-    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/interfacecsi/"+removeSeparator(codServ);
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/interfacecsi/"+removeSeparator(codServ);
     
 String fullEntitiesDir(String codServ, SOABEModel model) :
-    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/dto/"+removeSeparator(codServ);
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/dto/"+removeSeparator(codServ);
 
 String fullServiceExceptionsDir(String codServ, SOABEModel model) :
-    getGeneratedJavaSrcDir(model)+"/it/csi/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/exception/"+removeSeparator(codServ);
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/exception/"+removeSeparator(codServ);
 
 String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
     fullEjbStdClassesDir(model)+"/"+removeSeparator(codServ);
@@ -367,3 +394,9 @@ String toCamel(String src) : JAVA
 
 boolean validateCodServ(String src) : JAVA
   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.validateCodServ(java.lang.String);    
+  
+String formatConstraint(servicedef::ParamValidator pv) : JAVA
+  it.csi.mddtools.servicegen.genutils.EditUtils.formatConstraint(it.csi.mddtools.servicedef.ParamValidator);
+  
+String getProperty(String name) : JAVA
+  org.openarchitectureware.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
