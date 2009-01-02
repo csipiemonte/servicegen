@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
 <workflow>
+	<component class="oaw.util.stdlib.PropertiesReader">
+  		<propertiesFile value="src/workflow/workflow.properties"/>
+	</component>
+
 	<!--<property name="modelfile" value="src/model/test_csi_app.xmi" />-->
 	<property name="modelfile" value="src/model/prova1.xmi" />
 	<property name="model" value="${modelfile}" />
