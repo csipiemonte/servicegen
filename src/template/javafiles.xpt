@@ -1,8 +1,10 @@
 «IMPORT servicegen»
 «IMPORT servicedef»
 «IMPORT typedef»
+«IMPORT template::javavalidator»
 
 «EXTENSION template::ServicegenExtensions»
+
 
 «DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDef»
 	«REM»file del servizio«ENDREM»
@@ -10,6 +12,7 @@
 	«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR this»
 	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
 	«EXPAND javaEJBServiceBeanFile (model)FOR this»
+	«REM»«EXPAND javavalidator::validatorFH(model) FOR this»«ENDREM»
 	«IF this.serviceType==SrvTypeEnum::orch»
 		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
 		«EXPAND svcflowFiles (model)FOR this»
@@ -160,6 +163,7 @@ public interface «serviceInterfaceName()»{
    * </ul>
    «FOREACH params AS par»
    * @param «par.name» [documentazione del parametro (vedere sopra per consigli sulla documentazione)]
+   	«REM»«EXPAND paramConstraintsDoc FOR par»«ENDREM»
    «ENDFOREACH»
    * @return «map2javaType(this.returnType, codServ, model)»
    «FOREACH throws AS exc»
@@ -186,6 +190,16 @@ public interface «serviceInterfaceName()»{
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException 
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»;
 «ENDDEFINE»
+
+«REM»documenta i constraint sul parametro
+«DEFINE paramConstraintsDoc FOR Param»
+   «LET this.validator AS validator»
+   «LET validator.constraint AS ctr»
+   «formatConstraint(validator)»
+   «ENDLET»
+   «ENDLET»
+«ENDDEFINE»
+«ENDREM»
 
 «DEFINE operationDeclaration4Remote (SOABEModel model, String codServ) FOR Operation»
   /**
@@ -890,6 +904,10 @@ import javax.sql.DataSource;
 import org.apache.log4j.*;
 import junit.framework.TestCase;
 
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testExtraImport"+codServizio)»
+/// inserire qui eventuali import aggiuntive
+«ENDPROTECT»
+
 /**
  * @generated
  */
@@ -916,9 +934,10 @@ public class «serviceTestClassName()» extends TestCase{
 	
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testLocalVars"+codServizio)»
-	// inserire qui la definizione di variabili locali o costanti da usare nel test.
+	// inserire qui la definizione di variabili locali, costanti da usare nel test.
 	// non verranno sovrascritte da successive rigenerazioni
 	«ENDPROTECT»
+	
 	
 	/// Implementazione operazioni esposte dal servizio
 	
