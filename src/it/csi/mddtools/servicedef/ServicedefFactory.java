@@ -224,15 +224,6 @@ public interface ServicedefFactory extends EFactory {
 	NOTValueConstraint createNOTValueConstraint();
 
 	/**
-	 * Returns a new object of class '<em>EClass0</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>EClass0</em>'.
-	 * @generated
-	 */
-	EClass0 createEClass0();
-
-	/**
 	 * Returns a new object of class '<em>Continuous Range Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

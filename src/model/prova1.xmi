@@ -29,29 +29,43 @@
     <baseTypes xsi:type="typedef:TypedArray" name="Array of CSIWrappedLong" componentType="//@baseTypes.0/@baseTypes.12"/>
   </baseTypes>
   <serviceimplementations provides="//@serviceDefs.0"/>
-  <serviceDefs codServizio="provaservice" monitorable="true" diagEnabled="true" versione="1.0.0">
+  <serviceimplementations provides="//@serviceDefs.1"/>
+  <serviceDefs codServizio="provaservice" monitorable="true" diagEnabled="true" versione="1.0.0" traceEnabled="true">
     <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
     <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
     <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
-    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.0" since="1,0">
+    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.6" since="1,0">
       <params name="p1" type="//@baseTypes.0/@baseTypes.0">
         <validator>
-          <constraint xsi:type="servicedef:ParamValueConjunctiveConstraint">
-            <component xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
-            <component xsi:type="servicedef:ContinuousRangeConstraint" lowerbound="10" upperbound="20"/>
-            <component xsi:type="servicedef:SimpleFeatureConstraint" entity="//@serviceDefs.0/@types/@types.0" feature="//@serviceDefs.0/@types/@types.0/@features.0">
-              <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
-            </component>
-          </constraint>
+          <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
         </validator>
       </params>
       <validator>
-        <constraint xsi:type="servicedef:ConjunctiveParamConstraint">
-          <component xsi:type="servicedef:SimpleParamCoinstraint" param="//@serviceDefs.0/@operations.0/@params.0">
-            <constraint xsi:type="servicedef:SimpleFeatureConstraint" entity="//@serviceDefs.0/@types/@types.0" feature="//@serviceDefs.0/@types/@types.0/@features.0">
-              <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
-            </constraint>
-          </component>
+        <constraint xsi:type="servicedef:SimpleParamCoinstraint" param="//@serviceDefs.0/@operations.0/@params.0">
+          <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
+        </constraint>
+      </validator>
+    </operations>
+    <types>
+      <types xsi:type="typedef:Entity" name="DummyEntity">
+        <features name="fieldA" type="//@baseTypes.0/@baseTypes.0"/>
+      </types>
+      <types xsi:type="typedef:Exception" name="DummyException"/>
+    </types>
+  </serviceDefs>
+  <serviceDefs codServizio="provaservice2" diagEnabled="true" versione="1.0.0" traceEnabled="true">
+    <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+    <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
+    <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.6" since="1,0">
+      <params name="p1" type="//@baseTypes.0/@baseTypes.0">
+        <validator>
+          <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
+        </validator>
+      </params>
+      <validator>
+        <constraint xsi:type="servicedef:SimpleParamCoinstraint" param="//@serviceDefs.1/@operations.0/@params.0">
+          <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>
         </constraint>
       </validator>
     </operations>

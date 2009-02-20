@@ -582,29 +582,6 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.EClass0} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EClass0ItemProvider eClass0ItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.EClass0}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEClass0Adapter() {
-		if (eClass0ItemProvider == null) {
-			eClass0ItemProvider = new EClass0ItemProvider(this);
-		}
-
-		return eClass0ItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ContinuousRangeConstraint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -863,7 +840,6 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (andValueConstraintItemProvider != null) andValueConstraintItemProvider.dispose();
 		if (orValueConstraintItemProvider != null) orValueConstraintItemProvider.dispose();
 		if (notValueConstraintItemProvider != null) notValueConstraintItemProvider.dispose();
-		if (eClass0ItemProvider != null) eClass0ItemProvider.dispose();
 		if (continuousRangeConstraintItemProvider != null) continuousRangeConstraintItemProvider.dispose();
 		if (discreteRangeConstraintItemProvider != null) discreteRangeConstraintItemProvider.dispose();
 		if (simpleFeatureConstraintItemProvider != null) simpleFeatureConstraintItemProvider.dispose();

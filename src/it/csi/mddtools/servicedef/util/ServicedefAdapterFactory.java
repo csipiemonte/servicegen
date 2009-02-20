@@ -188,10 +188,6 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createSimpleValueConstraintAdapter();
 			}
 			@Override
-			public Adapter caseEClass0(EClass0 object) {
-				return createEClass0Adapter();
-			}
-			@Override
 			public Adapter caseContinuousRangeConstraint(ContinuousRangeConstraint object) {
 				return createContinuousRangeConstraintAdapter();
 			}
@@ -646,20 +642,6 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSimpleValueConstraintAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.EClass0 <em>EClass0</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see it.csi.mddtools.servicedef.EClass0
-	 * @generated
-	 */
-	public Adapter createEClass0Adapter() {
 		return null;
 	}
 

@@ -127,7 +127,7 @@ public class ParamValidatorItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated 
+	 * @generated
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
@@ -138,7 +138,7 @@ public class ParamValidatorItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
-		super.notifyChanged(notification);	
+		super.notifyChanged(notification);
 	}
 
 	/**

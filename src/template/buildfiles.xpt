@@ -170,6 +170,16 @@ creazione del build.xml per ANT
 
 	</target>
 
+	<!-- creazione pacchetto classi/risorse comuni a tutti i servizi -->
+    <target name="_package-common-classes" depends="compile-all">
+    	<jar destfile="${build}/archives/${target}/«this.codComponente»-common.jar"
+			basedir="${build}/classes"
+			includes="it/csi/«codProdotto.toLowerCase()»/«codComponente.toLowerCase()»/business/**">
+			«FOREACH this.serviceDefs AS sd-»
+			<exclude name="it/csi/«codProdotto.toLowerCase()»/«codComponente.toLowerCase()»/business/«removeSeparator(sd.codServizio)»/**" />
+			«ENDFOREACH-»
+		</jar>
+    </target>
     
     <target name="_package-csiclientlibs-jar" depends="compile-all" 
     description="costruisce tutti i ja r delle librrie client di CSI per ogni servizio"
@@ -382,7 +392,7 @@ creazione del build.xml per ANT
 
 
 	<target name="package-ear"  description="costruisce l&apos;ear"  
-		depends="compile-all, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars, environment-config">
+		depends="compile-all, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars, environment-config">
 «LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${temp}/${target}/APP-INF/lib" :
      (this.targetPlatform.code==TargetPlatformCodes::JBoss43 ? "${temp}/${target}/lib" : "${temp}/${target}/APP-INF/lib"))
 AS sharedLibsPath»
@@ -391,11 +401,11 @@ AS sharedLibsPath»
 			<fileset dir="${lib}"
 				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs}"
 			/>
-			<fileset dir="${build}/archives/${target}" includes="*client*.jar" />
+			<fileset dir="${build}/archives/${target}" includes="*client*.jar *common.jar" />
 		</copy>
 «ENDLET»
 		<ear appxml="${temp}/application.xml" destfile="${build}/archives/${target}/«codComponente.toLowerCase()».ear">
-			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar"/>
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar,*-common.jar"/>
 			<fileset dir="${temp}/${target}" >
 				<include name="**/*"/>
 			</fileset>
@@ -781,7 +791,7 @@ axis-1.4.jar \
 commons-discovery-0.2.jar \
 commons-logging-1.0.3 \
 wsdl4j-1.5.1.jar \
-coop-trace-1.2.0.jar
+coop-trace-1.2.0.jar 
 
 wsfad.libs = wsadp-2.0.2.jar
 

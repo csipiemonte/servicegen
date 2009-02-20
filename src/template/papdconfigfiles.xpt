@@ -471,8 +471,9 @@ del servizio "«codServizio»".
 # L'output va sull'appender complessivo già definito per il componente
 # ma può essere acceso/spento separatamente
 #-------------------------------------------------------------------------
-log4j.logger.«codComponente».cooptrace=DEBUG, «codComponente».file
+log4j.logger.«codComponente».cooptrace=ERROR, «codComponente».file
 log4j.additivity.«codComponente».cooptrace =false
+«EXPAND cooptrace_stopwatch_cfg FOR this»
 «ENDDEFINE»
 
 «REM»
@@ -480,14 +481,8 @@ Questa configurazione è da rivedere perchè non si capisce bene
 qual'è l'appender su cui deve scrivere.
 «ENDREM»
 «DEFINE cooptrace_stopwatch_cfg FOR SOABEModel»
-log4j.logger.«codComponente».cooptrace.util.stopwatch =INFO, «codComponente»
+log4j.logger.«codComponente».cooptrace.util.stopwatch =ERROR, «codComponente».util.stopwatch.file
 log4j.additivity.«codComponente».cooptrace.util.stopwatch=false
-log4j.appender.«codComponente»=org.apache.log4j.RollingFileAppender
-log4j.appender.«codComponente».File=[pathfile]/cooptrace_server<X>.csv
-log4j.appender.«codComponente».layout=org.apache.log4j.PatternLayout
-log4j.appender.«codComponente».MaxFileSize=1000KB
-log4j.appender.«codComponente».MaxBackupIndex=2
-log4j.appender.«codComponente».layout.ConversionPattern=%t,%d{yyyy-MM-dd HH:mm:ss},%X{<componentName>.cooptrace.stopwatch.context},%X{«codComponente».cooptrace. stopwatch.elapsed},%m%n
 «ENDDEFINE»
 
 

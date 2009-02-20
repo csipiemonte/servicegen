@@ -288,12 +288,6 @@ public class ServicedefSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ServicedefPackage.ECLASS0: {
-				EClass0 eClass0 = (EClass0)theEObject;
-				T result = caseEClass0(eClass0);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case ServicedefPackage.CONTINUOUS_RANGE_CONSTRAINT: {
 				ContinuousRangeConstraint continuousRangeConstraint = (ContinuousRangeConstraint)theEObject;
 				T result = caseContinuousRangeConstraint(continuousRangeConstraint);
@@ -798,21 +792,6 @@ public class ServicedefSwitch<T> {
 	 * @generated
 	 */
 	public T caseSimpleValueConstraint(SimpleValueConstraint object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>EClass0</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>EClass0</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEClass0(EClass0 object) {
 		return null;
 	}
 

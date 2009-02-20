@@ -83,7 +83,6 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.AND_VALUE_CONSTRAINT: return createANDValueConstraint();
 			case ServicedefPackage.OR_VALUE_CONSTRAINT: return createORValueConstraint();
 			case ServicedefPackage.NOT_VALUE_CONSTRAINT: return createNOTValueConstraint();
-			case ServicedefPackage.ECLASS0: return createEClass0();
 			case ServicedefPackage.CONTINUOUS_RANGE_CONSTRAINT: return createContinuousRangeConstraint();
 			case ServicedefPackage.DISCRETE_RANGE_CONSTRAINT: return createDiscreteRangeConstraint();
 			case ServicedefPackage.SIMPLE_FEATURE_CONSTRAINT: return createSimpleFeatureConstraint();
@@ -355,16 +354,6 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public NOTValueConstraint createNOTValueConstraint() {
 		NOTValueConstraintImpl notValueConstraint = new NOTValueConstraintImpl();
 		return notValueConstraint;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass0 createEClass0() {
-		EClass0Impl eClass0 = new EClass0Impl();
-		return eClass0;
 	}
 
 	/**

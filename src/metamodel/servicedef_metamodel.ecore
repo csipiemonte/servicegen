@@ -129,7 +129,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="NOTValueConstraint" eSuperTypes="#//CompositeValueConstraint"/>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleValueConstraint" abstract="true"
       eSuperTypes="#//ValueConstraint"/>
-  <eClassifiers xsi:type="ecore:EClass" name="EClass0"/>
   <eClassifiers xsi:type="ecore:EClass" name="ContinuousRangeConstraint" eSuperTypes="#//ValueRangeConstraint">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

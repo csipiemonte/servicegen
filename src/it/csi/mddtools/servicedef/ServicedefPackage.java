@@ -1026,25 +1026,6 @@ public interface ServicedefPackage extends EPackage {
 	int NOT_VALUE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.EClass0Impl <em>EClass0</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.servicedef.impl.EClass0Impl
-	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getEClass0()
-	 * @generated
-	 */
-	int ECLASS0 = 29;
-
-	/**
-	 * The number of structural features of the '<em>EClass0</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ECLASS0_FEATURE_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl <em>Continuous Range Constraint</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1052,7 +1033,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getContinuousRangeConstraint()
 	 * @generated
 	 */
-	int CONTINUOUS_RANGE_CONSTRAINT = 30;
+	int CONTINUOUS_RANGE_CONSTRAINT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Lowerbound</b></em>' attribute.
@@ -1089,7 +1070,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getDiscreteRangeConstraint()
 	 * @generated
 	 */
-	int DISCRETE_RANGE_CONSTRAINT = 31;
+	int DISCRETE_RANGE_CONSTRAINT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Literals</b></em>' attribute list.
@@ -1117,7 +1098,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getFeatureConstraint()
 	 * @generated
 	 */
-	int FEATURE_CONSTRAINT = 32;
+	int FEATURE_CONSTRAINT = 31;
 
 	/**
 	 * The number of structural features of the '<em>Feature Constraint</em>' class.
@@ -1136,7 +1117,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeFeatureConstraint()
 	 * @generated
 	 */
-	int COMPOSITE_FEATURE_CONSTRAINT = 33;
+	int COMPOSITE_FEATURE_CONSTRAINT = 32;
 
 	/**
 	 * The number of structural features of the '<em>Composite Feature Constraint</em>' class.
@@ -1155,7 +1136,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleFeatureConstraint()
 	 * @generated
 	 */
-	int SIMPLE_FEATURE_CONSTRAINT = 34;
+	int SIMPLE_FEATURE_CONSTRAINT = 33;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -1201,7 +1182,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDFeatureConstraint()
 	 * @generated
 	 */
-	int AND_FEATURE_CONSTRAINT = 35;
+	int AND_FEATURE_CONSTRAINT = 34;
 
 	/**
 	 * The number of structural features of the '<em>AND Feature Constraint</em>' class.
@@ -1220,7 +1201,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORFeatureConstraint()
 	 * @generated
 	 */
-	int OR_FEATURE_CONSTRAINT = 36;
+	int OR_FEATURE_CONSTRAINT = 35;
 
 	/**
 	 * The number of structural features of the '<em>OR Feature Constraint</em>' class.
@@ -1239,7 +1220,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTFeatureConstraint()
 	 * @generated
 	 */
-	int NOT_FEATURE_CONSTRAINT = 37;
+	int NOT_FEATURE_CONSTRAINT = 36;
 
 	/**
 	 * The number of structural features of the '<em>NOT Feature Constraint</em>' class.
@@ -1258,7 +1239,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 38;
+	int OP_TYPE_ENUM = 37;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1268,7 +1249,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 39;
+	int TX_TYPE_ENUM = 38;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1278,7 +1259,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 40;
+	int SRV_TYPE_ENUM = 39;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1288,7 +1269,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 41;
+	int AUTH_LEVEL_ENUM = 40;
 
 
 	/**
@@ -1987,16 +1968,6 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSimpleValueConstraint();
-
-	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.EClass0 <em>EClass0</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>EClass0</em>'.
-	 * @see it.csi.mddtools.servicedef.EClass0
-	 * @generated
-	 */
-	EClass getEClass0();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint <em>Continuous Range Constraint</em>}'.
@@ -2791,16 +2762,6 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SIMPLE_VALUE_CONSTRAINT = eINSTANCE.getSimpleValueConstraint();
-
-		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.EClass0Impl <em>EClass0</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.servicedef.impl.EClass0Impl
-		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getEClass0()
-		 * @generated
-		 */
-		EClass ECLASS0 = eINSTANCE.getEClass0();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ContinuousRangeConstraintImpl <em>Continuous Range Constraint</em>}' class.

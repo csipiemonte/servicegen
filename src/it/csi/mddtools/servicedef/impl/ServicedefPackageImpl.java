@@ -18,7 +18,6 @@ import it.csi.mddtools.servicedef.ContinuousRangeConstraint;
 import it.csi.mddtools.servicedef.CustomConstraint;
 import it.csi.mddtools.servicedef.DiscreteRangeConstraint;
 import it.csi.mddtools.servicedef.DocumentRoot;
-import it.csi.mddtools.servicedef.EClass0;
 import it.csi.mddtools.servicedef.EJBPABinding;
 import it.csi.mddtools.servicedef.FeatureConstraint;
 import it.csi.mddtools.servicedef.InputValidator;
@@ -270,13 +269,6 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * @generated
 	 */
 	private EClass simpleValueConstraintEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass eClass0EClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1032,15 +1024,6 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEClass0() {
-		return eClass0EClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getContinuousRangeConstraint() {
 		return continuousRangeConstraintEClass;
 	}
@@ -1321,8 +1304,6 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		simpleValueConstraintEClass = createEClass(SIMPLE_VALUE_CONSTRAINT);
 
-		eClass0EClass = createEClass(ECLASS0);
-
 		continuousRangeConstraintEClass = createEClass(CONTINUOUS_RANGE_CONSTRAINT);
 		createEAttribute(continuousRangeConstraintEClass, CONTINUOUS_RANGE_CONSTRAINT__LOWERBOUND);
 		createEAttribute(continuousRangeConstraintEClass, CONTINUOUS_RANGE_CONSTRAINT__UPPERBOUND);
@@ -1504,8 +1485,6 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEClass(notValueConstraintEClass, NOTValueConstraint.class, "NOTValueConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(simpleValueConstraintEClass, SimpleValueConstraint.class, "SimpleValueConstraint", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(eClass0EClass, EClass0.class, "EClass0", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(continuousRangeConstraintEClass, ContinuousRangeConstraint.class, "ContinuousRangeConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getContinuousRangeConstraint_Lowerbound(), ecorePackage.getEString(), "lowerbound", null, 0, 1, ContinuousRangeConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
