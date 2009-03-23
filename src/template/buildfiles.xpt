@@ -21,7 +21,7 @@ creazione del build.xml per ANT
 
 -->
 
-<project name="«codComponente.toLowerCase()»" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="default">
+<project name="«codComponente.toLowerCase()»" xmlns:ivy="antlib:fr.jayasoft.ivy.ant" default="default" basedir=".">
 	<description>Build file di progetto</description>
 
 	<echo message="Loading build properties..." />
@@ -111,10 +111,12 @@ creazione del build.xml per ANT
 		<ivy:resolve file="buildfiles/ivy.xml" />
 	</target>
 
-
+	<!-- caricamento delle dipendenze mediante Ivy 2.0.0
+	     in conformita' con le Linee Guida Build V05
+	 -->
 	<target name="load-dependencies" depends="resolve-dependencies"
 			description="Risolve le dipendenze esterne.">
-		<ivy:retrieve pattern="lib/${artifact}.${type}" />
+		<ivy:retrieve pattern="lib/[artifact].[type]" />
 	</target>
 
 
@@ -936,21 +938,21 @@ creazione del file di configurazione IVY
 </ivy-module>
 «ENDFILE»
 
-«FILE "buildfiles/ivyconf.xml"»
-<ivyconf>
-  <conf defaultCache="build/cache" defaultResolver="myUrlResolver"/>
-  <resolvers>
-    <url name="myUrlResolver">
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/lib/${artifact}.${type}" />
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/conf/${artifact}.${type}" />
+«REM»[DM] STDMDD-117: caricamento delle dipendenze mediante Ivy 2.0.0 in conformita' con le Linee Guida Build V05«ENDREM»
+«FILE "buildfiles/ivyconf.xml"»<ivysettings>
+	<settings defaultCache="${basedir}/build/cache" defaultResolver="myUrlResolver"/>
+	<resolvers>
+		<url name="myUrlResolver">
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/lib/[artifact].[type]" />
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/conf/[artifact].[type]" />
 
-        <artifact pattern="http://repart.csi.it/java/${organisation}/${module}/lib/${artifact}.${type}" />
+			<artifact pattern="http://repart.csi.it/java/[organisation]/[module]/lib/[artifact].[type]" />
 
-        <ivy pattern="http://repart.csi.it/java/${organisation}/${module}/${revision}/ivy-${module}.xml" />
-        <ivy pattern="http://repart.csi.it/java/${organisation}/${module}/ivy-${module}.xml" />
-    </url>
-  </resolvers>
-</ivyconf>
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/[revision]/ivy-[module].xml" />
+			<ivy pattern="http://repart.csi.it/java/[organisation]/[module]/ivy-[module].xml" />
+		</url>
+	</resolvers>
+</ivysettings>
 «ENDFILE»
 
 «ENDDEFINE»
