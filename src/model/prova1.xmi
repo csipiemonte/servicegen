@@ -34,7 +34,7 @@
     <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
     <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
     <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
-    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.6" since="1,0">
+    <operations name="dummy" returnType="//@baseTypes.0/@baseTypes.6" txType="newLocalTX" since="1,0">
       <params name="p1" type="//@baseTypes.0/@baseTypes.0">
         <validator>
           <constraint xsi:type="servicedef:ValueValorizationConstraint" mustNotBeNull="true"/>

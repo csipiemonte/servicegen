@@ -354,6 +354,7 @@ classe dell'EJB che implementa il servizio (tramite delegate)
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
 package «getFullServiceEJBPkg(codServizio, model)»;
 
+import it.csi.csi.wrapper.CSIException;
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
@@ -534,21 +535,34 @@ public class «serviceBeanClassName()» implements SessionBean{
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
-     
-     «IF this.returnType != null»return
-     «ENDIF»
-     delegate.«this.name»(
-     	«IF params.size != 0»
-     		«IF params.size==1»
-    			«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())»
-    		«ELSE»
-	    		«EXPAND paramPassSameName(true) FOREACH params.select(e|e!=params.last())»
-    			«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.last())»
+     try{
+     	«IF this.returnType != null»return
+     	«ENDIF»
+     	delegate.«this.name»(
+     		«IF params.size != 0»
+     			«IF params.size==1»
+    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())»
+    			«ELSE»
+	    			«EXPAND paramPassSameName(true) FOREACH params.select(e|e!=params.last())»
+    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.last())»
+    			«ENDIF»
     		«ENDIF»
+    		«IF this.opType != OpTypeEnum::synch», datiMsg«ENDIF»
+    		«IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»ctx.getCallerPrincipal()«ENDIF»
+    	);
+    }
+    catch(CSIException e){
+    	«IF this.txType!=TXTypeEnum::noTX»
+    	ctx.setRollbackOnly();
     	«ENDIF»
-    	«IF this.opType != OpTypeEnum::synch», datiMsg«ENDIF»
-    	«IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»ctx.getCallerPrincipal()«ENDIF»
-     );
+		throw e;
+	}
+    catch(Exception e){
+    «IF this.txType!=TXTypeEnum::noTX»
+    	ctx.setRollbackOnly();
+    «ENDIF»
+    	throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:"+e,e);
+    }
   }
 «ENDDEFINE»
 
