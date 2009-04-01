@@ -1200,6 +1200,10 @@ public class «name» implements java.io.Serializable {
 	static final long serialVersionUID = «this.versionuid»;
 	
 «EXPAND featureDef (model,codServ,name) FOREACH features»
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(codServ+name+"customToStringAndCo")»
+	/// inserire qui eventuali ridefinizioni di toString, hashCode, equals
+«ENDPROTECT»
 }
 
 	«ENDFILE»	
