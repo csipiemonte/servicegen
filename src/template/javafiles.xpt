@@ -1039,7 +1039,6 @@ public class «serviceTestClassName()» extends TestCase{
      // inserire qui il codice di implementazione del metodo '«name»'.
      // non verrà sovrascritto nelle successive rigenerazioni
 	 
-     logger.debug("[«implClassName»::«name»] - END");
      «IF returnType!=null»return «defaultInitVal(returnType)»;
      «ENDIF»
      «ENDPROTECT»
@@ -1059,6 +1058,7 @@ public class «serviceTestClassName()» extends TestCase{
        // fine misurazione
        watcher.stop();
 	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
+	   logger.debug("[«implClassName»::«name»] - END");
      }
   }
 «ENDDEFINE»
@@ -1123,7 +1123,6 @@ public class «serviceTestClassName()» extends TestCase{
 	     // (reperimento del risultato dal context del flusso e trasformazione
 	     // nel risultato finale)
 	     // non verrà sovrascritto nelle successive rigenerazioni
-	     logger.debug("[«implClassName»::«name»] - END");
      «IF returnType!=null»
      	
      	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
@@ -1144,6 +1143,7 @@ public class «serviceTestClassName()» extends TestCase{
        // fine misurazione
        watcher.stop();
 	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
+	   logger.debug("[«implClassName»::«name»] - END");
      }
   }
 «ENDDEFINE»
