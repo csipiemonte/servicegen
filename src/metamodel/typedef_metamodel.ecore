@@ -3,46 +3,160 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="typedef"
     nsURI="http://www.csi.it/mddtools/typedef" nsPrefix="typedef">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="DocumentRoot">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
-        eType="#//Type" containment="true"/>
+        eType="#//Type" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSIDatatype" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//CSIDatatypeCodes"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nillable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//CSIDatatypeCodes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nillable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Entity" eSuperTypes="#//Type">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
-        eType="#//Feature" containment="true"/>
+        eType="#//Feature" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versionuid" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        defaultValueLiteral="1"/>
+        defaultValueLiteral="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CSIDatatypeCodes">
-    <eLiterals name="CSIInteger"/>
-    <eLiterals name="CSIString"/>
-    <eLiterals name="CSIFloat"/>
-    <eLiterals name="CSIDouble"/>
-    <eLiterals name="CSIBoolean"/>
-    <eLiterals name="CSIDate"/>
-    <eLiterals name="CSIByte"/>
-    <eLiterals name="CSILong"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="CSIInteger">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIFloat">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIDouble">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIDate">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSIByte">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CSILong">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedArray" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="componentType" eType="#//Type"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="componentType" eType="#//Type">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Exception" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionType" eType="#//CSIExceptionTypes"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="exceptionType" eType="#//CSIExceptionTypes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CSIExceptionTypes">
-    <eLiterals name="USER"/>
-    <eLiterals name="SYSTEM"/>
-    <eLiterals name="UNRECOVERABLE"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="USER">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SYSTEM">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="UNRECOVERABLE">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
 </ecore:EPackage>

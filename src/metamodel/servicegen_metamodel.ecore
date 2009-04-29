@@ -3,57 +3,192 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="servicegen"
     nsURI="http://www.csi.it/mddtools/servicegen" nsPrefix="servicegen">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="SOABEModel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
-        eType="#//BaseTypes" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//BaseTypes" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versioneComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceimplementations"
-        upperBound="-1" eType="#//ServiceImpl" containment="true"/>
+        upperBound="-1" eType="#//ServiceImpl" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceDefs" upperBound="-1"
-        eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef" containment="true"/>
+        eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetPlatform" eType="#//TargetPlatform"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BaseTypes">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
-        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true"/>
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceImpl">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="provides" eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="provides" eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="serviceComponent" eType="#//ServiceComponent"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implCartridge" eType="#//LogicImplCartridge"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TargetPlatform">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//TargetPlatformCodes"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="#//TargetPlatformCodes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TargetPlatformCodes">
-    <eLiterals name="WLS92"/>
-    <eLiterals name="JBoss43"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="WLS92">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="JBoss43">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceComponent" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="implCartridge" eType="#//LogicImplCartridge"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SimpleSC" abstract="true" eSuperTypes="#//ServiceComponent"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CompositeSC" abstract="true" eSuperTypes="#//ServiceComponent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleSC" abstract="true" eSuperTypes="#//ServiceComponent">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeSC" abstract="true" eSuperTypes="#//ServiceComponent">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ResourceBasedSC" abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="resourceSet" eType="ecore:EClass resources_metamodel.ecore#//ResourceSet"
-        containment="true"/>
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ResourceBasedSimpleSC" eSuperTypes="#//SimpleSC #//ResourceBasedSC"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OrchestrationFlowCompositeSC" eSuperTypes="#//CompositeSC #//FlowBasedSC #//ResourceBasedSC"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowBasedSC" abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LogicImplCartridge" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ManualImplCartridge" eSuperTypes="#//LogicImplCartridge"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceBasedSimpleSC" eSuperTypes="#//SimpleSC #//ResourceBasedSC">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OrchestrationFlowCompositeSC" eSuperTypes="#//CompositeSC #//FlowBasedSC #//ResourceBasedSC">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowBasedSC" abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogicImplCartridge" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ManualImplCartridge" eSuperTypes="#//LogicImplCartridge">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomTemplateBasedImplCartridge" eSuperTypes="#//LogicImplCartridge">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="template" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="template" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelBasedImplCartridge" abstract="true"
-      eSuperTypes="#//LogicImplCartridge"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowModelImplCartridge" eSuperTypes="#//ModelBasedImplCartridge"/>
+      eSuperTypes="#//LogicImplCartridge">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowModelImplCartridge" eSuperTypes="#//ModelBasedImplCartridge">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
 </ecore:EPackage>
