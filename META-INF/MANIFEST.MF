@@ -11,7 +11,8 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
- org.openarchitectureware.dependencies;bundle-version="4.3.1"
+ org.openarchitectureware.dependencies;bundle-version="4.3.1",
+ org.openarchitectureware.adapter.emf.check
 Bundle-ActivationPolicy: lazy
 Export-Package: it.csi.mddtools.appresources,
  it.csi.mddtools.appresources.impl,
