@@ -64,22 +64,24 @@ creazione del build.xml per ANT
 
 
 	<target name="all-targets" description="Esegue il build per le varie distribuzioni in sequenza.">
-
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("all-targets")»
+		<!-- inserire il richiamo dei build per gli ambienti previsti dal progetto -->
 		<antcall target="distribution">
 			<param name="target" value="dev" />
 		</antcall>
 
 		<antcall target="distribution">
-			<param name="target" value="tst" />
+			<param name="target" value="tst-[cliente]" />
 		</antcall>
 
 		<antcall target="distribution">
-			<param name="target" value="coll" />
+			<param name="target" value="coll-[cliente]" />
 		</antcall>
 
 		<antcall target="distribution">
-			<param name="target" value="prod" />
+			<param name="target" value="prod-[cliente]" />
 		</antcall>
+	«ENDPROTECT»
 	</target>
 
 
@@ -831,8 +833,8 @@ web.enabled = true
 
 «ENDFILE»
 
-«FILE "buildfiles/dev.properties"»
-#file di configurazione per l'ambiente DEV
+«FILE "buildfiles/env_template.properties"»
+#file di configurazione per l'ambiente <env>
 «PROTECT CSTART '##<' CEND '##>' ID "devprops"+codComponente»
 «ENDPROTECT»
 «ENDFILE»
