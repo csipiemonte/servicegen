@@ -783,7 +783,7 @@ csi-prodtools-1.4.5.jar \
 csi-rmi-1.4.5.jar \
 csi-stadapter-1.4.5.jar \
 csi-tools-1.4.5.jar \
-csi-ejb-weblogic.1.4.5.jar \
+csi-ejb-weblogic-1.4.5.jar \
 jaxb-api-1.0.jar \
 jaxb-libs-1.0.jar \
 jaxb-ri-1.0.jar \
