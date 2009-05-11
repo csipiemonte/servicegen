@@ -1213,13 +1213,13 @@ public class «name» implements java.io.Serializable {
 	/**
 	 * @generated
 	 */
-	private «map2javaType(type,codServ,model)» _«name» = «defaultInitVal(type)»;
+	private «map2javaType(type,codServ,model)» «name» = «defaultInitVal(type)»;
 	
 	/**
 	 * @generated
 	 */
 	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
-		_«name» = val;
+		«name» = val;
 	}
 	
 	«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)»
@@ -1241,7 +1241,7 @@ public class «name» implements java.io.Serializable {
    	 */
   	«ENDPROTECT»
 	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
-		return _«name»;
+		return «name»;
 	}
 «ENDDEFINE»
 
