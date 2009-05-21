@@ -1,5 +1,8 @@
 package it.csi.mddtools.servicegen.genutils;
 
+import it.csi.mddtools.servicedef.ServiceDef;
+import it.csi.mddtools.servicegen.SOABEModel;
+import it.csi.mddtools.servicegen.ServiceImpl;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.Entity;
@@ -8,6 +11,8 @@ import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -163,5 +168,36 @@ public class CodeGenerationUtils {
 		ta.setName(name);
 		ta.setComponentType(dt);
 		return ta;
+	}
+	
+	////
+	
+	/**
+	 * restituisce l'unione dei service-def contenuti in SOABEModel.servicedefinitions e quelli
+	 * referenziati da una service-impl (che possono anche essere inclusi tramite load-resource).
+	 * L'unione e' senza ripetizione.
+	 */
+	public static ArrayList<ServiceDef> getProvidedServices(SOABEModel model) {
+		ArrayList<ServiceDef> result = new ArrayList<ServiceDef>();
+		if (model.getServiceimplementations()==null)
+			return null;
+		
+		// prima ciclo sulle impl
+		Iterator<ServiceImpl> it_impl = model.getServiceimplementations().iterator();
+		while(it_impl.hasNext()){
+			ServiceImpl currImpl = it_impl.next();
+			if (currImpl.getProvides()!=null)
+				result.add(currImpl.getProvides());
+		}
+		
+		// poi ciclo sulle service definitions e aggiungo solo se già non presente
+		
+		Iterator<ServiceDef> it_sd = model.getServiceDefs().iterator();
+		while(it_sd.hasNext()){
+			ServiceDef currOwnedSD = it_sd.next();
+			if (!result.contains(currOwnedSD))
+				result.add(currOwnedSD);
+		}
+		return result;
 	}
 }

@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/csi14.oaw" 
+	model="servicegen/src/testmodel/orch1_soabe.servicegen" 
+	targetProjectName="testcompositesrv" 
+    /> 
+</workflow>

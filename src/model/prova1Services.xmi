@@ -4,8 +4,10 @@
     <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
     <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
     <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
-    <operations name="dummy" since="1.0">
-      <params name="p1" type="//@service.0/@types/@types.0"/>
+    <operations name="cercaPersonaByCF" since="1.0">
+      <params name="p1">
+        <type xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
+      </params>
       <returnType xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
     </operations>
     <types>
@@ -14,6 +16,7 @@
           <type xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
         </features>
       </types>
+      <types xsi:type="typedef:Exception" name="AppException"/>
     </types>
   </service>
 </servicedef:DocumentRoot>

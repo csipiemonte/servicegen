@@ -19,6 +19,7 @@
 		<registerGeneratedEPackage value="it.csi.mddtools.servicegen.ServicegenPackage"/>
 		<registerGeneratedEPackage value="it.csi.mddtools.servicedef.ServicedefPackage"/>
 		<registerGeneratedEPackage value="it.csi.mddtools.typedef.TypedefPackage"/>
+		<registerGeneratedEPackage value="it.csi.mddtools.appresources.AppresourcesPackage"/>
 	</bean>
 
 	<!-- Clean de build directory -->

@@ -179,7 +179,7 @@ creazione del build.xml per ANT
     	<jar destfile="${build}/archives/${target}/«this.codComponente»-common.jar"
 			basedir="${build}/classes"
 			includes="it/csi/«codProdotto.toLowerCase()»/«codComponente.toLowerCase()»/business/**">
-			«FOREACH this.serviceDefs AS sd-»
+			«FOREACH getProvidedServices() AS sd-»
 			<exclude name="it/csi/«codProdotto.toLowerCase()»/«codComponente.toLowerCase()»/business/«removeSeparator(sd.codServizio)»/**" />
 			«ENDFOREACH-»
 		</jar>
@@ -188,7 +188,7 @@ creazione del build.xml per ANT
     <target name="_package-csiclientlibs-jar" depends="compile-all" 
     description="costruisce tutti i ja r delle librrie client di CSI per ogni servizio"
     >
-       «FOREACH this.serviceDefs AS sd»
+       «FOREACH getProvidedServices() AS sd»
        <!-- costruzione delle librerie client per il servizio «sd.codServizio» -->
        <antcall target="_csiclientlib-jar">
          <param name="service.name" value="«removeSeparator(sd.codServizio)»" />

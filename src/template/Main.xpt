@@ -63,7 +63,7 @@ per ogni componente è necessario creare la struttura del progetto SVN:
  
  
  «EXPAND j2eeconfigfiles::applicationfiles  FOR this»
- «LET serviceDefs AS services»
+ «LET getProvidedServices(this) AS services»
  	«EXPAND configfiles::serviceFiles(this) FOREACH services»
  	«EXPAND javafiles::serviceFiles (this)FOREACH services»
  	«FOREACH services AS currsrv»

@@ -53,7 +53,7 @@
       <types xsi:type="typedef:Exception" name="DummyException"/>
     </types>
   </serviceDefs>
-  <serviceDefs codServizio="provaservice2" diagEnabled="true" versione="1.0.0" traceEnabled="true">
+  <serviceDefs codServizio="provaservice2" monitorable="true" diagEnabled="true" versione="1.0.0" traceEnabled="true">
     <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
     <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
     <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
