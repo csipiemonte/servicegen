@@ -29,6 +29,7 @@ import it.csi.mddtools.servicegen.SimpleSC;
 import it.csi.mddtools.servicegen.TargetPlatform;
 import it.csi.mddtools.servicegen.TargetPlatformCodes;
 
+import it.csi.mddtools.svcorch.SvcorchPackage;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -222,8 +223,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		isInited = true;
 
 		// Initialize simple dependencies
-		AppresourcesPackage.eINSTANCE.eClass();
-		ServicedefPackage.eINSTANCE.eClass();
+		SvcorchPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theServicegenPackage.createPackageContents();
@@ -316,6 +316,15 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 */
 	public EReference getSOABEModel_TargetPlatform() {
 		return (EReference)soabeModelEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSOABEModel_ResourceSet() {
+		return (EReference)soabeModelEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -467,6 +476,15 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getOrchestrationFlowCompositeSC_Orchestrations() {
+		return (EReference)orchestrationFlowCompositeSCEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFlowBasedSC() {
 		return flowBasedSCEClass;
 	}
@@ -571,6 +589,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		createEReference(soabeModelEClass, SOABE_MODEL__SERVICEIMPLEMENTATIONS);
 		createEReference(soabeModelEClass, SOABE_MODEL__SERVICE_DEFS);
 		createEReference(soabeModelEClass, SOABE_MODEL__TARGET_PLATFORM);
+		createEReference(soabeModelEClass, SOABE_MODEL__RESOURCE_SET);
 
 		baseTypesEClass = createEClass(BASE_TYPES);
 		createEReference(baseTypesEClass, BASE_TYPES__BASE_TYPES);
@@ -596,6 +615,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		resourceBasedSimpleSCEClass = createEClass(RESOURCE_BASED_SIMPLE_SC);
 
 		orchestrationFlowCompositeSCEClass = createEClass(ORCHESTRATION_FLOW_COMPOSITE_SC);
+		createEReference(orchestrationFlowCompositeSCEClass, ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS);
 
 		flowBasedSCEClass = createEClass(FLOW_BASED_SC);
 
@@ -639,8 +659,9 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 		// Obtain other dependent packages
 		ServicedefPackage theServicedefPackage = (ServicedefPackage)EPackage.Registry.INSTANCE.getEPackage(ServicedefPackage.eNS_URI);
-		TypedefPackage theTypedefPackage = (TypedefPackage)EPackage.Registry.INSTANCE.getEPackage(TypedefPackage.eNS_URI);
 		AppresourcesPackage theAppresourcesPackage = (AppresourcesPackage)EPackage.Registry.INSTANCE.getEPackage(AppresourcesPackage.eNS_URI);
+		TypedefPackage theTypedefPackage = (TypedefPackage)EPackage.Registry.INSTANCE.getEPackage(TypedefPackage.eNS_URI);
+		SvcorchPackage theSvcorchPackage = (SvcorchPackage)EPackage.Registry.INSTANCE.getEPackage(SvcorchPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -669,6 +690,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		initEReference(getSOABEModel_Serviceimplementations(), this.getServiceImpl(), null, "serviceimplementations", null, 0, -1, SOABEModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSOABEModel_ServiceDefs(), theServicedefPackage.getServiceDef(), null, "serviceDefs", null, 0, -1, SOABEModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSOABEModel_TargetPlatform(), this.getTargetPlatform(), null, "targetPlatform", null, 0, 1, SOABEModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSOABEModel_ResourceSet(), theAppresourcesPackage.getResourceSet(), null, "resourceSet", null, 0, 1, SOABEModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(baseTypesEClass, BaseTypes.class, "BaseTypes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBaseTypes_BaseTypes(), theTypedefPackage.getType(), null, "baseTypes", null, 0, -1, BaseTypes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -694,6 +716,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		initEClass(resourceBasedSimpleSCEClass, ResourceBasedSimpleSC.class, "ResourceBasedSimpleSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(orchestrationFlowCompositeSCEClass, OrchestrationFlowCompositeSC.class, "OrchestrationFlowCompositeSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOrchestrationFlowCompositeSC_Orchestrations(), theSvcorchPackage.getOrchestration(), null, "orchestrations", null, 0, -1, OrchestrationFlowCompositeSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(flowBasedSCEClass, FlowBasedSC.class, "FlowBasedSC", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -715,6 +738,26 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// GenModel
+		createGenModel_1Annotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>GenModel</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createGenModel_1Annotations() {
+		String source = "GenModel";																									
+		addAnnotation
+		  (getServiceComponent_ImplCartridge(), 
+		   source, 
+		   new String[] {
+			 "documentation", "[[ TODO - add documentation here ]]"
+		   });													
 	}
 
 } //ServicegenPackageImpl

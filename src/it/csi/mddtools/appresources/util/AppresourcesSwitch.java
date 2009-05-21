@@ -96,6 +96,7 @@ public class AppresourcesSwitch<T> {
 			case AppresourcesPackage.PDPA_SERVICE_CONNECTOR: {
 				PDPAServiceConnector pdpaServiceConnector = (PDPAServiceConnector)theEObject;
 				T result = casePDPAServiceConnector(pdpaServiceConnector);
+				if (result == null) result = caseServiceConnector(pdpaServiceConnector);
 				if (result == null) result = caseResourceConnector(pdpaServiceConnector);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -124,6 +125,7 @@ public class AppresourcesSwitch<T> {
 			case AppresourcesPackage.RPC_WEB_SERVICE_CONNECTOR: {
 				RPCWebServiceConnector rpcWebServiceConnector = (RPCWebServiceConnector)theEObject;
 				T result = caseRPCWebServiceConnector(rpcWebServiceConnector);
+				if (result == null) result = caseServiceConnector(rpcWebServiceConnector);
 				if (result == null) result = caseResourceConnector(rpcWebServiceConnector);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -137,6 +139,13 @@ public class AppresourcesSwitch<T> {
 			case AppresourcesPackage.RESOURCE_SET: {
 				ResourceSet resourceSet = (ResourceSet)theEObject;
 				T result = caseResourceSet(resourceSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AppresourcesPackage.SERVICE_CONNECTOR: {
+				ServiceConnector serviceConnector = (ServiceConnector)theEObject;
+				T result = caseServiceConnector(serviceConnector);
+				if (result == null) result = caseResourceConnector(serviceConnector);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -261,6 +270,21 @@ public class AppresourcesSwitch<T> {
 	 * @generated
 	 */
 	public T caseResourceSet(ResourceSet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Service Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Service Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServiceConnector(ServiceConnector object) {
 		return null;
 	}
 

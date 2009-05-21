@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.servicegen.ServicegenFactory
  * @model kind="package"
  * @generated
@@ -143,13 +146,22 @@ public interface ServicegenPackage extends EPackage {
 	int SOABE_MODEL__TARGET_PLATFORM = 7;
 
 	/**
+	 * The feature id for the '<em><b>Resource Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOABE_MODEL__RESOURCE_SET = 8;
+
+	/**
 	 * The number of structural features of the '<em>SOABE Model</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SOABE_MODEL_FEATURE_COUNT = 8;
+	int SOABE_MODEL_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.BaseTypesImpl <em>Base Types</em>}' class.
@@ -431,13 +443,22 @@ public interface ServicegenPackage extends EPackage {
 	int ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET = COMPOSITE_SC_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Orchestrations</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS = COMPOSITE_SC_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Orchestration Flow Composite SC</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ORCHESTRATION_FLOW_COMPOSITE_SC_FEATURE_COUNT = COMPOSITE_SC_FEATURE_COUNT + 1;
+	int ORCHESTRATION_FLOW_COMPOSITE_SC_FEATURE_COUNT = COMPOSITE_SC_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}' class.
@@ -672,6 +693,17 @@ public interface ServicegenPackage extends EPackage {
 	EReference getSOABEModel_TargetPlatform();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicegen.SOABEModel#getResourceSet <em>Resource Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resource Set</em>'.
+	 * @see it.csi.mddtools.servicegen.SOABEModel#getResourceSet()
+	 * @see #getSOABEModel()
+	 * @generated
+	 */
+	EReference getSOABEModel_ResourceSet();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.BaseTypes <em>Base Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -837,6 +869,17 @@ public interface ServicegenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOrchestrationFlowCompositeSC();
+
+	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getOrchestrations <em>Orchestrations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Orchestrations</em>'.
+	 * @see it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getOrchestrations()
+	 * @see #getOrchestrationFlowCompositeSC()
+	 * @generated
+	 */
+	EReference getOrchestrationFlowCompositeSC_Orchestrations();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}'.
@@ -1016,6 +1059,14 @@ public interface ServicegenPackage extends EPackage {
 		EReference SOABE_MODEL__TARGET_PLATFORM = eINSTANCE.getSOABEModel_TargetPlatform();
 
 		/**
+		 * The meta object literal for the '<em><b>Resource Set</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SOABE_MODEL__RESOURCE_SET = eINSTANCE.getSOABEModel_ResourceSet();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.BaseTypesImpl <em>Base Types</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1160,6 +1211,14 @@ public interface ServicegenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ORCHESTRATION_FLOW_COMPOSITE_SC = eINSTANCE.getOrchestrationFlowCompositeSC();
+
+		/**
+		 * The meta object literal for the '<em><b>Orchestrations</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS = eINSTANCE.getOrchestrationFlowCompositeSC_Orchestrations();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}' class.

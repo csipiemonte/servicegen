@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
     editDirectory="/servicegen/src" modelPluginID="servicegen" modelName="Servicegen_metamodel"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    usedGenPackages="resources_metamodel.genmodel#//appresources servicedef_metamodel.genmodel#//servicedef typedef_metamodel.genmodel#//typedef">
+    usedGenPackages="resources_metamodel.genmodel#//appresources servicedef_metamodel.genmodel#//servicedef svcorch.genmodel#//svcorch typedef_metamodel.genmodel#//typedef">
   <foreignModel>servicegen_metamodel.ecore</foreignModel>
   <genPackages prefix="Servicegen" basePackage="it.csi.mddtools" disposableProviderFactory="true"
       ecorePackage="servicegen_metamodel.ecore#/">
@@ -21,6 +21,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//SOABEModel/serviceimplementations"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//SOABEModel/serviceDefs"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//SOABEModel/targetPlatform"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//SOABEModel/resourceSet"/>
     </genClasses>
     <genClasses ecoreClass="servicegen_metamodel.ecore#//BaseTypes">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//BaseTypes/baseTypes"/>
@@ -42,7 +43,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//ResourceBasedSC/resourceSet"/>
     </genClasses>
     <genClasses ecoreClass="servicegen_metamodel.ecore#//ResourceBasedSimpleSC"/>
-    <genClasses ecoreClass="servicegen_metamodel.ecore#//OrchestrationFlowCompositeSC"/>
+    <genClasses ecoreClass="servicegen_metamodel.ecore#//OrchestrationFlowCompositeSC">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//OrchestrationFlowCompositeSC/orchestrations"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="servicegen_metamodel.ecore#//FlowBasedSC"/>
     <genClasses image="false" ecoreClass="servicegen_metamodel.ecore#//LogicImplCartridge"/>
     <genClasses ecoreClass="servicegen_metamodel.ecore#//ManualImplCartridge"/>

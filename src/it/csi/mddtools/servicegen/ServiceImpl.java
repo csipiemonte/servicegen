@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Service Impl</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface ServiceImpl extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Provides</em>' reference.
 	 * @see #setProvides(ServiceDef)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getServiceImpl_Provides()
@@ -63,6 +70,9 @@ public interface ServiceImpl extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Component</em>' containment reference.
 	 * @see #setServiceComponent(ServiceComponent)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getServiceImpl_ServiceComponent()
@@ -89,6 +99,9 @@ public interface ServiceImpl extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Impl Cartridge</em>' containment reference.
 	 * @see #setImplCartridge(LogicImplCartridge)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getServiceImpl_ImplCartridge()

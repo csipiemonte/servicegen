@@ -9,6 +9,7 @@ package it.csi.mddtools.servicegen.provider;
 import it.csi.mddtools.appresources.provider.Resources_metamodelEditPlugin;
 import it.csi.mddtools.servicedef.provider.Servicedef_metamodelEditPlugin;
 
+import it.csi.mddtools.svcorch.provider.SvcorchEditPlugin;
 import it.csi.mddtools.typedef.provider.Typedef_metamodelEditPlugin;
 
 import org.eclipse.emf.common.EMFPlugin;
@@ -49,6 +50,7 @@ public final class Servicegen_metamodelEditPlugin extends EMFPlugin {
 		  (new ResourceLocator [] {
 		     Resources_metamodelEditPlugin.INSTANCE,
 		     Servicedef_metamodelEditPlugin.INSTANCE,
+		     SvcorchEditPlugin.INSTANCE,
 		     Typedef_metamodelEditPlugin.INSTANCE,
 		   });
 	}

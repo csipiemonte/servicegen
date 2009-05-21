@@ -15,8 +15,10 @@ import it.csi.mddtools.appresources.PDPAServiceConnector;
 import it.csi.mddtools.appresources.RPCWebServiceConnector;
 import it.csi.mddtools.appresources.ResourceConnector;
 import it.csi.mddtools.appresources.ResourceSet;
+import it.csi.mddtools.appresources.ServiceConnector;
 import it.csi.mddtools.appresources.ServiceSelector;
 
+import it.csi.mddtools.servicedef.ServicedefPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -88,6 +90,13 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	private EClass resourceSetEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass serviceConnectorEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -143,6 +152,9 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		ServicedefPackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theAppresourcesPackage.createPackageContents();
 
@@ -187,15 +199,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPDPAServiceConnector_Selector() {
-		return (EReference)pdpaServiceConnectorEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFileSystemConnector() {
 		return fileSystemConnectorEClass;
 	}
@@ -225,15 +228,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 */
 	public EClass getRPCWebServiceConnector() {
 		return rpcWebServiceConnectorEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRPCWebServiceConnector_Selector() {
-		return (EReference)rpcWebServiceConnectorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -331,6 +325,42 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getServiceConnector() {
+		return serviceConnectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceConnector_ServiceDef() {
+		return (EReference)serviceConnectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceConnector_Binding() {
+		return (EReference)serviceConnectorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceConnector_Selector() {
+		return (EReference)serviceConnectorEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AppresourcesFactory getAppresourcesFactory() {
 		return (AppresourcesFactory)getEFactoryInstance();
 	}
@@ -358,7 +388,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		createEAttribute(resourceConnectorEClass, RESOURCE_CONNECTOR__CODE);
 
 		pdpaServiceConnectorEClass = createEClass(PDPA_SERVICE_CONNECTOR);
-		createEReference(pdpaServiceConnectorEClass, PDPA_SERVICE_CONNECTOR__SELECTOR);
 
 		fileSystemConnectorEClass = createEClass(FILE_SYSTEM_CONNECTOR);
 
@@ -367,7 +396,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		ldapJndiConnectorEClass = createEClass(LDAP_JNDI_CONNECTOR);
 
 		rpcWebServiceConnectorEClass = createEClass(RPC_WEB_SERVICE_CONNECTOR);
-		createEReference(rpcWebServiceConnectorEClass, RPC_WEB_SERVICE_CONNECTOR__SELECTOR);
 
 		serviceSelectorEClass = createEClass(SERVICE_SELECTOR);
 		createEAttribute(serviceSelectorEClass, SERVICE_SELECTOR__COD_PROD);
@@ -380,6 +408,11 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 
 		resourceSetEClass = createEClass(RESOURCE_SET);
 		createEReference(resourceSetEClass, RESOURCE_SET__RESOURCES);
+
+		serviceConnectorEClass = createEClass(SERVICE_CONNECTOR);
+		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__SERVICE_DEF);
+		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__BINDING);
+		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__SELECTOR);
 	}
 
 	/**
@@ -405,23 +438,26 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		ServicedefPackage theServicedefPackage = (ServicedefPackage)EPackage.Registry.INSTANCE.getEPackage(ServicedefPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		pdpaServiceConnectorEClass.getESuperTypes().add(this.getResourceConnector());
+		pdpaServiceConnectorEClass.getESuperTypes().add(this.getServiceConnector());
 		fileSystemConnectorEClass.getESuperTypes().add(this.getResourceConnector());
 		jdbcDataSourceConnectorEClass.getESuperTypes().add(this.getResourceConnector());
 		ldapJndiConnectorEClass.getESuperTypes().add(this.getResourceConnector());
-		rpcWebServiceConnectorEClass.getESuperTypes().add(this.getResourceConnector());
+		rpcWebServiceConnectorEClass.getESuperTypes().add(this.getServiceConnector());
+		serviceConnectorEClass.getESuperTypes().add(this.getResourceConnector());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(resourceConnectorEClass, ResourceConnector.class, "ResourceConnector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getResourceConnector_Code(), ecorePackage.getEString(), "code", null, 0, 1, ResourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pdpaServiceConnectorEClass, PDPAServiceConnector.class, "PDPAServiceConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPDPAServiceConnector_Selector(), this.getServiceSelector(), null, "selector", null, 0, 1, PDPAServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(fileSystemConnectorEClass, FileSystemConnector.class, "FileSystemConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -430,7 +466,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		initEClass(ldapJndiConnectorEClass, LdapJndiConnector.class, "LdapJndiConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(rpcWebServiceConnectorEClass, RPCWebServiceConnector.class, "RPCWebServiceConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRPCWebServiceConnector_Selector(), this.getServiceSelector(), null, "selector", null, 0, 1, RPCWebServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceSelectorEClass, ServiceSelector.class, "ServiceSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceSelector_CodProd(), ecorePackage.getEString(), "codProd", null, 0, 1, ServiceSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -443,6 +478,11 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 
 		initEClass(resourceSetEClass, ResourceSet.class, "ResourceSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getResourceSet_Resources(), this.getResourceConnector(), null, "resources", null, 0, -1, ResourceSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(serviceConnectorEClass, ServiceConnector.class, "ServiceConnector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getServiceConnector_ServiceDef(), theServicedefPackage.getServiceDef(), null, "serviceDef", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceConnector_Binding(), theServicedefPackage.getServiceBinding(), null, "binding", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceConnector_Selector(), this.getServiceSelector(), null, "selector", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

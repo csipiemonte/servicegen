@@ -54,6 +54,11 @@
         <details key="documentation" value="[[ TODO - add documentation here ]]"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resourceSet" eType="ecore:EClass resources_metamodel.ecore#//ResourceSet">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BaseTypes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -154,6 +159,8 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[ TODO - add documentation here ]]"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="orchestrations" upperBound="-1"
+        eType="ecore:EClass svcorch.ecore#//Orchestration"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowBasedSC" abstract="true" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

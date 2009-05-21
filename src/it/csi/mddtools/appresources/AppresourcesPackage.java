@@ -22,6 +22,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.appresources.AppresourcesFactory
  * @model kind="package"
  * @generated
@@ -88,6 +91,61 @@ public interface AppresourcesPackage extends EPackage {
 	int RESOURCE_CONNECTOR_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl <em>Service Connector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.appresources.impl.ServiceConnectorImpl
+	 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getServiceConnector()
+	 * @generated
+	 */
+	int SERVICE_CONNECTOR = 8;
+
+	/**
+	 * The feature id for the '<em><b>Code</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Service Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__SERVICE_DEF = RESOURCE_CONNECTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__BINDING = RESOURCE_CONNECTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__SELECTOR = RESOURCE_CONNECTOR_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Service Connector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR_FEATURE_COUNT = RESOURCE_CONNECTOR_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.PDPAServiceConnectorImpl <em>PDPA Service Connector</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,7 +162,25 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PDPA_SERVICE_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
+	int PDPA_SERVICE_CONNECTOR__CODE = SERVICE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Service Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDPA_SERVICE_CONNECTOR__SERVICE_DEF = SERVICE_CONNECTOR__SERVICE_DEF;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDPA_SERVICE_CONNECTOR__BINDING = SERVICE_CONNECTOR__BINDING;
 
 	/**
 	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
@@ -113,7 +189,7 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PDPA_SERVICE_CONNECTOR__SELECTOR = RESOURCE_CONNECTOR_FEATURE_COUNT + 0;
+	int PDPA_SERVICE_CONNECTOR__SELECTOR = SERVICE_CONNECTOR__SELECTOR;
 
 	/**
 	 * The number of structural features of the '<em>PDPA Service Connector</em>' class.
@@ -122,7 +198,7 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PDPA_SERVICE_CONNECTOR_FEATURE_COUNT = RESOURCE_CONNECTOR_FEATURE_COUNT + 1;
+	int PDPA_SERVICE_CONNECTOR_FEATURE_COUNT = SERVICE_CONNECTOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.FileSystemConnectorImpl <em>File System Connector</em>}' class.
@@ -225,7 +301,25 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RPC_WEB_SERVICE_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
+	int RPC_WEB_SERVICE_CONNECTOR__CODE = SERVICE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Service Def</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RPC_WEB_SERVICE_CONNECTOR__SERVICE_DEF = SERVICE_CONNECTOR__SERVICE_DEF;
+
+	/**
+	 * The feature id for the '<em><b>Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RPC_WEB_SERVICE_CONNECTOR__BINDING = SERVICE_CONNECTOR__BINDING;
 
 	/**
 	 * The feature id for the '<em><b>Selector</b></em>' containment reference.
@@ -234,7 +328,7 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RPC_WEB_SERVICE_CONNECTOR__SELECTOR = RESOURCE_CONNECTOR_FEATURE_COUNT + 0;
+	int RPC_WEB_SERVICE_CONNECTOR__SELECTOR = SERVICE_CONNECTOR__SELECTOR;
 
 	/**
 	 * The number of structural features of the '<em>RPC Web Service Connector</em>' class.
@@ -243,7 +337,7 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RPC_WEB_SERVICE_CONNECTOR_FEATURE_COUNT = RESOURCE_CONNECTOR_FEATURE_COUNT + 1;
+	int RPC_WEB_SERVICE_CONNECTOR_FEATURE_COUNT = SERVICE_CONNECTOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl <em>Service Selector</em>}' class.
@@ -388,17 +482,6 @@ public interface AppresourcesPackage extends EPackage {
 	EClass getPDPAServiceConnector();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.appresources.PDPAServiceConnector#getSelector <em>Selector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Selector</em>'.
-	 * @see it.csi.mddtools.appresources.PDPAServiceConnector#getSelector()
-	 * @see #getPDPAServiceConnector()
-	 * @generated
-	 */
-	EReference getPDPAServiceConnector_Selector();
-
-	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.FileSystemConnector <em>File System Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -437,17 +520,6 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getRPCWebServiceConnector();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.appresources.RPCWebServiceConnector#getSelector <em>Selector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Selector</em>'.
-	 * @see it.csi.mddtools.appresources.RPCWebServiceConnector#getSelector()
-	 * @see #getRPCWebServiceConnector()
-	 * @generated
-	 */
-	EReference getRPCWebServiceConnector_Selector();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.ServiceSelector <em>Service Selector</em>}'.
@@ -558,6 +630,49 @@ public interface AppresourcesPackage extends EPackage {
 	EReference getResourceSet_Resources();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.ServiceConnector <em>Service Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Service Connector</em>'.
+	 * @see it.csi.mddtools.appresources.ServiceConnector
+	 * @generated
+	 */
+	EClass getServiceConnector();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.appresources.ServiceConnector#getServiceDef <em>Service Def</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Service Def</em>'.
+	 * @see it.csi.mddtools.appresources.ServiceConnector#getServiceDef()
+	 * @see #getServiceConnector()
+	 * @generated
+	 */
+	EReference getServiceConnector_ServiceDef();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.appresources.ServiceConnector#getBinding <em>Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Binding</em>'.
+	 * @see it.csi.mddtools.appresources.ServiceConnector#getBinding()
+	 * @see #getServiceConnector()
+	 * @generated
+	 */
+	EReference getServiceConnector_Binding();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.appresources.ServiceConnector#getSelector <em>Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Selector</em>'.
+	 * @see it.csi.mddtools.appresources.ServiceConnector#getSelector()
+	 * @see #getServiceConnector()
+	 * @generated
+	 */
+	EReference getServiceConnector_Selector();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -608,14 +723,6 @@ public interface AppresourcesPackage extends EPackage {
 		EClass PDPA_SERVICE_CONNECTOR = eINSTANCE.getPDPAServiceConnector();
 
 		/**
-		 * The meta object literal for the '<em><b>Selector</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PDPA_SERVICE_CONNECTOR__SELECTOR = eINSTANCE.getPDPAServiceConnector_Selector();
-
-		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.FileSystemConnectorImpl <em>File System Connector</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -654,14 +761,6 @@ public interface AppresourcesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass RPC_WEB_SERVICE_CONNECTOR = eINSTANCE.getRPCWebServiceConnector();
-
-		/**
-		 * The meta object literal for the '<em><b>Selector</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RPC_WEB_SERVICE_CONNECTOR__SELECTOR = eINSTANCE.getRPCWebServiceConnector_Selector();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl <em>Service Selector</em>}' class.
@@ -746,6 +845,40 @@ public interface AppresourcesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference RESOURCE_SET__RESOURCES = eINSTANCE.getResourceSet_Resources();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl <em>Service Connector</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.appresources.impl.ServiceConnectorImpl
+		 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getServiceConnector()
+		 * @generated
+		 */
+		EClass SERVICE_CONNECTOR = eINSTANCE.getServiceConnector();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Def</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_CONNECTOR__SERVICE_DEF = eINSTANCE.getServiceConnector_ServiceDef();
+
+		/**
+		 * The meta object literal for the '<em><b>Binding</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_CONNECTOR__BINDING = eINSTANCE.getServiceConnector_Binding();
+
+		/**
+		 * The meta object literal for the '<em><b>Selector</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_CONNECTOR__SELECTOR = eINSTANCE.getServiceConnector_Selector();
 
 	}
 

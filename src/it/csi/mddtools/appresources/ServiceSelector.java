@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Service Selector</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -39,6 +43,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Prod</em>' attribute.
 	 * @see #setCodProd(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_CodProd()
@@ -65,6 +72,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Serv</em>' attribute.
 	 * @see #setCodServ(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_CodServ()
@@ -91,6 +101,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ver Serv</em>' attribute.
 	 * @see #setVerServ(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_VerServ()
@@ -117,6 +130,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Ente</em>' attribute.
 	 * @see #setCodEnte(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_CodEnte()
@@ -143,6 +159,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Istanza</em>' attribute.
 	 * @see #setIstanza(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_Istanza()
@@ -169,6 +188,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ambiente</em>' attribute.
 	 * @see #setAmbiente(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_Ambiente()
@@ -195,6 +217,9 @@ public interface ServiceSelector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Binding</em>' attribute.
 	 * @see #setCodBinding(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector_CodBinding()

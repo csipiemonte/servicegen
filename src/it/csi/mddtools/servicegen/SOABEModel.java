@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.servicegen;
 
+import it.csi.mddtools.appresources.ResourceSet;
 import it.csi.mddtools.servicedef.ServiceDef;
 
 import org.eclipse.emf.common.util.EList;
@@ -16,6 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>SOABE Model</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  *
  * <p>
  * The following features are supported:
@@ -28,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getServiceimplementations <em>Serviceimplementations</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getServiceDefs <em>Service Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getTargetPlatform <em>Target Platform</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -45,6 +51,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Base Types</em>' containment reference list.
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_BaseTypes()
 	 * @model containment="true"
@@ -60,6 +69,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Prodotto</em>' attribute.
 	 * @see #setCodProdotto(String)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_CodProdotto()
@@ -86,6 +98,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Componente</em>' attribute.
 	 * @see #setCodComponente(String)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_CodComponente()
@@ -112,6 +127,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Prodotto</em>' attribute.
 	 * @see #setVersioneProdotto(String)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_VersioneProdotto()
@@ -138,6 +156,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione Componente</em>' attribute.
 	 * @see #setVersioneComponente(String)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_VersioneComponente()
@@ -165,6 +186,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Serviceimplementations</em>' containment reference list.
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_Serviceimplementations()
 	 * @model containment="true"
@@ -181,6 +205,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Defs</em>' containment reference list.
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_ServiceDefs()
 	 * @model containment="true"
@@ -196,6 +223,9 @@ public interface SOABEModel extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target Platform</em>' containment reference.
 	 * @see #setTargetPlatform(TargetPlatform)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_TargetPlatform()
@@ -213,5 +243,30 @@ public interface SOABEModel extends EObject {
 	 * @generated
 	 */
 	void setTargetPlatform(TargetPlatform value);
+
+	/**
+	 * Returns the value of the '<em><b>Resource Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Resource Set</em>' reference.
+	 * @see #setResourceSet(ResourceSet)
+	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel_ResourceSet()
+	 * @model
+	 * @generated
+	 */
+	ResourceSet getResourceSet();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicegen.SOABEModel#getResourceSet <em>Resource Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Resource Set</em>' reference.
+	 * @see #getResourceSet()
+	 * @generated
+	 */
+	void setResourceSet(ResourceSet value);
 
 } // SOABEModel

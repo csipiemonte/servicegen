@@ -12,6 +12,10 @@ package it.csi.mddtools.servicegen;
  * A representation of the model object '<em><b>Resource Based Simple SC</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  *
  * @see it.csi.mddtools.servicegen.ServicegenPackage#getResourceBasedSimpleSC()
  * @model

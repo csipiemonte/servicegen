@@ -6,6 +6,7 @@
  */
 package it.csi.mddtools.servicegen.impl;
 
+import it.csi.mddtools.appresources.ResourceSet;
 import it.csi.mddtools.servicedef.ServiceDef;
 
 import it.csi.mddtools.servicegen.BaseTypes;
@@ -46,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getServiceimplementations <em>Serviceimplementations</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getServiceDefs <em>Service Defs</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -171,6 +173,16 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 	 * @ordered
 	 */
 	protected TargetPlatform targetPlatform;
+
+	/**
+	 * The cached value of the '{@link #getResourceSet() <em>Resource Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceSet resourceSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -359,6 +371,44 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ResourceSet getResourceSet() {
+		if (resourceSet != null && resourceSet.eIsProxy()) {
+			InternalEObject oldResourceSet = (InternalEObject)resourceSet;
+			resourceSet = (ResourceSet)eResolveProxy(oldResourceSet);
+			if (resourceSet != oldResourceSet) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ServicegenPackage.SOABE_MODEL__RESOURCE_SET, oldResourceSet, resourceSet));
+			}
+		}
+		return resourceSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ResourceSet basicGetResourceSet() {
+		return resourceSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setResourceSet(ResourceSet newResourceSet) {
+		ResourceSet oldResourceSet = resourceSet;
+		resourceSet = newResourceSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicegenPackage.SOABE_MODEL__RESOURCE_SET, oldResourceSet, resourceSet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -398,6 +448,9 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 				return getServiceDefs();
 			case ServicegenPackage.SOABE_MODEL__TARGET_PLATFORM:
 				return getTargetPlatform();
+			case ServicegenPackage.SOABE_MODEL__RESOURCE_SET:
+				if (resolve) return getResourceSet();
+				return basicGetResourceSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -438,6 +491,9 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 			case ServicegenPackage.SOABE_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)newValue);
 				return;
+			case ServicegenPackage.SOABE_MODEL__RESOURCE_SET:
+				setResourceSet((ResourceSet)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -474,6 +530,9 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 			case ServicegenPackage.SOABE_MODEL__TARGET_PLATFORM:
 				setTargetPlatform((TargetPlatform)null);
 				return;
+			case ServicegenPackage.SOABE_MODEL__RESOURCE_SET:
+				setResourceSet((ResourceSet)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -502,6 +561,8 @@ public class SOABEModelImpl extends EObjectImpl implements SOABEModel {
 				return serviceDefs != null && !serviceDefs.isEmpty();
 			case ServicegenPackage.SOABE_MODEL__TARGET_PLATFORM:
 				return targetPlatform != null;
+			case ServicegenPackage.SOABE_MODEL__RESOURCE_SET:
+				return resourceSet != null;
 		}
 		return super.eIsSet(featureID);
 	}

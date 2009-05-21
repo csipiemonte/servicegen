@@ -13,6 +13,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Service Component</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,7 @@ public interface ServiceComponent extends EObject {
 	 * @see #setImplCartridge(LogicImplCartridge)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getServiceComponent_ImplCartridge()
 	 * @model containment="true"
+	 *        annotation="GenModel documentation='[[ TODO - add documentation here ]]'"
 	 * @generated
 	 */
 	LogicImplCartridge getImplCartridge();

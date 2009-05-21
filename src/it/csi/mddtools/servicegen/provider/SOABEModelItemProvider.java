@@ -72,6 +72,7 @@ public class SOABEModelItemProvider
 			addCodComponentePropertyDescriptor(object);
 			addVersioneProdottoPropertyDescriptor(object);
 			addVersioneComponentePropertyDescriptor(object);
+			addResourceSetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -160,6 +161,28 @@ public class SOABEModelItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Resource Set feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResourceSetPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_SOABEModel_resourceSet_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SOABEModel_resourceSet_feature", "_UI_SOABEModel_type"),
+				 ServicegenPackage.Literals.SOABE_MODEL__RESOURCE_SET,
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}

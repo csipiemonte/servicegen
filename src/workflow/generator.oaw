@@ -14,7 +14,7 @@
 	
 	<!-- set up EMF for standalone execution -->
 	<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
-		<!--<platformUri value="d:/javatools/eclipses/europa-oAW-43/eclipse"/>-->
+		<!--<platformUri value=".."/>-->
 		<registerGeneratedEPackage value="it.csi.mddtools.servicegen.ServicegenPackage"/>
 		<registerGeneratedEPackage value="it.csi.mddtools.servicedef.ServicedefPackage"/>
 		<registerGeneratedEPackage value="it.csi.mddtools.typedef.TypedefPackage"/>

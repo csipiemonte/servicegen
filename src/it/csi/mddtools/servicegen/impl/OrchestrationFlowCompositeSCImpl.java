@@ -13,13 +13,17 @@ import it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC;
 import it.csi.mddtools.servicegen.ResourceBasedSC;
 import it.csi.mddtools.servicegen.ServicegenPackage;
 
+import it.csi.mddtools.svcorch.Orchestration;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +33,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getResourceSet <em>Resource Set</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getOrchestrations <em>Orchestrations</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +49,16 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * @ordered
 	 */
 	protected ResourceSet resourceSet;
+
+	/**
+	 * The cached value of the '{@link #getOrchestrations() <em>Orchestrations</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOrchestrations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Orchestration> orchestrations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -112,6 +127,18 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Orchestration> getOrchestrations() {
+		if (orchestrations == null) {
+			orchestrations = new EObjectResolvingEList<Orchestration>(Orchestration.class, this, ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS);
+		}
+		return orchestrations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -131,6 +158,8 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 		switch (featureID) {
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
 				return getResourceSet();
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
+				return getOrchestrations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,11 +169,16 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
 				setResourceSet((ResourceSet)newValue);
+				return;
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
+				getOrchestrations().clear();
+				getOrchestrations().addAll((Collection<? extends Orchestration>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -161,6 +195,9 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
 				setResourceSet((ResourceSet)null);
 				return;
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
+				getOrchestrations().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -175,6 +212,8 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 		switch (featureID) {
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
 				return resourceSet != null;
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
+				return orchestrations != null && !orchestrations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

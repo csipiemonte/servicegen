@@ -12,6 +12,10 @@ package it.csi.mddtools.servicegen;
  * A representation of the model object '<em><b>Custom Template Based Impl Cartridge</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface CustomTemplateBasedImplCartridge extends LogicImplCartridge {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Template</em>' attribute.
 	 * @see #setTemplate(String)
 	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getCustomTemplateBasedImplCartridge_Template()
