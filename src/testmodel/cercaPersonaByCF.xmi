@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xsi:schemaLocation="http://www.csi.it/mddtools/svcorch ../metamodel/svcorch.ecore">
+  <nodes>
+    <nodes xsi:type="svcorch:StartNode" name="start"/>
+  </nodes>
+</svcorch:Orchestration>

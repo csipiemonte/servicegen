@@ -1,20 +1,37 @@
 import csiserviceapp;
 import typedef;
 import servicedef;
+import appresources;
+import svcorch;
+import servicegen;
 
 extension template::ServicegenExtensions;
 
 
 
-//ComponenteProdotto componente(ServiceDef this) :
-//  eContainer;
+
+// validazioni generali (prodotto/componente etc..)
+context SOABEModel ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)" :
+	codProdotto!=null && codProdotto.length<=10;
+
+context SOABEModel ERROR "E'necessario specificare il codice componente (max 20 caratteri)" :
+	codComponente!=null && codComponente.length<=20;
+
+context SOABEModel ERROR "E'necessario specificare la versione del prodotto nel formato major.minor.bugfix" :
+	versioneProdotto!=null; //&& isVersioneFormalmenteCorretta(versioneProdotto);
+
+context SOABEModel ERROR "E'necessario specificare la versione del componente nel formato major.minor.bugfix" :
+	versioneComponente!=null;// && isVersioneFormalmenteCorretta(versioneComponente);
+
+context SOABEModel ERROR "E' necessario scegliere la Target Platform" :
+	targetPlatform!=null;
 
 /////////////////////////////////////
 // vincoli sulle definizioni di tipi
 /////////////////////////////////////
 
 // TD1(ERROR): un qualsiasi tipo deve avere un nome
-context Type ERROR "TD1: tutti i tipi definiti devono avere un nome" :
+context typedef::Type ERROR "TD1: tutti i tipi definiti devono avere un nome" :
 	this.name != null;
 	
 // TD2(ERROR): le feature di una entity devono avere un nome
@@ -88,3 +105,12 @@ context ServiceDef ERROR "Il servizio (con security non 'A0') deve definire alme
 context Operation WARNING "Tipo di ritorno non specificato per operazione "+name+": assumo che sia VOID" :
 	this.returnType != null;
 	
+////////////////////////////////////////////////////////////////////////////////////
+/// SVCORCH checks /////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+context svcorch::Node ERROR "E'necessario specificare il nome per ogni nodo" :
+	this.name != null && this.name.length>0;
+
+context svcorch::Node WARNING "E'consigliato specificare una breve descrizione testuale per ogni nodo" :
+	this.description != null && this.description.length>0;
