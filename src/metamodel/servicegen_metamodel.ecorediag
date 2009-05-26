@@ -475,7 +475,7 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_Y0R-EchoEd2l8_9u58bcsQ" routing="Tree" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_Y0R-EshoEd2l8_9u58bcsQ"/>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Y0R-E8hoEd2l8_9u58bcsQ" points="[1, 0, -469, 76]$[1, -30, -469, 46]$[471, -30, 1, 46]$[471, -76, 1, 0]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Y0R-E8hoEd2l8_9u58bcsQ" points="[1, 0, -471, 80]$[1, -50, -471, 30]$[473, -50, 1, 30]$[473, -80, 1, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZPZz0choEd2l8_9u58bcsQ" id="(0.54658383,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZPZz0shoEd2l8_9u58bcsQ" id="(0.16,1.0)"/>
   </edges>
@@ -491,7 +491,7 @@
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_qr8jMchoEd2l8_9u58bcsQ" routing="Tree" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_qr8jMshoEd2l8_9u58bcsQ"/>
     <element xsi:nil="true"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qr8jM8hoEd2l8_9u58bcsQ" points="[1, 0, -386, 76]$[1, -30, -386, 46]$[387, -30, 0, 46]$[387, -76, 0, 0]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qr8jM8hoEd2l8_9u58bcsQ" points="[1, 0, -389, 80]$[1, -20, -389, 60]$[389, -20, -1, 60]$[389, -80, -1, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sFzSEMhoEd2l8_9u58bcsQ" id="(0.7487437,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_sFzSEchoEd2l8_9u58bcsQ" id="(0.33,1.0)"/>
   </edges>

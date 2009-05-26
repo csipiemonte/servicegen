@@ -6,6 +6,7 @@ import svcorch;
 import servicegen;
 
 extension template::ServicegenExtensions;
+extension org::openarchitectureware::util::stdlib::naming;
 
 
 
@@ -101,16 +102,136 @@ context ServiceDef ERROR "Il servizio (con security non 'A0') deve definire alme
     (this.authLevel!=AuthLevelEnum::A0 && this.roles.size!=0) || authLevel == AuthLevelEnum::A0;
     
 
+
+////////////////////////////////////////////////////
+/// cartridge e service component
+////////////////////////////////////////////////////
+
+context ServiceImpl WARNING 
+	"Non è stata specificata la cartuccia di implementazione e/o il tipo di service "+
+	"component: viene assunta la cartuccia ManualImplCartridge, mentre il tipo di service component"+
+	" non è utilizzato "+loc()+", "+this.provides :
+this.implCartridge!=null && this.serviceComponent!=null;
+
+context ServiceImpl 
+	if serviceComponent.metaType==OrchestrationFlowCompositeSC && implCartridge==ManualImplCartridge 
+	ERROR "Non è possibile specificare il modello delle orchestrazioni in presenza di cartuccia 'manuale'"+loc() :
+	((OrchestrationFlowCompositeSC)serviceComponent).orchestrations.size==0;	
+
+context ServiceImpl 
+	if serviceComponent.metaType==OrchestrationFlowCompositeSC && implCartridge==FlowModelImplCartridge 
+	ERROR "E'necessario specificare un modello di orchestrazione per ogni operazione del servizio "+
+	"in presenza di cartuccia basata su modello (FlowModelImplCartridge)"+loc() :
+	((OrchestrationFlowCompositeSC)serviceComponent).orchestrations.size==provides.operations.size;	
+
+context ServiceImpl 
+	if serviceComponent.metaType==OrchestrationFlowCompositeSC && implCartridge==FlowModelImplCartridge
+	ERROR "Il servizio referenziato da almeno una delle orchestrazioni non coincide con quello esposto "+
+		  " dalla ServiceImpl: "+loc() :
+	let orchs = ((OrchestrationFlowCompositeSC)serviceComponent).orchestrations :
+		orchs.select(o|o.service!=provides).size==0;
+
 ////// WARNINGS ///////////////////////////////////
-context Operation WARNING "Tipo di ritorno non specificato per operazione "+name+": assumo che sia VOID" :
+context Operation WARNING "Tipo di ritorno non specificato per operazione "+name+": assumo che sia VOID " :
 	this.returnType != null;
 	
 ////////////////////////////////////////////////////////////////////////////////////
 /// SVCORCH checks /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 
+
 context svcorch::Node ERROR "E'necessario specificare il nome per ogni nodo" :
 	this.name != null && this.name.length>0;
 
 context svcorch::Node WARNING "E'consigliato specificare una breve descrizione testuale per ogni nodo" :
 	this.description != null && this.description.length>0;
+
+context svcorch::Orchestration ERROR 
+	"E'necessario specificare il servizio (ServiceDef) a cui fa riferimento l'"
+	+" orchestrazione: "+loc() :
+	this.service!=null;
+
+context svcorch::Orchestration ERROR 
+	"E'necessario specificare l'operazione a cui fa riferimento l'"
+	+" orchestrazione: "+loc() :
+	this.operation!=null;
+		
+context svcorch::Orchestration ERROR
+	"E' necessario specificare un Binding ad un DataSlot per ogni parametro dell'operazione oggetto "+
+	"di orchestrazione: "+loc() :
+	this.inputParamBindings != null && this.inputParamBindings.inputParams.size == this.operation.params.size;
+
+context svcorch::ParamBinding ERROR 
+	"E'necessario specificare il parametro oggetto di binding:"+loc() :
+	this.param != null;
+
+context svcorch::ParamBinding ERROR 
+	"E'necessario specificare il data-slot oggetto di binding:"+loc() :
+	this.slot != null;
+		
+context svcorch::ParamBinding if eContainer.metaType==InputParamBindings ERROR
+	"il binding del parametro di input " + param +" è collegato ad uno slot già utilizzato per un'altro parametro "+loc() :
+	let bindings = ((InputParamBindings)eContainer):
+	bindings.inputParams.select(ip|ip.slot==this.slot).size==1;
+	
+context svcorch::ParamBinding if eContainer.metaType==InputParamBindings ERROR
+	"esiste più di un binding per il parametro di input "+ param :
+	let bindings = ((InputParamBindings)eContainer):
+	bindings.inputParams.select(ip|ip.param==param).size==1;
+	
+context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
+	"il binding del parametro del servizio invocato " + param +" è collegato ad uno slot già utilizzato per un'altro parametro "+loc() :
+	let bindings = ((SrvCall)eContainer):
+	bindings.paramBindings.select(ip|ip.slot==this.slot).size==1;
+	
+
+/// SrvCall
+context svcorch::SrvCall ERROR
+	"E'necessario specificare un service-connector per l'oggetto SrvCall:"+loc() :
+	this.serviceConnector!=null;
+
+context svcorch::SrvCall ERROR 
+	"E'necessario specificare l'operazione da invocare:"+loc() :
+	this.operation!=null;
+
+context svcorch::SrvCall if operation!=null && serviceConnector!=null ERROR
+	"L'operazione indicata ("+operation.name+") non fa parte del servizio referenziato "+
+	"dal serviceConnector ("+serviceConnector.serviceDef+")" :
+	serviceConnector.serviceDef.operations.contains(operation);
+
+context svcorch::SrvCall ERROR
+	"E' necessario specificare un binding per ogni parametro di input dell'operazione invocata:"+loc() :
+	this.paramBindings.size==this.operation.params.size;
+
+context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
+	"esiste più di un binding per il parametro di chiamata di servizio "+ param :
+	let bindings = ((SrvCall)eContainer):
+	bindings.paramBindings.select(ip|ip.param==param).size==1;
+
+context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
+	"il binding del parametro del servizio invocato non è un parametro dell'operazione "+
+	"specificata nell'oggetto SrvCall" :
+	let srvCall = ((SrvCall)eContainer) :
+	srvCall.operation.params.contains(this.param);
+	
+context svcorch::SrvCall ERROR 
+	"è necessario specificare il data-slot del risultato dell'invocazione del servizio: "+loc() :
+	this.operation.returnType==null ||
+	this.outputSlot != null;
+
+context svcorch::SrvCall if operation!=null ERROR 
+	"è necessario specificare un Exception Handler per ogni eccezione resituita dall'operazione oggetto "+
+	"di invocazione "+loc():
+	this.onException.size==operation.throws.size;
+
+context svcorch::ExceptionHandler ERROR 
+	"Occorre specificare l'eccezione gestita dall'Exception Handler:"+loc() :
+	this.handledException!=null;
+	 
+context svcorch::ExceptionHandler 
+	if SrvCall.metaType.isAssignableFrom(eContainer.metaType) 
+	ERROR
+	"L'exception handler referenzia una eccezione non prevista dall'operazione invocata:"+loc() :
+	let srvCall = ((SrvCall)eContainer):
+	let op = srvCall.operation :
+	op.throws.contains(handledException); 

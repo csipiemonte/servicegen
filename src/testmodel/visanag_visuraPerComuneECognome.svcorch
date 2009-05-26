@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xsi:schemaLocation="http://www.csi.it/mddtools/servicegen ../metamodel/servicegen_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/svcorch ../metamodel/svcorch.ecore">
+  <service href="visuracittadini.servicedef#/"/>
+  <operation href="visuracittadini.servicedef#//@operations.1"/>
+</svcorch:Orchestration>

@@ -10,6 +10,7 @@ import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.ServiceDef;
 
 import it.csi.mddtools.svcorch.DataSlot;
+import it.csi.mddtools.svcorch.DataSlots;
 import it.csi.mddtools.svcorch.InputParamBindings;
 import it.csi.mddtools.svcorch.Nodes;
 import it.csi.mddtools.svcorch.Orchestration;
@@ -61,7 +62,7 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * @generated
 	 * @ordered
 	 */
-	protected DataSlot globalSlots;
+	protected DataSlots globalSlots;
 
 	/**
 	 * The cached value of the '{@link #getService() <em>Service</em>}' reference.
@@ -170,7 +171,7 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataSlot getGlobalSlots() {
+	public DataSlots getGlobalSlots() {
 		return globalSlots;
 	}
 
@@ -179,8 +180,8 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetGlobalSlots(DataSlot newGlobalSlots, NotificationChain msgs) {
-		DataSlot oldGlobalSlots = globalSlots;
+	public NotificationChain basicSetGlobalSlots(DataSlots newGlobalSlots, NotificationChain msgs) {
+		DataSlots oldGlobalSlots = globalSlots;
 		globalSlots = newGlobalSlots;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SvcorchPackage.ORCHESTRATION__GLOBAL_SLOTS, oldGlobalSlots, newGlobalSlots);
@@ -194,7 +195,7 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setGlobalSlots(DataSlot newGlobalSlots) {
+	public void setGlobalSlots(DataSlots newGlobalSlots) {
 		if (newGlobalSlots != globalSlots) {
 			NotificationChain msgs = null;
 			if (globalSlots != null)
@@ -422,7 +423,7 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				setNodes((Nodes)newValue);
 				return;
 			case SvcorchPackage.ORCHESTRATION__GLOBAL_SLOTS:
-				setGlobalSlots((DataSlot)newValue);
+				setGlobalSlots((DataSlots)newValue);
 				return;
 			case SvcorchPackage.ORCHESTRATION__SERVICE:
 				setService((ServiceDef)newValue);
@@ -452,7 +453,7 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				setNodes((Nodes)null);
 				return;
 			case SvcorchPackage.ORCHESTRATION__GLOBAL_SLOTS:
-				setGlobalSlots((DataSlot)null);
+				setGlobalSlots((DataSlots)null);
 				return;
 			case SvcorchPackage.ORCHESTRATION__SERVICE:
 				setService((ServiceDef)null);

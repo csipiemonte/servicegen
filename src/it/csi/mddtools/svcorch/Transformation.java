@@ -6,6 +6,8 @@
  */
 package it.csi.mddtools.svcorch;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -26,30 +28,20 @@ package it.csi.mddtools.svcorch;
  */
 public interface Transformation extends OpNode {
 	/**
-	 * Returns the value of the '<em><b>Input</b></em>' reference.
+	 * Returns the value of the '<em><b>Input</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.svcorch.DataSlot}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Input</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Input</em>' reference.
-	 * @see #setInput(DataSlot)
+	 * @return the value of the '<em>Input</em>' reference list.
 	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getTransformation_Input()
 	 * @model
 	 * @generated
 	 */
-	DataSlot getInput();
-
-	/**
-	 * Sets the value of the '{@link it.csi.mddtools.svcorch.Transformation#getInput <em>Input</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Input</em>' reference.
-	 * @see #getInput()
-	 * @generated
-	 */
-	void setInput(DataSlot value);
+	EList<DataSlot> getInput();
 
 	/**
 	 * Returns the value of the '<em><b>Output</b></em>' reference.

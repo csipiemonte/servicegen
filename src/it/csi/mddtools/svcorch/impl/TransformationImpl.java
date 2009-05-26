@@ -10,12 +10,15 @@ import it.csi.mddtools.svcorch.DataSlot;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 import it.csi.mddtools.svcorch.Transformation;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,14 +36,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public abstract class TransformationImpl extends OpNodeImpl implements Transformation {
 	/**
-	 * The cached value of the '{@link #getInput() <em>Input</em>}' reference.
+	 * The cached value of the '{@link #getInput() <em>Input</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInput()
 	 * @generated
 	 * @ordered
 	 */
-	protected DataSlot input;
+	protected EList<DataSlot> input;
 
 	/**
 	 * The cached value of the '{@link #getOutput() <em>Output</em>}' reference.
@@ -76,37 +79,11 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DataSlot getInput() {
-		if (input != null && input.eIsProxy()) {
-			InternalEObject oldInput = (InternalEObject)input;
-			input = (DataSlot)eResolveProxy(oldInput);
-			if (input != oldInput) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.TRANSFORMATION__INPUT, oldInput, input));
-			}
+	public EList<DataSlot> getInput() {
+		if (input == null) {
+			input = new EObjectResolvingEList<DataSlot>(DataSlot.class, this, SvcorchPackage.TRANSFORMATION__INPUT);
 		}
 		return input;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DataSlot basicGetInput() {
-		return input;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInput(DataSlot newInput) {
-		DataSlot oldInput = input;
-		input = newInput;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.TRANSFORMATION__INPUT, oldInput, input));
 	}
 
 	/**
@@ -156,8 +133,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SvcorchPackage.TRANSFORMATION__INPUT:
-				if (resolve) return getInput();
-				return basicGetInput();
+				return getInput();
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				if (resolve) return getOutput();
 				return basicGetOutput();
@@ -170,11 +146,13 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case SvcorchPackage.TRANSFORMATION__INPUT:
-				setInput((DataSlot)newValue);
+				getInput().clear();
+				getInput().addAll((Collection<? extends DataSlot>)newValue);
 				return;
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				setOutput((DataSlot)newValue);
@@ -192,7 +170,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case SvcorchPackage.TRANSFORMATION__INPUT:
-				setInput((DataSlot)null);
+				getInput().clear();
 				return;
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				setOutput((DataSlot)null);
@@ -210,7 +188,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case SvcorchPackage.TRANSFORMATION__INPUT:
-				return input != null;
+				return input != null && !input.isEmpty();
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				return output != null;
 		}

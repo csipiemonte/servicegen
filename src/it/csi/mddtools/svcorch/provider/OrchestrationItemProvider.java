@@ -233,7 +233,7 @@ public class OrchestrationItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(SvcorchPackage.Literals.ORCHESTRATION__GLOBAL_SLOTS,
-				 SvcorchFactory.eINSTANCE.createDataSlot()));
+				 SvcorchFactory.eINSTANCE.createDataSlots()));
 
 		newChildDescriptors.add
 			(createChildParameter

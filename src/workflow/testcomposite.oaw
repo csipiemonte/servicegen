@@ -3,15 +3,18 @@
     <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
     
     <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
-	model="servicegen/src/testmodel/cercaPersonaByCF.xmi"  
+	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
+    />
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
+	model="servicegen/src/testmodel/visanag_visuraPerComuneECognome.svcorch"  
     />
     
     <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicegen.oaw" 
-	model="servicegen/src/testmodel/orch1_soabe.servicegen"  
+	model="servicegen/src/testmodel/visuracittadini.servicegen"  
     />
     
     <cartridge file="it/csi/mddtools/servicegen/workflow/csi14.oaw" 
-	model="servicegen/src/testmodel/orch1_soabe.servicegen" 
-	targetProjectName="testcompositesrv" 
+	model="servicegen/src/testmodel/visuracittadini.servicegen" 
+	targetProjectName="visuracittadini" 
     />
 </workflow>

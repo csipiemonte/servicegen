@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" xsi:schemaLocation="http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore" codServizio="visura_cittadini" monitorable="true" diagEnabled="true" versione="1.0" serviceType="orch">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <operations name="visuraPerComune" returnType="//@types/@types.1" throws="//@types/@types.2">
+    <params name="codComuneVisPerCom">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="visuraPerComuneECognome" returnType="//@types/@types.1" throws="//@types/@types.2">
+    <params name="codComuneVisComCogn">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="inizialiCognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="DatiCittadino">
+      <features name="nome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cognome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="indirizzoEsteso">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="maggiorenne">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.1"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="DatiCittadino []" componentType="//@types/@types.0"/>
+    <types xsi:type="typedef:Exception" name="VisuraVuotaException"/>
+  </types>
+</servicedef:ServiceDef>

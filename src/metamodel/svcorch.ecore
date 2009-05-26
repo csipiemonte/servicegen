@@ -6,7 +6,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Orchestration">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" eType="#//Nodes"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="globalSlots" eType="#//DataSlot"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="globalSlots" eType="#//DataSlots"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="service" eType="ecore:EClass servicedef_metamodel.ecore#//ServiceDef"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operation" eType="ecore:EClass servicedef_metamodel.ecore#//Operation"/>
@@ -38,7 +38,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="PAPDCall" eSuperTypes="#//SrvCall"/>
   <eClassifiers xsi:type="ecore:EClass" name="WSCall" eSuperTypes="#//SrvCall"/>
   <eClassifiers xsi:type="ecore:EClass" name="Transformation" abstract="true" eSuperTypes="#//OpNode">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="input" eType="#//DataSlot"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
+        eType="#//DataSlot"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="output" eType="#//DataSlot"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomTransformation" eSuperTypes="#//Transformation"/>

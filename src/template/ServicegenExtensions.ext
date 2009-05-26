@@ -380,6 +380,12 @@ let code = ((CSIDatatype)type).code :
 	else 
   	"???";
   	
+/// restituisce la service impl data una service def.
+/// serve come soluzione temporanea per la gestioen di impl-cartridge e service-component
+/// senza modificare drasticamente il meccanismo di generazione che è basato sul loop
+/// sulle service def e non sulla service impl 
+ServiceImpl getServiceImpl(ServiceDef sd, SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides==sd).first();
   	
 //// altre utility
 

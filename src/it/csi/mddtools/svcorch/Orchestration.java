@@ -68,12 +68,12 @@ public interface Orchestration extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Global Slots</em>' containment reference.
-	 * @see #setGlobalSlots(DataSlot)
+	 * @see #setGlobalSlots(DataSlots)
 	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getOrchestration_GlobalSlots()
 	 * @model containment="true"
 	 * @generated
 	 */
-	DataSlot getGlobalSlots();
+	DataSlots getGlobalSlots();
 
 	/**
 	 * Sets the value of the '{@link it.csi.mddtools.svcorch.Orchestration#getGlobalSlots <em>Global Slots</em>}' containment reference.
@@ -83,7 +83,7 @@ public interface Orchestration extends EObject {
 	 * @see #getGlobalSlots()
 	 * @generated
 	 */
-	void setGlobalSlots(DataSlot value);
+	void setGlobalSlots(DataSlots value);
 
 	/**
 	 * Returns the value of the '<em><b>Service</b></em>' reference.

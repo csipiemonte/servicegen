@@ -54,37 +54,23 @@
 «ENDDEFINE»
 
 «DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
-	«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
-«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("svcflow"+model.codComponente+sd.codServizio+name)»
-<!-- inserire qui la definizione del workflow (verra' preservata nelle successive
-     generazioni). Ricordarsi di mantenere identificata con '0' la azione iniziale. -->
-<workflow>
-	<initial-actions>
-		<action id="0" name="Start Workflow">
-			<results>
-				<unconditional-result id="5" old-status="Finished"
-					status="Queued" step="1" />
-			</results>
-		</action>
-	</initial-actions>
-	<steps>
-		<step name="Inizio" id="1">
-		<actions>
-			<action name="vaiInFondo" id="2">
-				<results>
-					<unconditional-result old-status="Queued"
-						status="Finished" step="2">
-					</unconditional-result>
-				</results>
-			</action>
-		</actions>
-		</step>
-		<step name="Fine" id="2"></step>
-	</steps>
-</workflow>
-«ENDPROTECT»
-	«ENDFILE»
+	«LET getServiceImpl(sd,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+	«ENDIF»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «REM»
@@ -351,169 +337,23 @@ classe dell'EJB che implementa il servizio (tramite delegate)
 *************************************************************
 «ENDREM»
 «DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
-
-import it.csi.csi.wrapper.CSIException;
-import it.csi.csi.wrapper.SystemException;
-import it.csi.csi.wrapper.UnrecoverableException;
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-
-import java.rmi.RemoteException;
-
-import javax.ejb.EJBException;
-import javax.ejb.SessionBean;
-import javax.ejb.SessionContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-import org.apache.log4j.*;
-
-/**
- * @generated
- */
-public class «serviceBeanClassName()» implements SessionBean{
-
-	// business delegate contenente le implementazioni del servizio
-	/**
-	 * @generated
-	 */
-	protected «serviceImplClassName()» delegate = null;
-	
-	/**
-	 * @generated
-	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
-	
-	/// Operazioni esposte dal servizio
-	
-	«EXPAND operationDelegation (model,codServizio, this)FOREACH this.operations»
-	
-	«IF this.monitorable»
-	/**
-	 * @generated
-	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
-		return delegate.testResources();
-	}
+	«LET getServiceImpl(this,model) AS impl-»
+	«IF impl !=null-»
+	«LET (ServiceComponent)(impl.serviceComponent) AS sc»
+	«LET (LogicImplCartridge)(impl.implCartridge) AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
-	«IF this.diagEnabled»
-	/**
-	 * @generated
-	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
-		return delegate.selfCheck(alreadyChecked);
-	}
-	
-	/**
-	 * @generated
-	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
-		return delegate.hasSelfCheck();
-	}
-	«ENDIF»
-	
-	/// lifecycle dell EJB
-	
-	/**
-	 * @generated
-	 */
-	public void ejbActivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-    /**
-	 * @generated
-	 */
-	public void ejbPassivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-    /**
-	 * @generated
-	 */
-	public void ejbRemove() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * @generated
-	 */
-	public void ejbCreate() {
-    }
-	  
-    /**
-	 * @generated
-	 */
-	SessionContext ctx = null;
-	
-	
-	/**
-	 * @generated
-	 */
-	public void createImpl(Object initOptions) throws EJBException{
-		Logger logger = getLogger(null);
-	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
-		try{
-			delegate = new «serviceImplClassName()»();
-			delegate.init(initOptions);
-		}
-		catch(Exception ie){
-			logger.debug("[«serviceBeanClassName()»::createImpl] - ERROR", ie);
-			throw new EJBException("Errore nella inizializzazione dell'implementazione del servizio «codServizio»:"+ie.getMessage(),ie);
-		}
-		finally{
-			logger.debug("[«serviceBeanClassName()»::createImpl] - END");
-		}
-	}
-	
-	/**
-	 * @generated
-	 */
-	public void setSessionContext(SessionContext ctx) throws EJBException, RemoteException {
-	  
-	    /// META-TODO: forse sarebbe opportuno accodare il nome del servizio al logger...
-	    Logger logger = getLogger(null);
-	    logger.debug("[«serviceBeanClassName()»::setSessionContext] - START");
-		this.ctx = ctx;
-		// contiene eventuali oggetti inizializzati nella sezione seguente e che
-		// devono essere passati all'oggetto delegate
-		Object implInitOptions = null;
-		
-		/// Inizializzazione risorse
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initResources"+codServizio)»
-        // inserire qui il codice di inziializzazione risorse:
-        // non verrà cancellato dalle successive rignerazioni
-        // esempio di cose da fare:
-        // -- leggere environment entry o context jndi 
-        // -- inizializzare datasource, altre risorse
-        // -- inserire le options in 'implInitOptions': saranno poi 
-        //    passate al metodo initImpl()
-        // NOTA: il contenuto specifico dell'oggetto implInitOptions è
-        // specifico di ogni applicazione		
-		«ENDPROTECT» 
-	    /// creazione dell'implementazione
-		createImpl(implInitOptions);	
-		logger.debug("[«serviceBeanClassName()»::setSessionContext] - END");
-	}
-	
-	/**
-	 * @generated
-	 */
-	protected Logger getLogger(String subsystem){
-	  if (subsystem!=null)
-	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
-	  else
-	    return Logger.getLogger(LOGGER_PREFIX);
-	}
-}
-
-	«ENDFILE»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE operationDelegation (SOABEModel model,String codServ, ServiceDef sd) FOR Operation»
@@ -579,156 +419,23 @@ che conterrà il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
 «DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio,model)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
-
-import it.csi.csi.wrapper.*;
-
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-«IF monitorable||diagEnabled»
-import it.csi.coopdiag.api.*;
-import it.csi.coopdiag.engine.utils.*;
-«ENDIF»
-import javax.sql.DataSource;
-import org.apache.log4j.*;
-
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)»
-// aggiungere qui eventuali import aggiuntive.
-// verranno preservate in rigenerazioni successive del progetto
-«ENDPROTECT»
-
-/**
- * @generated
- */
-public class «serviceImplClassName()» {
-    /**
-	 * @generated
-	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
-	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
-	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
-	// non verranno sovrascritte da successive rigenerazioni
-	«ENDPROTECT»
-	
-	/// Implementazione operazioni esposte dal servizio
-	
-	«EXPAND operationImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
-	«IF this.monitorable || this.diagEnabled»
-	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
-	/**
-	 * @generated
-	 */
-	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
-	/**
-	 * @generated
-	 */
-	String _codR = "«removeSeparator(codServizio)»";
-	/**
-	 * @generated
-	 */
-	String [] _suppS = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
-	// inserire qui i codici sistema dei supplier diretti (se ci sono)
-	// es: "Sistema1","Sistema2"
-	«ENDPROTECT»
-	};
-	/**
-	 * @generated
-	 */
-	String [] _suppR = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
-	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
-	// es: "risorsa1","risorsa2"
-	// (corrispondono ai codici servizio dei corrispondenti servizi -
-	// vedere documentazione coop-diag)
-	«ENDPROTECT»
-	};
-	
-	/**
-	 * @generated
-	 */
-	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
-					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
-	
+«LET getServiceImpl(this,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
-	«IF this.monitorable»
-	/**
-	 * @generated
-	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
-		Logger logger = getLogger(null);
-		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
-		InvocationNode in = new InvocationNode();
-		try {					
-			logger.debug("[«serviceImplClassName()»::testResources()] END");
-			return schk.testResources();
-		} catch (CSIException ex) {
-			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
-							+ ex);
-			throw ex;
-		}
-	}
-	«ENDIF»
-	«IF this.diagEnabled»
-	/**
-	 * @generated
-	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
-		Logger logger = getLogger(null);
-	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
-		InvocationNode in = new InvocationNode();
-		try {
-			return schk.selfCheck(alreadyChecked);
-		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
-					+ ex);
-		}
-		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
-		return in;
-	}
-	
-	/**
-	 * @generated
-	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
-		return true;
-	}
-	«ENDIF»
-	
-	/// inizializzazione
-	/**
-	 * @generated
-	 */
-	public void init(Object initOptions){
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
-	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
-	«ENDPROTECT»
-	}
-	
-	/**
-	 * @generated
-	 */
-	protected Logger getLogger(String subsystem){
-	  if (subsystem!=null)
-	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
-	  else
-	    return Logger.getLogger(LOGGER_PREFIX);
-	}
-	
-	/// eventuali metodi aggiuntivi
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
-	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
-	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
-	«ENDPROTECT»
-}
-	«ENDFILE»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «REM»
@@ -738,162 +445,23 @@ classe del 'delegate' che implementa effettivamente il servizio
 ***************************************************************
 «ENDREM»
 «DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
-
-import it.csi.csi.wrapper.*;
-import it.csi.svcflow.orchestrator.engine.OswMainEngine;
-import com.opensymphony.workflow.WorkflowException;
-
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-«IF monitorable||diagEnabled»
-import it.csi.coopdiag.api.*;
-import it.csi.coopdiag.engine.utils.*;
-«ENDIF»
-import javax.sql.DataSource;
-import org.apache.log4j.*;
-
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)»
-// aggiungere qui eventuali import aggiuntive.
-// verranno preservate in rigenerazioni successive del progetto
-«ENDPROTECT»
-
-/**
- * @generated
- */
-public class «serviceImplClassName()» implements «serviceInterfaceName()»{
-    
-    /**
-	 * @generated
-	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
-	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
-	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
-	// non verranno sovrascritte da successive rigenerazioni
-	«ENDPROTECT»
-	
-	/// Implementazione operazioni esposte dal servizio
-	
-	«EXPAND operationOrchImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
-	«IF this.monitorable || this.diagEnabled»
-	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
-	/**
-	 * @generated
-	 */
-	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
-	
-	/**
-	 * @generated
-	 */
-	String _codR = "«removeSeparator(codServizio)»";
-	
-	/**
-	 * @generated
-	 */
-	String [] _suppS = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
-	// inserire qui i codici sistema dei supplier diretti (se ci sono)
-	// es: "Sistema1","Sistema2"
-	«ENDPROTECT»
-	};
-	
-	/**
-	 * @generated
-	 */
-	String [] _suppR = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
-	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
-	// es: "risorsa1","risorsa2"
-	// (corrispondono ai codici servizio dei corrispondenti servizi -
-	// vedere documentazione coop-diag)
-	«ENDPROTECT»
-	};
-	
-	/**
-	 * @generated
-	 */
-	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
-					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
-	
+	«LET getServiceImpl(this,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
-	«IF this.monitorable»
-	/**
-	 * @generated
-	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
-		Logger logger = getLogger(null);
-		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
-		InvocationNode in = new InvocationNode();
-		try {					
-			logger.debug("[«serviceImplClassName()»::testResources()] END");
-			return schk.testResources();
-		} catch (CSIException ex) {
-			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
-							+ ex);
-			throw ex;
-		}
-	}
-	«ENDIF»
-	«IF this.diagEnabled»
-	/**
-	 * @generated
-	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
-		Logger logger = getLogger(null);
-	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
-		InvocationNode in = new InvocationNode();
-		try {
-			return schk.selfCheck(alreadyChecked);
-		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
-					+ ex);
-		}
-		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
-		return in;
-	}
-	
-	/**
-	 * @generated
-	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
-		return true;
-	}
-	«ENDIF»
-	
-	/// inizializzazione
-	/**
-	 * @generated
-	 */
-	public void init(Object initOptions){
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
-	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
-	«ENDPROTECT»
-	}
-	
-	/**
-	 * @generated
-	 */
-	protected Logger getLogger(String subsystem){
-	  if (subsystem!=null)
-	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
-	  else
-	    return Logger.getLogger(LOGGER_PREFIX);
-	}
-	
-	/// eventuali metodi aggiuntivi
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
-	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
-	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
-	«ENDPROTECT»
-}
-	«ENDFILE»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 
@@ -1004,148 +572,43 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-  /**
-   * @generated
-   */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-    «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF» java.security.Principal principal«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
-     Logger logger = getLogger(null);
-	 logger.debug("[«implClassName»::«name»] - START");
-	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
-	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
-	 // inizio misurazione
-	 watcher.start();
-	 
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
-	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
-	 «ENDPROTECT»
-	 try {
-     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmt"+implClassName+"_"+name)»
-     // inserire qui il codice di implementazione del metodo '«name»'.
-     // non verrà sovrascritto nelle successive rigenerazioni
-	 
-     «IF returnType!=null»return «defaultInitVal(returnType)»;
-     «ENDIF»
-     «ENDPROTECT»
-     }
-     
-     catch(Throwable ex){
-        if (CSIException.class.isAssignableFrom(ex.getClass())){
-        	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
-     		throw (CSIException)ex;
-        }
-        else{
-			logger.error("[«implClassName»::«name»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
-			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
-		}        
-     }
-     finally{
-       // fine misurazione
-       watcher.stop();
-	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
-	   logger.debug("[«implClassName»::«name»] - END");
-     }
-  }
+	«LET getServiceImpl(sd,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+	«ENDIF»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-  /**
-   * @generated
-   */
-  public «map2javaType(this.returnType,codServ, model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-    «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»java.security.Principal principal«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
-     Logger logger = getLogger(null);
-	 logger.debug("[«implClassName»::«name»] - START");
-	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
-	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
-	 // inizio misurazione
-	 watcher.start();
-	 
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
-	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
-	 String remoteUser = "<???>";
-	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
-	 java.util.HashMap persistentParams = new java.util.HashMap();
-	 «ENDPROTECT»
-	 try {
-	 	// inserimento nel context dei parametri del metodo (senza trasformazioni)
-	 	«FOREACH params AS currPar»
-	 	persistentParams.put("input.parameter.«currPar.name»",«currPar.name»);
-	 	«ENDFOREACH»
-	 	«IF this.opType != OpTypeEnum::synch»persistentParams.put("input.parameter.datiMsg",datiMsg);«ENDIF»
-     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPreFlow"+implClassName+"_"+name)»
-     	// inserire qui eventuale codice aggiuntivo di inizializzazione del flusso
-     	// (inserimento nel context degli oggetti necessari al flusso oltre ai parametri)
-     	// non verrà sovrascritto nelle successive rigenerazioni
-	 
-	 «ENDPROTECT»
-		 // inizializzazione e richiamo del flusso
-		 try{
-		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,new Integer(0),persistentParams);
-		 }
-		 catch(WorkflowException wfe){
-		 	logger.error("[«implClassName»::«name»] - errore non gestito nell'esecuzione del flusso",wfe);
-		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
-		 	throw ue;
-		 }
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPostFlow"+implClassName+"_"+name)»
-	     // inserire qui il codice di terminazione del flusso
-	     // (reperimento del risultato dal context del flusso e trasformazione
-	     // nel risultato finale)
-	     // non verrà sovrascritto nelle successive rigenerazioni
-     «IF returnType!=null»
-     	
-     	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
-     «ENDIF»
-     «ENDPROTECT»
-     	}
-     catch(Throwable ex){
-        if (CSIException.class.isAssignableFrom(ex.getClass())){
-        	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
-     		throw (CSIException)ex;
-        }
-        else{
-			logger.error("[«implClassName»::«name»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
-			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
-		}        
-     }
-     finally{
-       // fine misurazione
-       watcher.stop();
-	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
-	   logger.debug("[«implClassName»::«name»] - END");
-     }
-  }
+	«LET getServiceImpl(sd,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«ERROR "FlowModelImplCartridge non ancora gestita"»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+	«ENDIF»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE operationTestDeclaration(SOABEModel model,String codServ) FOR Operation»

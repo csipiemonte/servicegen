@@ -186,8 +186,10 @@ public class CodeGenerationUtils {
 		Iterator<ServiceImpl> it_impl = model.getServiceimplementations().iterator();
 		while(it_impl.hasNext()){
 			ServiceImpl currImpl = it_impl.next();
-			if (currImpl.getProvides()!=null)
+			if (currImpl.getProvides()!=null){
 				result.add(currImpl.getProvides());
+				//System.out.println("getProvidedServices, add referenced"+currImpl.getProvides());
+			}
 		}
 		
 		// poi ciclo sulle service definitions e aggiungo solo se già non presente
@@ -195,9 +197,12 @@ public class CodeGenerationUtils {
 		Iterator<ServiceDef> it_sd = model.getServiceDefs().iterator();
 		while(it_sd.hasNext()){
 			ServiceDef currOwnedSD = it_sd.next();
-			if (!result.contains(currOwnedSD))
+			if (!result.contains(currOwnedSD)){
 				result.add(currOwnedSD);
+				//System.out.println("getProvidedServices, add owned"+currOwnedSD);
+			}
 		}
+		//System.out.println("getProvidedServices, total:"+result.size());
 		return result;
 	}
 }

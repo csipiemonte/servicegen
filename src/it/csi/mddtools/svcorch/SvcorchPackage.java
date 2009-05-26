@@ -646,7 +646,7 @@ public interface SvcorchPackage extends EPackage {
 	int TRANSFORMATION__NEXT = OP_NODE__NEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -710,7 +710,7 @@ public interface SvcorchPackage extends EPackage {
 	int CUSTOM_TRANSFORMATION__NEXT = TRANSFORMATION__NEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -774,7 +774,7 @@ public interface SvcorchPackage extends EPackage {
 	int DECLARATIVE_TRANSFORMATION__NEXT = TRANSFORMATION__NEXT;
 
 	/**
-	 * The feature id for the '<em><b>Input</b></em>' reference.
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1336,10 +1336,10 @@ public interface SvcorchPackage extends EPackage {
 	EClass getTransformation();
 
 	/**
-	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.Transformation#getInput <em>Input</em>}'.
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.svcorch.Transformation#getInput <em>Input</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Input</em>'.
+	 * @return the meta object for the reference list '<em>Input</em>'.
 	 * @see it.csi.mddtools.svcorch.Transformation#getInput()
 	 * @see #getTransformation()
 	 * @generated
@@ -1799,7 +1799,7 @@ public interface SvcorchPackage extends EPackage {
 		EClass TRANSFORMATION = eINSTANCE.getTransformation();
 
 		/**
-		 * The meta object literal for the '<em><b>Input</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Input</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
