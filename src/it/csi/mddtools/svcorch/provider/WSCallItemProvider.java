@@ -7,6 +7,8 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.appresources.ServiceConnector;
+import it.csi.mddtools.svcorch.PAPDCall;
 import it.csi.mddtools.svcorch.WSCall;
 
 import java.util.Collection;
@@ -76,11 +78,16 @@ public class WSCallItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WSCall)object).getName();
+		WSCall call = (WSCall)object;
+		ServiceConnector sconn = call.getServiceConnector();
+		String label = "["+call.getName()+"] "+
+		( sconn!=null && sconn.getServiceDef() !=null ? sconn.getServiceDef().getCodServizio() : "<???>")+
+		"."+( call.getOperation()!=null ? call.getOperation().getName(): "<???>" );
+	
 		return label == null || label.length() == 0 ?
 			getString("_UI_WSCall_type") :
 			getString("_UI_WSCall_type") + " " + label;

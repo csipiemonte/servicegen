@@ -7,7 +7,9 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.typedef.CSIDatatype;
+import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import java.util.Collection;
@@ -126,14 +128,14 @@ public class CSIDatatypeItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((CSIDatatype)object).getName();
+		String label = EditUtils.formatTypeLabel((CSIDatatype)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_CSIDatatype_type") :
-			getString("_UI_CSIDatatype_type") + " " + label;
+			getString("_UI_Entity_type") :
+			getString("_UI_Entity_type") + " " + label;
 	}
 
 	/**

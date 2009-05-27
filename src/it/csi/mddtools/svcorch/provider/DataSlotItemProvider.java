@@ -7,6 +7,7 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.svcorch.DataSlot;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
@@ -129,11 +130,13 @@ public class DataSlotItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((DataSlot)object).getName();
+		DataSlot ds = (DataSlot)object;
+		String label = ""+(ds.getType()!=null?EditUtils.formatTypeLabel(ds.getType()): "<???>")+
+		": "+(ds.getName()!=null? ds.getName(): "<???>");
 		return label == null || label.length() == 0 ?
 			getString("_UI_DataSlot_type") :
 			getString("_UI_DataSlot_type") + " " + label;

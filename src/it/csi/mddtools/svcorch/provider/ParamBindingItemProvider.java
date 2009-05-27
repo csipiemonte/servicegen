@@ -7,6 +7,7 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.svcorch.ParamBinding;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
 import java.util.Collection;
@@ -126,11 +127,15 @@ public class ParamBindingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ParamBinding_type");
+		ParamBinding pb = (ParamBinding) object;
+		String label = " ";
+		label += (pb.getParam()!=null ? pb.getParam().getName():"<???>" )+
+		"->"+( pb.getSlot()!=null? pb.getSlot().getName(): "<???>");
+		return getString("_UI_ParamBinding_type") +label;
 	}
 
 	/**

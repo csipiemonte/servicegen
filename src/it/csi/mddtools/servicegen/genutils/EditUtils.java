@@ -9,12 +9,21 @@ import it.csi.mddtools.servicedef.CustomConstraint;
 import it.csi.mddtools.servicedef.ORValueConstraint;
 import it.csi.mddtools.servicedef.InputValidator;
 import it.csi.mddtools.servicedef.NOTValueConstraint;
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.Param;
 import it.csi.mddtools.servicedef.ParamValidator;
+import it.csi.mddtools.servicedef.ServiceDef;
 import it.csi.mddtools.servicedef.SimpleValueConstraint;
+import it.csi.mddtools.servicedef.Types;
 import it.csi.mddtools.servicedef.ValueConstraint;
 import it.csi.mddtools.servicedef.ValueValorizationConstraint;
 import it.csi.mddtools.servicedef.ContinuousRangeConstraint;
 import it.csi.mddtools.servicedef.DiscreteRangeConstraint;
+import it.csi.mddtools.typedef.CSIDatatype;
+import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.Exception;
+import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypedArray;
 
 // classi di utilità utilizzate nell'editor custom
 public class EditUtils {
@@ -98,4 +107,76 @@ public class EditUtils {
 		}
 	}
 	
+	
+	public static ServiceDef getOwnerSD(Type t){
+		if (t instanceof CSIDatatype)
+			return null;
+		else {
+			// type->Types->Servicedef
+			if (t.eContainer() instanceof Types){
+				if(t.eContainer().eContainer() instanceof ServiceDef)
+					return (ServiceDef)(t.eContainer().eContainer());
+				else
+					return null;
+			}
+			else
+				return null;
+		}
+	}
+	
+	public static String formatTypeLabel(Type t){
+		if (t instanceof CSIDatatype)
+			return formatTypeLabel((CSIDatatype)t);
+		else if(t instanceof Entity)
+			return formatTypeLabel((Entity)t);
+		else if(t instanceof Exception)
+			return formatTypeLabel((Exception)t);
+		else if(t instanceof TypedArray)
+			return formatTypeLabel((TypedArray)t);
+		else
+			throw new IllegalArgumentException("tipo non gestito");
+	}
+	
+	public static String formatTypeLabel(CSIDatatype t){
+		return t.getCode().getLiteral();
+	}
+	
+	public static String formatTypeLabel(Entity t){
+		ServiceDef owner = getOwnerSD(t);
+		return (owner!=null? owner.getCodServizio()+"::"+t.getName() : "??::"+t.getName());
+	}
+	
+	public static String formatTypeLabel(it.csi.mddtools.typedef.Exception t){
+		ServiceDef owner = getOwnerSD(t);
+		return (owner!=null? owner.getCodServizio()+"::"+t.getName() : "??::"+t.getName());
+	}
+	
+	public static String formatTypeLabel(TypedArray t) {
+		if (t.getComponentType() != null) {
+			if (t.getComponentType() instanceof CSIDatatype) {
+				return t.getComponentType().getName() + "[]";
+			} else {
+				ServiceDef owner = getOwnerSD(t);
+				return (owner != null ? owner.getCodServizio() + "::"
+						+ t.getComponentType().getName() + "[]" : "??::"
+						+ t.getComponentType().getName() + "[]");
+			}
+		}
+		else
+			return "<???>[]";
+	}
+	
+	public static String formatParamList(Operation op){
+		String s = " (";
+		Iterator<Param> p_it = op.getParams().iterator();
+		int i=0;
+		while(p_it.hasNext()){
+			s+=p_it.next().getName();
+			if (i!=op.getParams().size()-1)
+				s+=", ";
+			i++;
+		}
+		s+=")";
+		return s;
+	}
 }

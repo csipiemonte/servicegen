@@ -10,6 +10,7 @@ package it.csi.mddtools.servicedef.provider;
 import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -278,11 +279,14 @@ public class OperationItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Operation)object).getName();
+		Operation op = (Operation) object;
+		String label = ""+
+		(op.getName()!=null ? op.getName(): "<???>")+
+		" "+EditUtils.formatParamList(op);
 		return label == null || label.length() == 0 ?
 			getString("_UI_Operation_type") :
 			getString("_UI_Operation_type") + " " + label;

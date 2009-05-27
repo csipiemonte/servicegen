@@ -7,6 +7,7 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -129,11 +130,14 @@ public class FeatureItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Feature)object).getName();
+		String label = "";
+		Feature f = (Feature)object;
+		label+=(f.getType()!=null ? EditUtils.formatTypeLabel(f.getType()): "<???>");
+		label += ": "+ (f.getName()!=null ? f.getName(): "<???>");
 		return label == null || label.length() == 0 ?
 			getString("_UI_Feature_type") :
 			getString("_UI_Feature_type") + " " + label;

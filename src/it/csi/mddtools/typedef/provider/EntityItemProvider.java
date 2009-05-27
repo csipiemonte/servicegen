@@ -7,6 +7,7 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -136,11 +137,11 @@ public class EntityItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Entity)object).getName();
+		String label = EditUtils.formatTypeLabel((Entity)object);
 		return label == null || label.length() == 0 ?
 			getString("_UI_Entity_type") :
 			getString("_UI_Entity_type") + " " + label;

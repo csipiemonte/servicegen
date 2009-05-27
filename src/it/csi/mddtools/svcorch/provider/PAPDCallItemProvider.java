@@ -7,6 +7,7 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.appresources.ServiceConnector;
 import it.csi.mddtools.svcorch.PAPDCall;
 
 import java.util.Collection;
@@ -76,11 +77,15 @@ public class PAPDCallItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((PAPDCall)object).getName();
+		PAPDCall call = (PAPDCall)object;
+		ServiceConnector sconn = call.getServiceConnector();
+		String label = "["+call.getName()+"] "+
+		( sconn!=null && sconn.getServiceDef() !=null ? sconn.getServiceDef().getCodServizio() : "<???>")+
+		"."+( call.getOperation()!=null ? call.getOperation().getName(): "<???>" );
 		return label == null || label.length() == 0 ?
 			getString("_UI_PAPDCall_type") :
 			getString("_UI_PAPDCall_type") + " " + label;

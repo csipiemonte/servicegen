@@ -280,11 +280,15 @@ public class ServiceDefItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ServiceDef)object).getCodServizio();
+		ServiceDef sd = (ServiceDef)object;
+		String label = ""+
+		(sd.getCodServizio()!=null?sd.getCodServizio():"<???>")+
+		" v."+(sd.getVersione()!=null? sd.getVersione():"?.?")+
+		" ["+(sd.getServiceType().getLiteral())+"]"; 
 		return label == null || label.length() == 0 ?
 			getString("_UI_ServiceDef_type") :
 			getString("_UI_ServiceDef_type") + " " + label;

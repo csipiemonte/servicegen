@@ -138,11 +138,14 @@ public class ServiceImplItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ServiceImpl_type");
+		ServiceImpl si = (ServiceImpl)object;
+		String label = " for:" +
+		(si.getProvides()!=null ? si.getProvides().getCodServizio():"<???>");
+		return getString("_UI_ServiceImpl_type")+label;
 	}
 
 	/**

@@ -7,11 +7,17 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.ServiceDef;
+import it.csi.mddtools.servicedef.SrvTypeEnum;
 import it.csi.mddtools.svcorch.Orchestration;
 import it.csi.mddtools.svcorch.SvcorchFactory;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -28,6 +34,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -77,44 +84,96 @@ public class OrchestrationItemProvider
 	 * This adds a property descriptor for the Service feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addServicePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Orchestration_service_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_service_feature", "_UI_Orchestration_type"),
-				 SvcorchPackage.Literals.ORCHESTRATION__SERVICE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_Orchestration_service_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_service_feature", "_UI_Orchestration_type"),
+//				 SvcorchPackage.Literals.ORCHESTRATION__SERVICE,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_Orchestration_service_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_Orchestration_service_feature",
+						"_UI_Orchestration_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				SvcorchPackage.eINSTANCE.getOrchestration_Service(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+
+				//ContentPanel containerOfAction = GenUtils.findParentContentPanel((Command)object);
+				List<ServiceDef> allSrv = (List<ServiceDef>)(super.getComboBoxObjects(object)); 
+				ArrayList<ServiceDef> result = new ArrayList<ServiceDef>();
+				Iterator<ServiceDef> it_sd = allSrv.iterator(); 
+				while(it_sd.hasNext()){
+					ServiceDef currSD = it_sd.next();
+					if (currSD!=null){
+						if (currSD.getServiceType().equals(SrvTypeEnum.ORCH))
+							result.add(currSD);
+					}
+				}
+				return result;
+			}
+		});
 	}
 
 	/**
 	 * This adds a property descriptor for the Operation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addOperationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Orchestration_operation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_operation_feature", "_UI_Orchestration_type"),
-				 SvcorchPackage.Literals.ORCHESTRATION__OPERATION,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_Orchestration_operation_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_operation_feature", "_UI_Orchestration_type"),
+//				 SvcorchPackage.Literals.ORCHESTRATION__OPERATION,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_Orchestration_operation_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_Orchestration_operation_feature",
+						"_UI_Orchestration_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				SvcorchPackage.eINSTANCE.getOrchestration_Operation(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				Orchestration orch = (Orchestration)object;
+				
+				ArrayList<Operation> result = new ArrayList<Operation>();
+				if (orch.getService()!=null){
+					// rendi selezionabili solo le operazioni del serviizo selezionato
+					Iterator<Operation> it_op = orch.getService().getOperations().iterator();
+					while(it_op.hasNext()){
+						Operation currOP = it_op.next();
+							result.add((Operation)currOP);
+					}
+				}	
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -186,11 +245,14 @@ public class OrchestrationItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_Orchestration_type");
+		Orchestration o = (Orchestration)object;
+		String label = " [" + (o.getService()!=null?o.getService().getCodServizio() : "<???>")+
+		"."+(o.getOperation()!=null? o.getOperation().getName(): "<???>")+"]";
+		return getString("_UI_Orchestration_type")+label;
 	}
 
 	/**

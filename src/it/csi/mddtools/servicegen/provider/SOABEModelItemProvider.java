@@ -235,11 +235,16 @@ public class SOABEModelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SOABEModel)object).getCodProdotto();
+		SOABEModel mdl = (SOABEModel)object;
+		String label = "prod: "+
+		(mdl.getCodProdotto()!=null? mdl.getCodProdotto():"<???>")+
+		" v."+(mdl.getVersioneProdotto()!=null? mdl.getVersioneProdotto():"?.?")+
+		", comp: "+(mdl.getCodComponente()!=null? mdl.getCodComponente():"<???>")+
+		" v."+(mdl.getVersioneComponente()!=null? mdl.getVersioneComponente():"?.?");
 		return label == null || label.length() == 0 ?
 			getString("_UI_SOABEModel_type") :
 			getString("_UI_SOABEModel_type") + " " + label;

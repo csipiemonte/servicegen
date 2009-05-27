@@ -10,6 +10,7 @@ package it.csi.mddtools.servicedef.provider;
 import it.csi.mddtools.servicedef.Param;
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -185,11 +186,14 @@ public class ParamItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Param)object).getName();
+		Param param = (Param)object;
+		String label = ""+ 
+		(param.getType()!=null ? EditUtils.formatTypeLabel(param.getType()) : "<???>")+ ": "+
+		param.getName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_Param_type") :
 			getString("_UI_Param_type") + " " + label;

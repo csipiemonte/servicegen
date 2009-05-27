@@ -7,6 +7,8 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
+import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import java.util.Collection;
@@ -102,14 +104,15 @@ public class ExceptionItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((it.csi.mddtools.typedef.Exception)object).getName();
+		String label = EditUtils.formatTypeLabel((it.csi.mddtools.typedef.Exception)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_Exception_type") :
-			getString("_UI_Exception_type") + " " + label;
+			getString("_UI_Entity_type") :
+			getString("_UI_Entity_type") + " " + label;
+
 	}
 
 	/**

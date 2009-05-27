@@ -7,6 +7,8 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicegen.genutils.EditUtils;
+import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -101,14 +103,14 @@ public class TypedArrayItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((TypedArray)object).getName();
+		String label = EditUtils.formatTypeLabel((TypedArray)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_TypedArray_type") :
-			getString("_UI_TypedArray_type") + " " + label;
+			getString("_UI_Entity_type") :
+			getString("_UI_Entity_type") + " " + label;
 	}
 
 	/**
