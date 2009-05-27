@@ -267,6 +267,10 @@ public class OrchestrationItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Orchestration.class)) {
+			case SvcorchPackage.ORCHESTRATION__SERVICE:
+			case SvcorchPackage.ORCHESTRATION__OPERATION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case SvcorchPackage.ORCHESTRATION__NODES:
 			case SvcorchPackage.ORCHESTRATION__GLOBAL_SLOTS:
 			case SvcorchPackage.ORCHESTRATION__INPUT_PARAM_BINDINGS:

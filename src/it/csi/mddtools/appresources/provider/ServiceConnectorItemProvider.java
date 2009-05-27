@@ -10,8 +10,14 @@ package it.csi.mddtools.appresources.provider;
 import it.csi.mddtools.appresources.AppresourcesFactory;
 import it.csi.mddtools.appresources.AppresourcesPackage;
 import it.csi.mddtools.appresources.ServiceConnector;
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.ServiceBinding;
+import it.csi.mddtools.svcorch.Orchestration;
+import it.csi.mddtools.svcorch.SvcorchPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -26,6 +32,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -95,22 +102,47 @@ public class ServiceConnectorItemProvider
 	 * This adds a property descriptor for the Binding feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addBindingPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ServiceConnector_binding_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceConnector_binding_feature", "_UI_ServiceConnector_type"),
-				 AppresourcesPackage.Literals.SERVICE_CONNECTOR__BINDING,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ServiceConnector_binding_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceConnector_binding_feature", "_UI_ServiceConnector_type"),
+//				 AppresourcesPackage.Literals.SERVICE_CONNECTOR__BINDING,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ServiceConnector_binding_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ServiceConnector_binding_feature",
+						"_UI_ServiceConnector_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				AppresourcesPackage.eINSTANCE.getServiceConnector_Binding(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				ServiceConnector sconn = (ServiceConnector)object;
+				
+				ArrayList<ServiceBinding> result = new ArrayList<ServiceBinding>();
+				if (sconn.getServiceDef()!=null){
+					// rendi selezionabili solo i binding del serviizo selezionato
+					Iterator<ServiceBinding> it_sb = sconn.getServiceDef().getBindings().iterator();
+					while(it_sb.hasNext()){
+						ServiceBinding currSB = it_sb.next();
+							result.add((ServiceBinding)currSB);
+					}
+				}	
+				return result;
+			}
+		});
 	}
 
 	/**

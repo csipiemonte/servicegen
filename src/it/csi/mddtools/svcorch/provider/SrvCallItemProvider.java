@@ -7,11 +7,17 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.appresources.AppresourcesPackage;
+import it.csi.mddtools.appresources.ServiceConnector;
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.svcorch.SrvCall;
 import it.csi.mddtools.svcorch.SvcorchFactory;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -26,6 +32,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -74,22 +81,47 @@ public class SrvCallItemProvider
 	 * This adds a property descriptor for the Operation feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addOperationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SrvCall_operation_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SrvCall_operation_feature", "_UI_SrvCall_type"),
-				 SvcorchPackage.Literals.SRV_CALL__OPERATION,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_SrvCall_operation_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_SrvCall_operation_feature", "_UI_SrvCall_type"),
+//				 SvcorchPackage.Literals.SRV_CALL__OPERATION,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_SrvCall_operation_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_SrvCall_operation_feature",
+						"_UI_SrvCall_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				SvcorchPackage.eINSTANCE.getSrvCall_Operation(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				SrvCall call = (SrvCall)object;
+				
+				ArrayList<Operation> result = new ArrayList<Operation>();
+				if (call.getServiceConnector()!=null && call.getServiceConnector().getServiceDef()!=null){
+					// rendi selezionabili solo le operazioni del servizio selezionato
+					Iterator<Operation> it_op = call.getServiceConnector().getServiceDef().getOperations().iterator();
+					while(it_op.hasNext()){
+						Operation currOP = it_op.next();
+							result.add((Operation)currOP);
+					}
+				}	
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -193,6 +225,10 @@ public class SrvCallItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(SrvCall.class)) {
+			case SvcorchPackage.SRV_CALL__OPERATION:
+			case SvcorchPackage.SRV_CALL__SERVICE_CONNECTOR:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case SvcorchPackage.SRV_CALL__PARAM_BINDINGS:
 			case SvcorchPackage.SRV_CALL__ON_EXCEPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));

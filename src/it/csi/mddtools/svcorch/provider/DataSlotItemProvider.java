@@ -155,6 +155,7 @@ public class DataSlotItemProvider
 
 		switch (notification.getFeatureID(DataSlot.class)) {
 			case SvcorchPackage.DATA_SLOT__NAME:
+			case SvcorchPackage.DATA_SLOT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

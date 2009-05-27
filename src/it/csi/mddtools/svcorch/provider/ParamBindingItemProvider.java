@@ -7,10 +7,20 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.appresources.AppresourcesPackage;
+import it.csi.mddtools.appresources.ServiceConnector;
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.Param;
+import it.csi.mddtools.servicedef.ServiceBinding;
+import it.csi.mddtools.svcorch.InputParamBindings;
+import it.csi.mddtools.svcorch.Orchestration;
 import it.csi.mddtools.svcorch.ParamBinding;
+import it.csi.mddtools.svcorch.SrvCall;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -25,7 +35,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.svcorch.ParamBinding} object.
@@ -94,22 +106,59 @@ public class ParamBindingItemProvider
 	 * This adds a property descriptor for the Param feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addParamPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ParamBinding_param_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ParamBinding_param_feature", "_UI_ParamBinding_type"),
-				 SvcorchPackage.Literals.PARAM_BINDING__PARAM,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ParamBinding_param_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ParamBinding_param_feature", "_UI_ParamBinding_type"),
+//				 SvcorchPackage.Literals.PARAM_BINDING__PARAM,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ParamBinding_param_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ParamBinding_param_feature",
+						"_UI_ParamBinding_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				SvcorchPackage.eINSTANCE.getParamBinding_Param(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				ParamBinding binding = (ParamBinding)object;
+				
+				ArrayList<Param> result = new ArrayList<Param>();
+				Operation targetOp = null;
+				if (binding.eContainer() instanceof InputParamBindings){
+					// la targetOp è l'operazione dell'orchestrazione
+					InputParamBindings bindings = (InputParamBindings)(binding.eContainer());
+					Orchestration orch = (Orchestration)(bindings.eContainer());
+					targetOp = orch.getOperation(); 
+				}
+				else if (binding.eContainer() instanceof SrvCall){
+					// la targetOp è quella invocata
+					SrvCall call = (SrvCall)(binding.eContainer());
+					targetOp = call.getOperation();
+				}
+				if (targetOp!=null){
+					// rendi selezionabili solo i param dell'operazione selezionata
+					Iterator<Param> it_par = targetOp.getParams().iterator();
+					while(it_par.hasNext()){
+						Param currPar = it_par.next();
+							result.add((Param)currPar);
+					}
+				}	
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -148,6 +197,13 @@ public class ParamBindingItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(ParamBinding.class)) {
+			case SvcorchPackage.PARAM_BINDING__SLOT:
+			case SvcorchPackage.PARAM_BINDING__PARAM:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
