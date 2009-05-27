@@ -15,6 +15,7 @@ import it.csi.mddtools.svcorch.CustomTransformation;
 import it.csi.mddtools.svcorch.DataSlot;
 import it.csi.mddtools.svcorch.DataSlots;
 import it.csi.mddtools.svcorch.DeclarativeTransformation;
+import it.csi.mddtools.svcorch.EndLoop;
 import it.csi.mddtools.svcorch.ExceptionHandler;
 import it.csi.mddtools.svcorch.FlowNode;
 import it.csi.mddtools.svcorch.ForEach;
@@ -188,6 +189,13 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * @generated
 	 */
 	private EClass inputParamBindingsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass endLoopEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -508,6 +516,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getTransformation_InitOutSlot() {
+		return (EAttribute)transformationEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomTransformation() {
 		return customTransformationEClass;
 	}
@@ -546,6 +563,33 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 */
 	public EReference getForEach_Collection() {
 		return (EReference)forEachEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForEach_Item() {
+		return (EReference)forEachEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForEach_FirstLoopNode() {
+		return (EReference)forEachEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForEach_AfterLoopNode() {
+		return (EReference)forEachEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -679,6 +723,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEndLoop() {
+		return endLoopEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SvcorchFactory getSvcorchFactory() {
 		return (SvcorchFactory)getEFactoryInstance();
 	}
@@ -738,6 +791,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		transformationEClass = createEClass(TRANSFORMATION);
 		createEReference(transformationEClass, TRANSFORMATION__INPUT);
 		createEReference(transformationEClass, TRANSFORMATION__OUTPUT);
+		createEAttribute(transformationEClass, TRANSFORMATION__INIT_OUT_SLOT);
 
 		customTransformationEClass = createEClass(CUSTOM_TRANSFORMATION);
 
@@ -747,6 +801,9 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		forEachEClass = createEClass(FOR_EACH);
 		createEReference(forEachEClass, FOR_EACH__COLLECTION);
+		createEReference(forEachEClass, FOR_EACH__ITEM);
+		createEReference(forEachEClass, FOR_EACH__FIRST_LOOP_NODE);
+		createEReference(forEachEClass, FOR_EACH__AFTER_LOOP_NODE);
 
 		dataSlotEClass = createEClass(DATA_SLOT);
 		createEAttribute(dataSlotEClass, DATA_SLOT__NAME);
@@ -767,6 +824,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		inputParamBindingsEClass = createEClass(INPUT_PARAM_BINDINGS);
 		createEReference(inputParamBindingsEClass, INPUT_PARAM_BINDINGS__INPUT_PARAMS);
+
+		endLoopEClass = createEClass(END_LOOP);
 	}
 
 	/**
@@ -814,6 +873,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		declarativeTransformationEClass.getESuperTypes().add(this.getTransformation());
 		checkConditionEClass.getESuperTypes().add(this.getFlowNode());
 		forEachEClass.getESuperTypes().add(this.getFlowNode());
+		endLoopEClass.getESuperTypes().add(this.getFlowNode());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(orchestrationEClass, Orchestration.class, "Orchestration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -852,6 +912,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEClass(transformationEClass, Transformation.class, "Transformation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTransformation_Input(), this.getDataSlot(), null, "input", null, 0, -1, Transformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransformation_Output(), this.getDataSlot(), null, "output", null, 0, 1, Transformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTransformation_InitOutSlot(), ecorePackage.getEBoolean(), "initOutSlot", null, 0, 1, Transformation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customTransformationEClass, CustomTransformation.class, "CustomTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -861,6 +922,9 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		initEClass(forEachEClass, ForEach.class, "ForEach", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getForEach_Collection(), this.getDataSlot(), null, "collection", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForEach_Item(), this.getDataSlot(), null, "item", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForEach_FirstLoopNode(), this.getNode(), null, "firstLoopNode", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForEach_AfterLoopNode(), this.getNode(), null, "afterLoopNode", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataSlotEClass, DataSlot.class, "DataSlot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataSlot_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataSlot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -881,6 +945,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		initEClass(inputParamBindingsEClass, InputParamBindings.class, "InputParamBindings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputParamBindings_InputParams(), this.getParamBinding(), null, "inputParams", null, 0, -1, InputParamBindings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(endLoopEClass, EndLoop.class, "EndLoop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

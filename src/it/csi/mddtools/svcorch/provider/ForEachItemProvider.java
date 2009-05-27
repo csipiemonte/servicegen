@@ -60,6 +60,9 @@ public class ForEachItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCollectionPropertyDescriptor(object);
+			addItemPropertyDescriptor(object);
+			addFirstLoopNodePropertyDescriptor(object);
+			addAfterLoopNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -78,6 +81,72 @@ public class ForEachItemProvider
 				 getString("_UI_ForEach_collection_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ForEach_collection_feature", "_UI_ForEach_type"),
 				 SvcorchPackage.Literals.FOR_EACH__COLLECTION,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Item feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addItemPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ForEach_item_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ForEach_item_feature", "_UI_ForEach_type"),
+				 SvcorchPackage.Literals.FOR_EACH__ITEM,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the First Loop Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFirstLoopNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ForEach_firstLoopNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ForEach_firstLoopNode_feature", "_UI_ForEach_type"),
+				 SvcorchPackage.Literals.FOR_EACH__FIRST_LOOP_NODE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the After Loop Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAfterLoopNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ForEach_afterLoopNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ForEach_afterLoopNode_feature", "_UI_ForEach_type"),
+				 SvcorchPackage.Literals.FOR_EACH__AFTER_LOOP_NODE,
 				 true,
 				 false,
 				 true,

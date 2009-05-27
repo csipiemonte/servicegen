@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#getInput <em>Input</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#getOutput <em>Output</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#isInitOutSlot <em>Init Out Slot</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,6 +55,26 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	 * @ordered
 	 */
 	protected DataSlot output;
+
+	/**
+	 * The default value of the '{@link #isInitOutSlot() <em>Init Out Slot</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitOutSlot()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INIT_OUT_SLOT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInitOutSlot() <em>Init Out Slot</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitOutSlot()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean initOutSlot = INIT_OUT_SLOT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -129,6 +150,27 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInitOutSlot() {
+		return initOutSlot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitOutSlot(boolean newInitOutSlot) {
+		boolean oldInitOutSlot = initOutSlot;
+		initOutSlot = newInitOutSlot;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT, oldInitOutSlot, initOutSlot));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -137,6 +179,8 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				if (resolve) return getOutput();
 				return basicGetOutput();
+			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
+				return isInitOutSlot() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +201,9 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				setOutput((DataSlot)newValue);
 				return;
+			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
+				setInitOutSlot(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -175,6 +222,9 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				setOutput((DataSlot)null);
 				return;
+			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
+				setInitOutSlot(INIT_OUT_SLOT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -191,8 +241,26 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 				return input != null && !input.isEmpty();
 			case SvcorchPackage.TRANSFORMATION__OUTPUT:
 				return output != null;
+			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
+				return initOutSlot != INIT_OUT_SLOT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (initOutSlot: ");
+		result.append(initOutSlot);
+		result.append(')');
+		return result.toString();
 	}
 
 } //TransformationImpl

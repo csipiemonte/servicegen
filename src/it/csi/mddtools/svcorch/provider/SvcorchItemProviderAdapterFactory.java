@@ -421,6 +421,29 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.svcorch.EndLoop} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EndLoopItemProvider endLoopItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.svcorch.EndLoop}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEndLoopAdapter() {
+		if (endLoopItemProvider == null) {
+			endLoopItemProvider = new EndLoopItemProvider(this);
+		}
+
+		return endLoopItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -534,6 +557,7 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 		if (paramBindingItemProvider != null) paramBindingItemProvider.dispose();
 		if (exceptionHandlerItemProvider != null) exceptionHandlerItemProvider.dispose();
 		if (inputParamBindingsItemProvider != null) inputParamBindingsItemProvider.dispose();
+		if (endLoopItemProvider != null) endLoopItemProvider.dispose();
 	}
 
 }

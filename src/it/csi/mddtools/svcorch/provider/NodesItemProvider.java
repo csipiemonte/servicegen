@@ -190,6 +190,11 @@ public class NodesItemProvider
 			(createChildParameter
 				(SvcorchPackage.Literals.NODES__NODES,
 				 SvcorchFactory.eINSTANCE.createForEach()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(SvcorchPackage.Literals.NODES__NODES,
+				 SvcorchFactory.eINSTANCE.createEndLoop()));
 	}
 
 	/**

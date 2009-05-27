@@ -152,6 +152,10 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 				return createInputParamBindingsAdapter();
 			}
 			@Override
+			public Adapter caseEndLoop(EndLoop object) {
+				return createEndLoopAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -448,6 +452,20 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createInputParamBindingsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.svcorch.EndLoop <em>End Loop</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.svcorch.EndLoop
+	 * @generated
+	 */
+	public Adapter createEndLoopAdapter() {
 		return null;
 	}
 

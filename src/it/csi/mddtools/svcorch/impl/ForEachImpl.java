@@ -8,6 +8,7 @@ package it.csi.mddtools.svcorch.impl;
 
 import it.csi.mddtools.svcorch.DataSlot;
 import it.csi.mddtools.svcorch.ForEach;
+import it.csi.mddtools.svcorch.Node;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -25,6 +26,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ForEachImpl#getCollection <em>Collection</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.ForEachImpl#getItem <em>Item</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.ForEachImpl#getFirstLoopNode <em>First Loop Node</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.ForEachImpl#getAfterLoopNode <em>After Loop Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,6 +44,36 @@ public class ForEachImpl extends FlowNodeImpl implements ForEach {
 	 * @ordered
 	 */
 	protected DataSlot collection;
+
+	/**
+	 * The cached value of the '{@link #getItem() <em>Item</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getItem()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSlot item;
+
+	/**
+	 * The cached value of the '{@link #getFirstLoopNode() <em>First Loop Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFirstLoopNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected Node firstLoopNode;
+
+	/**
+	 * The cached value of the '{@link #getAfterLoopNode() <em>After Loop Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAfterLoopNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected Node afterLoopNode;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -103,12 +137,135 @@ public class ForEachImpl extends FlowNodeImpl implements ForEach {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSlot getItem() {
+		if (item != null && item.eIsProxy()) {
+			InternalEObject oldItem = (InternalEObject)item;
+			item = (DataSlot)eResolveProxy(oldItem);
+			if (item != oldItem) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.FOR_EACH__ITEM, oldItem, item));
+			}
+		}
+		return item;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSlot basicGetItem() {
+		return item;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setItem(DataSlot newItem) {
+		DataSlot oldItem = item;
+		item = newItem;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.FOR_EACH__ITEM, oldItem, item));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node getFirstLoopNode() {
+		if (firstLoopNode != null && firstLoopNode.eIsProxy()) {
+			InternalEObject oldFirstLoopNode = (InternalEObject)firstLoopNode;
+			firstLoopNode = (Node)eResolveProxy(oldFirstLoopNode);
+			if (firstLoopNode != oldFirstLoopNode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE, oldFirstLoopNode, firstLoopNode));
+			}
+		}
+		return firstLoopNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node basicGetFirstLoopNode() {
+		return firstLoopNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFirstLoopNode(Node newFirstLoopNode) {
+		Node oldFirstLoopNode = firstLoopNode;
+		firstLoopNode = newFirstLoopNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE, oldFirstLoopNode, firstLoopNode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node getAfterLoopNode() {
+		if (afterLoopNode != null && afterLoopNode.eIsProxy()) {
+			InternalEObject oldAfterLoopNode = (InternalEObject)afterLoopNode;
+			afterLoopNode = (Node)eResolveProxy(oldAfterLoopNode);
+			if (afterLoopNode != oldAfterLoopNode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE, oldAfterLoopNode, afterLoopNode));
+			}
+		}
+		return afterLoopNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node basicGetAfterLoopNode() {
+		return afterLoopNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAfterLoopNode(Node newAfterLoopNode) {
+		Node oldAfterLoopNode = afterLoopNode;
+		afterLoopNode = newAfterLoopNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE, oldAfterLoopNode, afterLoopNode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SvcorchPackage.FOR_EACH__COLLECTION:
 				if (resolve) return getCollection();
 				return basicGetCollection();
+			case SvcorchPackage.FOR_EACH__ITEM:
+				if (resolve) return getItem();
+				return basicGetItem();
+			case SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE:
+				if (resolve) return getFirstLoopNode();
+				return basicGetFirstLoopNode();
+			case SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE:
+				if (resolve) return getAfterLoopNode();
+				return basicGetAfterLoopNode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -123,6 +280,15 @@ public class ForEachImpl extends FlowNodeImpl implements ForEach {
 		switch (featureID) {
 			case SvcorchPackage.FOR_EACH__COLLECTION:
 				setCollection((DataSlot)newValue);
+				return;
+			case SvcorchPackage.FOR_EACH__ITEM:
+				setItem((DataSlot)newValue);
+				return;
+			case SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE:
+				setFirstLoopNode((Node)newValue);
+				return;
+			case SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE:
+				setAfterLoopNode((Node)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,6 +305,15 @@ public class ForEachImpl extends FlowNodeImpl implements ForEach {
 			case SvcorchPackage.FOR_EACH__COLLECTION:
 				setCollection((DataSlot)null);
 				return;
+			case SvcorchPackage.FOR_EACH__ITEM:
+				setItem((DataSlot)null);
+				return;
+			case SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE:
+				setFirstLoopNode((Node)null);
+				return;
+			case SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE:
+				setAfterLoopNode((Node)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -153,6 +328,12 @@ public class ForEachImpl extends FlowNodeImpl implements ForEach {
 		switch (featureID) {
 			case SvcorchPackage.FOR_EACH__COLLECTION:
 				return collection != null;
+			case SvcorchPackage.FOR_EACH__ITEM:
+				return item != null;
+			case SvcorchPackage.FOR_EACH__FIRST_LOOP_NODE:
+				return firstLoopNode != null;
+			case SvcorchPackage.FOR_EACH__AFTER_LOOP_NODE:
+				return afterLoopNode != null;
 		}
 		return super.eIsSet(featureID);
 	}

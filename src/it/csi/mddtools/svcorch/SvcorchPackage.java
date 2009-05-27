@@ -664,13 +664,22 @@ public interface SvcorchPackage extends EPackage {
 	int TRANSFORMATION__OUTPUT = OP_NODE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Init Out Slot</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSFORMATION__INIT_OUT_SLOT = OP_NODE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Transformation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSFORMATION_FEATURE_COUNT = OP_NODE_FEATURE_COUNT + 2;
+	int TRANSFORMATION_FEATURE_COUNT = OP_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.CustomTransformationImpl <em>Custom Transformation</em>}' class.
@@ -726,6 +735,15 @@ public interface SvcorchPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_TRANSFORMATION__OUTPUT = TRANSFORMATION__OUTPUT;
+
+	/**
+	 * The feature id for the '<em><b>Init Out Slot</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_TRANSFORMATION__INIT_OUT_SLOT = TRANSFORMATION__INIT_OUT_SLOT;
 
 	/**
 	 * The number of structural features of the '<em>Custom Transformation</em>' class.
@@ -790,6 +808,15 @@ public interface SvcorchPackage extends EPackage {
 	 * @ordered
 	 */
 	int DECLARATIVE_TRANSFORMATION__OUTPUT = TRANSFORMATION__OUTPUT;
+
+	/**
+	 * The feature id for the '<em><b>Init Out Slot</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECLARATIVE_TRANSFORMATION__INIT_OUT_SLOT = TRANSFORMATION__INIT_OUT_SLOT;
 
 	/**
 	 * The number of structural features of the '<em>Declarative Transformation</em>' class.
@@ -875,13 +902,40 @@ public interface SvcorchPackage extends EPackage {
 	int FOR_EACH__COLLECTION = FLOW_NODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Item</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_EACH__ITEM = FLOW_NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>First Loop Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_EACH__FIRST_LOOP_NODE = FLOW_NODE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>After Loop Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_EACH__AFTER_LOOP_NODE = FLOW_NODE_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>For Each</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 1;
+	int FOR_EACH_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.DataSlotImpl <em>Data Slot</em>}' class.
@@ -1068,6 +1122,44 @@ public interface SvcorchPackage extends EPackage {
 	 * @ordered
 	 */
 	int INPUT_PARAM_BINDINGS_FEATURE_COUNT = 1;
+
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.EndLoopImpl <em>End Loop</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.svcorch.impl.EndLoopImpl
+	 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getEndLoop()
+	 * @generated
+	 */
+	int END_LOOP = 20;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_LOOP__NAME = FLOW_NODE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_LOOP__DESCRIPTION = FLOW_NODE__DESCRIPTION;
+
+	/**
+	 * The number of structural features of the '<em>End Loop</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_LOOP_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 0;
 
 
 	/**
@@ -1358,6 +1450,17 @@ public interface SvcorchPackage extends EPackage {
 	EReference getTransformation_Output();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.svcorch.Transformation#isInitOutSlot <em>Init Out Slot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Init Out Slot</em>'.
+	 * @see it.csi.mddtools.svcorch.Transformation#isInitOutSlot()
+	 * @see #getTransformation()
+	 * @generated
+	 */
+	EAttribute getTransformation_InitOutSlot();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.CustomTransformation <em>Custom Transformation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1407,6 +1510,39 @@ public interface SvcorchPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getForEach_Collection();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ForEach#getItem <em>Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Item</em>'.
+	 * @see it.csi.mddtools.svcorch.ForEach#getItem()
+	 * @see #getForEach()
+	 * @generated
+	 */
+	EReference getForEach_Item();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ForEach#getFirstLoopNode <em>First Loop Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>First Loop Node</em>'.
+	 * @see it.csi.mddtools.svcorch.ForEach#getFirstLoopNode()
+	 * @see #getForEach()
+	 * @generated
+	 */
+	EReference getForEach_FirstLoopNode();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ForEach#getAfterLoopNode <em>After Loop Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>After Loop Node</em>'.
+	 * @see it.csi.mddtools.svcorch.ForEach#getAfterLoopNode()
+	 * @see #getForEach()
+	 * @generated
+	 */
+	EReference getForEach_AfterLoopNode();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.DataSlot <em>Data Slot</em>}'.
@@ -1555,6 +1691,16 @@ public interface SvcorchPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getInputParamBindings_InputParams();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.EndLoop <em>End Loop</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>End Loop</em>'.
+	 * @see it.csi.mddtools.svcorch.EndLoop
+	 * @generated
+	 */
+	EClass getEndLoop();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1815,6 +1961,14 @@ public interface SvcorchPackage extends EPackage {
 		EReference TRANSFORMATION__OUTPUT = eINSTANCE.getTransformation_Output();
 
 		/**
+		 * The meta object literal for the '<em><b>Init Out Slot</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSFORMATION__INIT_OUT_SLOT = eINSTANCE.getTransformation_InitOutSlot();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.CustomTransformationImpl <em>Custom Transformation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1861,6 +2015,30 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FOR_EACH__COLLECTION = eINSTANCE.getForEach_Collection();
+
+		/**
+		 * The meta object literal for the '<em><b>Item</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOR_EACH__ITEM = eINSTANCE.getForEach_Item();
+
+		/**
+		 * The meta object literal for the '<em><b>First Loop Node</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOR_EACH__FIRST_LOOP_NODE = eINSTANCE.getForEach_FirstLoopNode();
+
+		/**
+		 * The meta object literal for the '<em><b>After Loop Node</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOR_EACH__AFTER_LOOP_NODE = eINSTANCE.getForEach_AfterLoopNode();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.DataSlotImpl <em>Data Slot</em>}' class.
@@ -1985,6 +2163,16 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INPUT_PARAM_BINDINGS__INPUT_PARAMS = eINSTANCE.getInputParamBindings_InputParams();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.EndLoopImpl <em>End Loop</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.svcorch.impl.EndLoopImpl
+		 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getEndLoop()
+		 * @generated
+		 */
+		EClass END_LOOP = eINSTANCE.getEndLoop();
 
 	}
 

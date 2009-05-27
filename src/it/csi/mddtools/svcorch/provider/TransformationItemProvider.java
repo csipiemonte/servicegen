@@ -23,6 +23,8 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.svcorch.Transformation} object.
@@ -61,6 +63,7 @@ public class TransformationItemProvider
 
 			addInputPropertyDescriptor(object);
 			addOutputPropertyDescriptor(object);
+			addInitOutSlotPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -110,6 +113,28 @@ public class TransformationItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Init Out Slot feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInitOutSlotPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Transformation_initOutSlot_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Transformation_initOutSlot_feature", "_UI_Transformation_type"),
+				 SvcorchPackage.Literals.TRANSFORMATION__INIT_OUT_SLOT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,6 +158,12 @@ public class TransformationItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(Transformation.class)) {
+			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

@@ -224,6 +224,7 @@ context svcorch::SrvCall if operation!=null ERROR
 	"di invocazione "+loc():
 	this.onException.size==operation.throws.size;
 
+/// ExceptionHandler
 context svcorch::ExceptionHandler ERROR 
 	"Occorre specificare l'eccezione gestita dall'Exception Handler:"+loc() :
 	this.handledException!=null;
@@ -234,4 +235,11 @@ context svcorch::ExceptionHandler
 	"L'exception handler referenzia una eccezione non prevista dall'operazione invocata:"+loc() :
 	let srvCall = ((SrvCall)eContainer):
 	let op = srvCall.operation :
-	op.throws.contains(handledException); 
+	op.throws.contains(handledException);
+	
+/// ForEach
+context ForEach ERROR "E' necessario specificare lo slot che contiene la collection su cui iterare:"+loc() :
+	collection!=null;
+	
+context ForEach ERROR "E' necessario specificare lo slot che conterrà l'elemento corrente per ogni iterazione:"+loc() :
+	item!=null;	 

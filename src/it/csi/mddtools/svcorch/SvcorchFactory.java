@@ -161,6 +161,15 @@ public interface SvcorchFactory extends EFactory {
 	InputParamBindings createInputParamBindings();
 
 	/**
+	 * Returns a new object of class '<em>End Loop</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>End Loop</em>'.
+	 * @generated
+	 */
+	EndLoop createEndLoop();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
