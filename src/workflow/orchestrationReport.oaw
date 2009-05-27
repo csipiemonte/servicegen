@@ -1,0 +1,13 @@
+<workflow>
+	<cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+	<component class="org.eclipse.mwe.emf.Reader">
+		<useSingleGlobalResourceSet value="true"/>
+		<uri value="platform:/resource/servicegen/src/testmodel/visanag_visuraPerComune.svcorch" />
+		<modelSlot value="model" />
+	</component>
+	<cartridge file="model2dotfile.oaw"
+		targetDir="../src-gen"
+		dotTargetDir="../src-gen"
+		topFunctionCallExpression="template::svcorch2graphviz::toGraphvizModel(model)"
+		inheritAll="true"/>
+	</workflow>

@@ -1,0 +1,35 @@
+import svcorch;
+import appresources;
+import servicedef;
+import servicegen;
+import typedef;
+import dot;
+
+extension dotlib;
+
+create dot::graphvizmodel toGraphvizModel(svcorch::Orchestration orch) :
+addGraph(orchestrationGraph(orch))->
+this;
+
+create dot::graph orchestrationGraph(svcorch::Orchestration orch) :
+	
+	orch.mapToGraph()
+	.setName("orch_"+orch.operation.name)
+	.addStatement(orch.orchestrationSubgraph())
+	.setType(dot::graphtype::digraph)->
+	this
+;
+
+create dot::node_stmt toNode(svcorch::Node node) :
+ this.setShape("box")->
+ this.setName(node.name)->
+ this
+;
+
+create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
+	orch.mapToSubgraph()
+	.setName("orchsub_"+orch.operation.name)
+	.setLabel("label")
+	.addStatements(orch.nodes.nodes.toNode())
+;
+
