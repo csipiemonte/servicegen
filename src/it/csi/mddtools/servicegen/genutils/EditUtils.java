@@ -179,4 +179,18 @@ public class EditUtils {
 		s+=")";
 		return s;
 	}
+	
+	public static String formatExceptionList(List<Exception> types){
+		Iterator<Exception> it_t = types.iterator();
+		String s = "";
+		int i=0;
+		while(it_t.hasNext()){
+			Type currT = it_t.next();
+			s+=formatTypeLabel(currT);
+			if (i!=types.size()-1)
+				s+=", ";
+			i++;
+		}
+		return s;
+	}
 }

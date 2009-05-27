@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:svcorch="http://www.csi.it/mddtools/svcorch">
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef">
+  <globalSlots>
+    <slots name="inputCodComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="inputInizialiCognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+  </globalSlots>
   <service href="visuracittadini.servicedef#/"/>
   <operation href="visuracittadini.servicedef#//@operations.1"/>
+  <inputParamBindings>
+    <inputParams slot="//@globalSlots/@slots.0">
+      <param href="visuracittadini.servicedef#//@operations.1/@params.0"/>
+    </inputParams>
+    <inputParams slot="//@globalSlots/@slots.1">
+      <param href="visuracittadini.servicedef#//@operations.1/@params.1"/>
+    </inputParams>
+  </inputParamBindings>
 </svcorch:Orchestration>

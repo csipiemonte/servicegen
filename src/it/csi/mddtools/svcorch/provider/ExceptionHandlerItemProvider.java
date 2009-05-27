@@ -7,10 +7,19 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicedef.Param;
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.svcorch.ExceptionHandler;
+import it.csi.mddtools.svcorch.InputParamBindings;
+import it.csi.mddtools.svcorch.Orchestration;
+import it.csi.mddtools.svcorch.ParamBinding;
+import it.csi.mddtools.svcorch.SrvCall;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -25,6 +34,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -72,22 +82,50 @@ public class ExceptionHandlerItemProvider
 	 * This adds a property descriptor for the Handled Exception feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addHandledExceptionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExceptionHandler_handledException_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExceptionHandler_handledException_feature", "_UI_ExceptionHandler_type"),
-				 SvcorchPackage.Literals.EXCEPTION_HANDLER__HANDLED_EXCEPTION,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ExceptionHandler_handledException_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ExceptionHandler_handledException_feature", "_UI_ExceptionHandler_type"),
+//				 SvcorchPackage.Literals.EXCEPTION_HANDLER__HANDLED_EXCEPTION,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ExceptionHandler_handledException_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ExceptionHandler_handledException_feature",
+						"_UI_ExceptionHandler_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				SvcorchPackage.eINSTANCE.getExceptionHandler_HandledException(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				ExceptionHandler eh = (ExceptionHandler)object;
+				
+				ArrayList<Exception> result = new ArrayList<Exception>();
+				Operation targetOp = null;
+				if (eh.eContainer() instanceof SrvCall){
+					// la targetOp è l'operazione della call
+					SrvCall call = (SrvCall)(eh.eContainer());
+					targetOp = call.getOperation(); 
+					if (targetOp!=null)
+						result.addAll((Collection<? extends Exception>) targetOp.getThrows());
+				}
+				else 
+					return super.getComboBoxObjects(object);	
+				
+				return result;
+			}
+		});
 	}
 
 	/**
@@ -105,10 +143,13 @@ public class ExceptionHandlerItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
+		ExceptionHandler eh = (ExceptionHandler)object;
+		String label = " on "+
+		(eh.getHandledException()!=null?EditUtils.formatExceptionList(eh.getHandledException()):"<???>");
 		return getString("_UI_ExceptionHandler_type");
 	}
 
