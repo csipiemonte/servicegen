@@ -17,6 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Base Types</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -38,6 +42,9 @@ public interface BaseTypes extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Base Types</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getBaseTypes_BaseTypes()
 	 * @model containment="true"

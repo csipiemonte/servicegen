@@ -9,12 +9,14 @@ package it.csi.mddtools.svcorch.provider;
 
 import it.csi.mddtools.svcorch.CheckCondition;
 
+import it.csi.mddtools.svcorch.SvcorchPackage;
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -57,8 +59,54 @@ public class CheckConditionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addThenNodePropertyDescriptor(object);
+			addElseNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Then Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addThenNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CheckCondition_thenNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CheckCondition_thenNode_feature", "_UI_CheckCondition_type"),
+				 SvcorchPackage.Literals.CHECK_CONDITION__THEN_NODE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Else Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addElseNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CheckCondition_elseNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CheckCondition_elseNode_feature", "_UI_CheckCondition_type"),
+				 SvcorchPackage.Literals.CHECK_CONDITION__ELSE_NODE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**

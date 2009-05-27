@@ -170,11 +170,15 @@ public class ForEachItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ForEach)object).getName();
+		ForEach fe = (ForEach)object;
+		String label = "["+
+		(fe.getItem()!=null?fe.getItem().getName():"<???>")+
+		"] in {["+
+		(fe.getCollection()!=null ? fe.getCollection().getName():"<???>")+"]}";
 		return label == null || label.length() == 0 ?
 			getString("_UI_ForEach_type") :
 			getString("_UI_ForEach_type") + " " + label;

@@ -17,6 +17,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>TX Type Enum</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getTXTypeEnum()
  * @model
  * @generated
@@ -50,6 +53,9 @@ public enum TXTypeEnum implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #NO_TX
 	 * @model name="noTX"
 	 * @generated
@@ -65,6 +71,9 @@ public enum TXTypeEnum implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #NEW_LOCAL_TX
 	 * @model name="newLocalTX"
 	 * @generated

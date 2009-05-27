@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appresources:ResourceSet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appresources="http://www.csi.it/mddtools/appresources" xmlns:servicedef="http://www.csi.it/mddtools/servicedef">
+  <resources xsi:type="appresources:PDPAServiceConnector" code="ANAG">
+    <serviceDef href="anagrafe.servicedef#/"/>
+    <binding xsi:type="servicedef:EJBPABinding" href="anagrafe.servicedef#//@bindings.0"/>
+    <selector/>
+  </resources>
+  <resources xsi:type="appresources:PDPAServiceConnector" code="TOPON">
+    <serviceDef href="toponomastica.servicedef#/"/>
+    <binding xsi:type="servicedef:EJBPABinding" href="toponomastica.servicedef#//@bindings.0"/>
+    <selector/>
+  </resources>
+</appresources:ResourceSet>

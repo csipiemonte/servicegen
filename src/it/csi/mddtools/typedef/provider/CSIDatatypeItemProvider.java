@@ -134,8 +134,8 @@ public class CSIDatatypeItemProvider
 	public String getText(Object object) {
 		String label = EditUtils.formatTypeLabel((CSIDatatype)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_Entity_type") :
-			getString("_UI_Entity_type") + " " + label;
+			getString("_UI_CSIDatatype_type") :
+			getString("_UI_CSIDatatype_type") + " " + label;
 	}
 
 	/**

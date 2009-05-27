@@ -17,6 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Operation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -45,6 +49,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Name()
@@ -72,6 +79,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Params</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Params()
 	 * @model containment="true"
@@ -89,6 +99,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Op Type</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.OpTypeEnum
 	 * @see #setOpType(OpTypeEnum)
@@ -117,6 +130,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Return Type</em>' reference.
 	 * @see #setReturnType(Type)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_ReturnType()
@@ -144,6 +160,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Throws</em>' reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Throws()
 	 * @model
@@ -161,6 +180,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Tx Type</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.TXTypeEnum
 	 * @see #setTxType(TXTypeEnum)
@@ -189,6 +211,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Since</em>' attribute.
 	 * @see #setSince(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Since()
@@ -216,6 +241,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Authorized Roles</em>' reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_AuthorizedRoles()
 	 * @model
@@ -231,6 +259,9 @@ public interface Operation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Validator</em>' containment reference.
 	 * @see #setValidator(InputValidator)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Validator()

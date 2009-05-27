@@ -14,6 +14,10 @@ import it.csi.mddtools.typedef.Feature;
  * A representation of the model object '<em><b>Simple Feature Constraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -36,6 +40,9 @@ public interface SimpleFeatureConstraint extends FeatureConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constraint</em>' containment reference.
 	 * @see #setConstraint(ValueConstraint)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleFeatureConstraint_Constraint()
@@ -62,6 +69,9 @@ public interface SimpleFeatureConstraint extends FeatureConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Entity</em>' reference.
 	 * @see #setEntity(Entity)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleFeatureConstraint_Entity()
@@ -88,6 +98,9 @@ public interface SimpleFeatureConstraint extends FeatureConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature</em>' reference.
 	 * @see #setFeature(Feature)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleFeatureConstraint_Feature()

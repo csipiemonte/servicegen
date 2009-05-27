@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>Service Def</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -45,6 +49,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Servizio</em>' attribute.
 	 * @see #setCodServizio(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_CodServizio()
@@ -72,6 +79,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bindings</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Bindings()
 	 * @model containment="true"
@@ -87,6 +97,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Monitorable</em>' attribute.
 	 * @see #setMonitorable(boolean)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Monitorable()
@@ -113,6 +126,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Diag Enabled</em>' attribute.
 	 * @see #setDiagEnabled(boolean)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_DiagEnabled()
@@ -140,6 +156,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Operations</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Operations()
 	 * @model containment="true"
@@ -155,6 +174,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione</em>' attribute.
 	 * @see #setVersione(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Versione()
@@ -181,6 +203,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference.
 	 * @see #setTypes(Types)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Types()
@@ -207,6 +232,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Trace Enabled</em>' attribute.
 	 * @see #setTraceEnabled(boolean)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_TraceEnabled()
@@ -235,6 +263,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Type</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.SrvTypeEnum
 	 * @see #setServiceType(SrvTypeEnum)
@@ -265,6 +296,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Auth Level</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.AuthLevelEnum
 	 * @see #setAuthLevel(AuthLevelEnum)
@@ -294,6 +328,9 @@ public interface ServiceDef extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Roles</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Roles()
 	 * @model containment="true"

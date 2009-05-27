@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.servicedef.ServicedefFactory
  * @model kind="package"
  * @generated

@@ -552,6 +552,24 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCheckCondition_ThenNode() {
+		return (EReference)checkConditionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCheckCondition_ElseNode() {
+		return (EReference)checkConditionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getForEach() {
 		return forEachEClass;
 	}
@@ -798,6 +816,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		declarativeTransformationEClass = createEClass(DECLARATIVE_TRANSFORMATION);
 
 		checkConditionEClass = createEClass(CHECK_CONDITION);
+		createEReference(checkConditionEClass, CHECK_CONDITION__THEN_NODE);
+		createEReference(checkConditionEClass, CHECK_CONDITION__ELSE_NODE);
 
 		forEachEClass = createEClass(FOR_EACH);
 		createEReference(forEachEClass, FOR_EACH__COLLECTION);
@@ -919,6 +939,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEClass(declarativeTransformationEClass, DeclarativeTransformation.class, "DeclarativeTransformation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(checkConditionEClass, CheckCondition.class, "CheckCondition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCheckCondition_ThenNode(), this.getNode(), null, "thenNode", null, 0, 1, CheckCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCheckCondition_ElseNode(), this.getNode(), null, "elseNode", null, 0, 1, CheckCondition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(forEachEClass, ForEach.class, "ForEach", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getForEach_Collection(), this.getDataSlot(), null, "collection", null, 0, 1, ForEach.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

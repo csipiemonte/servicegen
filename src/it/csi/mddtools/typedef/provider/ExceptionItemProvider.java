@@ -110,8 +110,8 @@ public class ExceptionItemProvider
 	public String getText(Object object) {
 		String label = EditUtils.formatTypeLabel((it.csi.mddtools.typedef.Exception)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_Entity_type") :
-			getString("_UI_Entity_type") + " " + label;
+			getString("_UI_Exception_type") :
+			getString("_UI_Exception_type") + " " + label;
 
 	}
 

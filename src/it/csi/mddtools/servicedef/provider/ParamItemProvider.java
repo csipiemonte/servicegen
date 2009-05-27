@@ -212,6 +212,7 @@ public class ParamItemProvider
 
 		switch (notification.getFeatureID(Param.class)) {
 			case ServicedefPackage.PARAM__NAME:
+			case ServicedefPackage.PARAM__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ServicedefPackage.PARAM__VALIDATOR:

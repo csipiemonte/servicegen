@@ -12,6 +12,10 @@ package it.csi.mddtools.servicedef;
  * A representation of the model object '<em><b>Continuous Range Constraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface ContinuousRangeConstraint extends ValueRangeConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lowerbound</em>' attribute.
 	 * @see #setLowerbound(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getContinuousRangeConstraint_Lowerbound()
@@ -59,6 +66,9 @@ public interface ContinuousRangeConstraint extends ValueRangeConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upperbound</em>' attribute.
 	 * @see #setUpperbound(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getContinuousRangeConstraint_Upperbound()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" xsi:schemaLocation="http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore" codServizio="toponomastica" monitorable="true" diagEnabled="true" versione="1.0">
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="toponomastica" monitorable="true" diagEnabled="true" versione="1.0">
   <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
   <operations name="findAllRegioni" returnType="//@types/@types.6" throws="//@types/@types.3"/>
   <operations name="findAllComuniInProv" returnType="//@types/@types.4" throws="//@types/@types.3">
@@ -9,6 +9,11 @@
   </operations>
   <operations name="findAllProvinceInReg" returnType="//@types/@types.5" throws="//@types/@types.3">
     <params name="codProv">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="lookupComuneByCod" returnType="//@types/@types.0" throws="//@types/@types.3">
+    <params name="codComune">
       <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
     </params>
   </operations>

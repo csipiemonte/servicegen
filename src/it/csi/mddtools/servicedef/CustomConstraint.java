@@ -12,6 +12,10 @@ package it.csi.mddtools.servicedef;
  * A representation of the model object '<em><b>Custom Constraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -32,6 +36,9 @@ public interface CustomConstraint extends SimpleValueConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Check Method Name</em>' attribute.
 	 * @see #setCheckMethodName(String)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getCustomConstraint_CheckMethodName()

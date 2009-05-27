@@ -12,6 +12,10 @@ package it.csi.mddtools.servicedef;
  * A representation of the model object '<em><b>Simple Param Coinstraint</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface SimpleParamCoinstraint extends ParamConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Param</em>' reference.
 	 * @see #setParam(Param)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleParamCoinstraint_Param()
@@ -59,6 +66,9 @@ public interface SimpleParamCoinstraint extends ParamConstraint {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Constraint</em>' containment reference.
 	 * @see #setConstraint(ValueConstraint)
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleParamCoinstraint_Constraint()

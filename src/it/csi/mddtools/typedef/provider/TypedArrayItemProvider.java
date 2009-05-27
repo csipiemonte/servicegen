@@ -109,8 +109,8 @@ public class TypedArrayItemProvider
 	public String getText(Object object) {
 		String label = EditUtils.formatTypeLabel((TypedArray)object);
 		return label == null || label.length() == 0 ?
-			getString("_UI_Entity_type") :
-			getString("_UI_Entity_type") + " " + label;
+			getString("_UI_TypedArray_type") :
+			getString("_UI_TypedArray_type") + " " + label;
 	}
 
 	/**

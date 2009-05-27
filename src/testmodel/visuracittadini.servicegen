@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<servicegen:SOABEModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" codProdotto="visureol" codComponente="visanag" versioneProdotto="1.0.0" versioneComponente="1.0.0" xsi:schemaLocation="http://www.csi.it/mddtools/servicegen ../metamodel/servicegen_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/svcorch ../metamodel/svcorch_metamodel.ecore">
+<servicegen:SOABEModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" codProdotto="visureol" codComponente="visanag" versioneProdotto="1.0.0" versioneComponente="1.0.0">
   <serviceimplementations>
     <provides href="visuracittadini.servicedef#/"/>
     <serviceComponent xsi:type="servicegen:OrchestrationFlowCompositeSC">
