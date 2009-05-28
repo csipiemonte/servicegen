@@ -169,13 +169,14 @@ create dot::node_stmt toNode(svcorch::DataSlot slot) :
  this.setShape("rectangle")->
  this.setLabel(slot.name)->
  this.setName(slot.name)->
+ this.setFillColor("gray")->
  this
 ;
 
 create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
 	orch.mapToSubgraph()->
 	this.setName("orchsub_"+orch.operation.name)->
-	this.setLabel("label")->
+	this.setLabel("Orchestrazione "+orch.service.codServizio+"."+orch.operation.name)->
 	//this.addStatements(orch.globalSlots.slots.toNode())->
 	this.addStatements(orch.nodes.nodes.toNode())->
 	this.addStatements(orch.nodes.nodes.typeSelect(OpNode).toEdge())->

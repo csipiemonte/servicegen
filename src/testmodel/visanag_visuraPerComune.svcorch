@@ -2,35 +2,36 @@
 <svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appresources="http://www.csi.it/mddtools/appresources" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef">
   <nodes>
     <nodes xsi:type="svcorch:StartNode" name="start" next="//@nodes/@nodes.1"/>
-    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaExamplePerAnag" description="" next="//@nodes/@nodes.2" input="//@globalSlots/@slots.0" output="//@globalSlots/@slots.1" initOutSlot="true"/>
-    <nodes xsi:type="svcorch:PAPDCall" name="chiama anag" next="//@nodes/@nodes.3" outputSlot="//@globalSlots/@slots.2">
+    <nodes xsi:type="svcorch:CheckCondition" name="codComuneValorizzato" thenNode="//@nodes/@nodes.2" elseNode="//@nodes/@nodes.12"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaExamplePerAnag" description="" next="//@nodes/@nodes.3" input="//@globalSlots/@slots.0" output="//@globalSlots/@slots.1" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="chiama anag" next="//@nodes/@nodes.4" outputSlot="//@globalSlots/@slots.2">
       <operation href="anagrafe.servicedef#//@operations.1"/>
       <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="visuracittadini.appresources#//@resources.0"/>
       <paramBindings slot="//@globalSlots/@slots.1">
         <param href="anagrafe.servicedef#//@operations.1/@params.0"/>
       </paramBindings>
-      <onException firstRecoveryNode="//@nodes/@nodes.11">
+      <onException firstRecoveryNode="//@nodes/@nodes.12">
         <handledException href="anagrafe.servicedef#//@types/@types.3"/>
       </onException>
     </nodes>
-    <nodes xsi:type="svcorch:ForEach" name="completaIndirizzi" collection="//@globalSlots/@slots.2" item="//@globalSlots/@slots.3" firstLoopNode="//@nodes/@nodes.4" afterLoopNode="//@nodes/@nodes.10"/>
     <nodes xsi:type="svcorch:DeclarativeTransformation" name="initResult" next="//@nodes/@nodes.5" output="//@globalSlots/@slots.7" initOutSlot="true"/>
-    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaCodComunePerTopon" next="//@nodes/@nodes.6" input="//@globalSlots/@slots.3" output="//@globalSlots/@slots.4"/>
-    <nodes xsi:type="svcorch:PAPDCall" name="risolviComune" next="//@nodes/@nodes.7" outputSlot="//@globalSlots/@slots.5">
+    <nodes xsi:type="svcorch:ForEach" name="completaIndirizzi" collection="//@globalSlots/@slots.2" item="//@globalSlots/@slots.3" firstLoopNode="//@nodes/@nodes.6" afterLoopNode="//@nodes/@nodes.11"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaCodComunePerTopon" next="//@nodes/@nodes.7" input="//@globalSlots/@slots.3" output="//@globalSlots/@slots.4"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="risolviComune" next="//@nodes/@nodes.8" outputSlot="//@globalSlots/@slots.5">
       <operation href="toponomastica.servicedef#//@operations.3"/>
       <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="visuracittadini.appresources#//@resources.1"/>
       <paramBindings slot="//@globalSlots/@slots.4">
         <param href="toponomastica.servicedef#//@operations.3/@params.0"/>
       </paramBindings>
-      <onException firstRecoveryNode="//@nodes/@nodes.11">
+      <onException firstRecoveryNode="//@nodes/@nodes.12">
         <handledException href="toponomastica.servicedef#//@types/@types.3"/>
       </onException>
     </nodes>
-    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preapraDatiCurrCitt" next="//@nodes/@nodes.8" input="//@globalSlots/@slots.3 //@globalSlots/@slots.5" output="//@globalSlots/@slots.6" initOutSlot="true"/>
-    <nodes xsi:type="svcorch:DeclarativeTransformation" name="aggiungiDatiCittadino" next="//@nodes/@nodes.9" input="//@globalSlots/@slots.6" output="//@globalSlots/@slots.7"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preapraDatiCurrCitt" next="//@nodes/@nodes.9" input="//@globalSlots/@slots.3 //@globalSlots/@slots.5" output="//@globalSlots/@slots.6" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="aggiungiDatiCittadino" next="//@nodes/@nodes.10" input="//@globalSlots/@slots.6" output="//@globalSlots/@slots.7"/>
     <nodes xsi:type="svcorch:EndLoop" name="completaComune"/>
     <nodes xsi:type="svcorch:StopNode" name="stop"/>
-    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaRisultatoErrore" description="" next="//@nodes/@nodes.10" output="//@globalSlots/@slots.7" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaRisultatoErrore" description="" next="//@nodes/@nodes.11" output="//@globalSlots/@slots.7" initOutSlot="true"/>
   </nodes>
   <globalSlots>
     <slots name="inputCodComune">
