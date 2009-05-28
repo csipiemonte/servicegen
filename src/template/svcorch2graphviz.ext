@@ -13,23 +13,159 @@ this;
 
 create dot::graph orchestrationGraph(svcorch::Orchestration orch) :
 	
-	orch.mapToGraph()
-	.setName("orch_"+orch.operation.name)
-	.addStatement(orch.orchestrationSubgraph())
-	.setType(dot::graphtype::digraph)->
+	orch.mapToGraph()->
+	this.setName("orch_"+orch.operation.name)->
+	this.addStatement(orch.orchestrationSubgraph())->
+	this.setType(dot::graphtype::digraph)->
 	this
 ;
 
 create dot::node_stmt toNode(svcorch::Node node) :
  this.setShape("box")->
+ this.setLabel(node.name)->
  this.setName(node.name)->
  this
 ;
 
-create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
-	orch.mapToSubgraph()
-	.setName("orchsub_"+orch.operation.name)
-	.setLabel("label")
-	.addStatements(orch.nodes.nodes.toNode())
+create dot::node_stmt toNode(svcorch::ForEach node) :
+ this.setShape("doubleoctagon")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("orange")->
+ this
 ;
+
+create dot::node_stmt toNode(svcorch::CheckCondition node) :
+ this.setShape("diamond")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("orange")->
+ this
+;
+
+create dot::node_stmt toNode(svcorch::SrvCall node) :
+ this.setShape("parallelogram")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("cyan")->
+ this
+;
+
+create dot::node_stmt toNode(svcorch::Transformation node) :
+ this.setShape("invhouse")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("yellow")->
+ this
+;
+
+create dot::node_stmt toNode(svcorch::StartNode node) :
+ this.setShape("circle")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("gray")->
+ this
+;
+
+create dot::node_stmt toNode(svcorch::StopNode node) :
+ this.setShape("doublecircle")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("gray")->
+ this
+;
+
+create dot::node_stmt toNode(svcorch::EndLoop node) :
+ this.setShape("point")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this
+;
+
+///////////
+
+//create dot::stmt toEdge(svcorch::Node node) :
+//	mapToDirectedEdge(node,node.name+"_"+node.name)->
+//	this;
+
+cached toEdge(svcorch::OpNode node) :
+let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
+cached toEdge(svcorch::StartNode node) :
+let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
+	
+cached toEdge(svcorch::ForEach node) :
+let edge1 = mapToDirectedEdge(node.toNode(),node.firstLoopNode.toNode(),node.name+"_"+node.firstLoopNode.name) :	
+let edge2 = mapToDirectedEdge(node.toNode(),node.afterLoopNode.toNode(),node.name+"_"+node.afterLoopNode.name) :
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge1.setLabel("loop")->
+	edge2.setLabel("after")->
+	{edge1,edge2};
+
+cached toEdge(svcorch::CheckCondition node) :
+let edge1 = mapToDirectedEdge(node.toNode(),node.thenNode.toNode(),node.name+"_"+node.thenNode.name) :	
+let edge2 = mapToDirectedEdge(node.toNode(),node.elseNode.toNode(),node.name+"_"+node.elseNode.name) :
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge1.setLabel("then")->
+	edge2.setLabel("else")->
+	{edge1,edge2};
+
+// aggiunge gli edge per ogni slot referenziato in in o out
+cached toEdge(svcorch::Transformation node) :
+	let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	//let outSlotEdge = mapToDirectedEdge(node.toNode(), node.output.toNode(), "out") :
+	//let inSlotsEdges = (node.input.size>0 ? node.input.toEdge2(node) : null) :
+	edge.setLabel("")->
+	//outSlotEdge.setLabel("out")->
+	//(node.input.size>0 ? inSlotsEdges.setLabel("in") : null)->
+	//node.input.size>0 ? {edge,outSlotEdge, inSlotsEdges} : {edge, outSlotEdge}
+	edge
+;
+
+cached toEdge2(DataSlot in, svcorch::Transformation transf) :
+	let edge = mapToDirectedEdge(transf.toNode(), in.toNode(), "in") :
+	edge.setLabel("in")->
+	edge.setStyle("dot")->
+	edge;
+
+cached toEdge(svcorch::FlowNode node) :
+	if node.metaType==svcorch::ForEach then
+		toEdge((svcorch::ForEach)node)
+	else if node.metaType==svcorch::CheckCondition then
+		toEdge((svcorch::CheckCondition)node)
+	else
+	 null;
+
+
+
+///////
+create dot::node_stmt toNode(svcorch::DataSlot slot) :
+ this.setShape("rectangle")->
+ this.setLabel(slot.name)->
+ this.setName(slot.name)->
+ this
+;
+
+create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
+	orch.mapToSubgraph()->
+	this.setName("orchsub_"+orch.operation.name)->
+	this.setLabel("label")->
+	//this.addStatements(orch.globalSlots.slots.toNode())->
+	this.addStatements(orch.nodes.nodes.toNode())->
+	this.addStatements(orch.nodes.nodes.typeSelect(OpNode).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(StartNode).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(ForEach).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(CheckCondition).toEdge())->
+	this.stmts.size->
+	this
+;
+
 

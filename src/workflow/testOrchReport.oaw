@@ -1,0 +1,16 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
+	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
+    />
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
+	model="servicegen/src/testmodel/visanag_visuraPerComuneECognome.svcorch"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.oaw" 
+	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
+    />
+    
+</workflow>
