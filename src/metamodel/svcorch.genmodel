@@ -40,12 +40,19 @@
     <genClasses image="false" ecoreClass="svcorch.ecore#//Transformation">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Transformation/input"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Transformation/output"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//Transformation/initOutSlot"/>
     </genClasses>
     <genClasses ecoreClass="svcorch.ecore#//CustomTransformation"/>
     <genClasses ecoreClass="svcorch.ecore#//DeclarativeTransformation"/>
-    <genClasses ecoreClass="svcorch.ecore#//CheckCondition"/>
+    <genClasses ecoreClass="svcorch.ecore#//CheckCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//CheckCondition/thenNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//CheckCondition/elseNode"/>
+    </genClasses>
     <genClasses ecoreClass="svcorch.ecore#//ForEach">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/collection"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/item"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/firstLoopNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/afterLoopNode"/>
     </genClasses>
     <genClasses ecoreClass="svcorch.ecore#//DataSlot">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//DataSlot/name"/>
@@ -67,5 +74,6 @@
     <genClasses ecoreClass="svcorch.ecore#//InputParamBindings">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//InputParamBindings/inputParams"/>
     </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//EndLoop"/>
   </genPackages>
 </genmodel:GenModel>
