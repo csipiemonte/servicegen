@@ -1105,13 +1105,22 @@ public interface SvcorchPackage extends EPackage {
 	int EXCEPTION_HANDLER__HANDLED_EXCEPTION = 0;
 
 	/**
+	 * The feature id for the '<em><b>First Recovery Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_HANDLER__FIRST_RECOVERY_NODE = 1;
+
+	/**
 	 * The number of structural features of the '<em>Exception Handler</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXCEPTION_HANDLER_FEATURE_COUNT = 1;
+	int EXCEPTION_HANDLER_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.InputParamBindingsImpl <em>Input Param Bindings</em>}' class.
@@ -1712,6 +1721,17 @@ public interface SvcorchPackage extends EPackage {
 	EReference getExceptionHandler_HandledException();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ExceptionHandler#getFirstRecoveryNode <em>First Recovery Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>First Recovery Node</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionHandler#getFirstRecoveryNode()
+	 * @see #getExceptionHandler()
+	 * @generated
+	 */
+	EReference getExceptionHandler_FirstRecoveryNode();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.InputParamBindings <em>Input Param Bindings</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2201,6 +2221,14 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXCEPTION_HANDLER__HANDLED_EXCEPTION = eINSTANCE.getExceptionHandler_HandledException();
+
+		/**
+		 * The meta object literal for the '<em><b>First Recovery Node</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_HANDLER__FIRST_RECOVERY_NODE = eINSTANCE.getExceptionHandler_FirstRecoveryNode();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.InputParamBindingsImpl <em>Input Param Bindings</em>}' class.

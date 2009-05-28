@@ -74,6 +74,7 @@ public class ExceptionHandlerItemProvider
 			super.getPropertyDescriptors(object);
 
 			addHandledExceptionPropertyDescriptor(object);
+			addFirstRecoveryNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -126,6 +127,28 @@ public class ExceptionHandlerItemProvider
 				return result;
 			}
 		});
+	}
+
+	/**
+	 * This adds a property descriptor for the First Recovery Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFirstRecoveryNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExceptionHandler_firstRecoveryNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExceptionHandler_firstRecoveryNode_feature", "_UI_ExceptionHandler_type"),
+				 SvcorchPackage.Literals.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**

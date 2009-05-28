@@ -29,9 +29,9 @@ create dot::node_stmt toNode(svcorch::Node node) :
 
 create dot::node_stmt toNode(svcorch::ForEach node) :
  this.setShape("doubleoctagon")->
- this.setLabel(node.name)->
+ this.setLabel(node.name+" foreach "+node.collection.name)->
  this.setName(node.name)->
- this.setFillColor("orange")->
+ this.setFillColor("green")->
  this
 ;
 
@@ -63,7 +63,7 @@ create dot::node_stmt toNode(svcorch::StartNode node) :
  this.setShape("circle")->
  this.setLabel(node.name)->
  this.setName(node.name)->
- this.setFillColor("gray")->
+ this.setFillColor("green")->
  this
 ;
 
@@ -71,14 +71,15 @@ create dot::node_stmt toNode(svcorch::StopNode node) :
  this.setShape("doublecircle")->
  this.setLabel(node.name)->
  this.setName(node.name)->
- this.setFillColor("gray")->
+ this.setFillColor("red")->
  this
 ;
 
 create dot::node_stmt toNode(svcorch::EndLoop node) :
- this.setShape("point")->
- this.setLabel(node.name)->
+ this.setShape("doubleoctagon")->
+ this.setLabel("(next...)")->
  this.setName(node.name)->
+ this.setFillColor("orange")->
  this
 ;
 
@@ -93,6 +94,23 @@ let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node
 	edge.setLabel("")->
 	//edge.setColor("red")->
 	edge;
+
+cached toEHEdge(svcorch::SrvCall node) :
+let ehEdges = toEHEdges(node) :	
+	//edge.setColor("red")->
+	ehEdges;
+
+cached toEHEdges(SrvCall call) :
+	let ehs = call.onException :
+	ehs.toEHEdges(call)
+;
+
+cached toEHEdges(ExceptionHandler eh, SrvCall callNode) :
+	let edge = mapToDirectedEdge(callNode.toNode(), eh.firstRecoveryNode.toNode(), "exception") :
+	edge.setLabel("exception")->
+	edge.setColor("red")->
+	edge
+;
 
 cached toEdge(svcorch::StartNode node) :
 let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
@@ -164,7 +182,7 @@ create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
 	this.addStatements(orch.nodes.nodes.typeSelect(StartNode).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(ForEach).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(CheckCondition).toEdge())->
-	this.stmts.size->
+	this.addStatements(orch.nodes.nodes.typeSelect(SrvCall).toEHEdges())->
 	this
 ;
 

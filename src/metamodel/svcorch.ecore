@@ -74,6 +74,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ExceptionHandler">
     <eStructuralFeatures xsi:type="ecore:EReference" name="handledException" upperBound="-1"
         eType="ecore:EClass typedef_metamodel.ecore#//Exception"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="firstRecoveryNode" eType="#//Node"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InputParamBindings">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputParams" upperBound="-1"

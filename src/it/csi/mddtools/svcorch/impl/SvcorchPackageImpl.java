@@ -723,6 +723,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getExceptionHandler_FirstRecoveryNode() {
+		return (EReference)exceptionHandlerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getInputParamBindings() {
 		return inputParamBindingsEClass;
 	}
@@ -841,6 +850,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		exceptionHandlerEClass = createEClass(EXCEPTION_HANDLER);
 		createEReference(exceptionHandlerEClass, EXCEPTION_HANDLER__HANDLED_EXCEPTION);
+		createEReference(exceptionHandlerEClass, EXCEPTION_HANDLER__FIRST_RECOVERY_NODE);
 
 		inputParamBindingsEClass = createEClass(INPUT_PARAM_BINDINGS);
 		createEReference(inputParamBindingsEClass, INPUT_PARAM_BINDINGS__INPUT_PARAMS);
@@ -964,6 +974,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		initEClass(exceptionHandlerEClass, ExceptionHandler.class, "ExceptionHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExceptionHandler_HandledException(), theTypedefPackage.getException(), null, "handledException", null, 0, -1, ExceptionHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExceptionHandler_FirstRecoveryNode(), this.getNode(), null, "firstRecoveryNode", null, 0, 1, ExceptionHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputParamBindingsEClass, InputParamBindings.class, "InputParamBindings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getInputParamBindings_InputParams(), this.getParamBinding(), null, "inputParams", null, 0, -1, InputParamBindings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

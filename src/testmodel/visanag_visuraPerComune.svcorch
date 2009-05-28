@@ -9,7 +9,7 @@
       <paramBindings slot="//@globalSlots/@slots.1">
         <param href="anagrafe.servicedef#//@operations.1/@params.0"/>
       </paramBindings>
-      <onException>
+      <onException firstRecoveryNode="//@nodes/@nodes.11">
         <handledException href="anagrafe.servicedef#//@types/@types.3"/>
       </onException>
     </nodes>
@@ -22,7 +22,7 @@
       <paramBindings slot="//@globalSlots/@slots.4">
         <param href="toponomastica.servicedef#//@operations.3/@params.0"/>
       </paramBindings>
-      <onException>
+      <onException firstRecoveryNode="//@nodes/@nodes.11">
         <handledException href="toponomastica.servicedef#//@types/@types.3"/>
       </onException>
     </nodes>
@@ -30,6 +30,7 @@
     <nodes xsi:type="svcorch:DeclarativeTransformation" name="aggiungiDatiCittadino" next="//@nodes/@nodes.9" input="//@globalSlots/@slots.6" output="//@globalSlots/@slots.7"/>
     <nodes xsi:type="svcorch:EndLoop" name="completaComune"/>
     <nodes xsi:type="svcorch:StopNode" name="stop"/>
+    <nodes xsi:type="svcorch:DeclarativeTransformation" name="preparaRisultatoErrore" description="" next="//@nodes/@nodes.10" output="//@globalSlots/@slots.7" initOutSlot="true"/>
   </nodes>
   <globalSlots>
     <slots name="inputCodComune">

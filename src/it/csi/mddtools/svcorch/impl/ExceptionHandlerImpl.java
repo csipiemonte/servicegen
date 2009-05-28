@@ -7,14 +7,18 @@
 package it.csi.mddtools.svcorch.impl;
 
 import it.csi.mddtools.svcorch.ExceptionHandler;
+import it.csi.mddtools.svcorch.Node;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -27,6 +31,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ExceptionHandlerImpl#getHandledException <em>Handled Exception</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.ExceptionHandlerImpl#getFirstRecoveryNode <em>First Recovery Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,6 +47,16 @@ public class ExceptionHandlerImpl extends EObjectImpl implements ExceptionHandle
 	 * @ordered
 	 */
 	protected EList<it.csi.mddtools.typedef.Exception> handledException;
+
+	/**
+	 * The cached value of the '{@link #getFirstRecoveryNode() <em>First Recovery Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFirstRecoveryNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected Node firstRecoveryNode;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,11 +94,52 @@ public class ExceptionHandlerImpl extends EObjectImpl implements ExceptionHandle
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Node getFirstRecoveryNode() {
+		if (firstRecoveryNode != null && firstRecoveryNode.eIsProxy()) {
+			InternalEObject oldFirstRecoveryNode = (InternalEObject)firstRecoveryNode;
+			firstRecoveryNode = (Node)eResolveProxy(oldFirstRecoveryNode);
+			if (firstRecoveryNode != oldFirstRecoveryNode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE, oldFirstRecoveryNode, firstRecoveryNode));
+			}
+		}
+		return firstRecoveryNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Node basicGetFirstRecoveryNode() {
+		return firstRecoveryNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFirstRecoveryNode(Node newFirstRecoveryNode) {
+		Node oldFirstRecoveryNode = firstRecoveryNode;
+		firstRecoveryNode = newFirstRecoveryNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE, oldFirstRecoveryNode, firstRecoveryNode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case SvcorchPackage.EXCEPTION_HANDLER__HANDLED_EXCEPTION:
 				return getHandledException();
+			case SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE:
+				if (resolve) return getFirstRecoveryNode();
+				return basicGetFirstRecoveryNode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -101,6 +157,9 @@ public class ExceptionHandlerImpl extends EObjectImpl implements ExceptionHandle
 				getHandledException().clear();
 				getHandledException().addAll((Collection<? extends it.csi.mddtools.typedef.Exception>)newValue);
 				return;
+			case SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE:
+				setFirstRecoveryNode((Node)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -116,6 +175,9 @@ public class ExceptionHandlerImpl extends EObjectImpl implements ExceptionHandle
 			case SvcorchPackage.EXCEPTION_HANDLER__HANDLED_EXCEPTION:
 				getHandledException().clear();
 				return;
+			case SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE:
+				setFirstRecoveryNode((Node)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -130,6 +192,8 @@ public class ExceptionHandlerImpl extends EObjectImpl implements ExceptionHandle
 		switch (featureID) {
 			case SvcorchPackage.EXCEPTION_HANDLER__HANDLED_EXCEPTION:
 				return handledException != null && !handledException.isEmpty();
+			case SvcorchPackage.EXCEPTION_HANDLER__FIRST_RECOVERY_NODE:
+				return firstRecoveryNode != null;
 		}
 		return super.eIsSet(featureID);
 	}

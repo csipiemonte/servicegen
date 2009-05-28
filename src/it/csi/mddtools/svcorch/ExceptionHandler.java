@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.ExceptionHandler#getHandledException <em>Handled Exception</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.ExceptionHandler#getFirstRecoveryNode <em>First Recovery Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,5 +43,31 @@ public interface ExceptionHandler extends EObject {
 	 * @generated
 	 */
 	EList<it.csi.mddtools.typedef.Exception> getHandledException();
+
+	/**
+	 * Returns the value of the '<em><b>First Recovery Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>First Recovery Node</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>First Recovery Node</em>' reference.
+	 * @see #setFirstRecoveryNode(Node)
+	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getExceptionHandler_FirstRecoveryNode()
+	 * @model
+	 * @generated
+	 */
+	Node getFirstRecoveryNode();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.svcorch.ExceptionHandler#getFirstRecoveryNode <em>First Recovery Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>First Recovery Node</em>' reference.
+	 * @see #getFirstRecoveryNode()
+	 * @generated
+	 */
+	void setFirstRecoveryNode(Node value);
 
 } // ExceptionHandler
