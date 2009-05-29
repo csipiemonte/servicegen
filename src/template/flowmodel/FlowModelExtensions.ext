@@ -118,11 +118,39 @@ String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEMo
 
     
 //// 
+
+String nodeTypeShortName(Node node) :
+	(node.metaType==StartNode ?
+		"AA" :
+		(node.metaType==StopNode ?
+			"ZZ" :
+			(node.metaType==PAPDCall ?
+				"PAPD" :
+				(node.metaType==WSCall ?
+					"WS" :
+					(node.metaType==CheckCondition ?
+						"CK" :
+						(node.metaType==ForEach ?
+							"LP" :
+							(node.metaType==CustomTransformation ?
+								"CTX" :
+								(node.metaType==DeclarativeTransformation ?
+									"DTX" : 
+									"??"
+								)
+							)
+						)
+					)
+				)
+			)
+		)
+	);
+
 String specificHandlerClassName(Node node) :
-	node.name.toCamel()+"Handler";
+	nodeTypeShortName(node)+ node.name.toCamel()+"Handler";
 	
 String specificHandlerFQN(Node node, Operation op, SOABEModel model) :
-	specificHandlersPkg(op, model)+"."+toCamel(node.name);
+	specificHandlersPkg(op, model)+"."+specificHandlerClassName(node);
 	
 String fullSpecificHandlerFile(Node node, Operation op, SOABEModel model) :
 	fullSpecificHandlersClassesDir(op, model)+"/"+specificHandlerClassName(node)+".java";
@@ -130,6 +158,10 @@ String fullSpecificHandlerFile(Node node, Operation op, SOABEModel model) :
 ///////
 boolean isWellFormedName(String name) :
 	!name.contains(" ");
+	
+int nodeID(Node node, Orchestration orch) :
+	let nodes = orch.nodes.nodes :
+	100+nodes.indexOf(node);
 
 
 ///////
