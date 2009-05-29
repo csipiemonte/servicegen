@@ -1,0 +1,142 @@
+import servicegen;
+import typedef;
+import servicedef;
+import svcorch;
+
+extension template::ServicegenExtensions;
+
+
+String baseHandlersPkg(SOABEModel model) :
+	getFullEJBStdPkg(model)+".handlers";
+	
+String fullBaseHandlersClassesDir(SOABEModel model) :
+	fullEjbStdClassesDir(model)+"/handlers";	
+
+String specificHandlersPkg(Operation op, SOABEModel model) :
+	let sd = (ServiceDef)(op.eContainer) :
+	getFullEJBStdPkg(model)+"."+removeSeparator(sd.codServizio).toLowerCase()+
+	".handlers."+removeSeparator(op.name).toLowerCase();
+	
+String fullSpecificHandlersClassesDir(Operation op, SOABEModel model) :
+	let sd = (ServiceDef)(op.eContainer) :
+	fullEjbStdClassesDir(model)+"/"+removeSeparator(sd.codServizio).toLowerCase()+
+	"/handlers/"+removeSeparator(op.name).toLowerCase();
+
+
+////
+String papdCallBaseHandlerClassName() :
+	"PAPDCallBaseHandler";
+	
+String papdCallBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+papdCallBaseHandlerClassName();
+
+String papdCallBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+papdCallBaseHandlerClassName()+".java";
+	
+	
+////
+String wsCallBaseHandlerClassName() :
+	"WSCallBaseHandler";
+	
+String wsCallBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+wsCallBaseHandlerClassName();
+
+String wsCallBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+wsCallBaseHandlerClassName()+".java";	
+
+		
+////
+String forEachBaseHandlerClassName() :
+	"ForEachBaseHandler";
+	
+String forEachBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+forEachBaseHandlerClassName();
+
+String forEachBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+forEachBaseHandlerClassName()+".java";	
+		
+
+////
+String checkCondBaseHandlerClassName() :
+	"CheckConditionBaseHandler";
+	
+String checkCondBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+checkCondBaseHandlerClassName();
+
+String checkCondBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+checkCondBaseHandlerClassName()+".java";	
+		
+
+////
+String startNodeBaseHandlerClassName() :
+	"StartNodeBaseHandler";
+	
+String startNodeBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+startNodeBaseHandlerClassName();
+
+String startNodeBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+startNodeBaseHandlerClassName()+".java";	
+		
+////
+String stopNodeBaseHandlerClassName() :
+	"StopNodeBaseHandler";
+	
+String stopNodeBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+stopNodeBaseHandlerClassName();
+
+String stopNodeBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+stopNodeBaseHandlerClassName()+".java";	
+		
+
+////
+String customTransformBaseHandlerClassName() :
+	"CustomTransformBaseHandler";
+	
+String customTransformBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+customTransformBaseHandlerClassName();
+
+String customTransformBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+customTransformBaseHandlerClassName()+".java";	
+		
+
+////
+String declTransformBaseHandlerClassName() :
+	"DeclTransformBaseHandler";
+	
+String declTransformBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+declTransformBaseHandlerClassName();
+
+String declTransformBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+declTransformBaseHandlerClassName()+".java";	
+		
+
+String serviceBeanClassName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Bean";
+
+String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
+
+    
+//// 
+String specificHandlerClassName(Node node) :
+	node.name.toCamel()+"Handler";
+	
+String specificHandlerFQN(Node node, Operation op, SOABEModel model) :
+	specificHandlersPkg(op, model)+"."+toCamel(node.name);
+	
+String fullSpecificHandlerFile(Node node, Operation op, SOABEModel model) :
+	fullSpecificHandlersClassesDir(op, model)+"/"+specificHandlerClassName(node)+".java";
+
+///////
+boolean isWellFormedName(String name) :
+	!name.contains(" ");
+
+
+///////
+Orchestration findOrchestrationForOperation(Operation op, ServiceDef sd, SOABEModel model) :
+	let impl = model.serviceimplementations.select(si|si.provides==sd).first() :
+	if impl.serviceComponent.metaType==OrchestrationFlowCompositeSC then
+		((OrchestrationFlowCompositeSC)impl.serviceComponent).orchestrations.select(o|o.operation==op).first()
+	else
+		null;
+			

@@ -1,0 +1,541 @@
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT appresources»
+«IMPORT svcorch»
+
+«IMPORT template::javavalidator»
+
+«EXTENSION template::ServicegenExtensions»
+«EXTENSION template::flowmodel::FlowModelExtensions»
+
+«DEFINE baseHandlers FOR SOABEModel»
+	«EXPAND startNodeBaseHandler FOR this»
+	«EXPAND stopNodeBaseHandler FOR this»
+	«EXPAND papdCallBaseHandler FOR this»
+	«EXPAND wsCallBaseHandler FOR this»
+	«EXPAND forEachBaseHandler FOR this»
+	«EXPAND checkCondBaseHandler FOR this»
+	«EXPAND customTransformBaseHandler FOR this»
+	«EXPAND declTransformBaseHandler FOR this»
+«ENDDEFINE»
+
+«DEFINE startNodeBaseHandler FOR SOABEModel»
+«FILE startNodeBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE stopNodeBaseHandler FOR SOABEModel»
+«FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE papdCallBaseHandler FOR SOABEModel»
+«FILE papdCallBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE wsCallBaseHandler FOR SOABEModel»
+«FILE wsCallBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE forEachBaseHandler FOR SOABEModel»
+«FILE forEachBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «forEachBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE checkCondBaseHandler FOR SOABEModel»
+«FILE checkCondBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE customTransformBaseHandler FOR SOABEModel»
+«FILE customTransformBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «customTransformBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE declTransformBaseHandler FOR SOABEModel»
+«FILE declTransformBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «declTransformBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»crea gli handler relativi ad una singola orchestrazione«ENDREM»
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
+«LET findOrchestrationForOperation(sd, model) AS currentOrchModel»
+«IF currentOrchModel!=null»
+	«EXPAND svcflowHandlers(sd, model) FOR currentOrchModel»
+«ELSE»
+«ERROR "Inconsistenza: impossibile trovare l'orchestrazione relativa al servizio "+sd.codServizio+", op: "+this.name»
+«ENDIF»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE svcflowHandlers(ServiceDef sd, SOABEModel model) FOR Orchestration»
+	«EXPAND svcflowHandler(this, sd, model) FOREACH this.nodes.nodes»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR Node»
+«ERROR "Tipo di nodo non gestito"»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StartNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR PAPDCall»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR WSCall»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CustomTransformation»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «customTransformBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «declTransformBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR ForEach»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CheckCondition»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
+«REM»NOP«ENDREM»
+«ENDDEFINE»

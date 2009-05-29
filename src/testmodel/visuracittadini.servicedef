@@ -14,6 +14,14 @@
       <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
     </params>
   </operations>
+  <operations name="visuraPerNomeCognome" returnType="//@types/@types.1" throws="//@types/@types.2" since="">
+    <params name="nome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="cognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
   <types>
     <types xsi:type="typedef:Entity" name="DatiCittadino">
       <features name="nome">

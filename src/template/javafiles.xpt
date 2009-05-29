@@ -28,6 +28,7 @@
 	«EXPAND svcflowConfigFiles(model) FOR this»
 	«FOREACH operations AS op»
 		«EXPAND svcflowDefinitionFile(this, model) FOR op»
+		«EXPAND svcflowHandlerFiles(this, model) FOR op»
 	«ENDFOREACH»
 «ENDDEFINE»
 
@@ -61,7 +62,7 @@
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
@@ -72,6 +73,28 @@
 	«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
+
+
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
+	«LET getServiceImpl(sd,model) AS impl-»
+	«IF impl !=null-»
+	«LET impl.serviceComponent AS sc»
+	«LET impl.implCartridge AS crt»
+	«IF crt==null || crt.metaType==ManualImplCartridge»
+		«REM»niente da fare in questo caso«ENDREM»
+	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+		«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR this»
+	«ELSE»
+	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+	«ENDIF»
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
+	«ENDIF-»
+	«ENDLET-»
+«ENDDEFINE»
+
 
 «REM»
 ***************************************
@@ -344,7 +367,7 @@ classe dell'EJB che implementa il servizio (tramite delegate)
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
@@ -426,7 +449,7 @@ che conterrà il principal derivante dal SessionContext [STDAPS-82]
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::javafiles::javaServiceDelegateClassFile(model) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
@@ -452,7 +475,7 @@ classe del 'delegate' che implementa effettivamente il servizio
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
@@ -579,7 +602,7 @@ public class «serviceTestClassName()» extends TestCase{
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
@@ -599,7 +622,7 @@ public class «serviceTestClassName()» extends TestCase{
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»

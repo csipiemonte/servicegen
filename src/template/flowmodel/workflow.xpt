@@ -1,0 +1,38 @@
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT template::javavalidator»
+
+«EXTENSION template::ServicegenExtensions»
+«EXTENSION template::flowmodel::FlowModelExtensions»
+
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
+	«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
+<!-- definizione di workflow generata a partire dal modello dell'orchestrazione -->
+<workflow>
+	<initial-actions>
+		<action id="0" name="Start Workflow">
+			<results>
+				<unconditional-result id="5" old-status="Finished"
+					status="Queued" step="1" />
+			</results>
+		</action>
+	</initial-actions>
+	<steps>
+		<step name="Inizio" id="1">
+		<actions>
+			<action name="vaiInFondo" id="2">
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="2">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+		</step>
+		<step name="Fine" id="2"></step>
+	</steps>
+</workflow>
+	«ENDFILE»
+«ENDDEFINE»

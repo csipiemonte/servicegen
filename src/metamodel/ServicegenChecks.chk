@@ -6,6 +6,7 @@ import svcorch;
 import servicegen;
 
 extension template::ServicegenExtensions;
+extension template::flowmodel::FlowModelExtensions;
 extension org::openarchitectureware::util::stdlib::naming;
 
 
@@ -143,9 +144,17 @@ context Operation WARNING "Tipo di ritorno non specificato per operazione "+name
 context svcorch::Node ERROR "E'necessario specificare il nome per ogni nodo" :
 	this.name != null && this.name.length>0;
 
+context svcorch::Node ERROR "Il nome del nodo ["+name+"] non è ben formato."+loc() :
+	isWellFormedName(name);
+	
 context svcorch::Node WARNING "E'consigliato specificare una breve descrizione testuale per ogni nodo" :
 	this.description != null && this.description.length>0;
 
+context svcorch::Node if name!=null && name.length>0 ERROR 
+	"Il nome dei nodi deve essere univoco all'interno di una orchestrazione" :
+	let nodes = (Nodes)eContainer :
+		nodes.nodes.select(n|n.name!=null && n.name==this.name).size==1;
+		
 context svcorch::Orchestration ERROR 
 	"E'necessario specificare il servizio (ServiceDef) a cui fa riferimento l'"
 	+" orchestrazione: "+loc() :

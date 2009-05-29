@@ -48,7 +48,7 @@
 	«IF crt==null || crt.metaType==ManualImplCartridge»
 		«EXPAND template::manualimpl::papdconfigfiles::coopdiagfile(model, sd) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«ERROR "FlowModelImplCartridge non ancora gestita"»
+		«EXPAND template::flowmodel::papdconfigfiles::coopdiagfile(model, sd) FOR this»
 	«ELSE»
 	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 	«ENDIF»
