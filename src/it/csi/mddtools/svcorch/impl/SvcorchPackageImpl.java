@@ -32,6 +32,7 @@ import it.csi.mddtools.svcorch.StopNode;
 import it.csi.mddtools.svcorch.SvcorchFactory;
 import it.csi.mddtools.svcorch.SvcorchPackage;
 import it.csi.mddtools.svcorch.Transformation;
+import it.csi.mddtools.svcorch.UserDefinedOpNode;
 import it.csi.mddtools.svcorch.WSCall;
 
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -196,6 +197,13 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * @generated
 	 */
 	private EClass endLoopEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass userDefinedOpNodeEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -768,6 +776,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getUserDefinedOpNode() {
+		return userDefinedOpNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SvcorchFactory getSvcorchFactory() {
 		return (SvcorchFactory)getEFactoryInstance();
 	}
@@ -866,6 +883,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		endLoopEClass = createEClass(END_LOOP);
 		createEReference(endLoopEClass, END_LOOP__LOOP_HEAD_NODE);
+
+		userDefinedOpNodeEClass = createEClass(USER_DEFINED_OP_NODE);
 	}
 
 	/**
@@ -914,6 +933,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		checkConditionEClass.getESuperTypes().add(this.getFlowNode());
 		forEachEClass.getESuperTypes().add(this.getFlowNode());
 		endLoopEClass.getESuperTypes().add(this.getFlowNode());
+		userDefinedOpNodeEClass.getESuperTypes().add(this.getOpNode());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(orchestrationEClass, Orchestration.class, "Orchestration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -991,6 +1011,8 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 		initEClass(endLoopEClass, EndLoop.class, "EndLoop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEndLoop_LoopHeadNode(), this.getNode(), null, "loopHeadNode", null, 0, 1, EndLoop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(userDefinedOpNodeEClass, UserDefinedOpNode.class, "UserDefinedOpNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

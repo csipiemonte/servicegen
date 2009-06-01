@@ -156,6 +156,10 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 				return createEndLoopAdapter();
 			}
 			@Override
+			public Adapter caseUserDefinedOpNode(UserDefinedOpNode object) {
+				return createUserDefinedOpNodeAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -466,6 +470,20 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEndLoopAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.svcorch.UserDefinedOpNode <em>User Defined Op Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.svcorch.UserDefinedOpNode
+	 * @generated
+	 */
+	public Adapter createUserDefinedOpNodeAdapter() {
 		return null;
 	}
 

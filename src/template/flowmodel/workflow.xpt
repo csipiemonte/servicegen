@@ -282,4 +282,55 @@ Inizia la creazione nel descrittore dei vari step.
 «ENDDEFINE»
 
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						<!--  	
+						<arg name="selectorPD">gestionecittadini.properties</arg>
+								
+						<arg name="servicePD">defpd_gestionecittadini</arg>
+					    <arg name="handleException">CittadinoNonTrovatoException</arg>
+					    -->
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.loopHeadNode.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						<!--  	
+						<arg name="selectorPD">gestionecittadini.properties</arg>
+								
+						<arg name="servicePD">defpd_gestionecittadini</arg>
+					    <arg name="handleException">CittadinoNonTrovatoException</arg>
+					    -->
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
 «ENDDEFINE»

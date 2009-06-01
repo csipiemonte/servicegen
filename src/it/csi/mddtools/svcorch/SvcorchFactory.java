@@ -170,6 +170,15 @@ public interface SvcorchFactory extends EFactory {
 	EndLoop createEndLoop();
 
 	/**
+	 * Returns a new object of class '<em>User Defined Op Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>User Defined Op Node</em>'.
+	 * @generated
+	 */
+	UserDefinedOpNode createUserDefinedOpNode();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

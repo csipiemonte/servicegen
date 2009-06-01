@@ -698,3 +698,55 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName
 }
 «ENDFILE»
 «ENDDEFINE»
+
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+import com.opensymphony.workflow.FunctionProvider;
+
+import «baseHandlersPkg(model)».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"extraImport")»
+// inserire qui eventuali import aggiuntive
+«ENDPROTECT»
+
+public class «specificHandlerClassName()» implements FunctionProvider{
+	public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"init")»
+		«ENDPROTECT»
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+    	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"release")»
+		«ENDPROTECT»
+	}
+    
+    
+	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException{
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"exec")»
+		«ENDPROTECT»
+	}
+	
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"extraMethods")»
+	////// inserire qui eventuali metodi di supporto
+	«ENDPROTECT»
+	
+	}
+«ENDFILE»
+«ENDDEFINE»

@@ -119,6 +119,7 @@ String declTransformBaseHandlerFQN(SOABEModel model) :
 String declTransformBaseHandlerFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+declTransformBaseHandlerClassName()+".java";	
 		
+	
 ////
 String dataSlotHelperClassName() :
 	"DataSlotHelper";
@@ -157,7 +158,10 @@ String nodeTypeShortName(Node node) :
 									"DTX" : 
 									(node.metaType==EndLoop ?
 										"NXT" :
+										( node.metaType==UserDefinedOpNode?
+										"USR" :
 										"??"
+										)
 									)
 								)
 							)

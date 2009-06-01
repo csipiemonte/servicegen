@@ -1199,6 +1199,53 @@ public interface SvcorchPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.UserDefinedOpNodeImpl <em>User Defined Op Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.svcorch.impl.UserDefinedOpNodeImpl
+	 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getUserDefinedOpNode()
+	 * @generated
+	 */
+	int USER_DEFINED_OP_NODE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_OP_NODE__NAME = OP_NODE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_OP_NODE__DESCRIPTION = OP_NODE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Next</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_OP_NODE__NEXT = OP_NODE__NEXT;
+
+	/**
+	 * The number of structural features of the '<em>User Defined Op Node</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int USER_DEFINED_OP_NODE_FEATURE_COUNT = OP_NODE_FEATURE_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.Orchestration <em>Orchestration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1783,6 +1830,16 @@ public interface SvcorchPackage extends EPackage {
 	EReference getEndLoop_LoopHeadNode();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.UserDefinedOpNode <em>User Defined Op Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>User Defined Op Node</em>'.
+	 * @see it.csi.mddtools.svcorch.UserDefinedOpNode
+	 * @generated
+	 */
+	EClass getUserDefinedOpNode();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2285,6 +2342,16 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference END_LOOP__LOOP_HEAD_NODE = eINSTANCE.getEndLoop_LoopHeadNode();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.UserDefinedOpNodeImpl <em>User Defined Op Node</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.svcorch.impl.UserDefinedOpNodeImpl
+		 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getUserDefinedOpNode()
+		 * @generated
+		 */
+		EClass USER_DEFINED_OP_NODE = eINSTANCE.getUserDefinedOpNode();
 
 	}
 

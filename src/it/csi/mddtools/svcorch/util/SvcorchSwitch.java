@@ -241,6 +241,14 @@ public class SvcorchSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SvcorchPackage.USER_DEFINED_OP_NODE: {
+				UserDefinedOpNode userDefinedOpNode = (UserDefinedOpNode)theEObject;
+				T result = caseUserDefinedOpNode(userDefinedOpNode);
+				if (result == null) result = caseOpNode(userDefinedOpNode);
+				if (result == null) result = caseNode(userDefinedOpNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -557,6 +565,21 @@ public class SvcorchSwitch<T> {
 	 * @generated
 	 */
 	public T caseEndLoop(EndLoop object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>User Defined Op Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>User Defined Op Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUserDefinedOpNode(UserDefinedOpNode object) {
 		return null;
 	}
 

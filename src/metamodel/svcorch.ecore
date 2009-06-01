@@ -83,4 +83,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="EndLoop" eSuperTypes="#//FlowNode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="loopHeadNode" eType="#//Node"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserDefinedOpNode" eSuperTypes="#//OpNode"/>
 </ecore:EPackage>

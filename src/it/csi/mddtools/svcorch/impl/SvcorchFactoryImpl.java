@@ -76,6 +76,7 @@ public class SvcorchFactoryImpl extends EFactoryImpl implements SvcorchFactory {
 			case SvcorchPackage.EXCEPTION_HANDLER: return createExceptionHandler();
 			case SvcorchPackage.INPUT_PARAM_BINDINGS: return createInputParamBindings();
 			case SvcorchPackage.END_LOOP: return createEndLoop();
+			case SvcorchPackage.USER_DEFINED_OP_NODE: return createUserDefinedOpNode();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -239,6 +240,16 @@ public class SvcorchFactoryImpl extends EFactoryImpl implements SvcorchFactory {
 	public EndLoop createEndLoop() {
 		EndLoopImpl endLoop = new EndLoopImpl();
 		return endLoop;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UserDefinedOpNode createUserDefinedOpNode() {
+		UserDefinedOpNodeImpl userDefinedOpNode = new UserDefinedOpNodeImpl();
+		return userDefinedOpNode;
 	}
 
 	/**

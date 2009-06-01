@@ -444,6 +444,29 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.svcorch.UserDefinedOpNode} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UserDefinedOpNodeItemProvider userDefinedOpNodeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.svcorch.UserDefinedOpNode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUserDefinedOpNodeAdapter() {
+		if (userDefinedOpNodeItemProvider == null) {
+			userDefinedOpNodeItemProvider = new UserDefinedOpNodeItemProvider(this);
+		}
+
+		return userDefinedOpNodeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -558,6 +581,7 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 		if (exceptionHandlerItemProvider != null) exceptionHandlerItemProvider.dispose();
 		if (inputParamBindingsItemProvider != null) inputParamBindingsItemProvider.dispose();
 		if (endLoopItemProvider != null) endLoopItemProvider.dispose();
+		if (userDefinedOpNodeItemProvider != null) userDefinedOpNodeItemProvider.dispose();
 	}
 
 }
