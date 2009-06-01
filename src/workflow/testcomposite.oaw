@@ -2,6 +2,16 @@
 <workflow> 
     <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
     
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicedef.oaw" 
+	model="servicegen/src/testmodel/anagrafe.servicedef"  
+    />
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicedef.oaw" 
+	model="servicegen/src/testmodel/toponomastica.servicedef"  
+    />
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicedef.oaw" 
+	model="servicegen/src/testmodel/visuracittadini.servicedef"  
+    />
+    
     <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
 	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
     />

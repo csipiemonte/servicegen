@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getServiceType <em>Service Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getAuthLevel <em>Auth Level</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getRoles <em>Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getCodProdotto <em>Cod Prodotto</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getCodComponente <em>Cod Componente</em>}</li>
  * </ul>
  * </p>
  *
@@ -337,5 +339,55 @@ public interface ServiceDef extends EObject {
 	 * @generated
 	 */
 	EList<Role> getRoles();
+
+	/**
+	 * Returns the value of the '<em><b>Cod Prodotto</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Cod Prodotto</em>' attribute.
+	 * @see #setCodProdotto(String)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_CodProdotto()
+	 * @model
+	 * @generated
+	 */
+	String getCodProdotto();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.ServiceDef#getCodProdotto <em>Cod Prodotto</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cod Prodotto</em>' attribute.
+	 * @see #getCodProdotto()
+	 * @generated
+	 */
+	void setCodProdotto(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Cod Componente</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Cod Componente</em>' attribute.
+	 * @see #setCodComponente(String)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_CodComponente()
+	 * @model
+	 * @generated
+	 */
+	String getCodComponente();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.ServiceDef#getCodComponente <em>Cod Componente</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Cod Componente</em>' attribute.
+	 * @see #getCodComponente()
+	 * @generated
+	 */
+	void setCodComponente(String value);
 
 } // ServiceDef

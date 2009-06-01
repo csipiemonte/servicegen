@@ -201,13 +201,31 @@ public interface ServicedefPackage extends EPackage {
 	int SERVICE_DEF__ROLES = 10;
 
 	/**
+	 * The feature id for the '<em><b>Cod Prodotto</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF__COD_PRODOTTO = 11;
+
+	/**
+	 * The feature id for the '<em><b>Cod Componente</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF__COD_COMPONENTE = 12;
+
+	/**
 	 * The number of structural features of the '<em>Service Def</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_DEF_FEATURE_COUNT = 11;
+	int SERVICE_DEF_FEATURE_COUNT = 13;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.
@@ -1428,6 +1446,28 @@ public interface ServicedefPackage extends EPackage {
 	EReference getServiceDef_Roles();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ServiceDef#getCodProdotto <em>Cod Prodotto</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Prodotto</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDef#getCodProdotto()
+	 * @see #getServiceDef()
+	 * @generated
+	 */
+	EAttribute getServiceDef_CodProdotto();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ServiceDef#getCodComponente <em>Cod Componente</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Cod Componente</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDef#getCodComponente()
+	 * @see #getServiceDef()
+	 * @generated
+	 */
+	EAttribute getServiceDef_CodComponente();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ServiceBinding <em>Service Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2295,6 +2335,22 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SERVICE_DEF__ROLES = eINSTANCE.getServiceDef_Roles();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Prodotto</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_DEF__COD_PRODOTTO = eINSTANCE.getServiceDef_CodProdotto();
+
+		/**
+		 * The meta object literal for the '<em><b>Cod Componente</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_DEF__COD_COMPONENTE = eINSTANCE.getServiceDef_CodComponente();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.

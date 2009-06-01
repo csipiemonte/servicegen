@@ -74,6 +74,8 @@ public class ServiceDefItemProvider
 			addTraceEnabledPropertyDescriptor(object);
 			addServiceTypePropertyDescriptor(object);
 			addAuthLevelPropertyDescriptor(object);
+			addCodProdottoPropertyDescriptor(object);
+			addCodComponentePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -233,6 +235,50 @@ public class ServiceDefItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Cod Prodotto feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCodProdottoPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceDef_codProdotto_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceDef_codProdotto_feature", "_UI_ServiceDef_type"),
+				 ServicedefPackage.Literals.SERVICE_DEF__COD_PRODOTTO,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Cod Componente feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCodComponentePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceDef_codComponente_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceDef_codComponente_feature", "_UI_ServiceDef_type"),
+				 ServicedefPackage.Literals.SERVICE_DEF__COD_COMPONENTE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -313,6 +359,8 @@ public class ServiceDefItemProvider
 			case ServicedefPackage.SERVICE_DEF__TRACE_ENABLED:
 			case ServicedefPackage.SERVICE_DEF__SERVICE_TYPE:
 			case ServicedefPackage.SERVICE_DEF__AUTH_LEVEL:
+			case ServicedefPackage.SERVICE_DEF__COD_PRODOTTO:
+			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ServicedefPackage.SERVICE_DEF__BINDINGS:

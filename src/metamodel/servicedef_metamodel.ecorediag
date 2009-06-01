@@ -47,6 +47,14 @@
         <element xmi:type="ecore:EAttribute" href="servicedef_metamodel.ecore#//ServiceDef/authLevel"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_tjSG9c3FEd2Do9mGihZWJw"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="_5SKzcE60Ed6C7tmzNDXxkA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="servicedef_metamodel.ecore#//ServiceDef/codProdotto"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_5SKzcU60Ed6C7tmzNDXxkA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_7k7gQE60Ed6C7tmzNDXxkA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="servicedef_metamodel.ecore#//ServiceDef/codComponente"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_7k7gQU60Ed6C7tmzNDXxkA"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_tjSG4c3FEd2Do9mGihZWJw"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_tjSG4s3FEd2Do9mGihZWJw"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_tjSG483FEd2Do9mGihZWJw"/>

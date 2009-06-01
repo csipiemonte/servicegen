@@ -102,7 +102,11 @@ context Operation ERROR "Un operazione appartenente ad un servizio con security 
 context ServiceDef ERROR "Il servizio (con security non 'A0') deve definire almeno un ruolo" :
     (this.authLevel!=AuthLevelEnum::A0 && this.roles.size!=0) || authLevel == AuthLevelEnum::A0;
     
+context ServiceDef ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)"+loc() :
+	codProdotto!=null && codProdotto.length<=10;
 
+context ServiceDef ERROR "E'necessario specificare il codice componente (max 20 caratteri)"+loc() :
+	codComponente!=null && codComponente.length<=20;
 
 ////////////////////////////////////////////////////
 /// cartridge e service component

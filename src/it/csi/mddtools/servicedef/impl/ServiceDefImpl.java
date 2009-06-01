@@ -49,6 +49,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getServiceType <em>Service Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getAuthLevel <em>Auth Level</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getRoles <em>Roles</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodProdotto <em>Cod Prodotto</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodComponente <em>Cod Componente</em>}</li>
  * </ul>
  * </p>
  *
@@ -234,6 +236,46 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * @ordered
 	 */
 	protected EList<Role> roles;
+
+	/**
+	 * The default value of the '{@link #getCodProdotto() <em>Cod Prodotto</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCodProdotto()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COD_PRODOTTO_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCodProdotto() <em>Cod Prodotto</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCodProdotto()
+	 * @generated
+	 * @ordered
+	 */
+	protected String codProdotto = COD_PRODOTTO_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCodComponente() <em>Cod Componente</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCodComponente()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COD_COMPONENTE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCodComponente() <em>Cod Componente</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCodComponente()
+	 * @generated
+	 * @ordered
+	 */
+	protected String codComponente = COD_COMPONENTE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -485,6 +527,48 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCodProdotto() {
+		return codProdotto;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCodProdotto(String newCodProdotto) {
+		String oldCodProdotto = codProdotto;
+		codProdotto = newCodProdotto;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.SERVICE_DEF__COD_PRODOTTO, oldCodProdotto, codProdotto));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCodComponente() {
+		return codComponente;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCodComponente(String newCodComponente) {
+		String oldCodComponente = codComponente;
+		codComponente = newCodComponente;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.SERVICE_DEF__COD_COMPONENTE, oldCodComponente, codComponente));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -530,6 +614,10 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return getAuthLevel();
 			case ServicedefPackage.SERVICE_DEF__ROLES:
 				return getRoles();
+			case ServicedefPackage.SERVICE_DEF__COD_PRODOTTO:
+				return getCodProdotto();
+			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
+				return getCodComponente();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -579,6 +667,12 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				getRoles().clear();
 				getRoles().addAll((Collection<? extends Role>)newValue);
 				return;
+			case ServicedefPackage.SERVICE_DEF__COD_PRODOTTO:
+				setCodProdotto((String)newValue);
+				return;
+			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
+				setCodComponente((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -624,6 +718,12 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__ROLES:
 				getRoles().clear();
 				return;
+			case ServicedefPackage.SERVICE_DEF__COD_PRODOTTO:
+				setCodProdotto(COD_PRODOTTO_EDEFAULT);
+				return;
+			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
+				setCodComponente(COD_COMPONENTE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -658,6 +758,10 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return authLevel != AUTH_LEVEL_EDEFAULT;
 			case ServicedefPackage.SERVICE_DEF__ROLES:
 				return roles != null && !roles.isEmpty();
+			case ServicedefPackage.SERVICE_DEF__COD_PRODOTTO:
+				return COD_PRODOTTO_EDEFAULT == null ? codProdotto != null : !COD_PRODOTTO_EDEFAULT.equals(codProdotto);
+			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
+				return COD_COMPONENTE_EDEFAULT == null ? codComponente != null : !COD_COMPONENTE_EDEFAULT.equals(codComponente);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -686,6 +790,10 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 		result.append(serviceType);
 		result.append(", authLevel: ");
 		result.append(authLevel);
+		result.append(", codProdotto: ");
+		result.append(codProdotto);
+		result.append(", codComponente: ");
+		result.append(codComponente);
 		result.append(')');
 		return result.toString();
 	}

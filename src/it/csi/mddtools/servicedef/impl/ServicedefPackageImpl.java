@@ -556,6 +556,24 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getServiceDef_CodProdotto() {
+		return (EAttribute)serviceDefEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getServiceDef_CodComponente() {
+		return (EAttribute)serviceDefEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getServiceBinding() {
 		return serviceBindingEClass;
 	}
@@ -1224,6 +1242,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEAttribute(serviceDefEClass, SERVICE_DEF__SERVICE_TYPE);
 		createEAttribute(serviceDefEClass, SERVICE_DEF__AUTH_LEVEL);
 		createEReference(serviceDefEClass, SERVICE_DEF__ROLES);
+		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_PRODOTTO);
+		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_COMPONENTE);
 
 		serviceBindingEClass = createEClass(SERVICE_BINDING);
 		createEAttribute(serviceBindingEClass, SERVICE_BINDING__COD_BINDING);
@@ -1406,6 +1426,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEAttribute(getServiceDef_ServiceType(), this.getSrvTypeEnum(), "serviceType", "appl", 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceDef_AuthLevel(), this.getAuthLevelEnum(), "authLevel", "A0", 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getServiceDef_Roles(), this.getRole(), null, "roles", null, 0, -1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceDef_CodProdotto(), ecorePackage.getEString(), "codProdotto", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceDef_CodComponente(), ecorePackage.getEString(), "codComponente", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceBindingEClass, ServiceBinding.class, "ServiceBinding", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceBinding_CodBinding(), ecorePackage.getEString(), "codBinding", null, 0, 1, ServiceBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
