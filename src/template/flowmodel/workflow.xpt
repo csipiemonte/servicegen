@@ -28,7 +28,7 @@
 			<action name="vaiInFondo" id="100">
 				<results>
 					<unconditional-result old-status="Queued"
-						status="Finished" step="2">
+						status="Finished" step="100">
 					</unconditional-result>
 				</results>
 			</action>
@@ -68,12 +68,11 @@ Inizia la creazione nel descrittore dei vari step.
 						<arg name="class.name">
 							«specificHandlerFQN(orch.operation, model)»
 						</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						«LET (Orchestration)(((Nodes)(this.eContainer)).eContainer) AS enclosingOrch-»
+						«FOREACH enclosingOrch.inputParamBindings.inputParams AS currBinding-»
+						<arg name="input.binding.«enclosingOrch.inputParamBindings.inputParams.indexOf(currBinding)»">«currBinding.param.name»=«getDataSlotAttrName(currBinding.slot)»</arg>
+						«ENDFOREACH-»
+						«ENDLET-»
 					</function>
 				</pre-functions>
 				<results>
@@ -92,15 +91,14 @@ Inizia la creazione nel descrittore dei vari step.
 			<action name="next" id="«"1"+(nodeID(orch))»">
 				<pre-functions>
 				    <function type="class">
-						<arg name="class.name">
+				    	<arg name="class.name">
 							«specificHandlerFQN(orch.operation, model)»
-						</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						</arg>
+						«LET (Orchestration)(((Nodes)(this.eContainer)).eContainer) AS enclosingOrch-»
+						«IF enclosingOrch.returnSlot!=null-»
+						<arg name="output.binding">«getDataSlotAttrName(enclosingOrch.returnSlot)»</arg>
+						«ENDIF-»
+						«ENDLET-»
 					</function>
 				</pre-functions>
 				<results>

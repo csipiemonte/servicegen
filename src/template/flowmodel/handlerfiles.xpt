@@ -67,7 +67,7 @@ public static Object initDataSlotValue(Class type){
 «DEFINE startNodeBaseHandler FOR SOABEModel»
 «FILE startNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
-import java.util.Map;
+import java.util.*;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -77,31 +77,67 @@ import it.csi.svcflow.orchestrator.handler.*;
 
 public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvider {
 
-   
-
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
-	}
-
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
-	}
+	public final static String INPUT_BINDING_PARAM_PREFIX = "input.binding.";
 	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	protected Map<String, String> _inputNameBindings;
+
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
 	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
-	
+
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		_inputNameBindings = new HashMap<String, String>();
+		Iterator argnames_it = args.keySet().iterator();
+		while(argnames_it.hasNext()){
+			String currArgName =(String)argnames_it.next();
+			if (!currArgName.startsWith(INPUT_BINDING_PARAM_PREFIX))
+				continue;
+			
+			String currArgVal = (String)args.get(currArgName);
+			StringTokenizer stok = new StringTokenizer(currArgVal,"=");
+			if (stok.countTokens()!=2)
+				throw new WorkflowException("Errore nell'inizializzazione del workflow: il formato del parametro "+
+						currArgName+" deve essere <nomeparametro>=<nomedataslot>, invece è "+currArgVal);
+			else{
+				String currInput=stok.nextToken();
+				String currDS = stok.nextToken();
+				_inputNameBindings.put(currInput, currDS);
+			}
+		}
+	}
+
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+	 * Copia i valori dei parametri di input nei rispettivi DataSlot, 
+	 * prendendo le informazioni di mapping da _inputNameBindings
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
+	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		Iterator<String> paramNames_it = _inputNameBindings.keySet().iterator();
+		while (paramNames_it.hasNext()) {
+			String currParamName = paramNames_it.next();
+			String currDSName = _inputNameBindings.get(currParamName);
+			DataSlotHelper.setDataSlotValue(currDSName, DataSlotHelper
+					.getDataSlotValue("input.parameter."
+							+ currParamName, ps), ps);
+		}
+	}
+
 }
-
 «ENDFILE»
 «ENDDEFINE»
 
@@ -116,33 +152,52 @@ import com.opensymphony.workflow.WorkflowException;
 
 import it.csi.svcflow.orchestrator.handler.*;
 
-public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
+public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 
-   
+	public final static String OUTPUT_BINDING_PARAM = "output.binding";
+	public final static String RETURN_ATTRIBUTE_NAME = "result";
 
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
+	protected String _outputbindingName;
+
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
 	}
 
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		// se il parametro non e' valorizzato l'operazione viene considerata void
+		_outputbindingName = (String) args.get(OUTPUT_BINDING_PARAM);
+
 	}
-	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
 	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
-	
+
+	/**
+	 * Ricopia il valore del dataSlot di output nell'attributo "result", che
+	 * sarà utilizzato nel metodo di orchestrazione come fonte del valore
+	 * di ritorno (se _outputbindingname==null => void)
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
+	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		if (_outputbindingName != null) {
+			DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, DataSlotHelper
+					.getDataSlotValue(_outputbindingName, ps), ps);
+		}
+	}
+
 }
-
 «ENDFILE»
 «ENDDEFINE»
 
@@ -506,12 +561,6 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
-		
-	}
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -527,12 +576,6 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
-		
-	}
 }
 «ENDFILE»
 «ENDDEFINE»

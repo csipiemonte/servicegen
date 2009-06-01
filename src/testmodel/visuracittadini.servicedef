@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="visura_cittadini" monitorable="true" diagEnabled="true" versione="1.0" serviceType="orch">
   <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+  <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
   <operations name="visuraPerComune" returnType="//@types/@types.1" throws="//@types/@types.2">
     <params name="codComune">
       <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>

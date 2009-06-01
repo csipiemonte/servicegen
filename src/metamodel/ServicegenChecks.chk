@@ -194,6 +194,10 @@ context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
 	bindings.paramBindings.select(ip|ip.slot==this.slot).size==1;
 	
 
+/// OpNode
+context OpNode if next!=null ERROR "un nodo non può essere successor edi se stesso:"+loc() :
+	next!=this;
+	
 /// SrvCall
 context svcorch::SrvCall ERROR
 	"E'necessario specificare un service-connector per l'oggetto SrvCall:"+loc() :
@@ -245,7 +249,13 @@ context svcorch::ExceptionHandler
 	let srvCall = ((SrvCall)eContainer):
 	let op = srvCall.operation :
 	op.throws.contains(handledException);
-	
+
+context svcorch::ExceptionHandler ERROR "e' necessario indicare il primo nodo della catena di gestione dell' "+
+	"eccezione:"+loc() :
+	this.firstRecoveryNode!=null;
+
+/// (TODO: verificare che non il first recovery node non sia nella catena try... => loop)
+
 /// ForEach
 context ForEach ERROR "E' necessario specificare lo slot che contiene la collection su cui iterare:"+loc() :
 	collection!=null;
@@ -255,9 +265,15 @@ context ForEach ERROR "E' necessario specificare lo slot che conterrà l'elemento
 	
 context ForEach ERROR "E'necessario specificare il nodo di inizio loop:"+loc() :
 	firstLoopNode != null;
+
+context ForEach if firstLoopNode!=null ERROR "il primo nodo del loop non può essere il nodo for each stesso:"+loc() :
+	firstLoopNode!=this;
 	
 context ForEach ERROR "E'necessario specificare il nodo a cui saltare dopo la fine dell'ultima iterazione del loop:"+loc() :
 	afterLoopNode != null;
+
+context ForEach if afterLoopNode!=null ERROR "il nodo da eseguire al termine del loop non può essere il nodo for each stesso:"+loc() :
+	afterLoopNode!=this;
 
 /// EndLoop
 context EndLoop ERROR "E'necessario specificare il nodo ForEach che questo EndLoop chiude, nell'attributo 'loopHeadNode':"+loc() :
@@ -270,6 +286,11 @@ context EndLoop if loopHeadNode!=null ERROR "Il nodo specificato in 'loopHeadNod
 context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'then':"+loc() :
 	thenNode!=null;
 
+context CheckCondition if thenNode!=null ERROR "il nodo 'then' non può essere il nodo CheckCondition stesso:"+loc() :
+	thenNode!=this;
+
 context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'else':"+loc() :
 	elseNode!=null;
-	
+
+context CheckCondition if elseNode!=null ERROR "il nodo 'else' non può essere il nodo CheckCondition stesso:"+loc() :
+	elseNode!=this;

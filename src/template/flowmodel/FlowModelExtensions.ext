@@ -136,6 +136,9 @@ String dataSlotHelperFile(SOABEModel model) :
 //String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
 //  getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
 
+
+String getDataSlotAttrName(DataSlot ds):
+	"SLOT_"+ds.name;
     
 //// 
 
