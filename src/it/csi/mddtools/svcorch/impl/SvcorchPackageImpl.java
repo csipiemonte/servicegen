@@ -759,6 +759,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEndLoop_LoopHeadNode() {
+		return (EReference)endLoopEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SvcorchFactory getSvcorchFactory() {
 		return (SvcorchFactory)getEFactoryInstance();
 	}
@@ -856,6 +865,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		createEReference(inputParamBindingsEClass, INPUT_PARAM_BINDINGS__INPUT_PARAMS);
 
 		endLoopEClass = createEClass(END_LOOP);
+		createEReference(endLoopEClass, END_LOOP__LOOP_HEAD_NODE);
 	}
 
 	/**
@@ -980,6 +990,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEReference(getInputParamBindings_InputParams(), this.getParamBinding(), null, "inputParams", null, 0, -1, InputParamBindings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(endLoopEClass, EndLoop.class, "EndLoop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEndLoop_LoopHeadNode(), this.getNode(), null, "loopHeadNode", null, 0, 1, EndLoop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -350,6 +350,7 @@ else if (type.metaType==Entity) then
 else 
 	map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
 
+
 String defaultInitVal(Type type) :
 	if(type==null) then
 	  "null"

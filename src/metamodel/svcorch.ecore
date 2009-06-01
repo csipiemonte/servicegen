@@ -80,5 +80,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputParams" upperBound="-1"
         eType="#//ParamBinding" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EndLoop" eSuperTypes="#//FlowNode"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EndLoop" eSuperTypes="#//FlowNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="loopHeadNode" eType="#//Node"/>
+  </eClassifiers>
 </ecore:EPackage>

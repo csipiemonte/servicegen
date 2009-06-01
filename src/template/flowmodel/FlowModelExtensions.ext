@@ -55,6 +55,16 @@ String forEachBaseHandlerFQN(SOABEModel model) :
 String forEachBaseHandlerFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+forEachBaseHandlerClassName()+".java";	
 		
+////
+String endLoopBaseHandlerClassName() :
+	"EndLoopBaseHandler";
+	
+String endLoopBaseHandlerFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+endLoopBaseHandlerClassName();
+
+String endLoopBaseHandlerFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+endLoopBaseHandlerClassName()+".java";	
+
 
 ////
 String checkCondBaseHandlerClassName() :
@@ -109,12 +119,21 @@ String declTransformBaseHandlerFQN(SOABEModel model) :
 String declTransformBaseHandlerFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+declTransformBaseHandlerClassName()+".java";	
 		
+////
+String dataSlotHelperClassName() :
+	"DataSlotHelper";
+	
+String dataSlotHelperFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+dataSlotHelperClassName();
 
-String serviceBeanClassName(ServiceDef sd) :
-	toCamel(sd.codServizio)+"Bean";
+String dataSlotHelperFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+dataSlotHelperClassName()+".java";
 
-String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
-    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
+//String serviceBeanClassName(ServiceDef sd) :
+//	toCamel(sd.codServizio)+"Bean";
+
+//String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+//  getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
 
     
 //// 
@@ -131,12 +150,15 @@ String nodeTypeShortName(Node node) :
 					(node.metaType==CheckCondition ?
 						"CK" :
 						(node.metaType==ForEach ?
-							"LP" :
+							"LOOP" :
 							(node.metaType==CustomTransformation ?
 								"CTX" :
 								(node.metaType==DeclarativeTransformation ?
 									"DTX" : 
-									"??"
+									(node.metaType==EndLoop ?
+										"NXT" :
+										"??"
+									)
 								)
 							)
 						)

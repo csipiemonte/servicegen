@@ -10,14 +10,58 @@
 «EXTENSION template::flowmodel::FlowModelExtensions»
 
 «DEFINE baseHandlers FOR SOABEModel»
+	«EXPAND dataSlotHelper FOR this»
+ 
 	«EXPAND startNodeBaseHandler FOR this»
 	«EXPAND stopNodeBaseHandler FOR this»
 	«EXPAND papdCallBaseHandler FOR this»
 	«EXPAND wsCallBaseHandler FOR this»
 	«EXPAND forEachBaseHandler FOR this»
+	«EXPAND endLoopBaseHandler FOR this»
 	«EXPAND checkCondBaseHandler FOR this»
 	«EXPAND customTransformBaseHandler FOR this»
 	«EXPAND declTransformBaseHandler FOR this»
+«ENDDEFINE»
+
+«DEFINE dataSlotHelper FOR SOABEModel»
+«FILE dataSlotHelperFile()»package «baseHandlersPkg()»;
+
+import com.opensymphony.module.propertyset.PropertySet;
+
+/**
+ * Classe di utilita' per la gestione dei data-slot all'interno del contesto di esecuzione 
+ * di osworkflow.
+ *
+ */
+public class DataSlotHelper {
+	
+public static Object getDataSlotValue(String name, PropertySet ps){
+	return ps.getObject(name);
+}
+
+public static void setDataSlotValue(String name, Object val, PropertySet ps) {
+		if (val!=null){
+			ps.setObject(name, val);
+		}
+		else{
+			ps.remove(name);
+		}
+}
+
+public static Object initDataSlotValue(Class type){
+	try {
+		Object ris = type.newInstance();
+		return ris;
+	} catch (InstantiationException e) {
+		throw new IllegalArgumentException("impossibile istanziare lo slot di tipo "+type+":"+e);
+	} catch (IllegalAccessException e) {
+		throw new IllegalArgumentException("impossibile istanziare lo slot di tipo "+type+":"+e);
+	}
+}
+
+}
+
+«ENDFILE»
 «ENDDEFINE»
 
 «DEFINE startNodeBaseHandler FOR SOABEModel»
@@ -225,6 +269,49 @@ public abstract class «forEachBaseHandlerClassName()» implements FunctionProvide
 «ENDFILE»
 «ENDDEFINE»
 
+
+«DEFINE endLoopBaseHandler FOR SOABEModel»
+«FILE endLoopBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvider {
+
+   
+
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
 «DEFINE checkCondBaseHandler FOR SOABEModel»
 «FILE checkCondBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -269,7 +356,7 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvi
 «DEFINE customTransformBaseHandler FOR SOABEModel»
 «FILE customTransformBaseHandlerFile()»package «baseHandlersPkg()»;
 
-import java.util.Map;
+import java.util.*;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -277,31 +364,87 @@ import com.opensymphony.workflow.WorkflowException;
 
 import it.csi.svcflow.orchestrator.handler.*;
 
+/**
+ * Classe base per la gestione delle trasformazioni custom (hand written). 
+ */
 public abstract class «customTransformBaseHandlerClassName()» implements FunctionProvider {
 
-   
+	protected String[] _inputSlotNames;
+	protected Class [] _inputSlotTypes;
+	protected String _outputSlotName;
+	protected Class  _outputSlotType;
+	protected boolean _initOutSlot = false;
 
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
+	public «customTransformBaseHandlerClassName()»(
+			String inSlotNames[], Class inSlotTypes[], String outSlotName,
+			Class outSlotType, boolean initOutSlot) {
+		_inputSlotNames = inSlotNames;
+		_outputSlotName = outSlotName;
+		_initOutSlot = initOutSlot;
+		_inputSlotTypes = inSlotTypes;
+		_outputSlotType = outSlotType;
+	
 	}
 
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	protected void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		if (_initOutSlot){
+			Object oldVal = DataSlotHelper.getDataSlotValue(_outputSlotName, ps);
+			if (oldVal != null){
+				// l'oggetto e'gia' inizializzato
+				throw new WorkflowException("si sta tentando di inizializzare il dataSlot ["+
+						_outputSlotName+"] che però ha già un valore nel contesto di esecuzione");
+			}
+			else{
+				try{
+					Object newVal = DataSlotHelper.initDataSlotValue(_outputSlotType);
+					DataSlotHelper.setDataSlotValue(_outputSlotName, newVal, ps);
+				}
+				catch(Exception e){
+					throw new WorkflowException("Errore durante l'inizializzazione dello slot ["+
+							_outputSlotName+"]:"+e);
+				}
+			}
+		}
+	}
+
+	protected void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException{
+		Map<String, Object> inputs = new HashMap<String, Object>(); 
+		for (int i = 0; i < _inputSlotNames.length; i++) {
+			String currInSlotName = _inputSlotNames[i];
+			Object currInSlotVal = ps.getObject(currInSlotName);
+			inputs.put(currInSlotName, currInSlotVal);
+		}
+		Object outVal = getTransformedObject(inputs);
+		DataSlotHelper.setDataSlotValue(_outputSlotName, outVal, ps);
 	}
 	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
-	
+	/**
+	 * Questo metodo deve essere ridefinito nelle sottoclassi specifiche con la logica 
+	 * di trasformazione vera e propria.
+	 *  
+	 * @param inValues mappa contenente i valori dei dataSlot di input. Per trasformazioni
+	 * incrementali anche il dataSlot di output può essere un dataSlot di input.
+	 * @return l'oggetto trasformato, che verrà rimpiazzato al valore eventualmente precedente
+	 * nel context.
+	 */
+	public abstract Object getTransformedObject(Map<String, Object> inValues);
+
 }
 
 «ENDFILE»
@@ -318,30 +461,15 @@ import com.opensymphony.workflow.WorkflowException;
 
 import it.csi.svcflow.orchestrator.handler.*;
 
-public abstract class «declTransformBaseHandlerClassName()» implements FunctionProvider {
+public abstract class «declTransformBaseHandlerClassName()» extends «customTransformBaseHandlerClassName()» {
 
-   
+	public «declTransformBaseHandlerClassName()»(
+			String[] inSlotNames, Class[] inSlotTypes, String outSlotName,
+			Class outSlotType, boolean initOutSlot) {
+		super(inSlotNames, inSlotTypes, outSlotName, outSlotType, initOutSlot);
+	}   
 
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
-	}
-
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
-	}
-	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	public abstract Object getTransformedObject(Map<String, Object> inputs);
 	
 }
 
@@ -462,11 +590,20 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «customTransformBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
+
+	public «specificHandlerClassName()»(String inSlotNames[],
+			Class inSlotTypes[], String outSlotName, Class outSlotType,
+			boolean initOutSlot) {
+			super(inSlotNames, inSlotTypes, outSlotName, outSlotType, initOutSlot);
+	}
+	
+	public Object getTransformedObject(Map<String, Object> inputs){
 		
+		Object outVal = inputs.get(_outputSlotName);
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customTXLogic")»
+		/// inserire qui la logica di trasformazione
+		«ENDPROTECT»
+		return outVal;
 	}
 }
 «ENDFILE»
@@ -483,11 +620,17 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «declTransformBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
+
+	public «specificHandlerClassName()»(String inSlotNames[],
+			Class inSlotTypes[], String outSlotName, Class outSlotType,
+			boolean initOutSlot) {
+			super(inSlotNames, inSlotTypes, outSlotName, outSlotType, initOutSlot);
+	}
+
+	public Object getTransformedObject(Map<String, Object> inputs){
 		
+		///// TODO
+		return null;
 	}
 }
 «ENDFILE»
@@ -504,6 +647,27 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()»{
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		// TODO Auto-generated method stub
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassName()»{
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
@@ -533,9 +697,4 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName
 	}
 }
 «ENDFILE»
-«ENDDEFINE»
-
-
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
-«REM»NOP«ENDREM»
 «ENDDEFINE»

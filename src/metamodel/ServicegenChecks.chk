@@ -252,3 +252,24 @@ context ForEach ERROR "E' necessario specificare lo slot che contiene la collect
 	
 context ForEach ERROR "E' necessario specificare lo slot che conterrà l'elemento corrente per ogni iterazione:"+loc() :
 	item!=null;	 
+	
+context ForEach ERROR "E'necessario specificare il nodo di inizio loop:"+loc() :
+	firstLoopNode != null;
+	
+context ForEach ERROR "E'necessario specificare il nodo a cui saltare dopo la fine dell'ultima iterazione del loop:"+loc() :
+	afterLoopNode != null;
+
+/// EndLoop
+context EndLoop ERROR "E'necessario specificare il nodo ForEach che questo EndLoop chiude, nell'attributo 'loopHeadNode':"+loc() :
+	loopHeadNode != null;
+
+context EndLoop if loopHeadNode!=null ERROR "Il nodo specificato in 'loopHeadNode' deve essere di tipoo ForEach:"+loc() :
+	loopHeadNode.metaType==ForEach;
+
+/// CheckCondition
+context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'then':"+loc() :
+	thenNode!=null;
+
+context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'else':"+loc() :
+	elseNode!=null;
+	

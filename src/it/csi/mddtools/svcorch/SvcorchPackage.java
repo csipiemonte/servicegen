@@ -1180,13 +1180,22 @@ public interface SvcorchPackage extends EPackage {
 	int END_LOOP__DESCRIPTION = FLOW_NODE__DESCRIPTION;
 
 	/**
+	 * The feature id for the '<em><b>Loop Head Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int END_LOOP__LOOP_HEAD_NODE = FLOW_NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>End Loop</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int END_LOOP_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 0;
+	int END_LOOP_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 1;
 
 
 	/**
@@ -1763,6 +1772,17 @@ public interface SvcorchPackage extends EPackage {
 	EClass getEndLoop();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.EndLoop#getLoopHeadNode <em>Loop Head Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Loop Head Node</em>'.
+	 * @see it.csi.mddtools.svcorch.EndLoop#getLoopHeadNode()
+	 * @see #getEndLoop()
+	 * @generated
+	 */
+	EReference getEndLoop_LoopHeadNode();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2257,6 +2277,14 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EClass END_LOOP = eINSTANCE.getEndLoop();
+
+		/**
+		 * The meta object literal for the '<em><b>Loop Head Node</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference END_LOOP__LOOP_HEAD_NODE = eINSTANCE.getEndLoop_LoopHeadNode();
 
 	}
 

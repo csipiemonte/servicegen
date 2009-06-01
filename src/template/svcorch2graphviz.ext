@@ -128,6 +128,12 @@ let edge2 = mapToDirectedEdge(node.toNode(),node.afterLoopNode.toNode(),node.nam
 	edge2.setLabel("after")->
 	{edge1,edge2};
 
+cached toEdge(svcorch::EndLoop node) :
+let edge = mapToDirectedEdge(node.toNode(),node.loopHeadNode.toNode(),node.name+"_"+node.loopHeadNode.name) :	
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
 cached toEdge(svcorch::CheckCondition node) :
 let edge1 = mapToDirectedEdge(node.toNode(),node.thenNode.toNode(),node.name+"_"+node.thenNode.name) :	
 let edge2 = mapToDirectedEdge(node.toNode(),node.elseNode.toNode(),node.name+"_"+node.elseNode.name) :
@@ -182,6 +188,7 @@ create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
 	this.addStatements(orch.nodes.nodes.typeSelect(OpNode).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(StartNode).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(ForEach).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(EndLoop).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(CheckCondition).toEdge())->
 	this.addStatements(orch.nodes.nodes.typeSelect(SrvCall).toEHEdges())->
 	this
