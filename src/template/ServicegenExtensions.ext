@@ -88,6 +88,12 @@ String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, SOABEModel mo
 String fullQualifiedEntitiesPkg(String codServ, SOABEModel model) :
     getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".dto."+removeSeparator(codServ);
 
+/// usa service def e non SOABEModel
+String fullQualifiedEntitiesPkgSDRelative(Entity type) :
+	let ownerSD = (ServiceDef)(((Types)(type.eContainer)).eContainer) :
+    	getOrganizationNamePkgPrefix()+"."+ownerSD.codProdotto.toLowerCase()+"."+ownerSD.codComponente.toLowerCase()+".dto."+removeSeparator(ownerSD.codServizio);
+
+
 String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
     getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
 
@@ -349,6 +355,20 @@ else if (type.metaType==Entity) then
       fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
 else 
 	map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
+
+
+/// mappa il tipo java contestualizzandolo nel servicedef contenitore
+/// (sfrutta codProdotto e codservizio di ServiceDef invece che quelli di SOABEModel)
+String map2JavaTypeSDRelative(Type type) :
+if (type==null) then
+	"void"
+else if (type.metaType==CSIDatatype) then
+	map2javaSimpleType(type)
+else if (type.metaType==Entity) then
+      fullQualifiedEntitiesPkgSDRelative((Entity)type)+"."+type.name.toFirstUpper() 
+else 
+	map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
+	
 
 
 String defaultInitVal(Type type) :

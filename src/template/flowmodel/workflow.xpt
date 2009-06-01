@@ -234,12 +234,7 @@ Inizia la creazione nel descrittore dei vari step.
 						<arg name="class.name">
 							«specificHandlerFQN(orch.operation, model)»
 						</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						«EXPAND txSlotDecl FOR this»
 					</function>
 				</pre-functions>
 				<results>
@@ -252,6 +247,24 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+«DEFINE txSlotDecl FOR Transformation»
+						<!-- configurazione degli input slot -->
+						«IF input.size>0-»
+						«FOREACH input AS currIn-»
+						<arg name="input.slot.name.«input.indexOf(currIn)»">«getDataSlotAttrName(currIn)»</arg>
+						<arg name="input.slot.class.«input.indexOf(currIn)»">«map2JavaTypeSDRelative(currIn.type)»</arg>
+						«ENDFOREACH-»
+						«ENDIF-»
+						«IF output!=null-»
+						<!-- configurazione dell'output slot -->
+						<arg name="output.slot.name">«getDataSlotAttrName(output)»</arg>
+						<arg name="output.slot.class">«map2JavaTypeSDRelative(output.type)»</arg>
+						«IF initOutSlot-»
+						<arg name="output.slot.init">true</arg>
+						«ENDIF-»
+						«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -261,12 +274,7 @@ Inizia la creazione nel descrittore dei vari step.
 						<arg name="class.name">
 							«specificHandlerFQN(orch.operation, model)»
 						</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						«EXPAND txSlotDecl FOR this»
 					</function>
 				</pre-functions>
 				<results>
