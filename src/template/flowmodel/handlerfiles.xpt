@@ -21,11 +21,14 @@
 	«EXPAND checkCondBaseHandler FOR this»
 	«EXPAND customTransformBaseHandler FOR this»
 	«EXPAND declTransformBaseHandler FOR this»
+	
+	«EXPAND forEachConditionClass FOR this»
 «ENDDEFINE»
 
 «DEFINE dataSlotHelper FOR SOABEModel»
 «FILE dataSlotHelperFile()»package «baseHandlersPkg()»;
 
+import java.lang.reflect.Array;
 import com.opensymphony.module.propertyset.PropertySet;
 
 /**
@@ -59,6 +62,16 @@ public static Object initDataSlotValue(Class type){
 	}
 }
 
+public static Class classForName(String clname) throws ClassNotFoundException{
+	if (clname.endsWith("[]")){
+		String compName = clname.substring(0,clname.length()-2);
+		Object dummyArr = Array.newInstance(classForName(compName), 0);
+		return dummyArr.getClass();
+	}
+	else{
+		return Class.forName(clname);
+	}
+}
 }
 
 «ENDFILE»
@@ -288,7 +301,8 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider
 «DEFINE forEachBaseHandler FOR SOABEModel»
 «FILE forEachBaseHandlerFile()»package «baseHandlersPkg()»;
 
-import java.util.Map;
+import java.util.*;
+import java.lang.reflect.Array;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -296,31 +310,89 @@ import com.opensymphony.workflow.WorkflowException;
 
 import it.csi.svcflow.orchestrator.handler.*;
 
-public abstract class «forEachBaseHandlerClassName()» implements FunctionProvider {
+public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 
-   
-
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
-	}
-
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
-	}
+	public final static String COLLECTION_SLOT_NAME_PARAM_NAME = "collection.slot.name";
+	public final static String ITEM_SLOT_NAME_PARAM_NAME = "item.slot.name";
 	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	public final static String ITERATOR_SLOT_NAME_SUFFIX = "_for_each_iterator";
+	public final static String MORE_ELEMENTS_SLOT_NAME_SUFFIX = "_has_more_elements";
 	
+	protected String _collectionSlotName;
+	protected String _itemSlotName;
+	
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		String collSN = (String)args.get(COLLECTION_SLOT_NAME_PARAM_NAME);
+		String itemSN = (String)args.get(ITEM_SLOT_NAME_PARAM_NAME);
+		if (collSN==null || collSN.length()==0)
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+COLLECTION_SLOT_NAME_PARAM_NAME);
+		if (itemSN==null || itemSN.length()==0)
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+ITEM_SLOT_NAME_PARAM_NAME);
+		//
+		_collectionSlotName=collSN.trim();
+		_itemSlotName=itemSN.trim();
+	}
+
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException{
+		// e' il primo giro?
+		Iterator iterator = (Iterator)DataSlotHelper.getDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, ps);
+		if (iterator==null){
+			// inizializza il loop
+			Object collectionVal = DataSlotHelper.getDataSlotValue(_collectionSlotName, ps);
+			if(collectionVal == null)
+				throw new WorkflowException("Errore nel loop: collezione nulla");
+					
+			// la collection dovrebbe essere di tipo array (garantito da check) 
+			if (!collectionVal.getClass().isArray())
+				throw new WorkflowException("Errore durante iniziualizzazione ForEach: il tipo della collection "+_collectionSlotName+
+						" non è un typed array ma "+collectionVal.getClass());
+			else{
+				// ok vai
+				ArrayList coll = new ArrayList();
+				if (collectionVal!=null){
+					int sz =Array.getLength(collectionVal);
+					for (Object curr : (Object[])collectionVal) {
+						coll.add(curr);
+					}
+				}
+				iterator = coll.iterator();
+				DataSlotHelper.setDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, iterator, ps);
+			}
+		}
+		
+		// in ogni caso verifica se ci sono ancora elementi e carica il prossimo
+		if (iterator.hasNext()){
+			Object next = iterator.next();
+			// rende disponibile il prossimo elemento nello slot item
+			DataSlotHelper.setDataSlotValue(_itemSlotName, next, ps);
+			// imposta al condizione di loop a true
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, Boolean.TRUE, ps);
+		}
+		else{
+			// rimuove dal property set l'attributo di iterazione
+			DataSlotHelper.setDataSlotValue(_itemSlotName, null, ps);
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, null, ps);
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, null, ps);
+			// imposta la condizione di loop a false
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, Boolean.FALSE, ps);
+		}
+	}
 }
 
 «ENDFILE»
@@ -464,7 +536,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 			else if (currArgname.startsWith(INPUT_SLOT_CLASS_PARAM_PREFIX)){
 				currArgVal = (String)args.get(currArgname);
 				try {
-					Class currSlotType = Class.forName(currArgVal);
+					Class currSlotType = DataSlotHelper.classForName(currArgVal.trim());
 					_inputSlotTypes.add(currSlotType);
 				} catch (ClassNotFoundException e) {
 					throw new WorkflowException("Errore nell'inizializzazione dell handler:"+e);
@@ -474,10 +546,10 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 		// out slot
 		String outSlotName = (String)args.get(OUTPUT_SLOT_NAME_PARAM);
 		if (outSlotName!=null){
-			_outputSlotName=outSlotName;
+			_outputSlotName=outSlotName.trim();
 			String outClassName = (String)args.get(OUTPUT_SLOT_CLASS_PARAM);
 			try {
-				Class outSlotType = Class.forName(outClassName);
+				Class outSlotType = DataSlotHelper.classForName(outClassName);
 				_outputSlotType=outSlotType;
 			} catch (ClassNotFoundException e) {
 				throw new WorkflowException("Errore nell'inizializzazione dell handler:"+e);
@@ -536,6 +608,50 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTrans
 	
 }
 
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE forEachConditionClass FOR SOABEModel»
+«FILE forEachConditionFile()»package it.csi.visureol.visanag.business.handlers;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+public class «forEachConditionClassName()» implements Condition{
+
+	public final static String BRANCH_PARAM_NAME = "for.each.branch";
+	public final static String STAY="stay";
+	public final static String EXIT="exit";
+	
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		String collSN = (String)args.get(ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME);
+		if (collSN==null)
+			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
+					"il parametro "+ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME+ 
+					" valorizzandolo coerentemente con il nodo for each corrispondente.");
+		
+		String branch = (String)args.get(BRANCH_PARAM_NAME);
+		if (branch == null || 
+			(!branch.equals(STAY)&&!branch.equals(EXIT))
+		){
+			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
+					"il parametro "+BRANCH_PARAM_NAME+ 
+					" valorizzandolo con '"+STAY+"' o '"+EXIT+"'");
+		}
+		Boolean continueFlag = (Boolean)DataSlotHelper.getDataSlotValue(collSN+ForEachBaseHandler.MORE_ELEMENTS_SLOT_NAME_SUFFIX, ps);
+		if (continueFlag==null)
+			continueFlag=Boolean.FALSE;
+		if (branch.equals(STAY))
+			return continueFlag.booleanValue();
+		else
+			return !continueFlag.booleanValue();
+		
+	}
+}
 «ENDFILE»
 «ENDDEFINE»
 
@@ -701,12 +817,7 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
 «ENDFILE»
 «ENDDEFINE»

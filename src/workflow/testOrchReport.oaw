@@ -13,4 +13,7 @@
 	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
     />
     
+    <cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.oaw" 
+	model="servicegen/src/testmodel/visanag_visuraPerComuneECognome.svcorch"  
+    />
 </workflow>

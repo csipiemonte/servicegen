@@ -130,6 +130,17 @@ String dataSlotHelperFQN(SOABEModel model) :
 String dataSlotHelperFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+dataSlotHelperClassName()+".java";
 
+
+////
+String forEachConditionClassName() :
+	"ForEachCondition";
+	
+String forEachConditionFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+forEachConditionClassName();
+
+String forEachConditionFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+forEachConditionClassName()+".java";
+	
 //String serviceBeanClassName(ServiceDef sd) :
 //	toCamel(sd.codServizio)+"Bean";
 
