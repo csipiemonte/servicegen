@@ -205,4 +205,46 @@ public class CodeGenerationUtils {
 		//System.out.println("getProvidedServices, total:"+result.size());
 		return result;
 	}
+	
+	
+	//////
+	
+	/**
+	 * restituisce il package standard per una entity di un servizio afferente ad un
+	 * determinato componente
+	 */
+	public static String getEntityStdPackage(Entity e, String codProd, String codComp, String codServ, String optionalOrgPrefix){
+		String orgPrefix="it.csi";
+		if (optionalOrgPrefix!=null)
+			orgPrefix = optionalOrgPrefix;
+		return orgPrefix+"."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".dto."+removeSeparator(codServ);
+	}
+	
+	/**
+	 * restituisce il package standard per una exception di un servizio afferente ad un
+	 * determinato componente
+	 */
+	public static String getExceptionStdPackage(it.csi.mddtools.typedef.Exception e, String codProd, String codComp, String codServ, String optionalOrgPrefix){
+		String orgPrefix="it.csi";
+		if (optionalOrgPrefix!=null)
+			orgPrefix = optionalOrgPrefix;
+		return orgPrefix+"."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".exception."+removeSeparator(codServ);
+	}
+	
+	/**
+	 * restituisce il package standard della public interface di un servizio afferente ad un
+	 * determinato componente
+	 */
+	public static String getCSIInterfaceStdPackage(ServiceDef sd, String optionalOrgPrefix){
+		String orgPrefix="it.csi";
+		if (optionalOrgPrefix!=null)
+			orgPrefix = optionalOrgPrefix;
+		return orgPrefix+"."+sd.getCodProdotto().toLowerCase()+"."+sd.getCodComponente().toLowerCase()+".interfacecsi."+removeSeparator(sd.getCodServizio());
+	}
+	
+	//////
+	public final static String SDANNOTATION_SRC_SERVICEDEF = "servicedef";
+	public final static String TDANNOTATION_SRC_TYPEDEF = "typedef";
+	
+	public final static String ANNOTATION_KEY_JAVAFQN = "java-fqn";
 }

@@ -19,7 +19,9 @@ import org.eclipse.emf.ecore.EObject;
 import it.csi.mddtools.servicedef.OpTypeEnum;
 import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.Param;
+import it.csi.mddtools.servicedef.SDAnnotationDetail;
 import it.csi.mddtools.servicedef.ServiceDef;
+import it.csi.mddtools.servicedef.ServiceDefAnnotation;
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 import it.csi.mddtools.servicedef.TXTypeEnum;
@@ -30,7 +32,9 @@ import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 
@@ -49,12 +53,12 @@ public class ServiceDefInferTool {
 	 * @param userArrays i typed array user defined
 	 * @return
 	 */
-	private static Operation inferOperation(Method m, Hashtable userEntities, Hashtable userExceptions, Hashtable userArrays, Map basicTypesMap){
+	private static Operation inferOperation(Method m, Hashtable userEntities, Hashtable userExceptions, Hashtable userArrays, Map basicTypesMap, String codProd, String codComp, String codServ){
 	   Operation op = ServicedefFactory.eINSTANCE.createOperation();
 	   op.setName(m.getName());
-	   Param [] params = inferParams(m.getParameterTypes(), userEntities, userArrays, basicTypesMap);
-	   it.csi.mddtools.typedef.Exception [] throwsList = inferThrowsList(m.getExceptionTypes(),userExceptions);
-	   Type retType = inferType(m.getReturnType(), userEntities, userArrays, basicTypesMap);
+	   Param [] params = inferParams(m.getParameterTypes(), userEntities, userArrays, basicTypesMap, codProd,codComp, codServ);
+	   it.csi.mddtools.typedef.Exception [] throwsList = inferThrowsList(m.getExceptionTypes(),userExceptions, codProd, codComp, codServ);
+	   Type retType = inferType(m.getReturnType(), userEntities, userArrays, basicTypesMap, codProd, codComp, codServ);
 	   op.setReturnType(retType);
 	   for (int ipar = 0; ipar < params.length; ipar++) {
 		Param par = params[ipar];
@@ -73,50 +77,105 @@ public class ServiceDefInferTool {
 	   return op;
 	}
 
-	private static Param [] inferParams(Class paramTypes[], Hashtable userEntities, Hashtable userArrays, Map basicTypesMap){
+	private static Param [] inferParams(Class paramTypes[], Hashtable userEntities, Hashtable userArrays, Map basicTypesMap, String codProd, String codComp, String codServ){
 		Param [] params = new Param[paramTypes.length];
 		for (int ipar = 0; ipar < paramTypes.length; ipar++) {
 			Class parClass = paramTypes[ipar];
 			Param currPar = ServicedefFactory.eINSTANCE.createParam();
 			currPar.setName("p"+ipar);
-			currPar.setType(inferType(parClass, userEntities, userArrays, basicTypesMap));
+			currPar.setType(inferType(parClass, userEntities, userArrays, basicTypesMap, codProd, codComp, codServ));
 			params[ipar]=currPar;
 		}
 		return params;
 	}
 
-	private static Type inferType(Class cl, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap){
+	private static Type inferType(Class cl, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap, String codProd, String codComp, String codServ){
 		// è un tipo base? o un array di tipi base?
 		Type baseType = (Type)basicTypesMap.get(cl);
 		if (baseType!=null)
 			return baseType;
 		else if (cl.isArray()){
-			return createOrGetUserArray(cl, userEntities, userArrays, basicTypesMap);
+			return createOrGetUserArray(cl, userEntities, userArrays, basicTypesMap, codProd, codComp, codServ);
 		}
 		else{
-			return createOrGetEntity(cl, userEntities, userArrays, basicTypesMap);
+			return createOrGetEntity(cl, userEntities, userArrays, basicTypesMap,codProd, codComp, codServ);
 		}
 	}
 
-	private static Entity createOrGetEntity(Class cl, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap){
-		Entity e = (Entity)userEntities.get(cl);
-		if (e==null){
+	private static Entity createOrGetEntity(Class cl, Hashtable userEntities,
+			Hashtable userArrays, Map basicTypesMap, String codProd,
+			String codComp, String codServ) {
+		Entity e = (Entity) userEntities.get(cl);
+		if (e == null) {
 			e = TypedefFactory.eINSTANCE.createEntity();
-			e.setName(cl.getName().substring(cl.getName().lastIndexOf('.')+1));
-			inferFeatures(cl,e, userEntities, userArrays, basicTypesMap);
+			e
+					.setName(cl.getName().substring(
+							cl.getName().lastIndexOf('.') + 1));
+			inferFeatures(cl, e, userEntities, userArrays, basicTypesMap, codProd, codComp, codServ);
+			annotateEntity(e, cl, codProd, codComp, codServ, null);
+			// TODO il prefisso package non standard?
 			userEntities.put(cl, e);
 			return e;
-		}
-		else
+		} else
 			return e;
 	}
 
-	private static TypedArray createOrGetUserArray(Class cl, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap){
+	private static void annotateEntity(Entity e, Class cl, String codProd,
+			String codComp, String codServ, String optionalOrgPrefix) {
+		String stdPkg = CodeGenerationUtils.getEntityStdPackage(e, codProd, codComp, codServ, optionalOrgPrefix);
+		String stdFQN = stdPkg+"."+CodeGenerationUtils.toCamel(e.getName());
+		if (!cl.getClass().getName().equals(stdFQN)){
+			// annotate!!
+			TypeAnnotation tAnn = TypedefFactory.eINSTANCE.createTypeAnnotation();
+			tAnn.setSource(CodeGenerationUtils.TDANNOTATION_SRC_TYPEDEF);
+			TDAnnotationDetail dtl = TypedefFactory.eINSTANCE.createTDAnnotationDetail();
+			tAnn.getDetails().add(dtl);
+			dtl.setKey(CodeGenerationUtils.ANNOTATION_KEY_JAVAFQN);
+			dtl.setValue(cl.getName());
+			e.getAnnotations().add(tAnn);
+		}
+		
+	}
+
+	private static void annotateException(it.csi.mddtools.typedef.Exception e, Class cl, String codProd,
+			String codComp, String codServ, String optionalOrgPrefix) {
+		String stdPkg = CodeGenerationUtils.getExceptionStdPackage(e, codProd, codComp, codServ, optionalOrgPrefix);
+		String stdFQN = stdPkg+"."+CodeGenerationUtils.toCamel(e.getName());
+		if (!cl.getClass().getName().equals(stdFQN)){
+			// annotate!!
+			TypeAnnotation tAnn = TypedefFactory.eINSTANCE.createTypeAnnotation();
+			tAnn.setSource(CodeGenerationUtils.TDANNOTATION_SRC_TYPEDEF);
+			TDAnnotationDetail dtl = TypedefFactory.eINSTANCE.createTDAnnotationDetail();
+			tAnn.getDetails().add(dtl);
+			dtl.setKey(CodeGenerationUtils.ANNOTATION_KEY_JAVAFQN);
+			dtl.setValue(cl.getName());
+			e.getAnnotations().add(tAnn);
+		}
+		
+	}
+	
+	private static void annotateServiceDef(ServiceDef sd, Class cl, String optionalOrgPrefix) {
+		String stdPkg = CodeGenerationUtils.getCSIInterfaceStdPackage(sd, optionalOrgPrefix);
+		String stdFQN = stdPkg+"."+CodeGenerationUtils.toCamel(sd.getCodServizio())+"Srv";
+		if (!cl.getClass().getName().equals(stdFQN)){
+			// annotate!!
+			ServiceDefAnnotation sdAnn = ServicedefFactory.eINSTANCE.createServiceDefAnnotation();
+			sdAnn.setSource(CodeGenerationUtils.SDANNOTATION_SRC_SERVICEDEF);
+			SDAnnotationDetail dtl = ServicedefFactory.eINSTANCE.createSDAnnotationDetail();
+			sdAnn.getDetails().add(dtl);
+			dtl.setKey(CodeGenerationUtils.ANNOTATION_KEY_JAVAFQN);
+			dtl.setValue(cl.getName());
+			sd.getAnnotations().add(sdAnn);
+		}
+		
+	}
+	
+	private static TypedArray createOrGetUserArray(Class cl, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap, String codProd, String codComp, String codServ){
 		if (!cl.isArray())
 			throw new IllegalArgumentException(cl+" is not an array class!");
 		TypedArray ta = (TypedArray)userArrays.get(cl);
 		if (ta==null){
-			Entity e = createOrGetEntity(cl.getComponentType(), userEntities, userArrays, basicTypesMap);
+			Entity e = createOrGetEntity(cl.getComponentType(), userEntities, userArrays, basicTypesMap, codProd, codComp, codServ);
 			ta = TypedefFactory.eINSTANCE.createTypedArray();
 			ta.setName("Array of "+cl.getComponentType().getName().substring(cl.getComponentType().getName().lastIndexOf('.')+1));
 			ta.setComponentType(e);
@@ -127,7 +186,7 @@ public class ServiceDefInferTool {
 			return ta;
 	}
 
-	private static void inferFeatures(Class cl, Entity e, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap) {
+	private static void inferFeatures(Class cl, Entity e, Hashtable userEntities, Hashtable userArrays, Map basicTypesMap, String codProd, String codComp, String codServ) {
 		try {
 			BeanInfo bi = Introspector.getBeanInfo(cl);
 			PropertyDescriptor[] pds = bi.getPropertyDescriptors();
@@ -137,7 +196,7 @@ public class ServiceDefInferTool {
 					continue;
 				String pName = pd.getName();
 				Class pType = pd.getPropertyType();
-				Type fType = inferType(pType, userEntities, userArrays, basicTypesMap);
+				Type fType = inferType(pType, userEntities, userArrays, basicTypesMap, codProd, codComp, codServ);
 				Feature f = TypedefFactory.eINSTANCE.createFeature();
 				f.setName(pName);
 				f.setType(fType);
@@ -149,14 +208,14 @@ public class ServiceDefInferTool {
 		}
 	}
 		
-	private static it.csi.mddtools.typedef.Exception [] inferThrowsList(Class excTypes[], Hashtable userExceptions){
+	private static it.csi.mddtools.typedef.Exception [] inferThrowsList(Class excTypes[], Hashtable userExceptions, String codProd, String codComp, String codServ){
 		// è una eccezione di quelle predefinite?
 		Vector vexc = new Vector();
 		for (int iex = 0; iex < excTypes.length; iex++) {
 			Class cl = excTypes[iex];
 			if (cl.getName().startsWith("it.csi.csi.wrapper"))
 				continue;
-			it.csi.mddtools.typedef.Exception ex = createOrGetException(cl,userExceptions);
+			it.csi.mddtools.typedef.Exception ex = createOrGetException(cl,userExceptions,codProd, codComp, codServ);
 			vexc.add(ex);
 		}
 		it.csi.mddtools.typedef.Exception excArr[] = new it.csi.mddtools.typedef.Exception [vexc.size()];
@@ -164,7 +223,7 @@ public class ServiceDefInferTool {
 		return excArr;
 	}
 
-	private static it.csi.mddtools.typedef.Exception createOrGetException(Class cl, Hashtable userExceptions){
+	private static it.csi.mddtools.typedef.Exception createOrGetException(Class cl, Hashtable userExceptions, String codProd, String codComp, String codServ){
 		it.csi.mddtools.typedef.Exception ex = (it.csi.mddtools.typedef.Exception)userExceptions.get(cl);
 		if (ex!=null)
 			return ex;
@@ -177,6 +236,8 @@ public class ServiceDefInferTool {
 				ex.setExceptionType(CSIExceptionTypes.UNRECOVERABLE);
 			else if (it.csi.csi.wrapper.SystemException.class.isAssignableFrom(cl))
 				ex.setExceptionType(CSIExceptionTypes.SYSTEM);
+			
+			annotateException(ex, cl, codProd, codComp, codServ, null);
 			userExceptions.put(cl, ex);
 			return ex;
 		}
@@ -225,6 +286,9 @@ public class ServiceDefInferTool {
 			return false;
 	}
 	public static it.csi.mddtools.servicedef.ServiceDef inferServiceDef(Class interfClass, ServiceDef originalModel, EObject baseTypes){
+		String codProd = originalModel.getCodProdotto();
+		String codComp = originalModel.getCodComponente();
+		String codServ = originalModel.getCodServizio();
 		EList<Type> baseTypesFromResource=null;
 		if (baseTypes != null){
 			if (baseTypes instanceof it.csi.mddtools.servicedef.BaseTypes){
@@ -258,7 +322,7 @@ public class ServiceDefInferTool {
 		Method [] methods = interfClass.getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
 			Method m = methods[i];
-			Operation op = inferOperation(m, userEntities, userExceptions, userArrays, basicTypesMap);
+			Operation op = inferOperation(m, userEntities, userExceptions, userArrays, basicTypesMap, codProd, codComp, codServ);
 			sd.getOperations().add(op);
 		}
 		
@@ -267,6 +331,7 @@ public class ServiceDefInferTool {
 		else
 			addAllTypes(types, userEntities, userArrays, userExceptions, basicTypesMap);
 		System.out.println("inferredModel:"+sd);
+		annotateServiceDef(sd, interfClass, null);
 		return sd;
 	}
 	

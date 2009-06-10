@@ -10,4 +10,12 @@
 	basicTypesModel="servicegen/src/testmodel/basetypes.servicegen"
 	interfaceClass="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService" 
     />
+    
+    <!--<cartridge file="it/csi/mddtools/servicedef/workflow/ServiceDefInferrer.oaw" 
+	
+	inModel="servicegen/src/testmodel/empty.servicedef" 
+	outModel="servicegen/src/testmodel/empty_new2.servicedef"
+	basicTypesModel="servicegen/src/testmodel/basetypes.servicegen"
+	interfaceClass="it.csi.visureol.visanag.interfacecsi.visuracittadini.VisuraCittadiniSrv" 
+    />-->
 </workflow>
