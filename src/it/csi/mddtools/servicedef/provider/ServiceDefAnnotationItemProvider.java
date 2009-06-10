@@ -4,12 +4,12 @@
  *
  * $Id$
  */
-package it.csi.mddtools.typedef.provider;
+package it.csi.mddtools.servicedef.provider;
 
 
-import it.csi.mddtools.typedef.Type;
-import it.csi.mddtools.typedef.TypedefFactory;
-import it.csi.mddtools.typedef.TypedefPackage;
+import it.csi.mddtools.servicedef.ServiceDefAnnotation;
+import it.csi.mddtools.servicedef.ServicedefFactory;
+import it.csi.mddtools.servicedef.ServicedefPackage;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -32,12 +33,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.typedef.Type} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.ServiceDefAnnotation} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class TypeItemProvider
+public class ServiceDefAnnotationItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -51,7 +52,7 @@ public class TypeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeItemProvider(AdapterFactory adapterFactory) {
+	public ServiceDefAnnotationItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,25 +67,25 @@ public class TypeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Source feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Type_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Type_name_feature", "_UI_Type_type"),
-				 TypedefPackage.Literals.TYPE__NAME,
+				 getString("_UI_ServiceDefAnnotation_source_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceDefAnnotation_source_feature", "_UI_ServiceDefAnnotation_type"),
+				 ServicedefPackage.Literals.SERVICE_DEF_ANNOTATION__SOURCE,
 				 true,
 				 false,
 				 false,
@@ -105,7 +106,7 @@ public class TypeItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TypedefPackage.Literals.TYPE__ANNOTATIONS);
+			childrenFeatures.add(ServicedefPackage.Literals.SERVICE_DEF_ANNOTATION__DETAILS);
 		}
 		return childrenFeatures;
 	}
@@ -124,6 +125,17 @@ public class TypeItemProvider
 	}
 
 	/**
+	 * This returns ServiceDefAnnotation.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ServiceDefAnnotation"));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,10 +143,10 @@ public class TypeItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Type)object).getName();
+		String label = ((ServiceDefAnnotation)object).getSource();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Type_type") :
-			getString("_UI_Type_type") + " " + label;
+			getString("_UI_ServiceDefAnnotation_type") :
+			getString("_UI_ServiceDefAnnotation_type") + " " + label;
 	}
 
 	/**
@@ -148,11 +160,11 @@ public class TypeItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Type.class)) {
-			case TypedefPackage.TYPE__NAME:
+		switch (notification.getFeatureID(ServiceDefAnnotation.class)) {
+			case ServicedefPackage.SERVICE_DEF_ANNOTATION__SOURCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case TypedefPackage.TYPE__ANNOTATIONS:
+			case ServicedefPackage.SERVICE_DEF_ANNOTATION__DETAILS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -172,8 +184,8 @@ public class TypeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(TypedefPackage.Literals.TYPE__ANNOTATIONS,
-				 TypedefFactory.eINSTANCE.createTypeAnnotation()));
+				(ServicedefPackage.Literals.SERVICE_DEF_ANNOTATION__DETAILS,
+				 ServicedefFactory.eINSTANCE.createSDAnnotationDetail()));
 	}
 
 	/**
@@ -184,7 +196,7 @@ public class TypeItemProvider
 	 */
 	@Override
 	public ResourceLocator getResourceLocator() {
-		return Typedef_metamodelEditPlugin.INSTANCE;
+		return Servicedef_metamodelEditPlugin.INSTANCE;
 	}
 
 }

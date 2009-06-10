@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.typedef.TypedefFactory
  * @model kind="package"
  * @generated
@@ -108,13 +111,22 @@ public interface TypedefPackage extends EPackage {
 	int TYPE__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__ANNOTATIONS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = 1;
+	int TYPE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
@@ -134,6 +146,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int CSI_DATATYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Code</b></em>' attribute.
@@ -180,6 +201,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int ENTITY__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
@@ -265,6 +295,15 @@ public interface TypedefPackage extends EPackage {
 	int TYPED_ARRAY__NAME = TYPE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Component Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -302,6 +341,15 @@ public interface TypedefPackage extends EPackage {
 	int EXCEPTION__NAME = TYPE__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Exception Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -320,6 +368,80 @@ public interface TypedefPackage extends EPackage {
 	int EXCEPTION_FEATURE_COUNT = TYPE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TypeAnnotationImpl <em>Type Annotation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TypeAnnotationImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypeAnnotation()
+	 * @generated
+	 */
+	int TYPE_ANNOTATION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ANNOTATION__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Details</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ANNOTATION__DETAILS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Type Annotation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ANNOTATION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TDAnnotationDetailImpl <em>TD Annotation Detail</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TDAnnotationDetailImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTDAnnotationDetail()
+	 * @generated
+	 */
+	int TD_ANNOTATION_DETAIL = 8;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TD_ANNOTATION_DETAIL__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TD_ANNOTATION_DETAIL__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>TD Annotation Detail</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TD_ANNOTATION_DETAIL_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -327,7 +449,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
 	 * @generated
 	 */
-	int CSI_DATATYPE_CODES = 7;
+	int CSI_DATATYPE_CODES = 9;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
@@ -337,7 +459,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
 	 * @generated
 	 */
-	int CSI_EXCEPTION_TYPES = 8;
+	int CSI_EXCEPTION_TYPES = 10;
 
 
 	/**
@@ -381,6 +503,17 @@ public interface TypedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getType_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.Type#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see it.csi.mddtools.typedef.Type#getAnnotations()
+	 * @see #getType()
+	 * @generated
+	 */
+	EReference getType_Annotations();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.CSIDatatype <em>CSI Datatype</em>}'.
@@ -521,6 +654,70 @@ public interface TypedefPackage extends EPackage {
 	EAttribute getException_ExceptionType();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TypeAnnotation <em>Type Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Annotation</em>'.
+	 * @see it.csi.mddtools.typedef.TypeAnnotation
+	 * @generated
+	 */
+	EClass getTypeAnnotation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeAnnotation#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source</em>'.
+	 * @see it.csi.mddtools.typedef.TypeAnnotation#getSource()
+	 * @see #getTypeAnnotation()
+	 * @generated
+	 */
+	EAttribute getTypeAnnotation_Source();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.TypeAnnotation#getDetails <em>Details</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Details</em>'.
+	 * @see it.csi.mddtools.typedef.TypeAnnotation#getDetails()
+	 * @see #getTypeAnnotation()
+	 * @generated
+	 */
+	EReference getTypeAnnotation_Details();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TDAnnotationDetail <em>TD Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>TD Annotation Detail</em>'.
+	 * @see it.csi.mddtools.typedef.TDAnnotationDetail
+	 * @generated
+	 */
+	EClass getTDAnnotationDetail();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TDAnnotationDetail#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.csi.mddtools.typedef.TDAnnotationDetail#getKey()
+	 * @see #getTDAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getTDAnnotationDetail_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TDAnnotationDetail#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.typedef.TDAnnotationDetail#getValue()
+	 * @see #getTDAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getTDAnnotationDetail_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -597,6 +794,14 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE__NAME = eINSTANCE.getType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE__ANNOTATIONS = eINSTANCE.getType_Annotations();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
@@ -711,6 +916,58 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute EXCEPTION__EXCEPTION_TYPE = eINSTANCE.getException_ExceptionType();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TypeAnnotationImpl <em>Type Annotation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TypeAnnotationImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypeAnnotation()
+		 * @generated
+		 */
+		EClass TYPE_ANNOTATION = eINSTANCE.getTypeAnnotation();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_ANNOTATION__SOURCE = eINSTANCE.getTypeAnnotation_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Details</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_ANNOTATION__DETAILS = eINSTANCE.getTypeAnnotation_Details();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TDAnnotationDetailImpl <em>TD Annotation Detail</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TDAnnotationDetailImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTDAnnotationDetail()
+		 * @generated
+		 */
+		EClass TD_ANNOTATION_DETAIL = eINSTANCE.getTDAnnotationDetail();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TD_ANNOTATION_DETAIL__KEY = eINSTANCE.getTDAnnotationDetail_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TD_ANNOTATION_DETAIL__VALUE = eINSTANCE.getTDAnnotationDetail_Value();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.

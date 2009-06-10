@@ -720,6 +720,52 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.ServiceDefAnnotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ServiceDefAnnotationItemProvider serviceDefAnnotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.ServiceDefAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createServiceDefAnnotationAdapter() {
+		if (serviceDefAnnotationItemProvider == null) {
+			serviceDefAnnotationItemProvider = new ServiceDefAnnotationItemProvider(this);
+		}
+
+		return serviceDefAnnotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.SDAnnotationDetail} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SDAnnotationDetailItemProvider sdAnnotationDetailItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.SDAnnotationDetail}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSDAnnotationDetailAdapter() {
+		if (sdAnnotationDetailItemProvider == null) {
+			sdAnnotationDetailItemProvider = new SDAnnotationDetailItemProvider(this);
+		}
+
+		return sdAnnotationDetailItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -846,6 +892,8 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (andFeatureConstraintItemProvider != null) andFeatureConstraintItemProvider.dispose();
 		if (orFeatureConstraintItemProvider != null) orFeatureConstraintItemProvider.dispose();
 		if (notFeatureConstraintItemProvider != null) notFeatureConstraintItemProvider.dispose();
+		if (serviceDefAnnotationItemProvider != null) serviceDefAnnotationItemProvider.dispose();
+		if (sdAnnotationDetailItemProvider != null) sdAnnotationDetailItemProvider.dispose();
 	}
 
 }

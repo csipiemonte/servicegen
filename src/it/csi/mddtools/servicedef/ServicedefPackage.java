@@ -219,13 +219,22 @@ public interface ServicedefPackage extends EPackage {
 	int SERVICE_DEF__COD_COMPONENTE = 12;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF__ANNOTATIONS = 13;
+
+	/**
 	 * The number of structural features of the '<em>Service Def</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_DEF_FEATURE_COUNT = 13;
+	int SERVICE_DEF_FEATURE_COUNT = 14;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.
@@ -1253,6 +1262,80 @@ public interface ServicedefPackage extends EPackage {
 	int NOT_FEATURE_CONSTRAINT_FEATURE_COUNT = COMPOSITE_FEATURE_CONSTRAINT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ServiceDefAnnotationImpl <em>Service Def Annotation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.ServiceDefAnnotationImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getServiceDefAnnotation()
+	 * @generated
+	 */
+	int SERVICE_DEF_ANNOTATION = 37;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF_ANNOTATION__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Details</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF_ANNOTATION__DETAILS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Service Def Annotation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF_ANNOTATION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.SDAnnotationDetailImpl <em>SD Annotation Detail</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.SDAnnotationDetailImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSDAnnotationDetail()
+	 * @generated
+	 */
+	int SD_ANNOTATION_DETAIL = 38;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SD_ANNOTATION_DETAIL__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SD_ANNOTATION_DETAIL__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>SD Annotation Detail</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SD_ANNOTATION_DETAIL_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1260,7 +1343,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 37;
+	int OP_TYPE_ENUM = 39;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1270,7 +1353,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 38;
+	int TX_TYPE_ENUM = 40;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1280,7 +1363,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 39;
+	int SRV_TYPE_ENUM = 41;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1290,7 +1373,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 40;
+	int AUTH_LEVEL_ENUM = 42;
 
 
 	/**
@@ -1466,6 +1549,17 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getServiceDef_CodComponente();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.ServiceDef#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDef#getAnnotations()
+	 * @see #getServiceDef()
+	 * @generated
+	 */
+	EReference getServiceDef_Annotations();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ServiceBinding <em>Service Binding</em>}'.
@@ -2159,6 +2253,70 @@ public interface ServicedefPackage extends EPackage {
 	EClass getNOTFeatureConstraint();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ServiceDefAnnotation <em>Service Def Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Service Def Annotation</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDefAnnotation
+	 * @generated
+	 */
+	EClass getServiceDefAnnotation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ServiceDefAnnotation#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDefAnnotation#getSource()
+	 * @see #getServiceDefAnnotation()
+	 * @generated
+	 */
+	EAttribute getServiceDefAnnotation_Source();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.ServiceDefAnnotation#getDetails <em>Details</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Details</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDefAnnotation#getDetails()
+	 * @see #getServiceDefAnnotation()
+	 * @generated
+	 */
+	EReference getServiceDefAnnotation_Details();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.SDAnnotationDetail <em>SD Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SD Annotation Detail</em>'.
+	 * @see it.csi.mddtools.servicedef.SDAnnotationDetail
+	 * @generated
+	 */
+	EClass getSDAnnotationDetail();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.SDAnnotationDetail#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.csi.mddtools.servicedef.SDAnnotationDetail#getKey()
+	 * @see #getSDAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getSDAnnotationDetail_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.SDAnnotationDetail#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.servicedef.SDAnnotationDetail#getValue()
+	 * @see #getSDAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getSDAnnotationDetail_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2351,6 +2509,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERVICE_DEF__COD_COMPONENTE = eINSTANCE.getServiceDef_CodComponente();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_DEF__ANNOTATIONS = eINSTANCE.getServiceDef_Annotations();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.
@@ -2949,6 +3115,58 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EClass NOT_FEATURE_CONSTRAINT = eINSTANCE.getNOTFeatureConstraint();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ServiceDefAnnotationImpl <em>Service Def Annotation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.ServiceDefAnnotationImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getServiceDefAnnotation()
+		 * @generated
+		 */
+		EClass SERVICE_DEF_ANNOTATION = eINSTANCE.getServiceDefAnnotation();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_DEF_ANNOTATION__SOURCE = eINSTANCE.getServiceDefAnnotation_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Details</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_DEF_ANNOTATION__DETAILS = eINSTANCE.getServiceDefAnnotation_Details();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.SDAnnotationDetailImpl <em>SD Annotation Detail</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.SDAnnotationDetailImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSDAnnotationDetail()
+		 * @generated
+		 */
+		EClass SD_ANNOTATION_DETAIL = eINSTANCE.getSDAnnotationDetail();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SD_ANNOTATION_DETAIL__KEY = eINSTANCE.getSDAnnotationDetail_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SD_ANNOTATION_DETAIL__VALUE = eINSTANCE.getSDAnnotationDetail_Value();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.

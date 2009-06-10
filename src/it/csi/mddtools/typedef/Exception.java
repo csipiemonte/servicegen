@@ -12,6 +12,10 @@ package it.csi.mddtools.typedef;
  * A representation of the model object '<em><b>Exception</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -33,6 +37,9 @@ public interface Exception extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Exception Type</em>' attribute.
 	 * @see it.csi.mddtools.typedef.CSIExceptionTypes
 	 * @see #setExceptionType(CSIExceptionTypes)

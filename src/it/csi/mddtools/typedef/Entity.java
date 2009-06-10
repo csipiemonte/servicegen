@@ -13,6 +13,10 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Entity</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -35,6 +39,9 @@ public interface Entity extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Features</em>' containment reference list.
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getEntity_Features()
 	 * @model containment="true"
@@ -51,6 +58,9 @@ public interface Entity extends Type {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versionuid</em>' attribute.
 	 * @see #setVersionuid(int)
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getEntity_Versionuid()

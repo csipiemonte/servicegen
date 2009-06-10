@@ -34,9 +34,11 @@ import it.csi.mddtools.servicedef.ParamConstraint;
 import it.csi.mddtools.servicedef.ParamValidator;
 import it.csi.mddtools.servicedef.RelativeConstraint;
 import it.csi.mddtools.servicedef.Role;
+import it.csi.mddtools.servicedef.SDAnnotationDetail;
 import it.csi.mddtools.servicedef.SOAPPABRBinding;
 import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.servicedef.ServiceDef;
+import it.csi.mddtools.servicedef.ServiceDefAnnotation;
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 import it.csi.mddtools.servicedef.SimpleFeatureConstraint;
@@ -331,6 +333,20 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass serviceDefAnnotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sdAnnotationDetailEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum opTypeEnumEEnum = null;
 
 	/**
@@ -567,6 +583,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 */
 	public EAttribute getServiceDef_CodComponente() {
 		return (EAttribute)serviceDefEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceDef_Annotations() {
+		return (EReference)serviceDefEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -1168,6 +1193,60 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getServiceDefAnnotation() {
+		return serviceDefAnnotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getServiceDefAnnotation_Source() {
+		return (EAttribute)serviceDefAnnotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getServiceDefAnnotation_Details() {
+		return (EReference)serviceDefAnnotationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSDAnnotationDetail() {
+		return sdAnnotationDetailEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSDAnnotationDetail_Key() {
+		return (EAttribute)sdAnnotationDetailEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSDAnnotationDetail_Value() {
+		return (EAttribute)sdAnnotationDetailEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOpTypeEnum() {
 		return opTypeEnumEEnum;
 	}
@@ -1244,6 +1323,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEReference(serviceDefEClass, SERVICE_DEF__ROLES);
 		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_PRODOTTO);
 		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_COMPONENTE);
+		createEReference(serviceDefEClass, SERVICE_DEF__ANNOTATIONS);
 
 		serviceBindingEClass = createEClass(SERVICE_BINDING);
 		createEAttribute(serviceBindingEClass, SERVICE_BINDING__COD_BINDING);
@@ -1346,6 +1426,14 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		notFeatureConstraintEClass = createEClass(NOT_FEATURE_CONSTRAINT);
 
+		serviceDefAnnotationEClass = createEClass(SERVICE_DEF_ANNOTATION);
+		createEAttribute(serviceDefAnnotationEClass, SERVICE_DEF_ANNOTATION__SOURCE);
+		createEReference(serviceDefAnnotationEClass, SERVICE_DEF_ANNOTATION__DETAILS);
+
+		sdAnnotationDetailEClass = createEClass(SD_ANNOTATION_DETAIL);
+		createEAttribute(sdAnnotationDetailEClass, SD_ANNOTATION_DETAIL__KEY);
+		createEAttribute(sdAnnotationDetailEClass, SD_ANNOTATION_DETAIL__VALUE);
+
 		// Create enums
 		opTypeEnumEEnum = createEEnum(OP_TYPE_ENUM);
 		txTypeEnumEEnum = createEEnum(TX_TYPE_ENUM);
@@ -1428,6 +1516,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEReference(getServiceDef_Roles(), this.getRole(), null, "roles", null, 0, -1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceDef_CodProdotto(), ecorePackage.getEString(), "codProdotto", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceDef_CodComponente(), ecorePackage.getEString(), "codComponente", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceDef_Annotations(), this.getServiceDefAnnotation(), null, "annotations", null, 0, -1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceBindingEClass, ServiceBinding.class, "ServiceBinding", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceBinding_CodBinding(), ecorePackage.getEString(), "codBinding", null, 0, 1, ServiceBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1529,6 +1618,14 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEClass(orFeatureConstraintEClass, ORFeatureConstraint.class, "ORFeatureConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(notFeatureConstraintEClass, NOTFeatureConstraint.class, "NOTFeatureConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(serviceDefAnnotationEClass, ServiceDefAnnotation.class, "ServiceDefAnnotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getServiceDefAnnotation_Source(), ecorePackage.getEString(), "source", null, 0, 1, ServiceDefAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceDefAnnotation_Details(), this.getSDAnnotationDetail(), null, "details", null, 0, -1, ServiceDefAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sdAnnotationDetailEClass, SDAnnotationDetail.class, "SDAnnotationDetail", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSDAnnotationDetail_Key(), ecorePackage.getEString(), "key", null, 0, 1, SDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getSDAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, SDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(opTypeEnumEEnum, OpTypeEnum.class, "OpTypeEnum");

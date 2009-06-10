@@ -214,6 +214,52 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.TypeAnnotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeAnnotationItemProvider typeAnnotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.TypeAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeAnnotationAdapter() {
+		if (typeAnnotationItemProvider == null) {
+			typeAnnotationItemProvider = new TypeAnnotationItemProvider(this);
+		}
+
+		return typeAnnotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.TDAnnotationDetail} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TDAnnotationDetailItemProvider tdAnnotationDetailItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.TDAnnotationDetail}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTDAnnotationDetailAdapter() {
+		if (tdAnnotationDetailItemProvider == null) {
+			tdAnnotationDetailItemProvider = new TDAnnotationDetailItemProvider(this);
+		}
+
+		return tdAnnotationDetailItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -318,6 +364,8 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 		if (featureItemProvider != null) featureItemProvider.dispose();
 		if (typedArrayItemProvider != null) typedArrayItemProvider.dispose();
 		if (exceptionItemProvider != null) exceptionItemProvider.dispose();
+		if (typeAnnotationItemProvider != null) typeAnnotationItemProvider.dispose();
+		if (tdAnnotationDetailItemProvider != null) tdAnnotationDetailItemProvider.dispose();
 	}
 
 }

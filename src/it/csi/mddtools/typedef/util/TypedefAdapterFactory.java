@@ -10,7 +10,9 @@ import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -104,6 +106,14 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseException(it.csi.mddtools.typedef.Exception object) {
 				return createExceptionAdapter();
+			}
+			@Override
+			public Adapter caseTypeAnnotation(TypeAnnotation object) {
+				return createTypeAnnotationAdapter();
+			}
+			@Override
+			public Adapter caseTDAnnotationDetail(TDAnnotationDetail object) {
+				return createTDAnnotationDetailAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -220,6 +230,34 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExceptionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.TypeAnnotation <em>Type Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.TypeAnnotation
+	 * @generated
+	 */
+	public Adapter createTypeAnnotationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.TDAnnotationDetail <em>TD Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.TDAnnotationDetail
+	 * @generated
+	 */
+	public Adapter createTDAnnotationDetailAdapter() {
 		return null;
 	}
 

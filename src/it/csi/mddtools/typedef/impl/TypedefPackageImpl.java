@@ -12,7 +12,9 @@ import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -80,6 +82,20 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * @generated
 	 */
 	private EClass exceptionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeAnnotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tdAnnotationDetailEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -204,6 +220,15 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getType_Annotations() {
+		return (EReference)typeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCSIDatatype() {
 		return csiDatatypeEClass;
 	}
@@ -321,6 +346,60 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTypeAnnotation() {
+		return typeAnnotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeAnnotation_Source() {
+		return (EAttribute)typeAnnotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypeAnnotation_Details() {
+		return (EReference)typeAnnotationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTDAnnotationDetail() {
+		return tdAnnotationDetailEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTDAnnotationDetail_Key() {
+		return (EAttribute)tdAnnotationDetailEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTDAnnotationDetail_Value() {
+		return (EAttribute)tdAnnotationDetailEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCSIDatatypeCodes() {
 		return csiDatatypeCodesEEnum;
 	}
@@ -367,6 +446,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 
 		typeEClass = createEClass(TYPE);
 		createEAttribute(typeEClass, TYPE__NAME);
+		createEReference(typeEClass, TYPE__ANNOTATIONS);
 
 		csiDatatypeEClass = createEClass(CSI_DATATYPE);
 		createEAttribute(csiDatatypeEClass, CSI_DATATYPE__CODE);
@@ -385,6 +465,14 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 
 		exceptionEClass = createEClass(EXCEPTION);
 		createEAttribute(exceptionEClass, EXCEPTION__EXCEPTION_TYPE);
+
+		typeAnnotationEClass = createEClass(TYPE_ANNOTATION);
+		createEAttribute(typeAnnotationEClass, TYPE_ANNOTATION__SOURCE);
+		createEReference(typeAnnotationEClass, TYPE_ANNOTATION__DETAILS);
+
+		tdAnnotationDetailEClass = createEClass(TD_ANNOTATION_DETAIL);
+		createEAttribute(tdAnnotationDetailEClass, TD_ANNOTATION_DETAIL__KEY);
+		createEAttribute(tdAnnotationDetailEClass, TD_ANNOTATION_DETAIL__VALUE);
 
 		// Create enums
 		csiDatatypeCodesEEnum = createEEnum(CSI_DATATYPE_CODES);
@@ -430,6 +518,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getType_Annotations(), this.getTypeAnnotation(), null, "annotations", null, 0, -1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(csiDatatypeEClass, CSIDatatype.class, "CSIDatatype", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCSIDatatype_Code(), this.getCSIDatatypeCodes(), "code", null, 0, 1, CSIDatatype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -448,6 +537,14 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 
 		initEClass(exceptionEClass, it.csi.mddtools.typedef.Exception.class, "Exception", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getException_ExceptionType(), this.getCSIExceptionTypes(), "exceptionType", null, 0, 1, it.csi.mddtools.typedef.Exception.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeAnnotationEClass, TypeAnnotation.class, "TypeAnnotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeAnnotation_Source(), ecorePackage.getEString(), "source", null, 0, 1, TypeAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeAnnotation_Details(), this.getTDAnnotationDetail(), null, "details", null, 0, -1, TypeAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tdAnnotationDetailEClass, TDAnnotationDetail.class, "TDAnnotationDetail", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTDAnnotationDetail_Key(), ecorePackage.getEString(), "key", null, 0, 1, TDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTDAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, TDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(csiDatatypeCodesEEnum, CSIDatatypeCodes.class, "CSIDatatypeCodes");

@@ -6,74 +6,77 @@
  */
 package it.csi.mddtools.typedef.impl;
 
-import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Type</b></em>'.
+ * An implementation of the model object '<em><b>Type Annotation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getName <em>Name</em>}</li>
- *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link it.csi.mddtools.typedef.impl.TypeAnnotationImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link it.csi.mddtools.typedef.impl.TypeAnnotationImpl#getDetails <em>Details</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class TypeImpl extends EObjectImpl implements Type {
+public class TypeAnnotationImpl extends EObjectImpl implements TypeAnnotation {
 	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getSource()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String SOURCE_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
+	 * @see #getSource()
 	 * @generated
 	 * @ordered
 	 */
-	protected String name = NAME_EDEFAULT;
+	protected String source = SOURCE_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * The cached value of the '{@link #getDetails() <em>Details</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getAnnotations()
+	 * @see #getDetails()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeAnnotation> annotations;
+	protected EList<TDAnnotationDetail> details;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TypeImpl() {
+	protected TypeAnnotationImpl() {
 		super();
 	}
 
@@ -84,7 +87,7 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return TypedefPackage.Literals.TYPE;
+		return TypedefPackage.Literals.TYPE_ANNOTATION;
 	}
 
 	/**
@@ -92,8 +95,8 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
-		return name;
+	public String getSource() {
+		return source;
 	}
 
 	/**
@@ -101,11 +104,11 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
+	public void setSource(String newSource) {
+		String oldSource = source;
+		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.TYPE__NAME, oldName, name));
+			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.TYPE_ANNOTATION__SOURCE, oldSource, source));
 	}
 
 	/**
@@ -113,11 +116,11 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TypeAnnotation> getAnnotations() {
-		if (annotations == null) {
-			annotations = new EObjectContainmentEList<TypeAnnotation>(TypeAnnotation.class, this, TypedefPackage.TYPE__ANNOTATIONS);
+	public EList<TDAnnotationDetail> getDetails() {
+		if (details == null) {
+			details = new EObjectContainmentEList<TDAnnotationDetail>(TDAnnotationDetail.class, this, TypedefPackage.TYPE_ANNOTATION__DETAILS);
 		}
-		return annotations;
+		return details;
 	}
 
 	/**
@@ -128,8 +131,8 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TypedefPackage.TYPE__ANNOTATIONS:
-				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+			case TypedefPackage.TYPE_ANNOTATION__DETAILS:
+				return ((InternalEList<?>)getDetails()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -142,10 +145,10 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case TypedefPackage.TYPE__NAME:
-				return getName();
-			case TypedefPackage.TYPE__ANNOTATIONS:
-				return getAnnotations();
+			case TypedefPackage.TYPE_ANNOTATION__SOURCE:
+				return getSource();
+			case TypedefPackage.TYPE_ANNOTATION__DETAILS:
+				return getDetails();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,12 +162,12 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case TypedefPackage.TYPE__NAME:
-				setName((String)newValue);
+			case TypedefPackage.TYPE_ANNOTATION__SOURCE:
+				setSource((String)newValue);
 				return;
-			case TypedefPackage.TYPE__ANNOTATIONS:
-				getAnnotations().clear();
-				getAnnotations().addAll((Collection<? extends TypeAnnotation>)newValue);
+			case TypedefPackage.TYPE_ANNOTATION__DETAILS:
+				getDetails().clear();
+				getDetails().addAll((Collection<? extends TDAnnotationDetail>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -178,11 +181,11 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case TypedefPackage.TYPE__NAME:
-				setName(NAME_EDEFAULT);
+			case TypedefPackage.TYPE_ANNOTATION__SOURCE:
+				setSource(SOURCE_EDEFAULT);
 				return;
-			case TypedefPackage.TYPE__ANNOTATIONS:
-				getAnnotations().clear();
+			case TypedefPackage.TYPE_ANNOTATION__DETAILS:
+				getDetails().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -196,10 +199,10 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case TypedefPackage.TYPE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case TypedefPackage.TYPE__ANNOTATIONS:
-				return annotations != null && !annotations.isEmpty();
+			case TypedefPackage.TYPE_ANNOTATION__SOURCE:
+				return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
+			case TypedefPackage.TYPE_ANNOTATION__DETAILS:
+				return details != null && !details.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -214,10 +217,10 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
+		result.append(" (source: ");
+		result.append(source);
 		result.append(')');
 		return result.toString();
 	}
 
-} //TypeImpl
+} //TypeAnnotationImpl

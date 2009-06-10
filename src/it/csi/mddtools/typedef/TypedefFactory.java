@@ -80,6 +80,24 @@ public interface TypedefFactory extends EFactory {
 	it.csi.mddtools.typedef.Exception createException();
 
 	/**
+	 * Returns a new object of class '<em>Type Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Annotation</em>'.
+	 * @generated
+	 */
+	TypeAnnotation createTypeAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>TD Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>TD Annotation Detail</em>'.
+	 * @generated
+	 */
+	TDAnnotationDetail createTDAnnotationDetail();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -89,6 +89,8 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.AND_FEATURE_CONSTRAINT: return createANDFeatureConstraint();
 			case ServicedefPackage.OR_FEATURE_CONSTRAINT: return createORFeatureConstraint();
 			case ServicedefPackage.NOT_FEATURE_CONSTRAINT: return createNOTFeatureConstraint();
+			case ServicedefPackage.SERVICE_DEF_ANNOTATION: return createServiceDefAnnotation();
+			case ServicedefPackage.SD_ANNOTATION_DETAIL: return createSDAnnotationDetail();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -414,6 +416,26 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public NOTFeatureConstraint createNOTFeatureConstraint() {
 		NOTFeatureConstraintImpl notFeatureConstraint = new NOTFeatureConstraintImpl();
 		return notFeatureConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ServiceDefAnnotation createServiceDefAnnotation() {
+		ServiceDefAnnotationImpl serviceDefAnnotation = new ServiceDefAnnotationImpl();
+		return serviceDefAnnotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SDAnnotationDetail createSDAnnotationDetail() {
+		SDAnnotationDetailImpl sdAnnotationDetail = new SDAnnotationDetailImpl();
+		return sdAnnotationDetail;
 	}
 
 	/**

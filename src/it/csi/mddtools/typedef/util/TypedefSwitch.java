@@ -10,7 +10,9 @@ import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
+import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -139,6 +141,18 @@ public class TypedefSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TypedefPackage.TYPE_ANNOTATION: {
+				TypeAnnotation typeAnnotation = (TypeAnnotation)theEObject;
+				T result = caseTypeAnnotation(typeAnnotation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TypedefPackage.TD_ANNOTATION_DETAIL: {
+				TDAnnotationDetail tdAnnotationDetail = (TDAnnotationDetail)theEObject;
+				T result = caseTDAnnotationDetail(tdAnnotationDetail);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -245,6 +259,36 @@ public class TypedefSwitch<T> {
 	 * @generated
 	 */
 	public T caseException(it.csi.mddtools.typedef.Exception object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Annotation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeAnnotation(TypeAnnotation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>TD Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>TD Annotation Detail</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTDAnnotationDetail(TDAnnotationDetail object) {
 		return null;
 	}
 

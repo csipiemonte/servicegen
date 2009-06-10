@@ -278,6 +278,24 @@ public interface ServicedefFactory extends EFactory {
 	NOTFeatureConstraint createNOTFeatureConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Service Def Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Service Def Annotation</em>'.
+	 * @generated
+	 */
+	ServiceDefAnnotation createServiceDefAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>SD Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SD Annotation Detail</em>'.
+	 * @generated
+	 */
+	SDAnnotationDetail createSDAnnotationDetail();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

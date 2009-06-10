@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getRoles <em>Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getCodProdotto <em>Cod Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getCodComponente <em>Cod Componente</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.ServiceDef#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  *
@@ -389,5 +390,21 @@ public interface ServiceDef extends EObject {
 	 * @generated
 	 */
 	void setCodComponente(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Annotations</b></em>' containment reference list.
+	 * The list contents are of type {@link it.csi.mddtools.servicedef.ServiceDefAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Annotations</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Annotations</em>' containment reference list.
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Annotations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ServiceDefAnnotation> getAnnotations();
 
 } // ServiceDef

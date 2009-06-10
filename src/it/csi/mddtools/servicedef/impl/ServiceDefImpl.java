@@ -11,6 +11,7 @@ import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.Role;
 import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.servicedef.ServiceDef;
+import it.csi.mddtools.servicedef.ServiceDefAnnotation;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 import it.csi.mddtools.servicedef.SrvTypeEnum;
 import it.csi.mddtools.servicedef.Types;
@@ -51,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getRoles <em>Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodProdotto <em>Cod Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodComponente <em>Cod Componente</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
  * </p>
  *
@@ -276,6 +278,16 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * @ordered
 	 */
 	protected String codComponente = COD_COMPONENTE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnotations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ServiceDefAnnotation> annotations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -569,6 +581,18 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ServiceDefAnnotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new EObjectContainmentEList<ServiceDefAnnotation>(ServiceDefAnnotation.class, this, ServicedefPackage.SERVICE_DEF__ANNOTATIONS);
+		}
+		return annotations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -580,6 +604,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return basicSetTypes(null, msgs);
 			case ServicedefPackage.SERVICE_DEF__ROLES:
 				return ((InternalEList<?>)getRoles()).basicRemove(otherEnd, msgs);
+			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -618,6 +644,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return getCodProdotto();
 			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
 				return getCodComponente();
+			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+				return getAnnotations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -673,6 +701,10 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
 				setCodComponente((String)newValue);
 				return;
+			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+				getAnnotations().clear();
+				getAnnotations().addAll((Collection<? extends ServiceDefAnnotation>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -724,6 +756,9 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
 				setCodComponente(COD_COMPONENTE_EDEFAULT);
 				return;
+			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+				getAnnotations().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -762,6 +797,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return COD_PRODOTTO_EDEFAULT == null ? codProdotto != null : !COD_PRODOTTO_EDEFAULT.equals(codProdotto);
 			case ServicedefPackage.SERVICE_DEF__COD_COMPONENTE:
 				return COD_COMPONENTE_EDEFAULT == null ? codComponente != null : !COD_COMPONENTE_EDEFAULT.equals(codComponente);
+			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+				return annotations != null && !annotations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -17,6 +17,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>CSI Exception Types</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.typedef.TypedefPackage#getCSIExceptionTypes()
  * @model
  * @generated
@@ -60,6 +63,9 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #USER
 	 * @model
 	 * @generated
@@ -75,6 +81,9 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #SYSTEM
 	 * @model
 	 * @generated
@@ -90,6 +99,9 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #UNRECOVERABLE
 	 * @model
 	 * @generated

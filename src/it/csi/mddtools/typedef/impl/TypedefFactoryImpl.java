@@ -12,6 +12,8 @@ import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.TDAnnotationDetail;
+import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -75,6 +77,8 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 			case TypedefPackage.FEATURE: return createFeature();
 			case TypedefPackage.TYPED_ARRAY: return createTypedArray();
 			case TypedefPackage.EXCEPTION: return createException();
+			case TypedefPackage.TYPE_ANNOTATION: return createTypeAnnotation();
+			case TypedefPackage.TD_ANNOTATION_DETAIL: return createTDAnnotationDetail();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -172,6 +176,26 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 	public it.csi.mddtools.typedef.Exception createException() {
 		ExceptionImpl exception = new ExceptionImpl();
 		return exception;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeAnnotation createTypeAnnotation() {
+		TypeAnnotationImpl typeAnnotation = new TypeAnnotationImpl();
+		return typeAnnotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TDAnnotationDetail createTDAnnotationDetail() {
+		TDAnnotationDetailImpl tdAnnotationDetail = new TDAnnotationDetailImpl();
+		return tdAnnotationDetail;
 	}
 
 	/**

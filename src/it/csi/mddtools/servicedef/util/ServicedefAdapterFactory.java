@@ -220,6 +220,14 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createNOTFeatureConstraintAdapter();
 			}
 			@Override
+			public Adapter caseServiceDefAnnotation(ServiceDefAnnotation object) {
+				return createServiceDefAnnotationAdapter();
+			}
+			@Override
+			public Adapter caseSDAnnotationDetail(SDAnnotationDetail object) {
+				return createSDAnnotationDetailAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -754,6 +762,34 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNOTFeatureConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.ServiceDefAnnotation <em>Service Def Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.ServiceDefAnnotation
+	 * @generated
+	 */
+	public Adapter createServiceDefAnnotationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.SDAnnotationDetail <em>SD Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.SDAnnotationDetail
+	 * @generated
+	 */
+	public Adapter createSDAnnotationDetailAdapter() {
 		return null;
 	}
 

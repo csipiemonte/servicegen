@@ -17,6 +17,9 @@ import org.eclipse.emf.common.util.Enumerator;
  * A representation of the literals of the enumeration '<em><b>CSI Datatype Codes</b></em>',
  * and utility methods for working with them.
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * [[ TODO - add documentation here ]]
+ * <!-- end-model-doc -->
  * @see it.csi.mddtools.typedef.TypedefPackage#getCSIDatatypeCodes()
  * @model
  * @generated
@@ -110,6 +113,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_INTEGER
 	 * @model name="CSIInteger"
 	 * @generated
@@ -125,6 +131,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_STRING
 	 * @model name="CSIString"
 	 * @generated
@@ -140,6 +149,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_FLOAT
 	 * @model name="CSIFloat"
 	 * @generated
@@ -155,6 +167,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_DOUBLE
 	 * @model name="CSIDouble"
 	 * @generated
@@ -170,6 +185,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_BOOLEAN
 	 * @model name="CSIBoolean"
 	 * @generated
@@ -185,6 +203,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_DATE
 	 * @model name="CSIDate"
 	 * @generated
@@ -200,6 +221,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_BYTE
 	 * @model name="CSIByte"
 	 * @generated
@@ -215,6 +239,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #CSI_LONG
 	 * @model name="CSILong"
 	 * @generated
