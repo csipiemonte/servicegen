@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="iride_pep" versione="1.0" codProdotto="iridev2" codComponente="iridepep">
+  <types>
+    <types xsi:type="typedef:Entity" name="dummy">
+      <features name="">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.1"/>
+      </features>
+    </types>
+  </types>
+</servicedef:ServiceDef>

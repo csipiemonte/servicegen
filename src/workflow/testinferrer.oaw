@@ -1,0 +1,13 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+    
+    
+    <cartridge file="it/csi/mddtools/servicedef/workflow/ServiceDefInferrer.oaw" 
+	
+	inModel="servicegen/src/testmodel/empty.servicedef" 
+	outModel="servicegen/src/testmodel/empty_new.servicedef"
+	basicTypesModel="servicegen/src/testmodel/basetypes.servicegen"
+	interfaceClass="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService" 
+    />
+</workflow>
