@@ -10,4 +10,16 @@
     <binding xsi:type="servicedef:EJBPABinding" href="toponomastica.servicedef#//@bindings.0"/>
     <selector/>
   </resources>
+  <resources xsi:type="appresources:PDPAServiceConnector" code="IRIDE2">
+    <annotations source="appresources">
+      <details key="csi-pd-plugin" value="ejb-1"/>
+    </annotations>
+    <annotations source="appresources">
+      <details key="repart-position" value="csipiemonte/iridev2/2.0.0"/>
+      <details key="repart-artifact" value="iridev2-pep-intf-2.0.0"/>
+    </annotations>
+    <serviceDef href="iridepep.servicedef#/"/>
+    <binding xsi:type="servicedef:EJBPABinding" href="iridepep.servicedef#//@bindings.0"/>
+    <selector/>
+  </resources>
 </appresources:ResourceSet>

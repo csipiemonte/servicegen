@@ -1,6 +1,7 @@
 «IMPORT servicegen»
 «IMPORT servicedef»
 «IMPORT typedef»
+«IMPORT appresources»
 
 «EXTENSION template::ServicegenExtensions»
 
@@ -795,6 +796,9 @@ axis-1.4.jar \
 commons-discovery-0.2.jar \
 commons-logging-1.0.3 \
 wsdl4j-1.5.1.jar \
+«LET getAllResourceConnectors() AS allRC-»
+«EXPAND rcLibName FOREACH allRC-»
+«ENDLET-»
 coop-trace-1.2.0.jar 
 
 wsfad.libs = wsadp-2.0.2.jar
@@ -841,6 +845,24 @@ web.enabled = true
 
 «ENDDEFINE»
 
+«DEFINE rcLibName FOR ResourceConnector»
+«ENDDEFINE»
+
+«DEFINE rcLibName FOR PDPAServiceConnector-»
+	«LET this.annotations.select(a|a.source=="appresources") AS allAppresAnnotations-»
+		«FOREACH allAppresAnnotations AS currAppresAnnotation-»
+		«LET currAppresAnnotation.details.select(ad|ad.key=="repart-position").first() AS repPosAD-»
+		«IF repPosAD!=null-»
+		«FOREACH currAppresAnnotation.details.select(ad|ad.key=="repart-artifact") AS repArtAD-»
+		«IF repArtAD!=null-»
+«repArtAD.value».jar \
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDIF-»
+		«ENDLET-»
+		«ENDFOREACH-»
+		«ENDLET-»
+«ENDDEFINE»
 
 «REM»
 ****************************************
@@ -907,6 +929,12 @@ creazione del file di configurazione IVY
 	    	<artifact name="svcflow-1.2.0" type="jar" />
 	    </dependency>
 	    
+	    «LET getAllResourceConnectors(this) AS allResConn-»
+	    «FOREACH allResConn.select(rc|rc.metaType==PDPAServiceConnector) AS currPDPARC-»
+	    «EXPAND pdpaIvyDependency FOR (PDPAServiceConnector)currPDPARC»
+	    «ENDFOREACH-»
+	    «ENDLET-»
+	    
 	    «IF this.targetPlatform.code==TargetPlatformCodes::WLS92»
         <!-- librerie specifiche della target platform WLS92 -->
 		<dependency org="bea" name="weblogic" rev="9.2.2.0">
@@ -957,6 +985,26 @@ creazione del file di configurazione IVY
 </ivysettings>
 «ENDFILE»
 
+«ENDDEFINE»
+
+«DEFINE pdpaIvyDependency FOR PDPAServiceConnector»
+		<!-- dipendenze necessarie per il PDPAServiceConnector [«code»] -->
+		«LET this.annotations.select(a|a.source=="appresources") AS allAppresAnnotations-»
+		«FOREACH allAppresAnnotations AS currAppresAnnotation-»
+		«LET currAppresAnnotation.details.select(ad|ad.key=="repart-position").first() AS repPosAD-»
+		«IF repPosAD!=null-»
+		<dependency org="«getRepartOrganization(repPosAD.value)»" name="«getRepartName(repPosAD.value)»" rev="«getRepartVer(repPosAD.value)»">
+		«FOREACH currAppresAnnotation.details.select(ad|ad.key=="repart-artifact") AS repArtAD-»
+		«IF repArtAD!=null-»
+			<artifact name="«repArtAD.value»" type="jar" />
+		«ENDIF-»
+		«ENDFOREACH-»
+		</dependency>
+		«ENDIF-»
+		«ENDLET-»
+		«ENDFOREACH-»
+		«ENDLET-»
+	    
 «ENDDEFINE»
 
 «REM»

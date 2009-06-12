@@ -462,3 +462,15 @@ String getProperty(String name) : JAVA
   
 List[ServiceDef] getProvidedServices(servicegen::SOABEModel model) : JAVA
 	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.getProvidedServices(it.csi.mddtools.servicegen.SOABEModel);
+	
+List[appresources::ResourceConnector] getAllResourceConnectors(servicegen::SOABEModel model) : JAVA
+	it.csi.mddtools.appresources.genutils.GenUtils.getAllResourceConnectors(it.csi.mddtools.servicegen.SOABEModel);
+
+String getRepartOrganization(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartOrganization(java.lang.String);
+   
+String getRepartName(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartName(java.lang.String);
+   
+String getRepartVer(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartVer(java.lang.String);
