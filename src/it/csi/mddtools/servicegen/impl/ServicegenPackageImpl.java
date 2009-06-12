@@ -449,8 +449,8 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getResourceBasedSC_ResourceSet() {
-		return (EReference)resourceBasedSCEClass.getEStructuralFeatures().get(0);
+	public EClass getResourceBasedSimpleSC() {
+		return resourceBasedSimpleSCEClass;
 	}
 
 	/**
@@ -458,8 +458,8 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getResourceBasedSimpleSC() {
-		return resourceBasedSimpleSCEClass;
+	public EReference getResourceBasedSimpleSC_ResourceSet() {
+		return (EReference)resourceBasedSimpleSCEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -478,6 +478,15 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 */
 	public EReference getOrchestrationFlowCompositeSC_Orchestrations() {
 		return (EReference)orchestrationFlowCompositeSCEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOrchestrationFlowCompositeSC_ResourceSet() {
+		return (EReference)orchestrationFlowCompositeSCEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -610,12 +619,13 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		compositeSCEClass = createEClass(COMPOSITE_SC);
 
 		resourceBasedSCEClass = createEClass(RESOURCE_BASED_SC);
-		createEReference(resourceBasedSCEClass, RESOURCE_BASED_SC__RESOURCE_SET);
 
 		resourceBasedSimpleSCEClass = createEClass(RESOURCE_BASED_SIMPLE_SC);
+		createEReference(resourceBasedSimpleSCEClass, RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET);
 
 		orchestrationFlowCompositeSCEClass = createEClass(ORCHESTRATION_FLOW_COMPOSITE_SC);
 		createEReference(orchestrationFlowCompositeSCEClass, ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS);
+		createEReference(orchestrationFlowCompositeSCEClass, ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET);
 
 		flowBasedSCEClass = createEClass(FLOW_BASED_SC);
 
@@ -710,13 +720,14 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 		initEClass(compositeSCEClass, CompositeSC.class, "CompositeSC", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(resourceBasedSCEClass, ResourceBasedSC.class, "ResourceBasedSC", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getResourceBasedSC_ResourceSet(), theAppresourcesPackage.getResourceSet(), null, "resourceSet", null, 0, 1, ResourceBasedSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(resourceBasedSCEClass, ResourceBasedSC.class, "ResourceBasedSC", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(resourceBasedSimpleSCEClass, ResourceBasedSimpleSC.class, "ResourceBasedSimpleSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getResourceBasedSimpleSC_ResourceSet(), theAppresourcesPackage.getResourceSet(), null, "resourceSet", null, 0, 1, ResourceBasedSimpleSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(orchestrationFlowCompositeSCEClass, OrchestrationFlowCompositeSC.class, "OrchestrationFlowCompositeSC", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOrchestrationFlowCompositeSC_Orchestrations(), theSvcorchPackage.getOrchestration(), null, "orchestrations", null, 0, -1, OrchestrationFlowCompositeSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrchestrationFlowCompositeSC_ResourceSet(), theAppresourcesPackage.getResourceSet(), null, "resourceSet", null, 0, 1, OrchestrationFlowCompositeSC.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(flowBasedSCEClass, FlowBasedSC.class, "FlowBasedSC", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -757,7 +768,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		   source, 
 		   new String[] {
 			 "documentation", "[[ TODO - add documentation here ]]"
-		   });													
+		   });												
 	}
 
 } //ServicegenPackageImpl

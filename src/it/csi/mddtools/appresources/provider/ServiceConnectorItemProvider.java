@@ -72,6 +72,7 @@ public class ServiceConnectorItemProvider
 
 			addServiceDefPropertyDescriptor(object);
 			addBindingPropertyDescriptor(object);
+			addUseRegistryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -146,6 +147,28 @@ public class ServiceConnectorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Use Registry feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addUseRegistryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceConnector_useRegistry_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceConnector_useRegistry_feature", "_UI_ServiceConnector_type"),
+				 AppresourcesPackage.Literals.SERVICE_CONNECTOR__USE_REGISTRY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -201,6 +224,9 @@ public class ServiceConnectorItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ServiceConnector.class)) {
+			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

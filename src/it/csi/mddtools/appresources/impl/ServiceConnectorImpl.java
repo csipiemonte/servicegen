@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getServiceDef <em>Service Def</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getBinding <em>Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getSelector <em>Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#isUseRegistry <em>Use Registry</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +67,26 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 	 * @ordered
 	 */
 	protected ServiceSelector selector;
+
+	/**
+	 * The default value of the '{@link #isUseRegistry() <em>Use Registry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseRegistry()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean USE_REGISTRY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isUseRegistry() <em>Use Registry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseRegistry()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean useRegistry = USE_REGISTRY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,6 +231,27 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUseRegistry() {
+		return useRegistry;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUseRegistry(boolean newUseRegistry) {
+		boolean oldUseRegistry = useRegistry;
+		useRegistry = newUseRegistry;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY, oldUseRegistry, useRegistry));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -235,6 +277,8 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 				return basicGetBinding();
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				return getSelector();
+			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
+				return isUseRegistry() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -255,6 +299,9 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 				return;
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				setSelector((ServiceSelector)newValue);
+				return;
+			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
+				setUseRegistry(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -277,6 +324,9 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				setSelector((ServiceSelector)null);
 				return;
+			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
+				setUseRegistry(USE_REGISTRY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -295,8 +345,26 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 				return binding != null;
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				return selector != null;
+			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
+				return useRegistry != USE_REGISTRY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (useRegistry: ");
+		result.append(useRegistry);
+		result.append(')');
+		return result.toString();
 	}
 
 } //ServiceConnectorImpl

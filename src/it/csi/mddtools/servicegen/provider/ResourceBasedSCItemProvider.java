@@ -7,7 +7,7 @@
 package it.csi.mddtools.servicegen.provider;
 
 
-import it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC;
+import it.csi.mddtools.servicegen.ResourceBasedSC;
 import it.csi.mddtools.servicegen.ServicegenPackage;
 
 import java.util.Collection;
@@ -16,23 +16,25 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.servicegen.ResourceBasedSC} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class OrchestrationFlowCompositeSCItemProvider
-	extends CompositeSCItemProvider
+public class ResourceBasedSCItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -45,7 +47,7 @@ public class OrchestrationFlowCompositeSCItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OrchestrationFlowCompositeSCItemProvider(AdapterFactory adapterFactory) {
+	public ResourceBasedSCItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,65 +62,8 @@ public class OrchestrationFlowCompositeSCItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOrchestrationsPropertyDescriptor(object);
-			addResourceSetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Orchestrations feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOrchestrationsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_OrchestrationFlowCompositeSC_orchestrations_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OrchestrationFlowCompositeSC_orchestrations_feature", "_UI_OrchestrationFlowCompositeSC_type"),
-				 ServicegenPackage.Literals.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Resource Set feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addResourceSetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_OrchestrationFlowCompositeSC_resourceSet_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OrchestrationFlowCompositeSC_resourceSet_feature", "_UI_OrchestrationFlowCompositeSC_type"),
-				 ServicegenPackage.Literals.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns OrchestrationFlowCompositeSC.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/OrchestrationFlowCompositeSC"));
 	}
 
 	/**
@@ -129,7 +74,7 @@ public class OrchestrationFlowCompositeSCItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_OrchestrationFlowCompositeSC_type");
+		return getString("_UI_ResourceBasedSC_type");
 	}
 
 	/**
@@ -155,6 +100,17 @@ public class OrchestrationFlowCompositeSCItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return Servicegen_metamodelEditPlugin.INSTANCE;
 	}
 
 }

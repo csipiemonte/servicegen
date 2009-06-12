@@ -13,7 +13,6 @@ import it.csi.mddtools.servicegen.ResourceBasedSimpleSC;
 import it.csi.mddtools.servicegen.ServicegenPackage;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -35,7 +34,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceBasedSimpleSC {
 	/**
-	 * The cached value of the '{@link #getResourceSet() <em>Resource Set</em>}' containment reference.
+	 * The cached value of the '{@link #getResourceSet() <em>Resource Set</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getResourceSet()
@@ -69,6 +68,14 @@ public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceB
 	 * @generated
 	 */
 	public ResourceSet getResourceSet() {
+		if (resourceSet != null && resourceSet.eIsProxy()) {
+			InternalEObject oldResourceSet = (InternalEObject)resourceSet;
+			resourceSet = (ResourceSet)eResolveProxy(oldResourceSet);
+			if (resourceSet != oldResourceSet) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, oldResourceSet, resourceSet));
+			}
+		}
 		return resourceSet;
 	}
 
@@ -77,14 +84,8 @@ public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetResourceSet(ResourceSet newResourceSet, NotificationChain msgs) {
-		ResourceSet oldResourceSet = resourceSet;
-		resourceSet = newResourceSet;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, oldResourceSet, newResourceSet);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public ResourceSet basicGetResourceSet() {
+		return resourceSet;
 	}
 
 	/**
@@ -93,31 +94,10 @@ public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceB
 	 * @generated
 	 */
 	public void setResourceSet(ResourceSet newResourceSet) {
-		if (newResourceSet != resourceSet) {
-			NotificationChain msgs = null;
-			if (resourceSet != null)
-				msgs = ((InternalEObject)resourceSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, null, msgs);
-			if (newResourceSet != null)
-				msgs = ((InternalEObject)newResourceSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, null, msgs);
-			msgs = basicSetResourceSet(newResourceSet, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, newResourceSet, newResourceSet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET:
-				return basicSetResourceSet(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+		ResourceSet oldResourceSet = resourceSet;
+		resourceSet = newResourceSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET, oldResourceSet, resourceSet));
 	}
 
 	/**
@@ -129,7 +109,8 @@ public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceB
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET:
-				return getResourceSet();
+				if (resolve) return getResourceSet();
+				return basicGetResourceSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,38 +157,6 @@ public class ResourceBasedSimpleSCImpl extends SimpleSCImpl implements ResourceB
 				return resourceSet != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ResourceBasedSC.class) {
-			switch (derivedFeatureID) {
-				case ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET: return ServicegenPackage.RESOURCE_BASED_SC__RESOURCE_SET;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ResourceBasedSC.class) {
-			switch (baseFeatureID) {
-				case ServicegenPackage.RESOURCE_BASED_SC__RESOURCE_SET: return ServicegenPackage.RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //ResourceBasedSimpleSCImpl

@@ -108,6 +108,14 @@ public class AppresourcesAdapterFactory extends AdapterFactoryImpl {
 				return createServiceConnectorAdapter();
 			}
 			@Override
+			public Adapter caseRCAnnotation(RCAnnotation object) {
+				return createRCAnnotationAdapter();
+			}
+			@Override
+			public Adapter caseRCAnnotationDetail(RCAnnotationDetail object) {
+				return createRCAnnotationDetailAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -250,6 +258,34 @@ public class AppresourcesAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createServiceConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.appresources.RCAnnotation <em>RC Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.appresources.RCAnnotation
+	 * @generated
+	 */
+	public Adapter createRCAnnotationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.appresources.RCAnnotationDetail <em>RC Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.appresources.RCAnnotationDetail
+	 * @generated
+	 */
+	public Adapter createRCAnnotationDetailAdapter() {
 		return null;
 	}
 

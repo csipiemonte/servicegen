@@ -12,6 +12,8 @@ import it.csi.mddtools.appresources.FileSystemConnector;
 import it.csi.mddtools.appresources.JDBCDataSourceConnector;
 import it.csi.mddtools.appresources.LdapJndiConnector;
 import it.csi.mddtools.appresources.PDPAServiceConnector;
+import it.csi.mddtools.appresources.RCAnnotation;
+import it.csi.mddtools.appresources.RCAnnotationDetail;
 import it.csi.mddtools.appresources.RPCWebServiceConnector;
 import it.csi.mddtools.appresources.ResourceConnector;
 import it.csi.mddtools.appresources.ResourceSet;
@@ -95,6 +97,20 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 * @generated
 	 */
 	private EClass serviceConnectorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rcAnnotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass rcAnnotationDetailEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -183,6 +199,15 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 */
 	public EAttribute getResourceConnector_Code() {
 		return (EAttribute)resourceConnectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getResourceConnector_Annotations() {
+		return (EReference)resourceConnectorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -361,6 +386,69 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getServiceConnector_UseRegistry() {
+		return (EAttribute)serviceConnectorEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRCAnnotation() {
+		return rcAnnotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRCAnnotation_Source() {
+		return (EAttribute)rcAnnotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRCAnnotation_Details() {
+		return (EReference)rcAnnotationEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRCAnnotationDetail() {
+		return rcAnnotationDetailEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRCAnnotationDetail_Key() {
+		return (EAttribute)rcAnnotationDetailEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRCAnnotationDetail_Value() {
+		return (EAttribute)rcAnnotationDetailEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AppresourcesFactory getAppresourcesFactory() {
 		return (AppresourcesFactory)getEFactoryInstance();
 	}
@@ -386,6 +474,7 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		// Create classes and their features
 		resourceConnectorEClass = createEClass(RESOURCE_CONNECTOR);
 		createEAttribute(resourceConnectorEClass, RESOURCE_CONNECTOR__CODE);
+		createEReference(resourceConnectorEClass, RESOURCE_CONNECTOR__ANNOTATIONS);
 
 		pdpaServiceConnectorEClass = createEClass(PDPA_SERVICE_CONNECTOR);
 
@@ -413,6 +502,15 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__SERVICE_DEF);
 		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__BINDING);
 		createEReference(serviceConnectorEClass, SERVICE_CONNECTOR__SELECTOR);
+		createEAttribute(serviceConnectorEClass, SERVICE_CONNECTOR__USE_REGISTRY);
+
+		rcAnnotationEClass = createEClass(RC_ANNOTATION);
+		createEAttribute(rcAnnotationEClass, RC_ANNOTATION__SOURCE);
+		createEReference(rcAnnotationEClass, RC_ANNOTATION__DETAILS);
+
+		rcAnnotationDetailEClass = createEClass(RC_ANNOTATION_DETAIL);
+		createEAttribute(rcAnnotationDetailEClass, RC_ANNOTATION_DETAIL__KEY);
+		createEAttribute(rcAnnotationDetailEClass, RC_ANNOTATION_DETAIL__VALUE);
 	}
 
 	/**
@@ -456,6 +554,7 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		// Initialize classes and features; add operations and parameters
 		initEClass(resourceConnectorEClass, ResourceConnector.class, "ResourceConnector", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getResourceConnector_Code(), ecorePackage.getEString(), "code", null, 0, 1, ResourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getResourceConnector_Annotations(), this.getRCAnnotation(), null, "annotations", null, 0, -1, ResourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pdpaServiceConnectorEClass, PDPAServiceConnector.class, "PDPAServiceConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -483,6 +582,15 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		initEReference(getServiceConnector_ServiceDef(), theServicedefPackage.getServiceDef(), null, "serviceDef", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getServiceConnector_Binding(), theServicedefPackage.getServiceBinding(), null, "binding", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getServiceConnector_Selector(), this.getServiceSelector(), null, "selector", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceConnector_UseRegistry(), ecorePackage.getEBoolean(), "useRegistry", null, 0, 1, ServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(rcAnnotationEClass, RCAnnotation.class, "RCAnnotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRCAnnotation_Source(), ecorePackage.getEString(), "source", null, 0, 1, RCAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRCAnnotation_Details(), this.getRCAnnotationDetail(), null, "details", null, 0, -1, RCAnnotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(rcAnnotationDetailEClass, RCAnnotationDetail.class, "RCAnnotationDetail", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRCAnnotationDetail_Key(), ecorePackage.getEString(), "key", null, 0, 1, RCAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRCAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, RCAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

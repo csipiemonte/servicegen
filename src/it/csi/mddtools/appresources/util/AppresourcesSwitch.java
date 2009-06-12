@@ -149,6 +149,18 @@ public class AppresourcesSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AppresourcesPackage.RC_ANNOTATION: {
+				RCAnnotation rcAnnotation = (RCAnnotation)theEObject;
+				T result = caseRCAnnotation(rcAnnotation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AppresourcesPackage.RC_ANNOTATION_DETAIL: {
+				RCAnnotationDetail rcAnnotationDetail = (RCAnnotationDetail)theEObject;
+				T result = caseRCAnnotationDetail(rcAnnotationDetail);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -285,6 +297,36 @@ public class AppresourcesSwitch<T> {
 	 * @generated
 	 */
 	public T caseServiceConnector(ServiceConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>RC Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>RC Annotation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRCAnnotation(RCAnnotation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>RC Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>RC Annotation Detail</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRCAnnotationDetail(RCAnnotationDetail object) {
 		return null;
 	}
 

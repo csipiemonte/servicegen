@@ -67,6 +67,8 @@ public class AppresourcesFactoryImpl extends EFactoryImpl implements Appresource
 			case AppresourcesPackage.RPC_WEB_SERVICE_CONNECTOR: return createRPCWebServiceConnector();
 			case AppresourcesPackage.SERVICE_SELECTOR: return createServiceSelector();
 			case AppresourcesPackage.RESOURCE_SET: return createResourceSet();
+			case AppresourcesPackage.RC_ANNOTATION: return createRCAnnotation();
+			case AppresourcesPackage.RC_ANNOTATION_DETAIL: return createRCAnnotationDetail();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -140,6 +142,26 @@ public class AppresourcesFactoryImpl extends EFactoryImpl implements Appresource
 	public ResourceSet createResourceSet() {
 		ResourceSetImpl resourceSet = new ResourceSetImpl();
 		return resourceSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RCAnnotation createRCAnnotation() {
+		RCAnnotationImpl rcAnnotation = new RCAnnotationImpl();
+		return rcAnnotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RCAnnotationDetail createRCAnnotationDetail() {
+		RCAnnotationDetailImpl rcAnnotationDetail = new RCAnnotationDetailImpl();
+		return rcAnnotationDetail;
 	}
 
 	/**

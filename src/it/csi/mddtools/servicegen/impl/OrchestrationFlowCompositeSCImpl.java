@@ -14,15 +14,18 @@ import it.csi.mddtools.servicegen.ResourceBasedSC;
 import it.csi.mddtools.servicegen.ServicegenPackage;
 
 import it.csi.mddtools.svcorch.Orchestration;
+
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
@@ -32,24 +35,14 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getResourceSet <em>Resource Set</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getOrchestrations <em>Orchestrations</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements OrchestrationFlowCompositeSC {
-	/**
-	 * The cached value of the '{@link #getResourceSet() <em>Resource Set</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getResourceSet()
-	 * @generated
-	 * @ordered
-	 */
-	protected ResourceSet resourceSet;
-
 	/**
 	 * The cached value of the '{@link #getOrchestrations() <em>Orchestrations</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -59,6 +52,16 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * @ordered
 	 */
 	protected EList<Orchestration> orchestrations;
+
+	/**
+	 * The cached value of the '{@link #getResourceSet() <em>Resource Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResourceSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected ResourceSet resourceSet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -85,6 +88,14 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * @generated
 	 */
 	public ResourceSet getResourceSet() {
+		if (resourceSet != null && resourceSet.eIsProxy()) {
+			InternalEObject oldResourceSet = (InternalEObject)resourceSet;
+			resourceSet = (ResourceSet)eResolveProxy(oldResourceSet);
+			if (resourceSet != oldResourceSet) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, oldResourceSet, resourceSet));
+			}
+		}
 		return resourceSet;
 	}
 
@@ -93,14 +104,8 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetResourceSet(ResourceSet newResourceSet, NotificationChain msgs) {
-		ResourceSet oldResourceSet = resourceSet;
-		resourceSet = newResourceSet;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, oldResourceSet, newResourceSet);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public ResourceSet basicGetResourceSet() {
+		return resourceSet;
 	}
 
 	/**
@@ -109,17 +114,10 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * @generated
 	 */
 	public void setResourceSet(ResourceSet newResourceSet) {
-		if (newResourceSet != resourceSet) {
-			NotificationChain msgs = null;
-			if (resourceSet != null)
-				msgs = ((InternalEObject)resourceSet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, null, msgs);
-			if (newResourceSet != null)
-				msgs = ((InternalEObject)newResourceSet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, null, msgs);
-			msgs = basicSetResourceSet(newResourceSet, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, newResourceSet, newResourceSet));
+		ResourceSet oldResourceSet = resourceSet;
+		resourceSet = newResourceSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET, oldResourceSet, resourceSet));
 	}
 
 	/**
@@ -140,26 +138,13 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
-				return basicSetResourceSet(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
-				return getResourceSet();
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
 				return getOrchestrations();
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
+				if (resolve) return getResourceSet();
+				return basicGetResourceSet();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -173,12 +158,12 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
-				setResourceSet((ResourceSet)newValue);
-				return;
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
 				getOrchestrations().clear();
 				getOrchestrations().addAll((Collection<? extends Orchestration>)newValue);
+				return;
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
+				setResourceSet((ResourceSet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,11 +177,11 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
-				setResourceSet((ResourceSet)null);
-				return;
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
 				getOrchestrations().clear();
+				return;
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
+				setResourceSet((ResourceSet)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -210,54 +195,12 @@ public class OrchestrationFlowCompositeSCImpl extends CompositeSCImpl implements
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
-				return resourceSet != null;
 			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS:
 				return orchestrations != null && !orchestrations.isEmpty();
+			case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET:
+				return resourceSet != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == FlowBasedSC.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == ResourceBasedSC.class) {
-			switch (derivedFeatureID) {
-				case ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET: return ServicegenPackage.RESOURCE_BASED_SC__RESOURCE_SET;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == FlowBasedSC.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == ResourceBasedSC.class) {
-			switch (baseFeatureID) {
-				case ServicegenPackage.RESOURCE_BASED_SC__RESOURCE_SET: return ServicegenPackage.ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //OrchestrationFlowCompositeSCImpl

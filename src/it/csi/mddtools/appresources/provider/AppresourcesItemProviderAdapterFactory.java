@@ -237,6 +237,52 @@ public class AppresourcesItemProviderAdapterFactory extends AppresourcesAdapterF
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.appresources.RCAnnotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RCAnnotationItemProvider rcAnnotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.appresources.RCAnnotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRCAnnotationAdapter() {
+		if (rcAnnotationItemProvider == null) {
+			rcAnnotationItemProvider = new RCAnnotationItemProvider(this);
+		}
+
+		return rcAnnotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.appresources.RCAnnotationDetail} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RCAnnotationDetailItemProvider rcAnnotationDetailItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.appresources.RCAnnotationDetail}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRCAnnotationDetailAdapter() {
+		if (rcAnnotationDetailItemProvider == null) {
+			rcAnnotationDetailItemProvider = new RCAnnotationDetailItemProvider(this);
+		}
+
+		return rcAnnotationDetailItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -342,6 +388,8 @@ public class AppresourcesItemProviderAdapterFactory extends AppresourcesAdapterF
 		if (rpcWebServiceConnectorItemProvider != null) rpcWebServiceConnectorItemProvider.dispose();
 		if (serviceSelectorItemProvider != null) serviceSelectorItemProvider.dispose();
 		if (resourceSetItemProvider != null) resourceSetItemProvider.dispose();
+		if (rcAnnotationItemProvider != null) rcAnnotationItemProvider.dispose();
+		if (rcAnnotationDetailItemProvider != null) rcAnnotationDetailItemProvider.dispose();
 	}
 
 }

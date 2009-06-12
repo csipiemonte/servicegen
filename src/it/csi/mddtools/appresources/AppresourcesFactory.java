@@ -89,6 +89,24 @@ public interface AppresourcesFactory extends EFactory {
 	ResourceSet createResourceSet();
 
 	/**
+	 * Returns a new object of class '<em>RC Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>RC Annotation</em>'.
+	 * @generated
+	 */
+	RCAnnotation createRCAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>RC Annotation Detail</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>RC Annotation Detail</em>'.
+	 * @generated
+	 */
+	RCAnnotationDetail createRCAnnotationDetail();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

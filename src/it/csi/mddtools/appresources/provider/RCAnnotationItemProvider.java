@@ -9,7 +9,7 @@ package it.csi.mddtools.appresources.provider;
 
 import it.csi.mddtools.appresources.AppresourcesFactory;
 import it.csi.mddtools.appresources.AppresourcesPackage;
-import it.csi.mddtools.appresources.ResourceConnector;
+import it.csi.mddtools.appresources.RCAnnotation;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -32,12 +33,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.appresources.ResourceConnector} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.appresources.RCAnnotation} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ResourceConnectorItemProvider
+public class RCAnnotationItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -51,7 +52,7 @@ public class ResourceConnectorItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ResourceConnectorItemProvider(AdapterFactory adapterFactory) {
+	public RCAnnotationItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,25 +67,25 @@ public class ResourceConnectorItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCodePropertyDescriptor(object);
+			addSourcePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Code feature.
+	 * This adds a property descriptor for the Source feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCodePropertyDescriptor(Object object) {
+	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ResourceConnector_code_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ResourceConnector_code_feature", "_UI_ResourceConnector_type"),
-				 AppresourcesPackage.Literals.RESOURCE_CONNECTOR__CODE,
+				 getString("_UI_RCAnnotation_source_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RCAnnotation_source_feature", "_UI_RCAnnotation_type"),
+				 AppresourcesPackage.Literals.RC_ANNOTATION__SOURCE,
 				 true,
 				 false,
 				 false,
@@ -105,7 +106,7 @@ public class ResourceConnectorItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(AppresourcesPackage.Literals.RESOURCE_CONNECTOR__ANNOTATIONS);
+			childrenFeatures.add(AppresourcesPackage.Literals.RC_ANNOTATION__DETAILS);
 		}
 		return childrenFeatures;
 	}
@@ -124,6 +125,17 @@ public class ResourceConnectorItemProvider
 	}
 
 	/**
+	 * This returns RCAnnotation.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RCAnnotation"));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,10 +143,10 @@ public class ResourceConnectorItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ResourceConnector)object).getCode();
+		String label = ((RCAnnotation)object).getSource();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ResourceConnector_type") :
-			getString("_UI_ResourceConnector_type") + " " + label;
+			getString("_UI_RCAnnotation_type") :
+			getString("_UI_RCAnnotation_type") + " " + label;
 	}
 
 	/**
@@ -148,11 +160,11 @@ public class ResourceConnectorItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ResourceConnector.class)) {
-			case AppresourcesPackage.RESOURCE_CONNECTOR__CODE:
+		switch (notification.getFeatureID(RCAnnotation.class)) {
+			case AppresourcesPackage.RC_ANNOTATION__SOURCE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case AppresourcesPackage.RESOURCE_CONNECTOR__ANNOTATIONS:
+			case AppresourcesPackage.RC_ANNOTATION__DETAILS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -172,8 +184,8 @@ public class ResourceConnectorItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(AppresourcesPackage.Literals.RESOURCE_CONNECTOR__ANNOTATIONS,
-				 AppresourcesFactory.eINSTANCE.createRCAnnotation()));
+				(AppresourcesPackage.Literals.RC_ANNOTATION__DETAILS,
+				 AppresourcesFactory.eINSTANCE.createRCAnnotationDetail()));
 	}
 
 	/**

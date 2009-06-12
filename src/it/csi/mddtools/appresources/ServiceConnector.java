@@ -20,6 +20,7 @@ import it.csi.mddtools.servicedef.ServiceDef;
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getServiceDef <em>Service Def</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getBinding <em>Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getSelector <em>Selector</em>}</li>
+ *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#isUseRegistry <em>Use Registry</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +105,31 @@ public interface ServiceConnector extends ResourceConnector {
 	 * @generated
 	 */
 	void setSelector(ServiceSelector value);
+
+	/**
+	 * Returns the value of the '<em><b>Use Registry</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Use Registry</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Use Registry</em>' attribute.
+	 * @see #setUseRegistry(boolean)
+	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceConnector_UseRegistry()
+	 * @model
+	 * @generated
+	 */
+	boolean isUseRegistry();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.appresources.ServiceConnector#isUseRegistry <em>Use Registry</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Use Registry</em>' attribute.
+	 * @see #isUseRegistry()
+	 * @generated
+	 */
+	void setUseRegistry(boolean value);
 
 } // ServiceConnector

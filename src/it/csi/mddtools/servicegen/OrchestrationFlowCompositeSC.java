@@ -6,9 +6,10 @@
  */
 package it.csi.mddtools.servicegen;
 
+import it.csi.mddtools.appresources.ResourceSet;
 import it.csi.mddtools.svcorch.Orchestration;
-import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getOrchestrations <em>Orchestrations</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,7 +33,6 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface OrchestrationFlowCompositeSC extends CompositeSC, FlowBasedSC, ResourceBasedSC {
-
 	/**
 	 * Returns the value of the '<em><b>Orchestrations</b></em>' reference list.
 	 * The list contents are of type {@link it.csi.mddtools.svcorch.Orchestration}.
@@ -47,4 +48,31 @@ public interface OrchestrationFlowCompositeSC extends CompositeSC, FlowBasedSC, 
 	 * @generated
 	 */
 	EList<Orchestration> getOrchestrations();
+
+	/**
+	 * Returns the value of the '<em><b>Resource Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Resource Set</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Resource Set</em>' reference.
+	 * @see #setResourceSet(ResourceSet)
+	 * @see it.csi.mddtools.servicegen.ServicegenPackage#getOrchestrationFlowCompositeSC_ResourceSet()
+	 * @model
+	 * @generated
+	 */
+	ResourceSet getResourceSet();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getResourceSet <em>Resource Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Resource Set</em>' reference.
+	 * @see #getResourceSet()
+	 * @generated
+	 */
+	void setResourceSet(ResourceSet value);
+
 } // OrchestrationFlowCompositeSC

@@ -350,23 +350,14 @@ public interface ServicegenPackage extends EPackage {
 	int COMPOSITE_SC_FEATURE_COUNT = SERVICE_COMPONENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSCImpl <em>Resource Based SC</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+	 * @see it.csi.mddtools.servicegen.impl.ResourceBasedSCImpl
 	 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSC()
 	 * @generated
 	 */
 	int RESOURCE_BASED_SC = 7;
-
-	/**
-	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESOURCE_BASED_SC__RESOURCE_SET = 0;
 
 	/**
 	 * The number of structural features of the '<em>Resource Based SC</em>' class.
@@ -375,7 +366,7 @@ public interface ServicegenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_BASED_SC_FEATURE_COUNT = 1;
+	int RESOURCE_BASED_SC_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl <em>Resource Based Simple SC</em>}' class.
@@ -397,7 +388,7 @@ public interface ServicegenPackage extends EPackage {
 	int RESOURCE_BASED_SIMPLE_SC__IMPL_CARTRIDGE = SIMPLE_SC__IMPL_CARTRIDGE;
 
 	/**
-	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
+	 * The feature id for the '<em><b>Resource Set</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -434,22 +425,22 @@ public interface ServicegenPackage extends EPackage {
 	int ORCHESTRATION_FLOW_COMPOSITE_SC__IMPL_CARTRIDGE = COMPOSITE_SC__IMPL_CARTRIDGE;
 
 	/**
-	 * The feature id for the '<em><b>Resource Set</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET = COMPOSITE_SC_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Orchestrations</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS = COMPOSITE_SC_FEATURE_COUNT + 1;
+	int ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS = COMPOSITE_SC_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Resource Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET = COMPOSITE_SC_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Orchestration Flow Composite SC</em>' class.
@@ -840,17 +831,6 @@ public interface ServicegenPackage extends EPackage {
 	EClass getResourceBasedSC();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicegen.ResourceBasedSC#getResourceSet <em>Resource Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Resource Set</em>'.
-	 * @see it.csi.mddtools.servicegen.ResourceBasedSC#getResourceSet()
-	 * @see #getResourceBasedSC()
-	 * @generated
-	 */
-	EReference getResourceBasedSC_ResourceSet();
-
-	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC <em>Resource Based Simple SC</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -859,6 +839,17 @@ public interface ServicegenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getResourceBasedSimpleSC();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC#getResourceSet <em>Resource Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resource Set</em>'.
+	 * @see it.csi.mddtools.servicegen.ResourceBasedSimpleSC#getResourceSet()
+	 * @see #getResourceBasedSimpleSC()
+	 * @generated
+	 */
+	EReference getResourceBasedSimpleSC_ResourceSet();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC <em>Orchestration Flow Composite SC</em>}'.
@@ -880,6 +871,17 @@ public interface ServicegenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOrchestrationFlowCompositeSC_Orchestrations();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getResourceSet <em>Resource Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resource Set</em>'.
+	 * @see it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getResourceSet()
+	 * @see #getOrchestrationFlowCompositeSC()
+	 * @generated
+	 */
+	EReference getOrchestrationFlowCompositeSC_ResourceSet();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}'.
@@ -1175,22 +1177,14 @@ public interface ServicegenPackage extends EPackage {
 		EClass COMPOSITE_SC = eINSTANCE.getCompositeSC();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.ResourceBasedSC <em>Resource Based SC</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSCImpl <em>Resource Based SC</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.servicegen.ResourceBasedSC
+		 * @see it.csi.mddtools.servicegen.impl.ResourceBasedSCImpl
 		 * @see it.csi.mddtools.servicegen.impl.ServicegenPackageImpl#getResourceBasedSC()
 		 * @generated
 		 */
 		EClass RESOURCE_BASED_SC = eINSTANCE.getResourceBasedSC();
-
-		/**
-		 * The meta object literal for the '<em><b>Resource Set</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RESOURCE_BASED_SC__RESOURCE_SET = eINSTANCE.getResourceBasedSC_ResourceSet();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.ResourceBasedSimpleSCImpl <em>Resource Based Simple SC</em>}' class.
@@ -1201,6 +1195,14 @@ public interface ServicegenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass RESOURCE_BASED_SIMPLE_SC = eINSTANCE.getResourceBasedSimpleSC();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Set</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_BASED_SIMPLE_SC__RESOURCE_SET = eINSTANCE.getResourceBasedSimpleSC_ResourceSet();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl <em>Orchestration Flow Composite SC</em>}' class.
@@ -1219,6 +1221,14 @@ public interface ServicegenPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ORCHESTRATION_FLOW_COMPOSITE_SC__ORCHESTRATIONS = eINSTANCE.getOrchestrationFlowCompositeSC_Orchestrations();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Set</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORCHESTRATION_FLOW_COMPOSITE_SC__RESOURCE_SET = eINSTANCE.getOrchestrationFlowCompositeSC_ResourceSet();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.FlowBasedSC <em>Flow Based SC</em>}' class.

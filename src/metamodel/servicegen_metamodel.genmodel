@@ -40,7 +40,7 @@
     <genClasses image="false" ecoreClass="servicegen_metamodel.ecore#//SimpleSC"/>
     <genClasses image="false" ecoreClass="servicegen_metamodel.ecore#//CompositeSC"/>
     <genClasses image="false" ecoreClass="servicegen_metamodel.ecore#//ResourceBasedSC">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//ResourceBasedSC/resourceSet"/>
+      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference servicegen_metamodel.ecore#//ResourceBasedSC/resourceSet"/>
     </genClasses>
     <genClasses ecoreClass="servicegen_metamodel.ecore#//ResourceBasedSimpleSC"/>
     <genClasses ecoreClass="servicegen_metamodel.ecore#//OrchestrationFlowCompositeSC">

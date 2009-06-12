@@ -82,13 +82,22 @@ public interface AppresourcesPackage extends EPackage {
 	int RESOURCE_CONNECTOR__CODE = 0;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_CONNECTOR__ANNOTATIONS = 1;
+
+	/**
 	 * The number of structural features of the '<em>Resource Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_CONNECTOR_FEATURE_COUNT = 1;
+	int RESOURCE_CONNECTOR_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl <em>Service Connector</em>}' class.
@@ -108,6 +117,15 @@ public interface AppresourcesPackage extends EPackage {
 	 * @ordered
 	 */
 	int SERVICE_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__ANNOTATIONS = RESOURCE_CONNECTOR__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Service Def</b></em>' reference.
@@ -137,13 +155,22 @@ public interface AppresourcesPackage extends EPackage {
 	int SERVICE_CONNECTOR__SELECTOR = RESOURCE_CONNECTOR_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Use Registry</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_CONNECTOR__USE_REGISTRY = RESOURCE_CONNECTOR_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Service Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_CONNECTOR_FEATURE_COUNT = RESOURCE_CONNECTOR_FEATURE_COUNT + 3;
+	int SERVICE_CONNECTOR_FEATURE_COUNT = RESOURCE_CONNECTOR_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.PDPAServiceConnectorImpl <em>PDPA Service Connector</em>}' class.
@@ -163,6 +190,15 @@ public interface AppresourcesPackage extends EPackage {
 	 * @ordered
 	 */
 	int PDPA_SERVICE_CONNECTOR__CODE = SERVICE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDPA_SERVICE_CONNECTOR__ANNOTATIONS = SERVICE_CONNECTOR__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Service Def</b></em>' reference.
@@ -190,6 +226,15 @@ public interface AppresourcesPackage extends EPackage {
 	 * @ordered
 	 */
 	int PDPA_SERVICE_CONNECTOR__SELECTOR = SERVICE_CONNECTOR__SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Use Registry</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PDPA_SERVICE_CONNECTOR__USE_REGISTRY = SERVICE_CONNECTOR__USE_REGISTRY;
 
 	/**
 	 * The number of structural features of the '<em>PDPA Service Connector</em>' class.
@@ -220,6 +265,15 @@ public interface AppresourcesPackage extends EPackage {
 	int FILE_SYSTEM_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE_SYSTEM_CONNECTOR__ANNOTATIONS = RESOURCE_CONNECTOR__ANNOTATIONS;
+
+	/**
 	 * The number of structural features of the '<em>File System Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -246,6 +300,15 @@ public interface AppresourcesPackage extends EPackage {
 	 * @ordered
 	 */
 	int JDBC_DATA_SOURCE_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JDBC_DATA_SOURCE_CONNECTOR__ANNOTATIONS = RESOURCE_CONNECTOR__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>JDBC Data Source Connector</em>' class.
@@ -276,6 +339,15 @@ public interface AppresourcesPackage extends EPackage {
 	int LDAP_JNDI_CONNECTOR__CODE = RESOURCE_CONNECTOR__CODE;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LDAP_JNDI_CONNECTOR__ANNOTATIONS = RESOURCE_CONNECTOR__ANNOTATIONS;
+
+	/**
 	 * The number of structural features of the '<em>Ldap Jndi Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -304,6 +376,15 @@ public interface AppresourcesPackage extends EPackage {
 	int RPC_WEB_SERVICE_CONNECTOR__CODE = SERVICE_CONNECTOR__CODE;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RPC_WEB_SERVICE_CONNECTOR__ANNOTATIONS = SERVICE_CONNECTOR__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Service Def</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -329,6 +410,15 @@ public interface AppresourcesPackage extends EPackage {
 	 * @ordered
 	 */
 	int RPC_WEB_SERVICE_CONNECTOR__SELECTOR = SERVICE_CONNECTOR__SELECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Use Registry</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RPC_WEB_SERVICE_CONNECTOR__USE_REGISTRY = SERVICE_CONNECTOR__USE_REGISTRY;
 
 	/**
 	 * The number of structural features of the '<em>RPC Web Service Connector</em>' class.
@@ -451,6 +541,81 @@ public interface AppresourcesPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.RCAnnotationImpl <em>RC Annotation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.appresources.impl.RCAnnotationImpl
+	 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getRCAnnotation()
+	 * @generated
+	 */
+	int RC_ANNOTATION = 9;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Details</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION__DETAILS = 1;
+
+	/**
+	 * The number of structural features of the '<em>RC Annotation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl <em>RC Annotation Detail</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl
+	 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getRCAnnotationDetail()
+	 * @generated
+	 */
+	int RC_ANNOTATION_DETAIL = 10;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION_DETAIL__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION_DETAIL__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>RC Annotation Detail</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RC_ANNOTATION_DETAIL_FEATURE_COUNT = 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.ResourceConnector <em>Resource Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -470,6 +635,17 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getResourceConnector_Code();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.appresources.ResourceConnector#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see it.csi.mddtools.appresources.ResourceConnector#getAnnotations()
+	 * @see #getResourceConnector()
+	 * @generated
+	 */
+	EReference getResourceConnector_Annotations();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.PDPAServiceConnector <em>PDPA Service Connector</em>}'.
@@ -673,6 +849,81 @@ public interface AppresourcesPackage extends EPackage {
 	EReference getServiceConnector_Selector();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.appresources.ServiceConnector#isUseRegistry <em>Use Registry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Registry</em>'.
+	 * @see it.csi.mddtools.appresources.ServiceConnector#isUseRegistry()
+	 * @see #getServiceConnector()
+	 * @generated
+	 */
+	EAttribute getServiceConnector_UseRegistry();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.RCAnnotation <em>RC Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>RC Annotation</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotation
+	 * @generated
+	 */
+	EClass getRCAnnotation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.appresources.RCAnnotation#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Source</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotation#getSource()
+	 * @see #getRCAnnotation()
+	 * @generated
+	 */
+	EAttribute getRCAnnotation_Source();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.appresources.RCAnnotation#getDetails <em>Details</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Details</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotation#getDetails()
+	 * @see #getRCAnnotation()
+	 * @generated
+	 */
+	EReference getRCAnnotation_Details();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.RCAnnotationDetail <em>RC Annotation Detail</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>RC Annotation Detail</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotationDetail
+	 * @generated
+	 */
+	EClass getRCAnnotationDetail();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.appresources.RCAnnotationDetail#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotationDetail#getKey()
+	 * @see #getRCAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getRCAnnotationDetail_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.appresources.RCAnnotationDetail#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.appresources.RCAnnotationDetail#getValue()
+	 * @see #getRCAnnotationDetail()
+	 * @generated
+	 */
+	EAttribute getRCAnnotationDetail_Value();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -711,6 +962,14 @@ public interface AppresourcesPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute RESOURCE_CONNECTOR__CODE = eINSTANCE.getResourceConnector_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RESOURCE_CONNECTOR__ANNOTATIONS = eINSTANCE.getResourceConnector_Annotations();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.PDPAServiceConnectorImpl <em>PDPA Service Connector</em>}' class.
@@ -879,6 +1138,66 @@ public interface AppresourcesPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SERVICE_CONNECTOR__SELECTOR = eINSTANCE.getServiceConnector_Selector();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Registry</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_CONNECTOR__USE_REGISTRY = eINSTANCE.getServiceConnector_UseRegistry();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.RCAnnotationImpl <em>RC Annotation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.appresources.impl.RCAnnotationImpl
+		 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getRCAnnotation()
+		 * @generated
+		 */
+		EClass RC_ANNOTATION = eINSTANCE.getRCAnnotation();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RC_ANNOTATION__SOURCE = eINSTANCE.getRCAnnotation_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Details</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RC_ANNOTATION__DETAILS = eINSTANCE.getRCAnnotation_Details();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl <em>RC Annotation Detail</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl
+		 * @see it.csi.mddtools.appresources.impl.AppresourcesPackageImpl#getRCAnnotationDetail()
+		 * @generated
+		 */
+		EClass RC_ANNOTATION_DETAIL = eINSTANCE.getRCAnnotationDetail();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RC_ANNOTATION_DETAIL__KEY = eINSTANCE.getRCAnnotationDetail_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RC_ANNOTATION_DETAIL__VALUE = eINSTANCE.getRCAnnotationDetail_Value();
 
 	}
 
