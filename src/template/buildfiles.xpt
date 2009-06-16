@@ -730,6 +730,9 @@ AS sharedLibsPath»
 
 «DEFINE varSubstForRC FOR PDPAServiceConnector»
 		<replace dir="${build}/temp/ejb" token="«getPAURLPlaceHolder(serviceDef)»"  value="${«getPAURLVar(serviceDef)»}"/>
+		«IF serviceDef.authLevel!=AuthLevelEnum::A0-»
+		<replace dir="${build}/temp/ejb" token="«getCsiAuthCredentialsPlaceHolder(serviceDef)»"  value="${«getCsiAuthCredentialsVar(serviceDef)»}"/>
+		«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE ejbpa_calls FOR ServiceImpl»
@@ -888,8 +891,15 @@ web.enabled = true
 # codice servizio: «this.serviceDef.codServizio» V. «serviceDef.versione»
 # binding: «binding.codBinding»
 ################################################################################
+
 # url di connessione al servizio
 «getPAURLVar(serviceDef)» = <inserire l'url t3, jrmp o http, a seconda del binding>
+«IF serviceDef.authLevel!=AuthLevelEnum::A0-»
+
+# credenziali di autenticazione
+«getCsiAuthCredentialsVar(serviceDef)»=<username>/<passwd>
+«ENDIF-»
+
 «ENDDEFINE»
 
 «DEFINE rcLibName FOR ResourceConnector»

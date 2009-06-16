@@ -463,6 +463,12 @@ String getPAURLVar(ServiceDef sd) :
 
 String getPAURLPlaceHolder(ServiceDef sd) :
 	"@"+getPAURLVar(sd)+"@";
+
+String getCsiAuthCredentialsVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".credentials";
+
+String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
+	"@"+getCsiAuthCredentialsVar(sd)+"@";
 	 	
 //// altre utility
 

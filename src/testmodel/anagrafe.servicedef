@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="anagrafe" versione="1.0" codProdotto="nao" codComponente="naosrv">
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="anagrafe" versione="1.0" authLevel="A1" codProdotto="nao" codComponente="naosrv">
   <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
-  <operations name="findCittadinoByCF" returnType="//@types/@types.0" throws="//@types/@types.3">
+  <operations name="findCittadinoByCF" returnType="//@types/@types.0" throws="//@types/@types.3" authorizedRoles="//@roles.0">
     <params name="cf">
       <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
     </params>
   </operations>
-  <operations name="findCittadinoByExample" returnType="//@types/@types.2" throws="//@types/@types.3">
+  <operations name="findCittadinoByExample" returnType="//@types/@types.2" throws="//@types/@types.3" authorizedRoles="//@roles.0">
     <params name="example" type="//@types/@types.0"/>
   </operations>
   <types>
@@ -39,4 +39,5 @@
     <types xsi:type="typedef:TypedArray" name="Cittadino []" componentType="//@types/@types.0"/>
     <types xsi:type="typedef:Exception" name="CittadinoNonTrovatoException"/>
   </types>
+  <roles name="Master"/>
 </servicedef:ServiceDef>

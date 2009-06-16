@@ -92,13 +92,21 @@
         url-qm="«fullQMGRJndiName(sd, model)»">
         <properties>
           <property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
-          «IF model.targetPlatform.code==TargetPlatformCodes::WLS92»
+          «IF model.targetPlatform.code==TargetPlatformCodes::WLS92-»
           <!-- initial contxt factory per WLS92 -->
           <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
-          «ELSEIF model.targetPlatform.code==TargetPlatformCodes::JBoss43»
+          «ELSEIF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
           <!-- initial context factory per JBoss43 -->
           <property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
-          «ENDIF»
+          «ENDIF-»
+          «IF sd.authLevel!=AuthLevelEnum::A0 -»
+          	«IF model.targetPlatform.code==TargetPlatformCodes::WLS92-»
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
+          	«ELSEIF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+          <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.StandardJAASClient" />
+          	«ENDIF-»
+          <property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
+          «ENDIF-»
         </properties>
       </pluggable-pd>
     </pluggable-pd-list>
@@ -132,10 +140,12 @@
         url-pa="«getPAURLPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)»/servlet/rpcrouter"
         url-qm="">
         <properties>
+        «IF sd.authLevel!=AuthLevelEnum::A0-»
+        	<property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
+        «ENDIF-»
           <!--<property name="csi.ssl.keystore.location" value="c:/progetti/test_csi/resource/client.keystore" />-->
           <!--<property name="csi.ssl.truststore.location" value="c:/progetti/test_csi/resource/client.truststore" />-->
           <!-- <property name="csi.proxyhost" value="proxy.csi.it:80"/> -->
-          <!--<property name="csi.auth.basic" value="myuser/mypasswd" />-->
           <!--<property name="csi.connection.timeout" value="30000" />-->
         </properties>
       </pluggable-pd>
