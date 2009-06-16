@@ -60,9 +60,25 @@
 	«ENDLET-»
 «ENDDEFINE»
 
+«DEFINE defpdejbtestfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
+«EXPAND defpdejbfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd)) FOR this»
+«ENDDEFINE»
+
+«DEFINE defpdsoaptestfile(servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
+«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd)) FOR this»
+«ENDDEFINE»
+
+«DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context) FOR EJBPABinding»
+«EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd)) FOR this»
+«ENDDEFINE»
+
+«DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context) FOR SOAPPABRBinding»
+«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd)) FOR this»
+«ENDDEFINE»
+
 «REM»crea il file di PD nella directory test/xml«ENDREM»
-«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«FILE getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName) FOR EJBPABinding»
+«FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
   </services>
@@ -75,7 +91,7 @@
         url-pa="«fullPAJndiName(sd,model)»"
         url-qm="«fullQMGRJndiName(sd, model)»">
         <properties>
-          <property name="java.naming.provider.url" value="@be.pa.url@"/>
+          <property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
           «IF model.targetPlatform.code==TargetPlatformCodes::WLS92»
           <!-- initial contxt factory per WLS92 -->
           <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
@@ -102,8 +118,8 @@
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
-«FILE getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd)»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName) FOR SOAPPABRBinding»
+«FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
   </services>
@@ -113,7 +129,7 @@
       <pluggable-pd
         name="«removeSeparator(sd.codServizio)»"
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-        url-pa="@url_pabr@/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)»/servlet/rpcrouter"
+        url-pa="«getPAURLPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)»/servlet/rpcrouter"
         url-qm="">
         <properties>
           <!--<property name="csi.ssl.keystore.location" value="c:/progetti/test_csi/resource/client.keystore" />-->
@@ -134,16 +150,16 @@
 «DEFINE pdservicedef(SOABEModel model) FOR ServiceDef»
 <service name="«removeSeparator(codServizio)»" public-interface-class="«fullQualifiedServiceInterfaceName(this, model)»" top-version="«versione»">
       <operations>
-      «EXPAND pdopdef (model, codServizio)FOREACH this.operations»
-      «IF monitorable»
+      «EXPAND pdopdef (model, codServizio)FOREACH this.operations-»
+      «IF monitorable-»
         <!-- operazione per monitoraggio -->
       	<operation name="testResources" type="synch-call">
           <param-list>
           </param-list>
           <ret-val type="boolean"/>
         </operation>
-      «ENDIF»
-      «IF diagEnabled»
+      «ENDIF-»
+      «IF diagEnabled-»
         <!-- operazioni per diagnostica -->
       	<operation name="selfCheck" type="synch-call">
           <param-list>
@@ -156,35 +172,35 @@
           </param-list>
           <ret-val type="boolean"/>
       	</operation>
-      «ENDIF»
+      «ENDIF-»
       </operations>
     </service>
 «ENDDEFINE»
 
-«DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation»
-		<operation name="«name»" type="«opTypeConst(opType)»" «IF since != null»since="«since»"«ENDIF»>
+«DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation-»
+		<operation name="«name»" type="«opTypeConst(opType)»" «IF since != null»since="«since»"«ENDIF-»>
           <param-list>
-          «EXPAND pd_op_par(model, codServ) FOREACH this.params»
-          «IF opType!=OpTypeEnum::synch»
+          «EXPAND pd_op_par(model, codServ) FOREACH this.params-»
+          «IF opType!=OpTypeEnum::synch-»
           <param name="datiMsg" type="it.csi.csi.util.DatiMessaggio" />
-          «ENDIF»
+          «ENDIF-»
           </param-list>
-          «LET map2javaType(returnType, codServ, model) AS retType»
-          	«LET retType==null?"void":retType AS retTypeOrVoid»
+          «LET map2JavaTypeSDRelative(returnType) AS retType-»
+          	«LET retType==null?"void":retType AS retTypeOrVoid-»
           	<ret-val type="«retTypeOrVoid»"/>
-          	«ENDLET»
-          «ENDLET»
+          	«ENDLET-»
+          «ENDLET-»
         </operation>
 «ENDDEFINE»
 
-«DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param»
-			<param name="name" type="«map2javaType(type, codServ, model)»" />
+«DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param-»
+			<param name="«name»" type="«map2JavaTypeSDRelative(this.type)»" />
 «ENDDEFINE»
 
 «DEFINE defpdejbembeddedinwsfad (servicegen::SOABEModel model, ServiceDef sd) FOR WSFADBinding»
 «FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(sd.codServizio),model)+"/defpdelegata_embedded_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd»
+  «EXPAND pdservicedef (model) FOR sd-»
   </services>
   <config>
     <url-pa>**not used**</url-pa>

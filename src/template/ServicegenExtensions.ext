@@ -44,9 +44,8 @@ String getEjbConfigRootDir(SOABEModel model) :
 String getTestXmlFilesDir(String codServizio, SOABEModel model) :
 	getTestDir(model)+"/java/test/"+removeSeparator(codServizio);
   
-  
 String getSpecificEjbConfigRootDir(String codEjb, SOABEModel model) :
-  getEjbConfigRootDir(model)+"/"+codEjb;
+  getEjbConfigRootDir(model)+"/"+removeSeparator(codEjb);
   
 String getWarConfigRootDir(SOABEModel model) :
   getConfigRootDir(model)+"/web";
@@ -115,9 +114,22 @@ String getFullServiceTestPkg(String codServ, SOABEModel model) :
 		
 String serviceInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Srv";
-    	
+
+SDAnnotationDetail getSDAnnDetail(ServiceDef sd, String source, String key) :
+	let sdann = sd.annotations.select(a|a.source==source).first() :
+	if sdann != null then
+		sdann.details.select(ad|ad.key==key).first()
+	else
+		null
+	;
+
 String fullQualifiedServiceInterfaceName(ServiceDef sd, SOABEModel model) :
-    fullQualifiedServiceInterfacePkg(sd,model)+"."+serviceInterfaceName(sd);
+	let sdann_dtl = getSDAnnDetail(sd, "servicedef", "java-fqn") :
+    if sdann_dtl != null then
+    	sdann_dtl.value	
+    else
+    	fullQualifiedServiceInterfacePkg(sd,model)+"."+serviceInterfaceName(sd)
+    ;
 
 String serviceRemoteInterfaceName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Remote";
@@ -439,7 +451,19 @@ let code = ((CSIDatatype)type).code :
 /// sulle service def e non sulla service impl 
 ServiceImpl getServiceImpl(ServiceDef sd, SOABEModel model) :
 	model.serviceimplementations.select(si|si.provides==sd).first();
-  	
+
+
+//// variabili di build
+String getPAVarsPrefix(ServiceDef sd) :
+removeSeparator(sd.codProdotto)+"."+removeSeparator(sd.codComponente)+"."+
+	removeSeparator(sd.codServizio);
+	
+String getPAURLVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".pa.url";
+
+String getPAURLPlaceHolder(ServiceDef sd) :
+	"@"+getPAURLVar(sd)+"@";
+	 	
 //// altre utility
 
 String getRegionUID(String src) : JAVA
@@ -465,6 +489,9 @@ List[ServiceDef] getProvidedServices(servicegen::SOABEModel model) : JAVA
 	
 List[appresources::ResourceConnector] getAllResourceConnectors(servicegen::SOABEModel model) : JAVA
 	it.csi.mddtools.appresources.genutils.GenUtils.getAllResourceConnectors(it.csi.mddtools.servicegen.SOABEModel);
+
+List[appresources::ResourceConnector] getAllResourceConnectors(servicegen::ServiceImpl model) : JAVA
+	it.csi.mddtools.appresources.genutils.GenUtils.getAllResourceConnectors(it.csi.mddtools.servicegen.ServiceImpl);
 
 String getRepartOrganization(String fullLoc) : JAVA
    it.csi.mddtools.appresources.genutils.GenUtils.getRepartOrganization(java.lang.String);

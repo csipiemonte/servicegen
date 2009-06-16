@@ -78,6 +78,22 @@ public class GenUtils {
 		return ris;
 	}
 	
+	public static ArrayList<ResourceConnector> getAllResourceConnectors(ServiceImpl serviceImpl){
+		ArrayList<ResourceConnector> ris = new ArrayList<ResourceConnector>();
+		if (serviceImpl.getServiceComponent()!= null && serviceImpl.getServiceComponent() instanceof ResourceBasedSC){
+			// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non è 
+			// definita a livello di ResourceBasedSC ma delle sottoclassi
+			if (serviceImpl.getServiceComponent() instanceof ResourceBasedSimpleSC){
+				ris.addAll(((ResourceBasedSimpleSC)serviceImpl.getServiceComponent()).getResourceSet().getResources());
+			}
+			else if (serviceImpl.getServiceComponent() instanceof OrchestrationFlowCompositeSC){
+				ris.addAll(((OrchestrationFlowCompositeSC)serviceImpl.getServiceComponent()).getResourceSet().getResources());
+			} 
+			else throw new IllegalArgumentException("getAllResourceconnectors: tipo SC non gestito "+serviceImpl.getServiceComponent().getClass());
+		}
+		return ris;
+	}
+	
 	public static String getRepartOrganization(String fullLoc){
 		StringTokenizer stok = new StringTokenizer(fullLoc, "/");
 		return stok.nextToken();

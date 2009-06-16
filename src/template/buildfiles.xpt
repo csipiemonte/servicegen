@@ -213,6 +213,12 @@ creazione del build.xml per ANT
 		<copy todir="build/temp">
 			<fileset file="${conf}/ear/application.xml" />
 		</copy>
+		
+		<copy todir="build/temp">
+			<fileset file="${conf}/**" />
+		</copy>
+		
+		«EXPAND varSubstForRC FOREACH getAllResourceConnectors()»
 	</target>
 
 	
@@ -316,6 +322,12 @@ creazione del build.xml per ANT
 					<include name="*.xml"/>
 				</fileset>
 			
+				<!-- risorse soggette a sostituzione -->
+				<fileset dir="${build}/temp/ejb/${service.name}">
+					<include name="*.xml"/>
+					<include name="*.properties"/>
+				</fileset>
+				
 				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
 					<patternset id="all-xml" >
 						<include name="**/*.xml"/>
@@ -336,6 +348,12 @@ creazione del build.xml per ANT
 					<include name="defqmgr_*" />
 				</fileset>
 			
+				<!-- risorse soggette a sostituzione -->
+				<fileset dir="${build}/temp/ejb/${service.name}">
+					<include name="*.xml"/>
+					<include name="*.properties"/>
+				</fileset>
+				
 				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
 					<patternset id="all-xml" >
 						<include name="**/*.xml"/>
@@ -397,7 +415,7 @@ creazione del build.xml per ANT
 
 
 	<target name="package-ear"  description="costruisce l&apos;ear"  
-		depends="compile-all, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars, environment-config">
+		depends="compile-all, environment-config, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars">
 «LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${temp}/${target}/APP-INF/lib" :
      (this.targetPlatform.code==TargetPlatformCodes::JBoss43 ? "${temp}/${target}/lib" : "${temp}/${target}/APP-INF/lib"))
 AS sharedLibsPath»
@@ -706,6 +724,14 @@ AS sharedLibsPath»
 «ENDFILE»
 «ENDDEFINE»
 
+
+«DEFINE varSubstForRC FOR ResourceConnector»
+«ENDDEFINE»
+
+«DEFINE varSubstForRC FOR PDPAServiceConnector»
+		<replace dir="${build}/temp/ejb" token="«getPAURLPlaceHolder(serviceDef)»"  value="${«getPAURLVar(serviceDef)»}"/>
+«ENDDEFINE»
+
 «DEFINE ejbpa_calls FOR ServiceImpl»
     	<!-- binding ejb del servizio «this.provides.codServizio» -->
     	«EXPAND ejbpa_call(provides.codServizio,provides.versione,provides.serviceType) FOREACH (List[EJBPABinding])(provides.bindings.typeSelect(EJBPABinding))»
@@ -839,10 +865,31 @@ web.enabled = true
 
 «FILE "buildfiles/env_template.properties"»
 #file di configurazione per l'ambiente <env>
-«PROTECT CSTART '##<' CEND '##>' ID "devprops"+codComponente»
-«ENDPROTECT»
+
+«LET getAllResourceConnectors() AS allRC-»
+«EXPAND envVarDefs FOREACH allRC-»
+«ENDLET-»
+
+#Proprieta' aggiuntive
+#....
 «ENDFILE»
 
+«ENDDEFINE»
+
+«DEFINE envVarDefs FOR ResourceConnector»
+«ENDDEFINE»
+
+«DEFINE envVarDefs FOR PDPAServiceConnector»
+################################################################################
+# variabili d'ambiente necessarie per la configurazione del PDPAServiceConnector
+# codice: «code»
+# prodotto: «this.serviceDef.codProdotto»
+# componente: «this.serviceDef.codComponente»
+# codice servizio: «this.serviceDef.codServizio» V. «serviceDef.versione»
+# binding: «binding.codBinding»
+################################################################################
+# url di connessione al servizio
+«getPAURLVar(serviceDef)» = <inserire l'url t3, jrmp o http, a seconda del binding>
 «ENDDEFINE»
 
 «DEFINE rcLibName FOR ResourceConnector»

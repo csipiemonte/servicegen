@@ -1,8 +1,10 @@
 «IMPORT servicegen»
 «IMPORT servicedef»
 «IMPORT typedef»
+«IMPORT appresources»
 «IMPORT template::configfiles»
 «IMPORT template::papdconfigfiles»
+«IMPORT papdconfigfiles»
 
 «EXTENSION template::ServicegenExtensions»
 
@@ -81,6 +83,36 @@ per ogni componente è necessario creare la struttura del progetto SVN:
  «IF serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==FlowModelImplCartridge).size>0»
  	«EXPAND template::flowmodel::handlerfiles::baseHandlers FOR this»
  «ENDIF»
+ 
+ «REM»files associati ai resource set«ENDREM»
+ «FOREACH this.serviceimplementations AS currSrvImpl»
+ «LET getAllResourceConnectors(currSrvImpl) AS allRC»
+ «EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
+ «ENDLET»
+ «ENDFOREACH»
 «ENDLET»	
 «ENDDEFINE»
 
+«DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR ResourceConnector»
+«ERROR "tipo di risorsa "+this.metaType+" non gestito"»
+«ENDDEFINE»
+
+«DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR PDPAServiceConnector»
+«EXPAND papdconnectorFiles(context, model, this.binding) FOR this»
+«ENDDEFINE»
+
+«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, ServiceBinding bnd) FOR PDPAServiceConnector»
+«ERROR "service binding non gestito "+bnd»
+«ENDDEFINE»
+
+«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, EJBPABinding bnd) FOR PDPAServiceConnector»
+«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context) FOR bnd»
+«ENDDEFINE»
+
+«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
+«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context) FOR bnd»
+«ENDDEFINE»
+
+«DEFINE resourceConnectorFiles(ServiceDef context) FOR JDBCDataSourceConnector»
+«REM»nessun file previsto«ENDREM»
+«ENDDEFINE»
