@@ -6,6 +6,9 @@
     <selector/>
   </resources>
   <resources xsi:type="appresources:PDPAServiceConnector" code="TOPON">
+    <annotations source="appresources">
+      <details key="csi-pa-platform" value="WLS92"/>
+    </annotations>
     <serviceDef href="toponomastica.servicedef#/"/>
     <binding xsi:type="servicedef:EJBPABinding" href="toponomastica.servicedef#//@bindings.0"/>
     <selector/>

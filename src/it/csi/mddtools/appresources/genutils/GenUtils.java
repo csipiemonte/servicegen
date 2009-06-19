@@ -32,6 +32,23 @@ public class GenUtils {
 	 */
 	public final static String ANNOTATION_VALUE_PDPLUGIN_EJB2 = "ejbpa-2";
 	
+
+	/**
+	 * Annotazione per PAPDServiceConnector per specificare la target platform del servizio
+	 * (serve per il binding ejb)
+	 */
+	public final static String ANNOTATION_KEY_PA_PLATFORM = "csi-pa-platform";
+	
+	/**
+	 * pa su piattaforma WLS92
+	 */
+	public final static String ANNOTATION_VALUE_PA_PLATFORM_WLS92 = "WLS92";
+	
+	/**
+	 * pa su piattaforma JBoss43
+	 */
+	public final static String ANNOTATION_VALUE_PA_PLATFORM_JBoss43 = "JBoss43";
+	
 	
 	/**
 	 * Annotazione per PAPDServiceConnector per specificare la location 

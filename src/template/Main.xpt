@@ -106,7 +106,11 @@ per ogni componente è necessario creare la struttura del progetto SVN:
 «ENDDEFINE»
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, EJBPABinding bnd) FOR PDPAServiceConnector»
-«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context) FOR bnd»
+«LET getServiceTargetPlatform() AS paplatform»
+«LET pdEjbPluginFQN() AS pdPluginFQN»
+«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context, paplatform, pdPluginFQN) FOR bnd»
+«ENDLET»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
