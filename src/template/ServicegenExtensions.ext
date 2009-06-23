@@ -262,6 +262,9 @@ String pdEJBDefFileName(EJBPABinding pa, ServiceDef sd) :
 String pdSOAPDefFileName(SOAPPABRBinding pa, ServiceDef sd) :
 	"defpd_"+removeSeparator(sd.codServizio)+"soap.xml";
 	
+String pdSelectorFileName(PDPAServiceConnector sc) :
+	"selector_"+sc.serviceDef.codServizio+"_"+sc.binding.codBinding+".properties";
+	
 String registryPDFileName(ServiceDef sd, ServiceBinding binding) :
 	"defpd_"+removeSeparator(sd.codServizio)+"_"+binding.codBinding.toLowerCase()+".xml";
 	
@@ -274,16 +277,29 @@ String svcflowDefinitionFileName(Operation op, String codServizio) :
 String fullPAJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
 
+// versioen che prende i codici prod e comp dalla ServiceDef
+String fullPAJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
+
 String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
     
-
+String fullQMGRJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
+    
 /// in realtà non dovrebbe servire...
 String fullLTRJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
+
+String fullLTRJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
+
     
 String fullServiceJndiName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
+
+String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
 
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // § 3.4.1
@@ -488,7 +504,13 @@ String pdEjbPluginFQN(PDPAServiceConnector pdpa) :
 		"it.csi.csi.porte.ejb20.PortaDelegataEJB"
 	else
 		"it.csi.csi.porte.ejb20.PortaDelegataEJB";
-		
+
+///// target platform del servizio acceduto
+String getCustomEJBPAJndiName(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let paplatf = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-ejbpa-jndiname").value): fullPAJndiName(pdpa.serviceDef)) :
+	paplatf; 
+	
 //// altre utility
 
 String getRegionUID(String src) : JAVA

@@ -3,7 +3,7 @@
   <resources xsi:type="appresources:PDPAServiceConnector" code="ANAG">
     <serviceDef href="anagrafe.servicedef#/"/>
     <binding xsi:type="servicedef:EJBPABinding" href="anagrafe.servicedef#//@bindings.0"/>
-    <selector/>
+    <selector codProd="NAOSRV" codServ="NAOSRV" verServ="1.0.0" codEnte="COTO" istanza="01" ambiente="PROD" codBinding="csi-ejb-t3"/>
   </resources>
   <resources xsi:type="appresources:PDPAServiceConnector" code="TOPON">
     <annotations source="appresources">
@@ -11,18 +11,17 @@
     </annotations>
     <serviceDef href="toponomastica.servicedef#/"/>
     <binding xsi:type="servicedef:EJBPABinding" href="toponomastica.servicedef#//@bindings.0"/>
-    <selector/>
+    <selector codProd="CTSERV" codServ="CTSERV" verServ="1.0.0" codEnte="COTO" istanza="01" ambiente="PROD" codBinding="csi-ejb-t3"/>
   </resources>
   <resources xsi:type="appresources:PDPAServiceConnector" code="IRIDE2">
     <annotations source="appresources">
       <details key="csi-pd-plugin" value="ejb-1"/>
-    </annotations>
-    <annotations source="appresources">
       <details key="repart-position" value="csipiemonte/iridev2/2.0.0"/>
       <details key="repart-artifact" value="iridev2-pep-intf-2.0.0"/>
+      <details key="csi-ejbpa-jndiname" value="iridev2.pep.PepPA"/>
     </annotations>
     <serviceDef href="iridepep.servicedef#/"/>
     <binding xsi:type="servicedef:EJBPABinding" href="iridepep.servicedef#//@bindings.0"/>
-    <selector/>
+    <selector codProd="IRIDEV2" codServ="PEP" verServ="1.0.0" codEnte="RP" istanza="01" ambiente="PROD" codBinding="csi-ejb-t3"/>
   </resources>
 </appresources:ResourceSet>

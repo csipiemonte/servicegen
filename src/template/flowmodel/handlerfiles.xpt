@@ -612,7 +612,7 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTrans
 «ENDDEFINE»
 
 «DEFINE forEachConditionClass FOR SOABEModel»
-«FILE forEachConditionFile()»package it.csi.visureol.visanag.business.handlers;
+«FILE forEachConditionFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
 
@@ -712,14 +712,76 @@ import java.util.Map;
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
 
+import it.csi.csi.wrapper.*;
+import it.csi.csi.porte.HttpPDProxyLoader;
+
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
+
+	protected final static String SELECTOR_RES="«pdSelectorFileName((PDPAServiceConnector)serviceConnector)»";
+	
+	protected final static String LOCAL_PD_RES="«pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef)»";
+
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
+		try {
+			it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService pd = 
+				getPD();
+			
+			/// valore degli input slot
+		«FOREACH this.paramBindings AS currPB-»
+		«LET currPB.slot AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+			(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»",ps);
+			
+		«ENDLET-»
+		«ENDFOREACH-»
+			
+			// binding dei parametri e richiamo del servizio 
+			it.csi.iride2.policy.entity.Identita result = pd.identificaUserPassword(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			
+			«IF this.operation.returnType!=null»
+			/// inserimento risultato nello slot apposito
+			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
+			«ENDIF»
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("ERRORE richiamo (...TODO GESTIRE MEGLIO....) "+e);
+			e.printStackTrace();
+		}
+	}
+	
+	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
+	«IF this.serviceConnector.useRegistry-»
+		java.util.Properties selectorProps = new java.util.Properties();
+		java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
+		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
+			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
+				HttpPDProxyLoader.loadProxy(SELECTOR_RES, localPD);
+		return tempPd;
+	«ELSE-»
+		java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
 		
+		it.csi.csi.porte.InfoPortaDelegata infoPD;
+		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd=null;
+		try {
+			infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
+			tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
+		} catch (Exception e) {
+			throw new ConfigException("Errore nella lettura della configurazione da "+LOCAL_PD_RES,e);
+		}
+		
+		return tempPd;
+	«ENDIF-»
 	}
 }
 «ENDFILE»

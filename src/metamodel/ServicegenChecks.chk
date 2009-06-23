@@ -141,6 +141,31 @@ context Operation WARNING "Tipo di ritorno non specificato per operazione "+name
 	this.returnType != null;
 	
 ////////////////////////////////////////////////////////////////////////////////////
+/// APPRESOURCES checks /////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+context PDPAServiceConnector if useRegistry ERROR "Per utilizzar e il registry è necessario specificare un ServiceSelector:"+loc() :
+	selector!=null;
+
+context ServiceSelector ERROR "E' necessario specificare l'ambiente del servizio acceduto:"+loc() :
+	this.ambiente!=null; 
+
+context ServiceSelector ERROR "E' necessario specificare il codiceBinding del servizio acceduto:"+loc() :
+	this.codBinding!=null;
+
+context ServiceSelector ERROR "E' necessario specificare l'ente/cliente del servizio acceduto:"+loc() :
+	this.codEnte!=null;
+	
+context ServiceSelector ERROR "E' necessario specificare il cod. prodotto del servizio acceduto:"+loc() :
+	this.codProd!=null;
+
+context ServiceSelector ERROR "E' necessario specificare il codice del servizio acceduto:"+loc() :
+	this.codServ!=null;		
+	
+context ServiceSelector ERROR "E' necessario specificare l'istanza infrastrutturale del servizio acceduto" :
+	this.istanza!=null;
+	
+	
+////////////////////////////////////////////////////////////////////////////////////
 /// SVCORCH checks /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -239,8 +264,12 @@ context svcorch::SrvCall ERROR
 context svcorch::SrvCall if operation!=null ERROR 
 	"è necessario specificare un Exception Handler per ogni eccezione resituita dall'operazione oggetto "+
 	"di invocazione "+loc():
-	this.onException.size==operation.throws.size;
+	this.onException.handledException.size==operation.throws.size;
 
+context svcorch::SrvCall if operation!=null ERROR
+	"Attualmente il generatore supporta un solo exception handler per ogni invocazione:"+loc() :
+	this.onException.size<=1;
+	
 /// ExceptionHandler
 context svcorch::ExceptionHandler ERROR 
 	"Occorre specificare l'eccezione gestita dall'Exception Handler:"+loc() :

@@ -24,6 +24,15 @@
       <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
     </params>
   </operations>
+  <operations name="identificaUserPwd" throws="//@types/@types.3">
+    <params name="username">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
   <types>
     <types xsi:type="typedef:Entity" name="DatiCittadino">
       <features name="nome">
@@ -41,5 +50,6 @@
     </types>
     <types xsi:type="typedef:TypedArray" name="DatiCittadino []" componentType="//@types/@types.0"/>
     <types xsi:type="typedef:Exception" name="VisuraVuotaException"/>
+    <types xsi:type="typedef:Exception" name="AuthException"/>
   </types>
 </servicedef:ServiceDef>

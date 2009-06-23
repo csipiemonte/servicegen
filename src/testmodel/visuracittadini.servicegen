@@ -3,7 +3,10 @@
   <serviceimplementations>
     <provides href="visuracittadini.servicedef#/"/>
     <serviceComponent xsi:type="servicegen:OrchestrationFlowCompositeSC">
+      <orchestrations href="visanag_identificaUserPwd.svcorch#/"/>
       <orchestrations href="visanag_visuraPerComuneECognome.svcorch#/"/>
+      <orchestrations href="visanag_visuraPerComune.svcorch#/"/>
+      <orchestrations href="visanag_visuraPerNomeCognome.svcorch#/"/>
       <resourceSet href="visuracittadini.appresources#/"/>
     </serviceComponent>
     <implCartridge xsi:type="servicegen:FlowModelImplCartridge"/>

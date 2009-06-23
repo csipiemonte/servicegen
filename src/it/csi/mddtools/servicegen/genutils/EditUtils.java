@@ -138,7 +138,7 @@ public class EditUtils {
 	}
 	
 	public static String formatTypeLabel(CSIDatatype t){
-		return t.getCode().getLiteral();
+		return (t.isNillable()?"Wrapped":"")+t.getCode().getLiteral();
 	}
 	
 	public static String formatTypeLabel(Entity t){

@@ -34,6 +34,12 @@ public class GenUtils {
 	
 
 	/**
+	 * Annotazione per PAPDServiceConnector per specificare il jndiname da utilizzare
+	 * (per porte ejb o ejb20)
+	 */
+	public final static String ANNOTATION_KEY_PDEJBJNDINAME = "csi-ejbpa-jndiname";
+	
+	/**
 	 * Annotazione per PAPDServiceConnector per specificare la target platform del servizio
 	 * (serve per il binding ejb)
 	 */
