@@ -229,28 +229,51 @@ import it.csi.svcflow.orchestrator.handler.*;
 
 public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvider {
 
-   
-
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
-		
-		this.initFunctionHandler(transientVars,args,ps);
-		
-		this.eseguiFunctionHandler(transientVars,args,ps);
-		
-		this.releaseFunctionHandler(transientVars,args,ps);
-	}
-
-		
-	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
-	}
+	protected String selectorRes=null;
 	
-    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	protected String localPDRes=null;
+	
+	public final static String SELECTORPD_PARAM="selectorPD";
+	public final static String SERVICEPD_PARAM="servicePD";
+	
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
 	}
-    
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		selectorRes = (String)args.get(SELECTORPD_PARAM);
+		if (selectorRes==null && selectorRes.length()==0){
+			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
+					"occorre configurare il percorso del file del selettore tramite il "+
+					"parametro "+SELECTORPD_PARAM);
+		}
+		else
+			selectorRes="/"+selectorRes;
+			
+		localPDRes = (String)args.get(SERVICEPD_PARAM);
+		if (localPDRes==null && localPDRes.length()==0){
+			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
+					"occorre configurare il percorso del file della PD Locale tramite il "+
+					"parametro "+SERVICEPD_PARAM);
+		}
+		else
+			localPDRes = "/"+localPDRes;
+		
+	}
+
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException;
 	
 }
 
@@ -719,9 +742,6 @@ import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
 
-	protected final static String SELECTOR_RES="/«pdSelectorFileName((PDPAServiceConnector)serviceConnector)»";
-	
-	protected final static String LOCAL_PD_RES="/«pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef)»";
 
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
@@ -768,16 +788,16 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
 	«IF this.serviceConnector.useRegistry-»
 		java.util.Properties selectorProps = new java.util.Properties();
-		java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
+		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
 			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
-				HttpPDProxyLoader.loadProxy(SELECTOR_RES, localPD);
+				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
 		return tempPd;
 	«ELSE-»
 		if (cachedPD != null)
 			return cachedPD;
 		else{
-			java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
+			java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		
 			it.csi.csi.porte.InfoPortaDelegata infoPD;
 			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd=null;
@@ -785,7 +805,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
 				tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
 			} catch (Exception e) {
-				throw new ConfigException("Errore nella lettura della configurazione da "+LOCAL_PD_RES,e);
+				throw new ConfigException("Errore nella lettura della configurazione da "+localPDRes,e);
 			}
 			return tempPd;
 		}

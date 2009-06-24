@@ -113,13 +113,10 @@ Inizia la creazione nel descrittore dei vari step.
 			<action name="next" id="«"1"+(nodeID(orch))»">
 				<pre-functions>
 				    <function type="class">
-						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	 	
+						<arg name="selectorPD">«pdSelectorFileName((PDPAServiceConnector)(this.serviceConnector))»</arg>
 								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						<arg name="servicePD">«pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef)»</arg>
 					</function>
 				</pre-functions>
 				<results>
