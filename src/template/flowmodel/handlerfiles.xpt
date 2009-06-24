@@ -719,9 +719,9 @@ import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
 
-	protected final static String SELECTOR_RES="«pdSelectorFileName((PDPAServiceConnector)serviceConnector)»";
+	protected final static String SELECTOR_RES="/«pdSelectorFileName((PDPAServiceConnector)serviceConnector)»";
 	
-	protected final static String LOCAL_PD_RES="«pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef)»";
+	protected final static String LOCAL_PD_RES="/«pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef)»";
 
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
@@ -760,6 +760,11 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 		}
 	}
 	
+	«IF !this.serviceConnector.useRegistry-»
+	private static «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»
+		cachedPD = null;
+	«ENDIF-»
+	
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
 	«IF this.serviceConnector.useRegistry-»
 		java.util.Properties selectorProps = new java.util.Properties();
@@ -769,18 +774,21 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 				HttpPDProxyLoader.loadProxy(SELECTOR_RES, localPD);
 		return tempPd;
 	«ELSE-»
-		java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
+		if (cachedPD != null)
+			return cachedPD;
+		else{
+			java.io.InputStream localPD = this.getClass().getResourceAsStream(LOCAL_PD_RES);
 		
-		it.csi.csi.porte.InfoPortaDelegata infoPD;
-		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd=null;
-		try {
-			infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
-			tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
-		} catch (Exception e) {
-			throw new ConfigException("Errore nella lettura della configurazione da "+LOCAL_PD_RES,e);
+			it.csi.csi.porte.InfoPortaDelegata infoPD;
+			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd=null;
+			try {
+				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
+				tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
+			} catch (Exception e) {
+				throw new ConfigException("Errore nella lettura della configurazione da "+LOCAL_PD_RES,e);
+			}
+			return tempPd;
 		}
-		
-		return tempPd;
 	«ENDIF-»
 	}
 }

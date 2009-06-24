@@ -489,10 +489,15 @@ String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
 	
 
 ///// target platform del servizio acceduto
-String getServiceTargetPlatform(PDPAServiceConnector pdpa) :
+TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
 	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
-	let paplatf = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pa-platform").value): null) :
-	paplatf;  
+	let paplatfLiteral = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pa-platform").value): null) :
+	if (paplatfLiteral=="WLS92") then
+		TargetPlatformCodes::WLS92
+	else if (paplatfLiteral=="JBoss43") then
+		TargetPlatformCodes::JBoss43
+		else
+		null;  
 
 ///// classe del plugin ejb
 String pdEjbPluginFQN(PDPAServiceConnector pdpa) :

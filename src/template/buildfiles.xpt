@@ -828,6 +828,9 @@ wsdl4j-1.5.1.jar \
 «LET getAllResourceConnectors() AS allRC-»
 «EXPAND rcLibName FOREACH allRC-»
 «ENDLET-»
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+weblogic-client-3.0.0.jar \
+«ENDIF-»
 coop-trace-1.2.0.jar 
 
 wsfad.libs = wsadp-2.0.2.jar
@@ -1002,6 +1005,11 @@ creazione del file di configurazione IVY
 		<dependency org="others" name="jboss" rev="4.3.0">
 			<artifact name="jboss-j2ee-4.3.0" type="jar" />
 			<artifact name="jboss-servlet-api-4.3.0" type="jar" /> 
+		</dependency>
+		
+		<!-- librerie necessarie per la connessione a servizi su WLS92 -->
+		<dependency org="csipiemonte" name="weblogic-client" rev="3.0.0">
+			<artifact name="weblogic-client-3.0.0" type="jar" /> 
 		</dependency>
 		«ENDIF»
 	    

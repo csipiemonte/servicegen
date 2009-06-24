@@ -79,7 +79,7 @@ staging=FALSE
 «EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd)) FOR this»
 «ENDDEFINE»
 
-«DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, String paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
+«DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, TargetPlatformCodes paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
 «EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR this»
 «ENDDEFINE»
 
@@ -88,7 +88,7 @@ staging=FALSE
 «ENDDEFINE»
 
 «REM»crea il file di PD nella directory test/xml«ENDREM»
-«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
+«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
 «FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
