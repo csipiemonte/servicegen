@@ -809,7 +809,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
 		try {
-			it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService pd = 
+			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
 				getPD();
 			
 			/// valore degli input slot
@@ -822,16 +822,24 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 		«ENDFOREACH-»
 			
 			// binding dei parametri e richiamo del servizio 
-			it.csi.iride2.policy.entity.Identita result = pd.identificaUserPassword(
+			«IF this.operation.returnType!=null-»
+			«map2JavaTypeSDRelative(this.operation.returnType)» result = pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
 			
-			«IF this.operation.returnType!=null»
 			/// inserimento risultato nello slot apposito
 			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
-			«ENDIF»
+			«ELSE-»
+			// binding dei parametri e richiamo del servizio 
+		
+			pd.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			«ENDIF-»
 			
 			
 			
