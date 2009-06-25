@@ -874,13 +874,22 @@ public interface SvcorchPackage extends EPackage {
 	int CHECK_CONDITION__ELSE_NODE = FLOW_NODE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Input</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHECK_CONDITION__INPUT = FLOW_NODE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Check Condition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHECK_CONDITION_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 2;
+	int CHECK_CONDITION_FEATURE_COUNT = FLOW_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.ForEachImpl <em>For Each</em>}' class.
@@ -1596,6 +1605,17 @@ public interface SvcorchPackage extends EPackage {
 	EReference getCheckCondition_ElseNode();
 
 	/**
+	 * Returns the meta object for the reference list '{@link it.csi.mddtools.svcorch.CheckCondition#getInput <em>Input</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Input</em>'.
+	 * @see it.csi.mddtools.svcorch.CheckCondition#getInput()
+	 * @see #getCheckCondition()
+	 * @generated
+	 */
+	EReference getCheckCondition_Input();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.ForEach <em>For Each</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2150,6 +2170,14 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CHECK_CONDITION__ELSE_NODE = eINSTANCE.getCheckCondition_ElseNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Input</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CHECK_CONDITION__INPUT = eINSTANCE.getCheckCondition_Input();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.ForEachImpl <em>For Each</em>}' class.

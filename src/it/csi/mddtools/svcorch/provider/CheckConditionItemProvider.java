@@ -61,6 +61,7 @@ public class CheckConditionItemProvider
 
 			addThenNodePropertyDescriptor(object);
 			addElseNodePropertyDescriptor(object);
+			addInputPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -101,6 +102,28 @@ public class CheckConditionItemProvider
 				 getString("_UI_CheckCondition_elseNode_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_CheckCondition_elseNode_feature", "_UI_CheckCondition_type"),
 				 SvcorchPackage.Literals.CHECK_CONDITION__ELSE_NODE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Input feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInputPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CheckCondition_input_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CheckCondition_input_feature", "_UI_CheckCondition_type"),
+				 SvcorchPackage.Literals.CHECK_CONDITION__INPUT,
 				 true,
 				 false,
 				 true,

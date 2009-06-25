@@ -172,18 +172,19 @@ Inizia la creazione nel descrittore dei vari step.
 				<pre-functions>
 				    <function type="class">
 						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
 					</function>
 				</pre-functions>
 				<results>
-					<unconditional-result old-status="Queued"
+					<!-- se la condizione e' soddisfatta -->
+					<result old-status="Queued"
 						status="Finished" step="«this.thenNode.nodeID(orch)»">
-					</unconditional-result>
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«lastConditionSatisfiedFQN(model)»</arg>
+  							</condition>
+  						</conditions>
+					</result>
+					<!-- se la condizione non e' soddisfatta -->
 					<unconditional-result old-status="Queued"
 						status="Finished" step="«this.elseNode.nodeID(orch)»">
 					</unconditional-result>

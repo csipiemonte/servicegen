@@ -1021,4 +1021,17 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ybC_4E6OEd6C7tmzNDXxkA" id="(0.63909775,0.0)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ybC_4U6OEd6C7tmzNDXxkA" id="(0.5,1.0)"/>
   </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_SjbvgGGREd6XteCaKRo1XA" type="3002" source="_bXVkkESGEd6pUsRzvPf-pA" target="_xmdUIERwEd6pUsRzvPf-pA">
+    <children xmi:type="notation:Node" xmi:id="_Sjk5cGGREd6XteCaKRo1XA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Sjk5cWGREd6XteCaKRo1XA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_Sjk5cmGREd6XteCaKRo1XA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Sjk5c2GREd6XteCaKRo1XA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_SjbvgWGREd6XteCaKRo1XA" lineColor="0"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_SjbvgmGREd6XteCaKRo1XA" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="svcorch.ecore#//CheckCondition/input"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Sjbvg2GREd6XteCaKRo1XA" points="[53, -8, -855, 124]$[907, -140, -1, -8]"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_SjuqcGGREd6XteCaKRo1XA" id="(0.4869565,0.17021276)"/>
+  </edges>
 </notation:Diagram>

@@ -48,6 +48,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="CheckCondition" eSuperTypes="#//FlowNode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="thenNode" eType="#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elseNode" eType="#//Node"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="input" upperBound="-1"
+        eType="#//DataSlot"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForEach" eSuperTypes="#//FlowNode">
     <eStructuralFeatures xsi:type="ecore:EReference" name="collection" eType="#//DataSlot"/>

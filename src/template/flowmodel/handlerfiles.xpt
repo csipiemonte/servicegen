@@ -23,6 +23,7 @@
 	«EXPAND declTransformBaseHandler FOR this»
 	
 	«EXPAND forEachConditionClass FOR this»
+	«EXPAND lastConditionSatisfiedClass FOR this»
 	«EXPAND exceptionRaisedConditionClass FOR this»
 «ENDDEFINE»
 
@@ -45,13 +46,28 @@ public class DataSlotHelper {
  */
 public final static String LAST_ERROR_SLOT_NAME = "_lastError";
 
+/**
+ * Nome dello slot implicito utilizzato di default dagli handler per inserire l'ultima
+ * condizione valutata. 
+ */
+public final static String LAST_CONDITION_VALUE_SLOT_NAME = "_lastConditionValue";
+
 public static Exception getLastError(PropertySet ps){
 	return (Exception)(getDataSlotValue(LAST_ERROR_SLOT_NAME, ps));
 }
 
 public static void setLastError(Exception exc, PropertySet ps){
-	ps.setObject(LAST_ERROR_SLOT_NAME, exc);
+	DataSlotHelper.setDataSlotValue(LAST_ERROR_SLOT_NAME, exc, ps);
 }
+
+public static Boolean getLastConditionValue(PropertySet ps){
+	return (Boolean)(getDataSlotValue(LAST_CONDITION_VALUE_SLOT_NAME, ps));
+}
+
+public static void setLastConditionValue(Boolean condVal, PropertySet ps){
+	DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT_NAME, condVal, ps);
+}
+
 
 public static Object getDataSlotValue(String name, PropertySet ps){
 	return ps.getObject(name);
@@ -493,7 +509,7 @@ import it.csi.svcflow.orchestrator.handler.*;
 
 public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvider {
 
-   
+   	public static final String LAST_CONDITION_VALUE_SLOT = "_lastConditionValue";
 
     public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
 		
@@ -513,8 +529,17 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvi
     private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
 	}
     
-    
-	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException{
+		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, null, ps);
+		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, evalCondition(ps), ps);
+	}
+
+	/**
+	 * Deve essere implementata a seconda della condizione da verificare
+	 */
+	public abstract boolean evalCondition(PropertySet ps) throws WorkflowException;
 	
 }
 
@@ -734,6 +759,33 @@ public class «forEachConditionClassName()» implements Condition{
 			return continueFlag.booleanValue();
 		else
 			return !continueFlag.booleanValue();
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«DEFINE lastConditionSatisfiedClass FOR SOABEModel»
+«FILE lastConditionSatisfiedFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+public class «lastConditionSatisfiedClassName()» implements Condition{
+
+	
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		
+		Boolean satisfiedFlag = (Boolean)DataSlotHelper.getLastConditionValue(ps);
+		if (satisfiedFlag==null)
+			return false;
+		else
+			return satisfiedFlag.booleanValue();
 		
 	}
 }
@@ -1015,11 +1067,29 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName()»{
-	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
+	
+	public boolean evalCondition(PropertySet ps) throws WorkflowException {
+	
+		try{
+			/// valore degli input slot
 		
+		
+		«FOREACH input AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+				(«map2JavaTypeSDRelative(currIn.type)»)inputs.get("«getDataSlotAttrName(currIn)»");
+		«ENDFOREACH-»
+		
+		
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CHKLogic"+orch.operation.name+name)»//
+			/// inserire qui la logica del check. 
+			/// verra' preservata per successive rigenerazioni
+			return true;		
+		«ENDPROTECT»
+		}
+		catch(Throwable e){
+			e.printStackTrace();
+			throw new WorkflowException("Errore durante l'esecuzione del check:"+e);
+		}
 	}
 }
 «ENDFILE»

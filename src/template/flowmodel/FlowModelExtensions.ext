@@ -142,6 +142,17 @@ String forEachConditionFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+forEachConditionClassName()+".java";
 	
 ////
+String lastConditionSatisfiedClassName() :
+	"LastConditionSatisfied";
+	
+String lastConditionSatisfiedFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+lastConditionSatisfiedClassName();
+
+String lastConditionSatisfiedFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+lastConditionSatisfiedClassName()+".java";
+	
+	
+////
 String excRaisedConditionClassName() :
 	"ExceptionRaisedCondition";
 	

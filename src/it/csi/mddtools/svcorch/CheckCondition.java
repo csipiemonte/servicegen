@@ -6,6 +6,8 @@
  */
 package it.csi.mddtools.svcorch;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -17,6 +19,7 @@ package it.csi.mddtools.svcorch;
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getThenNode <em>Then Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getElseNode <em>Else Node</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getInput <em>Input</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,4 +80,20 @@ public interface CheckCondition extends FlowNode {
 	 * @generated
 	 */
 	void setElseNode(Node value);
+
+	/**
+	 * Returns the value of the '<em><b>Input</b></em>' reference list.
+	 * The list contents are of type {@link it.csi.mddtools.svcorch.DataSlot}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Input</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Input</em>' reference list.
+	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getCheckCondition_Input()
+	 * @model
+	 * @generated
+	 */
+	EList<DataSlot> getInput();
 } // CheckCondition

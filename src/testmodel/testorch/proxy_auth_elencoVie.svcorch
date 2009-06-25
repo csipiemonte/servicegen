@@ -11,7 +11,7 @@
       <paramBindings slot="//@globalSlots/@slots.1">
         <param href="iridepep.servicedef#//@operations.0/@params.1"/>
       </paramBindings>
-      <onException firstRecoveryNode="//@nodes/@nodes.5">
+      <onException firstRecoveryNode="//@nodes/@nodes.6">
         <handledException href="iridepep.servicedef#//@types/@types.8"/>
         <handledException href="iridepep.servicedef#//@types/@types.15"/>
         <handledException href="iridepep.servicedef#//@types/@types.17"/>
@@ -24,13 +24,14 @@
       <paramBindings slot="//@globalSlots/@slots.3">
         <param href="ctserv_topon.servicedef#//@operations.12/@params.0"/>
       </paramBindings>
-      <onException firstRecoveryNode="//@nodes/@nodes.5">
+      <onException firstRecoveryNode="//@nodes/@nodes.6">
         <handledException href="ctserv_topon.servicedef#//@types/@types.42"/>
       </onException>
     </nodes>
     <nodes xsi:type="svcorch:CustomTransformation" name="PreparaResult" next="//@nodes/@nodes.4" input="//@globalSlots/@slots.4" output="//@globalSlots/@slots.2"/>
+    <nodes xsi:type="svcorch:CheckCondition" name="RandomCondition" description="randomicamente ritorna null anche se ctserv ha dato risultati" thenNode="//@nodes/@nodes.5" elseNode="//@nodes/@nodes.6"/>
     <nodes xsi:type="svcorch:StopNode" name="Stop"/>
-    <nodes xsi:type="svcorch:CustomTransformation" name="ReturnNull" next="//@nodes/@nodes.4" output="//@globalSlots/@slots.2"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="ReturnNull" next="//@nodes/@nodes.5" output="//@globalSlots/@slots.2"/>
   </nodes>
   <globalSlots>
     <slots name="username">
