@@ -141,6 +141,16 @@ String forEachConditionFQN(SOABEModel model) :
 String forEachConditionFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+forEachConditionClassName()+".java";
 	
+////
+String excRaisedConditionClassName() :
+	"ExceptionRaisedCondition";
+	
+String excRaisedConditionFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+excRaisedConditionClassName();
+
+String excRaisedConditionFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+excRaisedConditionClassName()+".java";
+
 //String serviceBeanClassName(ServiceDef sd) :
 //	toCamel(sd.codServizio)+"Bean";
 

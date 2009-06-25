@@ -23,6 +23,7 @@
 	«EXPAND declTransformBaseHandler FOR this»
 	
 	«EXPAND forEachConditionClass FOR this»
+	«EXPAND exceptionRaisedConditionClass FOR this»
 «ENDDEFINE»
 
 «DEFINE dataSlotHelper FOR SOABEModel»
@@ -37,7 +38,21 @@ import com.opensymphony.module.propertyset.PropertySet;
  *
  */
 public class DataSlotHelper {
-	
+
+/**
+ * Nome dello slot implicito utilizzato di default dagli handler per inserire l'ultima
+ * eccezione occorsa. 
+ */
+public final static String LAST_ERROR_SLOT_NAME = "_lastError";
+
+public static Exception getLastError(PropertySet ps){
+	return (Exception)(getDataSlotValue(LAST_ERROR_SLOT_NAME, ps));
+}
+
+public static void setLastError(Exception exc, PropertySet ps){
+	ps.setObject(LAST_ERROR_SLOT_NAME, exc);
+}
+
 public static Object getDataSlotValue(String name, PropertySet ps){
 	return ps.getObject(name);
 }
@@ -265,7 +280,8 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
 		}
 		else
 			localPDRes = "/"+localPDRes;
-		
+		// reset dello slot destinato a contenere un eventuale errore
+		DataSlotHelper.setLastError(null, ps);
 	}
 
 	private void releaseFunctionHandler(Map transientVars, Map args,
@@ -634,6 +650,52 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTrans
 «ENDFILE»
 «ENDDEFINE»
 
+«DEFINE exceptionRaisedConditionClass FOR SOABEModel»
+«FILE excRaisedConditionFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+public class «excRaisedConditionClassName()» implements Condition {
+
+	public final static String HANDLED_EXCEPTIONS_PARAM_NAME = "handled.exceptions";
+
+	
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		String hndExcs = (String) args
+				.get(HANDLED_EXCEPTIONS_PARAM_NAME);
+		if (hndExcs == null)
+			throw new WorkflowException(
+					"errore nella configurazione della condizione di verifica eccezioni: occorre configurare "
+							+ "il parametro "
+							+ HANDLED_EXCEPTIONS_PARAM_NAME
+							+ " valorizzandolo con la lista dei f.q.n delle eccezioni gestite, separate da ','.");
+
+		
+		Exception lastError = DataSlotHelper.getLastError(ps);
+		if (lastError!=null){
+			StringTokenizer strtok = new StringTokenizer(hndExcs, ",");
+			while(strtok.hasMoreTokens()){
+				String currExc = strtok.nextToken();
+				if (currExc.equals(lastError.getClass().getName()))
+					return true;
+			}
+			// se arrivo qui non è stata trovata l'eccezione
+			return false;
+		}
+		else
+			return false;
+	}
+}
+«ENDFILE»
+
+«ENDDEFINE»
+
 «DEFINE forEachConditionClass FOR SOABEModel»
 «FILE forEachConditionFile()»package «baseHandlersPkg()»;
 
@@ -774,6 +836,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 			
 			
 		} catch (Exception e) {
+			DataSlotHelper.setLastError(e, ps);
 			// TODO Auto-generated catch block
 			System.out.println("ERRORE richiamo (...TODO GESTIRE MEGLIO....) "+e);
 			e.printStackTrace();
