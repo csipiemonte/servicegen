@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="iride_pep" versione="1.0" codProdotto="iridev2" codComponente="iridepep">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <operations name="identificaUserPassword" returnType="//@types/@types.2" throws="//@types/@types.8 //@types/@types.15 //@types/@types.17 //@types/@types.9">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="identificaUserPasswordPIN" returnType="//@types/@types.2" throws="//@types/@types.8 //@types/@types.15 //@types/@types.17 //@types/@types.9">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="identificaCertificato" returnType="//@types/@types.2" throws="//@types/@types.8 //@types/@types.11 //@types/@types.14 //@types/@types.17">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.15"/>
+    </params>
+  </operations>
+  <operations name="isPersonaAutorizzataInUseCase" throws="//@types/@types.8 //@types/@types.12 //@types/@types.10 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.3"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <operations name="isPersonaInRuolo" throws="//@types/@types.8 //@types/@types.16 //@types/@types.12">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.0"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <operations name="getInfoPersonaInUseCase" throws="//@types/@types.8 //@types/@types.12 //@types/@types.10 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.3"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <operations name="findRuoliForPersonaInUseCase" returnType="//@types/@types.6" throws="//@types/@types.8 //@types/@types.12 //@types/@types.10 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.3"/>
+  </operations>
+  <operations name="findRuoliForPersonaInApplication" returnType="//@types/@types.6" throws="//@types/@types.8 //@types/@types.12 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findUseCasesForPersonaInApplication" returnType="//@types/@types.7" throws="//@types/@types.8 //@types/@types.12 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findActorsForPersonaInApplication" returnType="//@types/@types.5" throws="//@types/@types.8 //@types/@types.12 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findActorsForPersonaInUseCase" returnType="//@types/@types.5" throws="//@types/@types.8 //@types/@types.12 //@types/@types.10 //@types/@types.13">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.3"/>
+  </operations>
+  <operations name="isIdentitaAutentica" throws="//@types/@types.8">
+    <params name="p0" type="//@types/@types.2"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <operations name="getInfoPersonaSchema" throws="//@types/@types.8 //@types/@types.16">
+    <params name="p0" type="//@types/@types.0"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="Ruolo">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.iridefed.entity.Ruolo"/>
+      </annotations>
+      <features name="codiceDominio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceRuolo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="mnemonico">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Actor">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.entity.Actor"/>
+      </annotations>
+      <features name="appId" type="//@types/@types.4"/>
+      <features name="id">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Identita">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.entity.Identita"/>
+      </annotations>
+      <features name="codFiscale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cognome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idProvider">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="livelloAutenticazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="mac">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="nome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="rappresentazioneInterna">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="timestamp">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="UseCase">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.entity.UseCase"/>
+      </annotations>
+      <features name="appId" type="//@types/@types.4"/>
+      <features name="id">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Application">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.entity.Application"/>
+      </annotations>
+      <features name="id">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="Array of Actor" componentType="//@types/@types.1"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Ruolo" componentType="//@types/@types.0"/>
+    <types xsi:type="typedef:TypedArray" name="Array of UseCase" componentType="//@types/@types.3"/>
+    <types xsi:type="typedef:Exception" name="InternalException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.InternalException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="MalformedUsernameException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.MalformedUsernameException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="NoSuchUseCaseException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.NoSuchUseCaseException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="CertOutsideValidityException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.CertOutsideValidityException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="IdentitaNonAutenticaException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.IdentitaNonAutenticaException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="NoSuchApplicationException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.NoSuchApplicationException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="CertRevokedException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.CertRevokedException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="AuthException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.AuthException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="BadRuoloException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.iridefed.exceptions.BadRuoloException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="IdProviderNotFoundException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.exceptions.IdProviderNotFoundException"/>
+      </annotations>
+    </types>
+  </types>
+  <annotations source="servicedef">
+    <details key="java-fqn" value="it.csi.iride2.policy.interfaces.PolicyEnforcerBaseService"/>
+  </annotations>
+</servicedef:ServiceDef>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicegen:SOABEModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" codProdotto="testorch" codComponente="testorchsrv" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <serviceimplementations>
+    <provides href="proxyauth.servicedef#/"/>
+    <serviceComponent xsi:type="servicegen:OrchestrationFlowCompositeSC">
+      <orchestrations href="proxy_auth_identificaUserPwd.svcorch#/"/>
+      <orchestrations href="proxy_auth_elencoVie.svcorch#/"/>
+      <resourceSet href="testorch.appresources#/"/>
+    </serviceComponent>
+    <implCartridge xsi:type="servicegen:FlowModelImplCartridge"/>
+  </serviceimplementations>
+  <targetPlatform code="JBoss43"/>
+  <resourceSet href="testorch.appresources#/"/>
+</servicegen:SOABEModel>
