@@ -75,6 +75,11 @@ String getSQLSrcDir(SOABEModel model) :
 String getLoggerPrefixForComponent(String codProd, String codComponent) :
 	codComponent.toLowerCase();
 
+String debugLog(String class, String method, String msg) :
+	"getLogger(null).debug(\"["+class+"::"+method+"]-"+msg+" \");";
+
+String errorLog(String class, String method, String msg, String exceptionVar) :
+	"getLogger(null).error(\"["+class+"::"+method+"]-"+msg+" \","+exceptionVar+");";
 	
 /// standard specifici per CSI
 

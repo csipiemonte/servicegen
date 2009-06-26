@@ -138,6 +138,7 @@ public static Class classForName(String clname) throws ClassNotFoundException{
 
 import java.util.*;
 
+import org.apache.log4j.Logger;
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
 import com.opensymphony.workflow.WorkflowException;
@@ -148,6 +149,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  * @generated
  */
 public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvider {
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
 	
 	/**
  	 * @generated
@@ -177,8 +193,10 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","START")»
 		_inputNameBindings = new HashMap<String, String>();
 		Iterator argnames_it = args.keySet().iterator();
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","binding dei parametri di input")»
 		while(argnames_it.hasNext()){
 			String currArgName =(String)argnames_it.next();
 			if (!currArgName.startsWith(INPUT_BINDING_PARAM_PREFIX))
@@ -193,8 +211,10 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
 				String currInput=stok.nextToken();
 				String currDS = stok.nextToken();
 				_inputNameBindings.put(currInput, currDS);
+				«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","parametro:\"+currInput+\"->slot:\"+currDS+\"")»
 			}
 		}
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","END")»
 	}
 
 	/**
@@ -215,6 +235,8 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
 	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","inizializzazione slot di input")»
 		Iterator<String> paramNames_it = _inputNameBindings.keySet().iterator();
 		while (paramNames_it.hasNext()) {
 			String currParamName = paramNames_it.next();
@@ -223,6 +245,7 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
 					.getDataSlotValue("input.parameter."
 							+ currParamName, ps), ps);
 		}
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
 	}
 
 }
@@ -233,6 +256,7 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
 «FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -245,6 +269,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -302,12 +341,15 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
+		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
 		if (_outputbindingName != null) {
+			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","impostazione valore di ritorno dallo slot \"+_outputbindingName+\"")»
 			Object retVal = DataSlotHelper
 					.getDataSlotValue(_outputbindingName, ps);
 			if (retVal != null)
 				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, retVal, ps);
 		}
+		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
 }
@@ -318,6 +360,7 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 «FILE papdCallBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -329,6 +372,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  * @generated
  */
 public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvider {
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
 	
 	/**
  	 * @generated
@@ -368,6 +426,7 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","START")»
 		selectorRes = (String)args.get(SELECTORPD_PARAM);
 		if (selectorRes==null && selectorRes.length()==0){
 			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
@@ -385,8 +444,11 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
 		}
 		else
 			localPDRes = "/"+localPDRes;
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","selector:\"+selectorRes+\"")»
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","localPD:\"+localPDRes+\"")»
 		// reset dello slot destinato a contenere un eventuale errore
 		DataSlotHelper.setLastError(null, ps);
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","END")»
 	}
 
 	/**
@@ -411,6 +473,7 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
 «FILE wsCallBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -423,6 +486,20 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider {
 
+    /**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
    
 	/**
  	 * @generated
@@ -464,6 +541,7 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider
 «FILE forEachBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.*;
+import org.apache.log4j.Logger;
 import java.lang.reflect.Array;
 
 import com.opensymphony.module.propertyset.PropertySet;
@@ -477,6 +555,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -525,6 +618,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","START")»
 		String collSN = (String)args.get(COLLECTION_SLOT_NAME_PARAM_NAME);
 		String itemSN = (String)args.get(ITEM_SLOT_NAME_PARAM_NAME);
 		if (collSN==null || collSN.length()==0)
@@ -534,6 +628,9 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 		//
 		_collectionSlotName=collSN.trim();
 		_itemSlotName=itemSN.trim();
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","collection slot:\"+_collectionSlotName+\"")»
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","item slot:\"+_itemSlotName+\"")»
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","END")»
 	}
 
 	/**
@@ -548,9 +645,11 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException{
+		«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","START")»
 		// e' il primo giro?
 		Iterator iterator = (Iterator)DataSlotHelper.getDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, ps);
 		if (iterator==null){
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","primo giro")»
 			// inizializza il loop
 			Object collectionVal = DataSlotHelper.getDataSlotValue(_collectionSlotName, ps);
 			if(collectionVal == null)
@@ -565,6 +664,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 				ArrayList coll = new ArrayList();
 				if (collectionVal!=null){
 					int sz =Array.getLength(collectionVal);
+					«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","la collezione contiene:\"+sz+\"elementi ")»
 					for (Object curr : (Object[])collectionVal) {
 						coll.add(curr);
 					}
@@ -576,6 +676,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 		
 		// in ogni caso verifica se ci sono ancora elementi e carica il prossimo
 		if (iterator.hasNext()){
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","caricamento prossimo elemento nello slot \"+_itemSlotName+\"")»
 			Object next = iterator.next();
 			// rende disponibile il prossimo elemento nello slot item
 			DataSlotHelper.setDataSlotValue(_itemSlotName, next, ps);
@@ -583,6 +684,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, Boolean.TRUE, ps);
 		}
 		else{
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","non ci sono piu' elementi su cui iterare")»
 			// rimuove dal property set l'attributo di iterazione
 			DataSlotHelper.setDataSlotValue(_itemSlotName, null, ps);
 			DataSlotHelper.setDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, null, ps);
@@ -601,6 +703,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 «FILE endLoopBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -614,6 +717,21 @@ import it.csi.svcflow.orchestrator.handler.*;
 public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvider {
 
    
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -654,6 +772,7 @@ public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvide
 «FILE checkCondBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -666,6 +785,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvider {
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -702,8 +836,12 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvi
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException{
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","START")»
 		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, null, ps);
-		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, evalCondition(ps), ps);
+		Boolean condVal = evalCondition(ps);
+		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, condVal, ps);
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","valore condizione:\"+condVal+\"")»
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
 	/**
@@ -721,6 +859,7 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvi
 «FILE customTransformBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.*;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -734,6 +873,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public abstract class «customTransformBaseHandlerClassName()» implements FunctionProvider {
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -802,6 +956,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
  	 */
 	protected void initFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
+		«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","START")»
 		// input slots
 		_inputSlotNames = new ArrayList<String>();
 		_inputSlotTypes = new ArrayList<Class>();
@@ -812,6 +967,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 			if (currArgname.startsWith(INPUT_SLOT_NAME_PARAM_PREFIX)){
 				currArgVal = (String)args.get(currArgname);
 				_inputSlotNames.add(currArgVal);
+				«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","input slot::\"+currArgVal+\"")»
 			}
 			else if (currArgname.startsWith(INPUT_SLOT_CLASS_PARAM_PREFIX)){
 				currArgVal = (String)args.get(currArgname);
@@ -827,6 +983,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 		String outSlotName = (String)args.get(OUTPUT_SLOT_NAME_PARAM);
 		if (outSlotName!=null){
 			_outputSlotName=outSlotName.trim();
+			«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","output slot:\"+outSlotName+\"")»
 			String outClassName = (String)args.get(OUTPUT_SLOT_CLASS_PARAM);
 			try {
 				Class outSlotType = DataSlotHelper.classForName(outClassName);
@@ -837,6 +994,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 		}
 		else 
 			throw new WorkflowException("Errore interno nell'inizializzazione dell'hanlder: output slot nullo");
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
 	/**
@@ -851,15 +1009,19 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","lettura degli input della trasformazione dagli slot")»
 		Map<String, Object> inputs = new HashMap<String, Object>();
 		
 		for (int i = 0; i < _inputSlotNames.size(); i++) {
 			String currInSlotName = _inputSlotNames.get(i);
+			«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","input:\"+currInSlotName+\"")»
 			Object currInSlotVal = ps.getObject(currInSlotName);
 			inputs.put(currInSlotName, currInSlotVal);
 		}
 		Object outVal = getTransformedObject(inputs);
 		DataSlotHelper.setDataSlotValue(_outputSlotName, outVal, ps);
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
 	/**
@@ -882,6 +1044,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 «FILE declTransformBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
@@ -894,6 +1057,21 @@ import it.csi.svcflow.orchestrator.handler.*;
  */
 public abstract class «declTransformBaseHandlerClassName()» extends «customTransformBaseHandlerClassName()» {
    
+   	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+   	
 	/**
  	 * @generated
  	 */
@@ -909,6 +1087,7 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTrans
 
 import java.util.Map;
 import java.util.StringTokenizer;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.Condition;
@@ -921,6 +1100,21 @@ import com.opensymphony.workflow.WorkflowException;
 public class «excRaisedConditionClassName()» implements Condition {
 
 	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
  	 * @generated
  	 */
 	public final static String HANDLED_EXCEPTIONS_PARAM_NAME = "handled.exceptions";
@@ -931,6 +1125,7 @@ public class «excRaisedConditionClassName()» implements Condition {
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+		«debugLog(excRaisedConditionClassName(),"passesCondition","START")»
 		String hndExcs = (String) args
 				.get(HANDLED_EXCEPTIONS_PARAM_NAME);
 		if (hndExcs == null)
@@ -946,14 +1141,20 @@ public class «excRaisedConditionClassName()» implements Condition {
 			StringTokenizer strtok = new StringTokenizer(hndExcs, ",");
 			while(strtok.hasMoreTokens()){
 				String currExc = strtok.nextToken();
-				if (currExc.equals(lastError.getClass().getName()))
+				if (currExc.equals(lastError.getClass().getName())){
+					«debugLog(excRaisedConditionClassName(),"passesCondition","rilevata eccezione gestita:\"+currExc+\"")»
+					«debugLog(excRaisedConditionClassName(),"passesCondition","END")»
 					return true;
+				}
 			}
 			// se arrivo qui non è stata trovata l'eccezione
+			«debugLog(excRaisedConditionClassName(),"passesCondition","END")»
 			return false;
 		}
-		else
+		else {
+			«debugLog(excRaisedConditionClassName(),"eseguiFunctionHandler","END")»
 			return false;
+		}
 	}
 }
 «ENDFILE»
@@ -964,6 +1165,7 @@ public class «excRaisedConditionClassName()» implements Condition {
 «FILE forEachConditionFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.Condition;
@@ -975,6 +1177,21 @@ import com.opensymphony.workflow.WorkflowException;
  */
 public class «forEachConditionClassName()» implements Condition{
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -995,6 +1212,7 @@ public class «forEachConditionClassName()» implements Condition{
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+		«debugLog(forEachConditionClassName(),"passesCondition","START")»
 		String collSN = (String)args.get(ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME);
 		if (collSN==null)
 			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
@@ -1002,6 +1220,7 @@ public class «forEachConditionClassName()» implements Condition{
 					" valorizzandolo coerentemente con il nodo for each corrispondente.");
 		
 		String branch = (String)args.get(BRANCH_PARAM_NAME);
+		«debugLog(forEachConditionClassName(),"passesCondition","branch:\"+branch+\"")»
 		if (branch == null || 
 			(!branch.equals(STAY)&&!branch.equals(EXIT))
 		){
@@ -1012,10 +1231,14 @@ public class «forEachConditionClassName()» implements Condition{
 		Boolean continueFlag = (Boolean)DataSlotHelper.getDataSlotValue(collSN+ForEachBaseHandler.MORE_ELEMENTS_SLOT_NAME_SUFFIX, ps);
 		if (continueFlag==null)
 			continueFlag=Boolean.FALSE;
-		if (branch.equals(STAY))
+		if (branch.equals(STAY)){
+			«debugLog(forEachConditionClassName(),"passesCondition","END")»
 			return continueFlag.booleanValue();
-		else
+		}
+		else {
+			«debugLog(forEachConditionClassName(),"passesCondition","END")»
 			return !continueFlag.booleanValue();
+		}
 		
 	}
 }
@@ -1027,6 +1250,7 @@ public class «forEachConditionClassName()» implements Condition{
 «FILE lastConditionSatisfiedFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.Condition;
@@ -1039,16 +1263,37 @@ import com.opensymphony.workflow.WorkflowException;
 public class «lastConditionSatisfiedClassName()» implements Condition{
 
 	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
  	 * @generated
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
-		
+		«debugLog(lastConditionSatisfiedClassName(),"passesCondition","START")»
 		Boolean satisfiedFlag = (Boolean)DataSlotHelper.getLastConditionValue(ps);
-		if (satisfiedFlag==null)
+		if (satisfiedFlag==null){
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","lastcondition flag non valorizzato: condizione non soddisfatta")»
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","END")»
 			return false;
-		else
+		}
+		else {
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","lastcondition flag:\"+satisfiedFlag+\"")»
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","END")»
 			return satisfiedFlag.booleanValue();
+		}
 		
 	}
 }
@@ -1078,6 +1323,7 @@ public class «lastConditionSatisfiedClassName()» implements Condition{
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1096,6 +1342,7 @@ public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassName
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1114,6 +1361,7 @@ public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName(
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1128,18 +1376,34 @@ import «baseHandlersPkg(model)».*;
  */
 public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
 
-
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
 		try {
 			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
 				getPD();
 			
 			/// valore degli input slot
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","binding parametri")»
 		«FOREACH this.paramBindings AS currPB-»
 		«LET currPB.slot AS currIn-»
 			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
@@ -1149,32 +1413,34 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 		«ENDFOREACH-»
 			
 			// binding dei parametri e richiamo del servizio 
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
 			«IF this.operation.returnType!=null-»
 			«map2JavaTypeSDRelative(this.operation.returnType)» result = pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
-			
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
 			/// inserimento risultato nello slot apposito
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","inserimento del risultato nello slot "+getDataSlotAttrName(this.outputSlot))»
 			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
 			«ELSE-»
 			// binding dei parametri e richiamo del servizio 
-		
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
 			pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
 			«ENDIF-»
 			
 			
 			
 		} catch (Exception e) {
 			DataSlotHelper.setLastError(e, ps);
-			// TODO Auto-generated catch block
-			System.out.println("ERRORE richiamo (...TODO GESTIRE MEGLIO....) "+e);
-			e.printStackTrace();
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
+			«errorLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot","e")»
 		}
 	}
 	
@@ -1187,17 +1453,27 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
  	 * @generated
  	 */
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
+		«debugLog(specificHandlerClassName(),"getPD","START")»
 	«IF this.serviceConnector.useRegistry-»
+		«debugLog(specificHandlerClassName(),"getPD","reperimento PD da registry")»
+		«debugLog(specificHandlerClassName(),"getPD","-selector:\"+selectorRes+\"")»
+		«debugLog(specificHandlerClassName(),"getPD","-localPD:\"+localPDRes+\"")»
 		java.util.Properties selectorProps = new java.util.Properties();
 		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
 			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
 				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
+		«debugLog(specificHandlerClassName(),"getPD","END")»
 		return tempPd;
 	«ELSE-»
-		if (cachedPD != null)
+		«debugLog(specificHandlerClassName(),"getPD","reperimento PD da risorsa locale:\"+localPDRes+\"")»
+		if (cachedPD != null){
+			«debugLog(specificHandlerClassName(),"getPD","PD gia' presente in cache")»
+			«debugLog(specificHandlerClassName(),"getPD","END")»
 			return cachedPD;
+		}
 		else{
+			«debugLog(specificHandlerClassName(),"getPD","PD non presente in cache")»
 			java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		
 			it.csi.csi.porte.InfoPortaDelegata infoPD;
@@ -1208,6 +1484,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 			} catch (Exception e) {
 				throw new ConfigException("Errore nella lettura della configurazione da "+localPDRes,e);
 			}
+			«debugLog(specificHandlerClassName(),"getPD","END")»
 			return tempPd;
 		}
 	«ENDIF-»
@@ -1220,6 +1497,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName(
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1230,6 +1508,22 @@ import «baseHandlersPkg(model)».*;
  * @generated
  */
 public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName()»{
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -1247,6 +1541,7 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName()»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1258,9 +1553,23 @@ import «baseHandlersPkg(model)».*;
  */
 public class «specificHandlerClassName()» extends «customTransformBaseHandlerClassName()»{
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
 	
 	public Object getTransformedObject(Map<String, Object> inputs){
-		
+		«debugLog(specificHandlerClassName(),"getTransformedObject","START")»		
 		«map2JavaTypeSDRelative(output.type)» outVal = 
 		 («map2JavaTypeSDRelative(output.type)»)(inputs.get(_outputSlotName));
 		
@@ -1273,6 +1582,7 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandlerCla
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customTXLogic")»
 		/// inserire qui la logica di trasformazione
 		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"getTransformedObject","END")»
 		return outVal;
 	}
 }
@@ -1283,6 +1593,7 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandlerCla
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1295,6 +1606,21 @@ import «baseHandlersPkg(model)».*;
  */
 public class «specificHandlerClassName()» extends «declTransformBaseHandlerClassName()»{
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
 	/**
  	 * @generated
  	 */
@@ -1320,6 +1646,7 @@ public class «specificHandlerClassName()» extends «declTransformBaseHandlerClass
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1339,6 +1666,7 @@ public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1355,8 +1683,8 @@ public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassName()
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
-		// NOTHING TO DO...
-		
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 }
 «ENDFILE»
@@ -1366,6 +1694,7 @@ public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassName()
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1377,8 +1706,23 @@ import «baseHandlersPkg(model)».*;
  */
 public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName()»{
 	
-	public boolean evalCondition(PropertySet ps) throws WorkflowException {
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	public boolean evalCondition(PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"evalCondition","START")»
 		try{
 			/// valore degli input slot
 		
@@ -1396,8 +1740,11 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName
 		«ENDPROTECT»
 		}
 		catch(Throwable e){
-			e.printStackTrace();
+			«errorLog(specificHandlerClassName(),"evalCondition","errore durante l'esecuzione del check", "e")»
 			throw new WorkflowException("Errore durante l'esecuzione del check:"+e);
+		}
+		finally{
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
 		}
 	}
 }
@@ -1409,6 +1756,7 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1426,6 +1774,21 @@ import «baseHandlersPkg(model)».*;
 public class «specificHandlerClassName()» implements FunctionProvider{
 	
 	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
  	 * @generated
  	 */
 	public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
@@ -1439,20 +1802,25 @@ public class «specificHandlerClassName()» implements FunctionProvider{
 
 		
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"initFunctionHandler","START")»
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"init")»
 		«ENDPROTECT»
-		
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 	
     private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+    	«debugLog(specificHandlerClassName(),"releaseFunctionHandler","START")»
     	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"release")»
 		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"releaseFunctionHandler","END")»
 	}
     
     
 	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException{
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"exec")»
 		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"extraMethods")»
