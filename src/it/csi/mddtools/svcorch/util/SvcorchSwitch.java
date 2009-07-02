@@ -249,6 +249,18 @@ public class SvcorchSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case SvcorchPackage.EXCEPTION_MAPPINGS: {
+				ExceptionMappings exceptionMappings = (ExceptionMappings)theEObject;
+				T result = caseExceptionMappings(exceptionMappings);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case SvcorchPackage.EXCEPTION_MAPPING: {
+				ExceptionMapping exceptionMapping = (ExceptionMapping)theEObject;
+				T result = caseExceptionMapping(exceptionMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -580,6 +592,36 @@ public class SvcorchSwitch<T> {
 	 * @generated
 	 */
 	public T caseUserDefinedOpNode(UserDefinedOpNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Exception Mappings</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Exception Mappings</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExceptionMappings(ExceptionMappings object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Exception Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Exception Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExceptionMapping(ExceptionMapping object) {
 		return null;
 	}
 

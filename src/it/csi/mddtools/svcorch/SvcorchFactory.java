@@ -179,6 +179,24 @@ public interface SvcorchFactory extends EFactory {
 	UserDefinedOpNode createUserDefinedOpNode();
 
 	/**
+	 * Returns a new object of class '<em>Exception Mappings</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Exception Mappings</em>'.
+	 * @generated
+	 */
+	ExceptionMappings createExceptionMappings();
+
+	/**
+	 * Returns a new object of class '<em>Exception Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Exception Mapping</em>'.
+	 * @generated
+	 */
+	ExceptionMapping createExceptionMapping();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -160,6 +160,14 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 				return createUserDefinedOpNodeAdapter();
 			}
 			@Override
+			public Adapter caseExceptionMappings(ExceptionMappings object) {
+				return createExceptionMappingsAdapter();
+			}
+			@Override
+			public Adapter caseExceptionMapping(ExceptionMapping object) {
+				return createExceptionMappingAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -484,6 +492,34 @@ public class SvcorchAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createUserDefinedOpNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.svcorch.ExceptionMappings <em>Exception Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.svcorch.ExceptionMappings
+	 * @generated
+	 */
+	public Adapter createExceptionMappingsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.svcorch.ExceptionMapping <em>Exception Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.svcorch.ExceptionMapping
+	 * @generated
+	 */
+	public Adapter createExceptionMappingAdapter() {
 		return null;
 	}
 

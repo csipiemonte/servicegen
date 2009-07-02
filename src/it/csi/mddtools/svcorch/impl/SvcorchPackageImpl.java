@@ -17,6 +17,8 @@ import it.csi.mddtools.svcorch.DataSlots;
 import it.csi.mddtools.svcorch.DeclarativeTransformation;
 import it.csi.mddtools.svcorch.EndLoop;
 import it.csi.mddtools.svcorch.ExceptionHandler;
+import it.csi.mddtools.svcorch.ExceptionMapping;
+import it.csi.mddtools.svcorch.ExceptionMappings;
 import it.csi.mddtools.svcorch.FlowNode;
 import it.csi.mddtools.svcorch.ForEach;
 import it.csi.mddtools.svcorch.InputParamBindings;
@@ -206,6 +208,20 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	private EClass userDefinedOpNodeEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass exceptionMappingsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass exceptionMappingEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -337,6 +353,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 */
 	public EReference getOrchestration_ReturnSlot() {
 		return (EReference)orchestrationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOrchestration_ExceptionMappings() {
+		return (EReference)orchestrationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -794,6 +819,60 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getExceptionMappings() {
+		return exceptionMappingsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExceptionMappings_Mapping() {
+		return (EReference)exceptionMappingsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExceptionMapping() {
+		return exceptionMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExceptionMapping_Msg() {
+		return (EAttribute)exceptionMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExceptionMapping_From() {
+		return (EReference)exceptionMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExceptionMapping_To() {
+		return (EReference)exceptionMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SvcorchFactory getSvcorchFactory() {
 		return (SvcorchFactory)getEFactoryInstance();
 	}
@@ -824,6 +903,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		createEReference(orchestrationEClass, ORCHESTRATION__OPERATION);
 		createEReference(orchestrationEClass, ORCHESTRATION__INPUT_PARAM_BINDINGS);
 		createEReference(orchestrationEClass, ORCHESTRATION__RETURN_SLOT);
+		createEReference(orchestrationEClass, ORCHESTRATION__EXCEPTION_MAPPINGS);
 
 		nodeEClass = createEClass(NODE);
 		createEAttribute(nodeEClass, NODE__NAME);
@@ -895,6 +975,14 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		createEReference(endLoopEClass, END_LOOP__LOOP_HEAD_NODE);
 
 		userDefinedOpNodeEClass = createEClass(USER_DEFINED_OP_NODE);
+
+		exceptionMappingsEClass = createEClass(EXCEPTION_MAPPINGS);
+		createEReference(exceptionMappingsEClass, EXCEPTION_MAPPINGS__MAPPING);
+
+		exceptionMappingEClass = createEClass(EXCEPTION_MAPPING);
+		createEAttribute(exceptionMappingEClass, EXCEPTION_MAPPING__MSG);
+		createEReference(exceptionMappingEClass, EXCEPTION_MAPPING__FROM);
+		createEReference(exceptionMappingEClass, EXCEPTION_MAPPING__TO);
 	}
 
 	/**
@@ -953,6 +1041,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEReference(getOrchestration_Operation(), theServicedefPackage.getOperation(), null, "operation", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrchestration_InputParamBindings(), this.getInputParamBindings(), null, "inputParamBindings", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrchestration_ReturnSlot(), this.getDataSlot(), null, "returnSlot", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrchestration_ExceptionMappings(), this.getExceptionMappings(), null, "exceptionMappings", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNode_Name(), ecorePackage.getEString(), "name", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1024,6 +1113,14 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEReference(getEndLoop_LoopHeadNode(), this.getNode(), null, "loopHeadNode", null, 0, 1, EndLoop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(userDefinedOpNodeEClass, UserDefinedOpNode.class, "UserDefinedOpNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(exceptionMappingsEClass, ExceptionMappings.class, "ExceptionMappings", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExceptionMappings_Mapping(), this.getExceptionMapping(), null, "mapping", null, 0, -1, ExceptionMappings.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(exceptionMappingEClass, ExceptionMapping.class, "ExceptionMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getExceptionMapping_Msg(), ecorePackage.getEString(), "msg", null, 0, 1, ExceptionMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExceptionMapping_From(), theTypedefPackage.getException(), null, "from", null, 0, 1, ExceptionMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExceptionMapping_To(), theTypedefPackage.getException(), null, "to", null, 0, 1, ExceptionMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

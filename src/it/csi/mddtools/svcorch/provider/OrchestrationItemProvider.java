@@ -213,6 +213,7 @@ public class OrchestrationItemProvider
 			childrenFeatures.add(SvcorchPackage.Literals.ORCHESTRATION__NODES);
 			childrenFeatures.add(SvcorchPackage.Literals.ORCHESTRATION__GLOBAL_SLOTS);
 			childrenFeatures.add(SvcorchPackage.Literals.ORCHESTRATION__INPUT_PARAM_BINDINGS);
+			childrenFeatures.add(SvcorchPackage.Literals.ORCHESTRATION__EXCEPTION_MAPPINGS);
 		}
 		return childrenFeatures;
 	}
@@ -274,6 +275,7 @@ public class OrchestrationItemProvider
 			case SvcorchPackage.ORCHESTRATION__NODES:
 			case SvcorchPackage.ORCHESTRATION__GLOBAL_SLOTS:
 			case SvcorchPackage.ORCHESTRATION__INPUT_PARAM_BINDINGS:
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -305,6 +307,11 @@ public class OrchestrationItemProvider
 			(createChildParameter
 				(SvcorchPackage.Literals.ORCHESTRATION__INPUT_PARAM_BINDINGS,
 				 SvcorchFactory.eINSTANCE.createInputParamBindings()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(SvcorchPackage.Literals.ORCHESTRATION__EXCEPTION_MAPPINGS,
+				 SvcorchFactory.eINSTANCE.createExceptionMappings()));
 	}
 
 	/**

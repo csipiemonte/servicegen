@@ -11,6 +11,7 @@ import it.csi.mddtools.servicedef.ServiceDef;
 
 import it.csi.mddtools.svcorch.DataSlot;
 import it.csi.mddtools.svcorch.DataSlots;
+import it.csi.mddtools.svcorch.ExceptionMappings;
 import it.csi.mddtools.svcorch.InputParamBindings;
 import it.csi.mddtools.svcorch.Nodes;
 import it.csi.mddtools.svcorch.Orchestration;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getInputParamBindings <em>Input Param Bindings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getReturnSlot <em>Return Slot</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getExceptionMappings <em>Exception Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -103,6 +105,16 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * @ordered
 	 */
 	protected DataSlot returnSlot;
+
+	/**
+	 * The cached value of the '{@link #getExceptionMappings() <em>Exception Mappings</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExceptionMappings()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExceptionMappings exceptionMappings;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -371,6 +383,49 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExceptionMappings getExceptionMappings() {
+		return exceptionMappings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExceptionMappings(ExceptionMappings newExceptionMappings, NotificationChain msgs) {
+		ExceptionMappings oldExceptionMappings = exceptionMappings;
+		exceptionMappings = newExceptionMappings;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS, oldExceptionMappings, newExceptionMappings);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExceptionMappings(ExceptionMappings newExceptionMappings) {
+		if (newExceptionMappings != exceptionMappings) {
+			NotificationChain msgs = null;
+			if (exceptionMappings != null)
+				msgs = ((InternalEObject)exceptionMappings).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS, null, msgs);
+			if (newExceptionMappings != null)
+				msgs = ((InternalEObject)newExceptionMappings).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS, null, msgs);
+			msgs = basicSetExceptionMappings(newExceptionMappings, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS, newExceptionMappings, newExceptionMappings));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -380,6 +435,8 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return basicSetGlobalSlots(null, msgs);
 			case SvcorchPackage.ORCHESTRATION__INPUT_PARAM_BINDINGS:
 				return basicSetInputParamBindings(null, msgs);
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
+				return basicSetExceptionMappings(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -407,6 +464,8 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 			case SvcorchPackage.ORCHESTRATION__RETURN_SLOT:
 				if (resolve) return getReturnSlot();
 				return basicGetReturnSlot();
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
+				return getExceptionMappings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -436,6 +495,9 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return;
 			case SvcorchPackage.ORCHESTRATION__RETURN_SLOT:
 				setReturnSlot((DataSlot)newValue);
+				return;
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
+				setExceptionMappings((ExceptionMappings)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -467,6 +529,9 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 			case SvcorchPackage.ORCHESTRATION__RETURN_SLOT:
 				setReturnSlot((DataSlot)null);
 				return;
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
+				setExceptionMappings((ExceptionMappings)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -491,6 +556,8 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return inputParamBindings != null;
 			case SvcorchPackage.ORCHESTRATION__RETURN_SLOT:
 				return returnSlot != null;
+			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
+				return exceptionMappings != null;
 		}
 		return super.eIsSet(featureID);
 	}

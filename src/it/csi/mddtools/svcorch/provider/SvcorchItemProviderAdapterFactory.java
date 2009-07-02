@@ -467,6 +467,52 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.svcorch.ExceptionMappings} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExceptionMappingsItemProvider exceptionMappingsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.svcorch.ExceptionMappings}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExceptionMappingsAdapter() {
+		if (exceptionMappingsItemProvider == null) {
+			exceptionMappingsItemProvider = new ExceptionMappingsItemProvider(this);
+		}
+
+		return exceptionMappingsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.svcorch.ExceptionMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExceptionMappingItemProvider exceptionMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.svcorch.ExceptionMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExceptionMappingAdapter() {
+		if (exceptionMappingItemProvider == null) {
+			exceptionMappingItemProvider = new ExceptionMappingItemProvider(this);
+		}
+
+		return exceptionMappingItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -582,6 +628,8 @@ public class SvcorchItemProviderAdapterFactory extends SvcorchAdapterFactory imp
 		if (inputParamBindingsItemProvider != null) inputParamBindingsItemProvider.dispose();
 		if (endLoopItemProvider != null) endLoopItemProvider.dispose();
 		if (userDefinedOpNodeItemProvider != null) userDefinedOpNodeItemProvider.dispose();
+		if (exceptionMappingsItemProvider != null) exceptionMappingsItemProvider.dispose();
+		if (exceptionMappingItemProvider != null) exceptionMappingItemProvider.dispose();
 	}
 
 }

@@ -124,13 +124,22 @@ public interface SvcorchPackage extends EPackage {
 	int ORCHESTRATION__RETURN_SLOT = 5;
 
 	/**
+	 * The feature id for the '<em><b>Exception Mappings</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION__EXCEPTION_MAPPINGS = 6;
+
+	/**
 	 * The number of structural features of the '<em>Orchestration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ORCHESTRATION_FEATURE_COUNT = 6;
+	int ORCHESTRATION_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.NodeImpl <em>Node</em>}' class.
@@ -1255,6 +1264,81 @@ public interface SvcorchPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.ExceptionMappingsImpl <em>Exception Mappings</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.svcorch.impl.ExceptionMappingsImpl
+	 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getExceptionMappings()
+	 * @generated
+	 */
+	int EXCEPTION_MAPPINGS = 22;
+
+	/**
+	 * The feature id for the '<em><b>Mapping</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPINGS__MAPPING = 0;
+
+	/**
+	 * The number of structural features of the '<em>Exception Mappings</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPINGS_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.ExceptionMappingImpl <em>Exception Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.svcorch.impl.ExceptionMappingImpl
+	 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getExceptionMapping()
+	 * @generated
+	 */
+	int EXCEPTION_MAPPING = 23;
+
+	/**
+	 * The feature id for the '<em><b>Msg</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPING__MSG = 0;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPING__FROM = 1;
+
+	/**
+	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPING__TO = 2;
+
+	/**
+	 * The number of structural features of the '<em>Exception Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION_MAPPING_FEATURE_COUNT = 3;
+
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.Orchestration <em>Orchestration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1329,6 +1413,17 @@ public interface SvcorchPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOrchestration_ReturnSlot();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.svcorch.Orchestration#getExceptionMappings <em>Exception Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Exception Mappings</em>'.
+	 * @see it.csi.mddtools.svcorch.Orchestration#getExceptionMappings()
+	 * @see #getOrchestration()
+	 * @generated
+	 */
+	EReference getOrchestration_ExceptionMappings();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.Node <em>Node</em>}'.
@@ -1860,6 +1955,70 @@ public interface SvcorchPackage extends EPackage {
 	EClass getUserDefinedOpNode();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.ExceptionMappings <em>Exception Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Exception Mappings</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMappings
+	 * @generated
+	 */
+	EClass getExceptionMappings();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.svcorch.ExceptionMappings#getMapping <em>Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mapping</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMappings#getMapping()
+	 * @see #getExceptionMappings()
+	 * @generated
+	 */
+	EReference getExceptionMappings_Mapping();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.ExceptionMapping <em>Exception Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Exception Mapping</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMapping
+	 * @generated
+	 */
+	EClass getExceptionMapping();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.svcorch.ExceptionMapping#getMsg <em>Msg</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Msg</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMapping#getMsg()
+	 * @see #getExceptionMapping()
+	 * @generated
+	 */
+	EAttribute getExceptionMapping_Msg();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMapping#getFrom()
+	 * @see #getExceptionMapping()
+	 * @generated
+	 */
+	EReference getExceptionMapping_From();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @see it.csi.mddtools.svcorch.ExceptionMapping#getTo()
+	 * @see #getExceptionMapping()
+	 * @generated
+	 */
+	EReference getExceptionMapping_To();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1938,6 +2097,14 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ORCHESTRATION__RETURN_SLOT = eINSTANCE.getOrchestration_ReturnSlot();
+
+		/**
+		 * The meta object literal for the '<em><b>Exception Mappings</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORCHESTRATION__EXCEPTION_MAPPINGS = eINSTANCE.getOrchestration_ExceptionMappings();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.NodeImpl <em>Node</em>}' class.
@@ -2380,6 +2547,58 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EClass USER_DEFINED_OP_NODE = eINSTANCE.getUserDefinedOpNode();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.ExceptionMappingsImpl <em>Exception Mappings</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.svcorch.impl.ExceptionMappingsImpl
+		 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getExceptionMappings()
+		 * @generated
+		 */
+		EClass EXCEPTION_MAPPINGS = eINSTANCE.getExceptionMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Mapping</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_MAPPINGS__MAPPING = eINSTANCE.getExceptionMappings_Mapping();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.ExceptionMappingImpl <em>Exception Mapping</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.svcorch.impl.ExceptionMappingImpl
+		 * @see it.csi.mddtools.svcorch.impl.SvcorchPackageImpl#getExceptionMapping()
+		 * @generated
+		 */
+		EClass EXCEPTION_MAPPING = eINSTANCE.getExceptionMapping();
+
+		/**
+		 * The meta object literal for the '<em><b>Msg</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXCEPTION_MAPPING__MSG = eINSTANCE.getExceptionMapping_Msg();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_MAPPING__FROM = eINSTANCE.getExceptionMapping_From();
+
+		/**
+		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXCEPTION_MAPPING__TO = eINSTANCE.getExceptionMapping_To();
 
 	}
 

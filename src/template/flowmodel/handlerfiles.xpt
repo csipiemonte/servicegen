@@ -256,12 +256,15 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvi
 «FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.FunctionProvider;
 import com.opensymphony.workflow.WorkflowException;
 
+import it.csi.csi.wrapper.*;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
@@ -290,6 +293,21 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 	public final static String OUTPUT_BINDING_PARAM = "output.binding";
 	
 	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_FROM_PARAM_PREFIX = "exception.mapping.from.";
+	
+	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_TO_PARAM_PREFIX = "exception.mapping.to.";
+	
+	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_MSG_PARAM_PREFIX = "exception.mapping.msg.";
+	
+	/**
  	 * @generated
  	 */
 	public final static String RETURN_ATTRIBUTE_NAME = "result";
@@ -299,6 +317,16 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
  	 */
 	protected String _outputbindingName;
 
+	/**
+ 	 * @generated
+ 	 */
+	Map<Class,Class> excMap = null;
+	
+	/**
+ 	 * @generated
+ 	 */
+	Map<Class,String> excMapMsg = null;
+	
 	/**
  	 * @generated
  	 */
@@ -319,7 +347,30 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 			throws WorkflowException {
 		// se il parametro non e' valorizzato l'operazione viene considerata void
 		_outputbindingName = (String) args.get(OUTPUT_BINDING_PARAM);
-
+		// mapping eccezioni
+		excMap = new HashMap<Class, Class>();
+		excMapMsg = new HashMap<Class, String>();
+		
+		Iterator<String> key_it = args.keySet().iterator();
+		while (key_it.hasNext()) {
+			String currK = (String) key_it.next();
+			if (currK.startsWith(EXC_MAP_FROM_PARAM_PREFIX)){
+				String currFrom = (String)args.get(currK);
+				String index = currK.substring(currK.lastIndexOf(".")+1);
+				String currTo = (String)args.get(EXC_MAP_TO_PARAM_PREFIX+index);
+				String currMsg = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+index);
+				try{
+					Class fromClass = Class.forName(currFrom);
+					Class toClass = Class.forName(currTo);
+					excMap.put(fromClass,toClass);
+					excMapMsg.put(fromClass,currMsg);
+				}
+				catch(Exception e){
+					«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
+					throw new WorkflowException("Errore nell'inizializzazione dell'handler:"+e);
+				}
+			}
+		}
 	}
 
 	/**
@@ -342,7 +393,53 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
 		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
-		if (_outputbindingName != null) {
+		// verifica se c'e' un errore pendente
+		if (DataSlotHelper.getLastError(ps)!=null){
+			Exception e = DataSlotHelper.getLastError(ps);
+			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","rilevato errore al termine dell'orchestrazione")»
+			Class srcExcCl = e.getClass();
+			Class trgExcCl = excMap.get(srcExcCl);
+			if (trgExcCl != null) {
+				/// mapping eccezione messaggio
+				String msg = "";
+				java.lang.reflect.Constructor exCtr;
+				try {
+					exCtr = trgExcCl.getConstructor(String.class, Throwable.class);
+					CSIException eToThrow;
+					try {
+						eToThrow = (CSIException)exCtr.newInstance(msg, e);
+						DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
+								ps);
+					} catch (IllegalArgumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						throw e1;
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					} catch (java.lang.reflect.InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					}
+				
+					
+				} catch (SecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchMethodException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		}
+		else if (_outputbindingName != null) {
 			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","impostazione valore di ritorno dallo slot \"+_outputbindingName+\"")»
 			Object retVal = DataSlotHelper
 					.getDataSlotValue(_outputbindingName, ps);

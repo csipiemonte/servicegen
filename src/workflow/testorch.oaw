@@ -1,0 +1,30 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicedef.oaw" 
+	model="servicegen/src/testmodel/testorch/proxyauth.servicedef"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkAppresources.oaw" 
+	model="servicegen/src/testmodel/testorch/testorch.appresources"  
+    />
+    
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
+	model="servicegen/src/testmodel/testorch/proxy_auth_identificaUserPwd.svcorch"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkSvcOrch.oaw" 
+	model="servicegen/src/testmodel/testorch/proxy_auth_elencoVie.svcorch"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicegen.oaw" 
+	model="servicegen/src/testmodel/testorch/testorch.servicegen"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/csi14.oaw" 
+	model="servicegen/src/testmodel/testorch/testorch.servicegen" 
+	targetProjectName="testorch" 
+    />
+</workflow>

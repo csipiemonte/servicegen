@@ -458,7 +458,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
+		// restituisco l'invocation node
 		return in;
 	}
 	
@@ -477,7 +477,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	public void init(Object initOptions){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
 	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
+	// non verra' sovrascritto da successive rigenerazioni
 	«ENDPROTECT»
 	}
 	
@@ -590,25 +590,17 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	 // inizio misurazione
 	 watcher.start();
 	 
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
-	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
+	 
 	 String remoteUser = "<???>";
 	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
 	 java.util.HashMap persistentParams = new java.util.HashMap();
-	 «ENDPROTECT»
 	 try {
 	 	// inserimento nel context dei parametri del metodo (senza trasformazioni)
 	 	«FOREACH params AS currPar»
 	 	persistentParams.put("input.parameter.«currPar.name»",«currPar.name»);
 	 	«ENDFOREACH»
 	 	«IF this.opType != OpTypeEnum::synch»persistentParams.put("input.parameter.datiMsg",datiMsg);«ENDIF»
-     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPreFlow"+implClassName+"_"+name)»
-     	// inserire qui eventuale codice aggiuntivo di inizializzazione del flusso
-     	// (inserimento nel context degli oggetti necessari al flusso oltre ai parametri)
-     	// non verrà sovrascritto nelle successive rigenerazioni
-	 
-	 «ENDPROTECT»
+     
 		 // inizializzazione e richiamo del flusso
 		 try{
 		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,new Integer(0),persistentParams);
@@ -618,16 +610,18 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
 		 	throw ue;
 		 }
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPostFlow"+implClassName+"_"+name)»
-	     // inserire qui il codice di terminazione del flusso
-	     // (reperimento del risultato dal context del flusso e trasformazione
-	     // nel risultato finale)
-	     // non verrà sovrascritto nelle successive rigenerazioni
+	 
      «IF returnType!=null»
-     	
-     	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
+     	Object retVal = persistentParams.get("result");
+     	// se il valore di ritorno e'un'eccezione occorre rilanciarla
+     	if (retVal instanceof Throwable) {
+     		«errorLog(implClassName,this.name,"Errore occorso nell'esecuzione del flusso\"+retVal+\"","(Throwable)retVal" )»
+     		throw (Throwable)retVal;
+     	}
+     	else{
+     		return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
+     	}
      «ENDIF»
-     «ENDPROTECT»
      	}
      catch(Throwable ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){

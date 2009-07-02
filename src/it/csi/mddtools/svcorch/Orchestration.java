@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getOperation <em>Operation</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getInputParamBindings <em>Input Param Bindings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getReturnSlot <em>Return Slot</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getExceptionMappings <em>Exception Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -188,5 +189,31 @@ public interface Orchestration extends EObject {
 	 * @generated
 	 */
 	void setReturnSlot(DataSlot value);
+
+	/**
+	 * Returns the value of the '<em><b>Exception Mappings</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Exception Mappings</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Exception Mappings</em>' containment reference.
+	 * @see #setExceptionMappings(ExceptionMappings)
+	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getOrchestration_ExceptionMappings()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ExceptionMappings getExceptionMappings();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.svcorch.Orchestration#getExceptionMappings <em>Exception Mappings</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Exception Mappings</em>' containment reference.
+	 * @see #getExceptionMappings()
+	 * @generated
+	 */
+	void setExceptionMappings(ExceptionMappings value);
 
 } // Orchestration
