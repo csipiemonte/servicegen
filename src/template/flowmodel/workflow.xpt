@@ -95,6 +95,13 @@ Inizia la creazione nel descrittore dei vari step.
 						<arg name="output.binding">«getDataSlotAttrName(enclosingOrch.returnSlot)»</arg>
 						«ENDIF-»
 						«ENDLET-»
+						«IF orch.exceptionMappings!=null»
+						«FOREACH orch.exceptionMappings.mapping AS currExcMap-»
+						<arg name="exception.mapping.from.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«map2JavaTypeSDRelative(currExcMap.from)»</arg>
+						<arg name="exception.mapping.to.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«map2JavaTypeSDRelative(currExcMap.to)»</arg>
+						<arg name="exception.mapping.msg.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«currExcMap.msg»</arg>
+						«ENDFOREACH-»
+						«ENDIF»
 					</function>
 				</pre-functions>
 				<results>

@@ -55,7 +55,7 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	protected String msg = MSG_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getFrom() <em>From</em>}' containment reference.
+	 * The cached value of the '{@link #getFrom() <em>From</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getFrom()
@@ -65,7 +65,7 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	protected it.csi.mddtools.typedef.Exception from;
 
 	/**
-	 * The cached value of the '{@link #getTo() <em>To</em>}' containment reference.
+	 * The cached value of the '{@link #getTo() <em>To</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTo()
@@ -120,6 +120,14 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * @generated
 	 */
 	public it.csi.mddtools.typedef.Exception getFrom() {
+		if (from != null && from.eIsProxy()) {
+			InternalEObject oldFrom = (InternalEObject)from;
+			from = (it.csi.mddtools.typedef.Exception)eResolveProxy(oldFrom);
+			if (from != oldFrom) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.EXCEPTION_MAPPING__FROM, oldFrom, from));
+			}
+		}
 		return from;
 	}
 
@@ -128,14 +136,8 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFrom(it.csi.mddtools.typedef.Exception newFrom, NotificationChain msgs) {
-		it.csi.mddtools.typedef.Exception oldFrom = from;
-		from = newFrom;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__FROM, oldFrom, newFrom);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public it.csi.mddtools.typedef.Exception basicGetFrom() {
+		return from;
 	}
 
 	/**
@@ -144,17 +146,10 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * @generated
 	 */
 	public void setFrom(it.csi.mddtools.typedef.Exception newFrom) {
-		if (newFrom != from) {
-			NotificationChain msgs = null;
-			if (from != null)
-				msgs = ((InternalEObject)from).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.EXCEPTION_MAPPING__FROM, null, msgs);
-			if (newFrom != null)
-				msgs = ((InternalEObject)newFrom).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.EXCEPTION_MAPPING__FROM, null, msgs);
-			msgs = basicSetFrom(newFrom, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__FROM, newFrom, newFrom));
+		it.csi.mddtools.typedef.Exception oldFrom = from;
+		from = newFrom;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__FROM, oldFrom, from));
 	}
 
 	/**
@@ -163,6 +158,14 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * @generated
 	 */
 	public it.csi.mddtools.typedef.Exception getTo() {
+		if (to != null && to.eIsProxy()) {
+			InternalEObject oldTo = (InternalEObject)to;
+			to = (it.csi.mddtools.typedef.Exception)eResolveProxy(oldTo);
+			if (to != oldTo) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.EXCEPTION_MAPPING__TO, oldTo, to));
+			}
+		}
 		return to;
 	}
 
@@ -171,14 +174,8 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTo(it.csi.mddtools.typedef.Exception newTo, NotificationChain msgs) {
-		it.csi.mddtools.typedef.Exception oldTo = to;
-		to = newTo;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__TO, oldTo, newTo);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public it.csi.mddtools.typedef.Exception basicGetTo() {
+		return to;
 	}
 
 	/**
@@ -187,33 +184,10 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	 * @generated
 	 */
 	public void setTo(it.csi.mddtools.typedef.Exception newTo) {
-		if (newTo != to) {
-			NotificationChain msgs = null;
-			if (to != null)
-				msgs = ((InternalEObject)to).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.EXCEPTION_MAPPING__TO, null, msgs);
-			if (newTo != null)
-				msgs = ((InternalEObject)newTo).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - SvcorchPackage.EXCEPTION_MAPPING__TO, null, msgs);
-			msgs = basicSetTo(newTo, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__TO, newTo, newTo));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case SvcorchPackage.EXCEPTION_MAPPING__FROM:
-				return basicSetFrom(null, msgs);
-			case SvcorchPackage.EXCEPTION_MAPPING__TO:
-				return basicSetTo(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+		it.csi.mddtools.typedef.Exception oldTo = to;
+		to = newTo;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.EXCEPTION_MAPPING__TO, oldTo, to));
 	}
 
 	/**
@@ -227,9 +201,11 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 			case SvcorchPackage.EXCEPTION_MAPPING__MSG:
 				return getMsg();
 			case SvcorchPackage.EXCEPTION_MAPPING__FROM:
-				return getFrom();
+				if (resolve) return getFrom();
+				return basicGetFrom();
 			case SvcorchPackage.EXCEPTION_MAPPING__TO:
-				return getTo();
+				if (resolve) return getTo();
+				return basicGetTo();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}

@@ -54,52 +54,52 @@ public interface ExceptionMapping extends EObject {
 	void setMsg(String value);
 
 	/**
-	 * Returns the value of the '<em><b>From</b></em>' containment reference.
+	 * Returns the value of the '<em><b>From</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>From</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>From</em>' containment reference.
+	 * @return the value of the '<em>From</em>' reference.
 	 * @see #setFrom(it.csi.mddtools.typedef.Exception)
 	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getExceptionMapping_From()
-	 * @model containment="true"
+	 * @model
 	 * @generated
 	 */
 	it.csi.mddtools.typedef.Exception getFrom();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}' containment reference.
+	 * Sets the value of the '{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>From</em>' containment reference.
+	 * @param value the new value of the '<em>From</em>' reference.
 	 * @see #getFrom()
 	 * @generated
 	 */
 	void setFrom(it.csi.mddtools.typedef.Exception value);
 
 	/**
-	 * Returns the value of the '<em><b>To</b></em>' containment reference.
+	 * Returns the value of the '<em><b>To</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>To</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>To</em>' containment reference.
+	 * @return the value of the '<em>To</em>' reference.
 	 * @see #setTo(it.csi.mddtools.typedef.Exception)
 	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getExceptionMapping_To()
-	 * @model containment="true"
+	 * @model
 	 * @generated
 	 */
 	it.csi.mddtools.typedef.Exception getTo();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}' containment reference.
+	 * Sets the value of the '{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>To</em>' containment reference.
+	 * @param value the new value of the '<em>To</em>' reference.
 	 * @see #getTo()
 	 * @generated
 	 */

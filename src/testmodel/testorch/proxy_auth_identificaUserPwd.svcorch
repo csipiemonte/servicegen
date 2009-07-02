@@ -11,7 +11,7 @@
       <paramBindings slot="//@globalSlots/@slots.1">
         <param href="iridepep.servicedef#//@operations.0/@params.1"/>
       </paramBindings>
-      <onException firstRecoveryNode="//@nodes/@nodes.4">
+      <onException firstRecoveryNode="//@nodes/@nodes.3">
         <handledException href="iridepep.servicedef#//@types/@types.8"/>
         <handledException href="iridepep.servicedef#//@types/@types.15"/>
         <handledException href="iridepep.servicedef#//@types/@types.17"/>
@@ -46,4 +46,22 @@
       <param href="proxyauth.servicedef#//@operations.0/@params.1"/>
     </inputParams>
   </inputParamBindings>
+  <exceptionMappings>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.8"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.15"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.17"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.9"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+  </exceptionMappings>
 </svcorch:Orchestration>

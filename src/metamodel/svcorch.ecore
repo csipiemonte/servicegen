@@ -94,9 +94,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExceptionMapping">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="msg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="ecore:EClass typedef_metamodel.ecore#//Exception"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="ecore:EClass typedef_metamodel.ecore#//Exception"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="from" eType="ecore:EClass typedef_metamodel.ecore#//Exception"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="to" eType="ecore:EClass typedef_metamodel.ecore#//Exception"/>
   </eClassifiers>
 </ecore:EPackage>

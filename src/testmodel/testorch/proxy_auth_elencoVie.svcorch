@@ -61,4 +61,26 @@
       <param href="proxyauth.servicedef#//@operations.1/@params.1"/>
     </inputParams>
   </inputParamBindings>
+  <exceptionMappings>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.17"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.8"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.15"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.9"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="ctserv_topon.servicedef#//@types/@types.42"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+  </exceptionMappings>
 </svcorch:Orchestration>

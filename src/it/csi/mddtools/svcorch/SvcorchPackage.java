@@ -1311,7 +1311,7 @@ public interface SvcorchPackage extends EPackage {
 	int EXCEPTION_MAPPING__MSG = 0;
 
 	/**
-	 * The feature id for the '<em><b>From</b></em>' containment reference.
+	 * The feature id for the '<em><b>From</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1320,7 +1320,7 @@ public interface SvcorchPackage extends EPackage {
 	int EXCEPTION_MAPPING__FROM = 1;
 
 	/**
-	 * The feature id for the '<em><b>To</b></em>' containment reference.
+	 * The feature id for the '<em><b>To</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1997,10 +1997,10 @@ public interface SvcorchPackage extends EPackage {
 	EAttribute getExceptionMapping_Msg();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>From</em>'.
+	 * @return the meta object for the reference '<em>From</em>'.
 	 * @see it.csi.mddtools.svcorch.ExceptionMapping#getFrom()
 	 * @see #getExceptionMapping()
 	 * @generated
@@ -2008,10 +2008,10 @@ public interface SvcorchPackage extends EPackage {
 	EReference getExceptionMapping_From();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>To</em>'.
+	 * @return the meta object for the reference '<em>To</em>'.
 	 * @see it.csi.mddtools.svcorch.ExceptionMapping#getTo()
 	 * @see #getExceptionMapping()
 	 * @generated
@@ -2585,7 +2585,7 @@ public interface SvcorchPackage extends EPackage {
 		EAttribute EXCEPTION_MAPPING__MSG = eINSTANCE.getExceptionMapping_Msg();
 
 		/**
-		 * The meta object literal for the '<em><b>From</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>From</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
@@ -2593,7 +2593,7 @@ public interface SvcorchPackage extends EPackage {
 		EReference EXCEPTION_MAPPING__FROM = eINSTANCE.getExceptionMapping_From();
 
 		/**
-		 * The meta object literal for the '<em><b>To</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>To</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

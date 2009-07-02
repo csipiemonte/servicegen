@@ -7,12 +7,20 @@
 package it.csi.mddtools.svcorch.provider;
 
 
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.servicegen.genutils.EditUtils;
 import it.csi.mddtools.svcorch.ExceptionMapping;
+import it.csi.mddtools.svcorch.ExceptionMappings;
+import it.csi.mddtools.svcorch.Orchestration;
+import it.csi.mddtools.svcorch.SrvCall;
 import it.csi.mddtools.svcorch.SvcorchPackage;
+import it.csi.mddtools.svcorch.genutils.GenUtils;
 
 import it.csi.mddtools.typedef.TypedefFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -69,6 +77,8 @@ public class ExceptionMappingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addMsgPropertyDescriptor(object);
+			addFromPropertyDescriptor(object);
+			addToPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -96,34 +106,93 @@ public class ExceptionMappingItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the From feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(SvcorchPackage.Literals.EXCEPTION_MAPPING__FROM);
-			childrenFeatures.add(SvcorchPackage.Literals.EXCEPTION_MAPPING__TO);
-		}
-		return childrenFeatures;
+	protected void addFromPropertyDescriptor(Object object) {
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ExceptionMapping_from_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ExceptionMapping_from_feature", "_UI_ExceptionMapping_type"),
+//				 SvcorchPackage.Literals.EXCEPTION_MAPPING__FROM,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ExceptionMapping_from_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ExceptionMapping_from_feature",
+						"_UI_ExceptionMapping_type"),
+				SvcorchPackage.eINSTANCE.getExceptionMapping_From(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				// ritorna solo le eccezioni dei metodi referenziati da un SrvCall
+				ExceptionMapping em = (ExceptionMapping)object;
+				ExceptionMappings mappings = (ExceptionMappings)em.eContainer();
+				Orchestration orch = (Orchestration)mappings.eContainer();
+				ArrayList<it.csi.mddtools.typedef.Exception> fromExceptions = GenUtils.getAllPossibleSourceExceptions(orch);
+				return fromExceptions;
+			}
+		});
+
 	}
 
 	/**
+	 * This adds a property descriptor for the To feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	protected void addToPropertyDescriptor(Object object) {
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_ExceptionMapping_to_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_ExceptionMapping_to_feature", "_UI_ExceptionMapping_type"),
+//				 SvcorchPackage.Literals.EXCEPTION_MAPPING__TO,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_ExceptionMapping_to_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_ExceptionMapping_to_feature",
+						"_UI_ExceptionMapping_type"),
+				SvcorchPackage.eINSTANCE.getExceptionMapping_To(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				// ritorna solo le eccezioni del metodo dell'orchestrazione
+				ExceptionMapping em = (ExceptionMapping)object;
+				ExceptionMappings mappings = (ExceptionMappings)em.eContainer();
+				Orchestration orch = (Orchestration)mappings.eContainer();
+				Operation op = orch.getOperation();
+				if (op!=null){
+					return op.getThrows();
+				}
+				else {
+					ArrayList<Exception> result = new ArrayList<Exception>();
+					return result;
+				}
+			}
+		});
+		
 	}
 
 	/**
@@ -141,11 +210,16 @@ public class ExceptionMappingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ExceptionMapping)object).getMsg();
+		ExceptionMapping em = ((ExceptionMapping)object);
+		String label = ""+
+		(em.getFrom()!=null?EditUtils.formatTypeLabel(em.getFrom()):"???")+
+		"->"+
+		(em.getTo()!=null?EditUtils.formatTypeLabel(em.getTo()):"???")+
+		": "+em.getMsg();
 		return label == null || label.length() == 0 ?
 			getString("_UI_ExceptionMapping_type") :
 			getString("_UI_ExceptionMapping_type") + " " + label;
@@ -164,11 +238,9 @@ public class ExceptionMappingItemProvider
 
 		switch (notification.getFeatureID(ExceptionMapping.class)) {
 			case SvcorchPackage.EXCEPTION_MAPPING__MSG:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case SvcorchPackage.EXCEPTION_MAPPING__FROM:
 			case SvcorchPackage.EXCEPTION_MAPPING__TO:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -184,39 +256,6 @@ public class ExceptionMappingItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(SvcorchPackage.Literals.EXCEPTION_MAPPING__FROM,
-				 TypedefFactory.eINSTANCE.createException()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(SvcorchPackage.Literals.EXCEPTION_MAPPING__TO,
-				 TypedefFactory.eINSTANCE.createException()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == SvcorchPackage.Literals.EXCEPTION_MAPPING__FROM ||
-			childFeature == SvcorchPackage.Literals.EXCEPTION_MAPPING__TO;
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**
