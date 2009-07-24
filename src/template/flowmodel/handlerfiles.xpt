@@ -1645,6 +1645,10 @@ import com.opensymphony.workflow.WorkflowException;
 
 import «baseHandlersPkg(model)».*;
 
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customImport")»
+/// inserire qui eventuali import aggiuntive.
+«ENDPROTECT»
+
 /**
  * @generated
  */
