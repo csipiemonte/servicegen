@@ -14,6 +14,10 @@ import it.csi.mddtools.servicedef.ServiceDef;
  * A representation of the model object '<em><b>Service Connector</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Connettore (astratto) per risorse di tipo "servizio"
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -37,6 +41,9 @@ public interface ServiceConnector extends ResourceConnector {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * L'interfaccia logica del servizio associato al connettore
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Def</em>' reference.
 	 * @see #setServiceDef(ServiceDef)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceConnector_ServiceDef()
@@ -63,6 +70,9 @@ public interface ServiceConnector extends ResourceConnector {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Il binding del servizio associato al connettore
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Binding</em>' reference.
 	 * @see #setBinding(ServiceBinding)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceConnector_Binding()
@@ -86,7 +96,7 @@ public interface ServiceConnector extends ResourceConnector {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here]]
+	 * Il selettore del servizio associato al connettore
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Selector</em>' containment reference.
 	 * @see #setSelector(ServiceSelector)
@@ -114,6 +124,10 @@ public interface ServiceConnector extends ResourceConnector {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * indica se il servizio è indirizzato tramite registry o con configurazione
+	 * locale al fruitore
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Registry</em>' attribute.
 	 * @see #setUseRegistry(boolean)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceConnector_UseRegistry()

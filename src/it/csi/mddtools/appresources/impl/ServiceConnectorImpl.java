@@ -278,7 +278,7 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 			case AppresourcesPackage.SERVICE_CONNECTOR__SELECTOR:
 				return getSelector();
 			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
-				return isUseRegistry() ? Boolean.TRUE : Boolean.FALSE;
+				return isUseRegistry();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -301,7 +301,7 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 				setSelector((ServiceSelector)newValue);
 				return;
 			case AppresourcesPackage.SERVICE_CONNECTOR__USE_REGISTRY:
-				setUseRegistry(((Boolean)newValue).booleanValue());
+				setUseRegistry((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

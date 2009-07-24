@@ -117,7 +117,11 @@ per ogni componente è necessario creare la struttura del progetto SVN:
 «ENDDEFINE»
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
-«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context) FOR bnd»
+«LET getCustomSoapPAEndpoint() AS customPAEndpoint»
+«LET getCustomSoapPAUri() AS customPAUri»
+«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context, customPAEndpoint, customPAUri) FOR bnd»
+«ENDLET»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE resourceConnectorFiles(ServiceDef context) FOR JDBCDataSourceConnector»

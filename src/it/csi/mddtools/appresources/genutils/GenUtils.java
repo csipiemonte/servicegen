@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 import org.eclipse.emf.common.util.EList;
 
 import it.csi.mddtools.appresources.ResourceConnector;
+import it.csi.mddtools.appresources.ResourceSet;
 import it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC;
 import it.csi.mddtools.servicegen.ResourceBasedSC;
 import it.csi.mddtools.servicegen.ResourceBasedSimpleSC;
@@ -79,6 +80,9 @@ public class GenUtils {
 	 */
 	public static ArrayList<ResourceConnector> getAllResourceConnectors(SOABEModel model){
 		EList<ServiceImpl> implementations = model.getServiceimplementations(); 
+		if (implementations==null)
+			throw new IllegalArgumentException("model.getServiceimplementations()==null!!");
+		
 		ArrayList<ResourceConnector> ris = new ArrayList<ResourceConnector>();
 		Iterator<ServiceImpl> it_si = implementations.iterator();
 		ArrayList<ServiceImpl> visited_si = new ArrayList<ServiceImpl>();
@@ -89,10 +93,16 @@ public class GenUtils {
 					// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non è 
 					// definita a livello di ResourceBasedSC ma delle sottoclassi
 					if (serviceImpl.getServiceComponent() instanceof ResourceBasedSimpleSC){
-						ris.addAll(((ResourceBasedSimpleSC)serviceImpl.getServiceComponent()).getResourceSet().getResources());
+						ResourceSet rs = ((ResourceBasedSimpleSC)serviceImpl.getServiceComponent()).getResourceSet();
+						if (rs==null)
+							throw new IllegalArgumentException("serviceComponent.resourceSet==null!!");
+						ris.addAll(rs.getResources());
 					}
 					else if (serviceImpl.getServiceComponent() instanceof OrchestrationFlowCompositeSC){
-						ris.addAll(((OrchestrationFlowCompositeSC)serviceImpl.getServiceComponent()).getResourceSet().getResources());
+						ResourceSet rs = ((OrchestrationFlowCompositeSC)serviceImpl.getServiceComponent()).getResourceSet();
+						if (rs==null)
+							throw new IllegalArgumentException("serviceComponent.resourceSet==null!!");
+						ris.addAll(rs.getResources());
 					} 
 					else throw new IllegalArgumentException("getAllResourceconnectors: tipo SC non gestito "+serviceImpl.getServiceComponent().getClass());
 				}

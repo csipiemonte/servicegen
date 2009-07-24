@@ -520,7 +520,16 @@ String getCustomEJBPAJndiName(PDPAServiceConnector pdpa) :
 	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
 	let paplatf = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-ejbpa-jndiname").value): fullPAJndiName(pdpa.serviceDef)) :
 	paplatf; 
-	
+
+String getCustomSoapPAEndpoint(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let soapEndpoint = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-endpoint").value): null) :
+	soapEndpoint;
+
+String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
+	soapUri; 
 //// altre utility
 
 String getRegionUID(String src) : JAVA

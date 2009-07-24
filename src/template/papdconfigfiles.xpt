@@ -76,15 +76,15 @@ staging=FALSE
 «ENDDEFINE»
 
 «DEFINE defpdsoaptestfile(servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd)) FOR this»
+«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd), null, null) FOR this»
 «ENDDEFINE»
 
 «DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, TargetPlatformCodes paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
 «EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR this»
 «ENDDEFINE»
 
-«DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd)) FOR this»
+«DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, String customPAUrl, String customPAUri) FOR SOAPPABRBinding»
+«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd), customPAUrl, customPAUri) FOR this»
 «ENDDEFINE»
 
 «REM»crea il file di PD nella directory test/xml«ENDREM»
@@ -141,7 +141,7 @@ staging=FALSE
 «ENDFILE»
 «ENDDEFINE»
 
-«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName) FOR SOAPPABRBinding»
+«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBinding»
 «FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
   «EXPAND pdservicedef (model) FOR sd»
@@ -150,9 +150,13 @@ staging=FALSE
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        name="«removeSeparator(sd.codServizio)»"
+        «LET customPAUri!=null ? customPAUri : removeSeparator(sd.codServizio) AS actualPAUri-»
+        name="«actualPAUri»"
+        «ENDLET-»
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-        url-pa="«getPAURLPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)»/servlet/rpcrouter"
+        «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)+"/servlet/rpcrouter" AS actualPAEndpoint-»
+        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"
+        «ENDLET-»
         url-qm="">
         <properties>
         «IF sd.authLevel!=AuthLevelEnum::A0-»

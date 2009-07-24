@@ -13,7 +13,7 @@ package it.csi.mddtools.appresources;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here]]
+ * Connettore per risorse di tipo file-system
  * <!-- end-model-doc -->
  *
  *

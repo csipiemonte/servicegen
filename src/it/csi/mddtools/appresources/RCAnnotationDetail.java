@@ -13,6 +13,51 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>RC Annotation Detail</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Dettaglio dell'annotazione.
+ * Al momento le annotazioni previste variano a seconda del tipo di connettore e sono:
+ * <ul>
+ * <li>per il connettore <b>PDPAServiceConnector</b>:
+ * 	<ul>
+ * 		<li>source=appresources
+ * 		  <ul>
+ * 			<li>per tutti i tipi di binding:
+ * 			<ul>
+ * 				<li>key="repart-position": value="[org]/[prod]/[ver]", es: csipiemonte/iridev2/2.0.0;
+ * 					Serve per permettere al generatore di generare le direttive di scaricamento da repart delle librerie client del servizio fruito</li>
+ * 				<li>key="repart-artifact": value=nome dell'artifact delle librerie client del servizio (senza estensione jar, assunta di default), es: "iridev2-pep-intf-2.0.0";
+ * 					Serve per permettere al generatore di generare le direttive di scaricamento da repart delle librerie client</li>
+ * 			</ul>
+ * 			</li>
+ * 			<li>per i binding EJB:
+ * 			<ul>
+ * 				<li>key="csi-pd-plugin": value="ejb-1" o "ejb-2";
+ * 					Serve per indicare che la PD (di tipo EJB) utilizza la versione deprecata di plugin (ejb invece che ejb20)</li>
+ * 				<li>key="csi-ejbpa-jndiname": value=il nome jndi completo su cui ascolta la PA del servizio;
+ * 					Serve per gestire casi legacy o non standard in cui non sia rispettato il nuovo standard di naming jndi</li>
+ * 				<li>key="csi-pa-platform": value="WLS92" o "JBoss43";
+ * 					Serve per configurare correttamente la pd in modo che possa parlare con un servizio EJB ospitato da un server Weblogic piuttosto che JBoss</li>
+ * 				<li>key="repart-position": value="[org]/[prod]/[ver]", es: csipiemonte/iridev2/2.0.0;
+ * 					Serve per permettere al generatore di generare le direttive di scaricamento da repart delle librerie client del servizio fruito</li>
+ * 				<li>key="repart-artifact": value=nome dell'artifact delle librerie client del servizio (senza estensione jar, assunta di default), es: "iridev2-pep-intf-2.0.0";
+ * 					Serve per permettere al generatore di generare le direttive di scaricamento da repart delle librerie client</li>
+ * 			</ul>
+ * 			</li>
+ * 			<li>per i binding SOAP:
+ * 			<ul>
+ * 				<li>key="csi-soappabr-endpoint": 
+ * 					Serve per indicare l'url dell'endpoint del soap bridge in caso non sia standard (esclusa la pate iniziale contenente l'hostname)</li>
+ * 				<li>key="csi-soappabr-uri": 
+ * 					Serve per indicare il nome del servizio registrato su apache soap, se non standard (equivale al name del plugin soap nella PD)</li>
+ * 			</ul>
+ * 			</li>
+ * 		  </ul>
+ * 		</li>
+ * 	</ul>
+ * </li>
+ * </ul>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

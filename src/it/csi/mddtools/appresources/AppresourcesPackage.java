@@ -23,7 +23,8 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here]]
+ * Questo package contiene le metaclassi utilizzate per modellare i connettori
+ * alle risorse utilizzate dal sistema.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.appresources.AppresourcesFactory
  * @model kind="package"

@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here]]
+ * Insieme delle risorse utilizzate dall'applicativo 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -41,7 +41,7 @@ public interface ResourceSet extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here]]
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Resources</em>' containment reference list.
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getResourceSet_Resources()

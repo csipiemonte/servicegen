@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here]]
+ * Classe astratta che rappresenta il generico connettore ad una risorsa.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -40,7 +40,9 @@ public interface ResourceConnector extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here]]
+	 * codice mnemonico del connettore così come visto dall'applicativo
+	 * che fa uso della risorsa associata
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see #setCode(String)
@@ -69,6 +71,9 @@ public interface ResourceConnector extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * annotazioni aggiuntive associate al connettore.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Annotations</em>' containment reference list.
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getResourceConnector_Annotations()
 	 * @model containment="true"

@@ -15,6 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>RC Annotation</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Annotazione della risorsa
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -36,6 +40,10 @@ public interface RCAnnotation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Serve per discriminare la fonte dell'annotazione.
+	 * Attualmente è prevista la source "appresources".
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(String)
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getRCAnnotation_Source()
@@ -63,6 +71,9 @@ public interface RCAnnotation extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Dettaglio di una annotazione. contiene il vero contenuto informativo dell'annotazione
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Details</em>' containment reference list.
 	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getRCAnnotation_Details()
 	 * @model containment="true"

@@ -13,7 +13,7 @@ package it.csi.mddtools.appresources;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here]]
+ * Connettore per web-service di tipo RPC
  * <!-- end-model-doc -->
  *
  *
