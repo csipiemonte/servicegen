@@ -151,6 +151,7 @@ creazione del build.xml per ANT
 			optimize="on" 
 			deprecation="on"
 			compiler="modern"
+			debug="on" debuglevel="lines,vars,source"
 			excludes="«getOrganizationNamePathPrefix()»/**/interfacescsi/**,«getOrganizationNamePathPrefix()»/**/entity/**,«getOrganizationNamePathPrefix()»/**/exception/**"
 			>
 			<classpath refid="library.ref"/>
@@ -161,7 +162,9 @@ creazione del build.xml per ANT
 			destdir="${build}/classes" 
 			optimize="on" 
 			deprecation="on"
-			compiler="modern">
+			compiler="modern"
+			debug="on" debuglevel="lines,vars,source"
+			>
 			<classpath refid="library.ref"/>
 		</javac>
 		
