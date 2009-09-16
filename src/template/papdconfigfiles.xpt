@@ -214,11 +214,15 @@ staging=FALSE
           <param name="datiMsg" type="it.csi.csi.util.DatiMessaggio" />
           «ENDIF-»
           </param-list>
+          «IF returnType!=null-»
           «LET map2JavaTypeSDRelative(returnType) AS retType-»
           	«LET retType==null?"void":retType AS retTypeOrVoid-»
           	<ret-val type="«retTypeOrVoid»"/>
           	«ENDLET-»
           «ENDLET-»
+          «ELSE-»
+          	<ret-val type="void"/>
+          «ENDIF-»
         </operation>
 «ENDDEFINE»
 
