@@ -838,7 +838,7 @@ coop-trace-1.2.0.jar
 
 wsfad.libs = wsadp-2.0.2.jar
 
-svcflow.libs = svcflow-1.2.0.jar \
+svcflow.libs = svcflow-1.2.1.jar \
 oscore-2.2.5.jar \
 osworkflow-2.8.0.jar \
 propertyset-1.4.jar
@@ -988,8 +988,8 @@ creazione del file di configurazione IVY
 	    </dependency>
 	    
 	    <!-- dipendenze per svcflow -->
-	    <dependency org="csipiemonte" name="svcflow" rev="1.2.0">
-	    	<artifact name="svcflow-1.2.0" type="jar" />
+	    <dependency org="csipiemonte" name="svcflow" rev="1.2.1">
+	    	<artifact name="svcflow-1.2.1" type="jar" />
 	    </dependency>
 	    
 	    «LET getAllResourceConnectors(this) AS allResConn-»

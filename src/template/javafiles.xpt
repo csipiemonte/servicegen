@@ -34,8 +34,8 @@
 
 «DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
 	«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
-	<osworkflow>
-  <persistence class="com.opensymphony.workflow.spi.memory.MemoryWorkflowStore"/>
+<osworkflow>
+  <persistence class="it.csi.svcflow.orchestrator.store.StatelessWorkflowEntryStore" />
   <factory class="com.opensymphony.workflow.loader.XMLWorkflowFactory">
     <property key="resource" value="workflows.xml" />
   </factory> 
