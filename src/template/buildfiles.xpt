@@ -987,7 +987,7 @@ creazione del file di configurazione IVY
 	    	<artifact name="coop-trace-1.2.0" type="jar" />
 	    </dependency>
 	    
-	    <!-- dipendenze per svcflow -->
+	    <!-- dipendenze per svcflow 1.2.1 -->
 	    <dependency org="csipiemonte" name="svcflow" rev="1.2.1">
 	    	<artifact name="svcflow-1.2.1" type="jar" />
 	    </dependency>

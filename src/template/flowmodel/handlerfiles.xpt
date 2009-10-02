@@ -1015,20 +1015,12 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
  	 */
 	protected ArrayList<String> _inputSlotNames;
 	
-	/**
- 	 * @generated
- 	 */
-	protected ArrayList<Class> _inputSlotTypes;
-	
+		
 	/**
  	 * @generated
  	 */
 	protected String _outputSlotName;
 	
-	/**
- 	 * @generated
- 	 */
-	protected Class _outputSlotType;
 	
 	/**
  	 * @generated
@@ -1056,7 +1048,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 		«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","START")»
 		// input slots
 		_inputSlotNames = new ArrayList<String>();
-		_inputSlotTypes = new ArrayList<Class>();
+		
 		Iterator<String> argnames_it = args.keySet().iterator();
 		while(argnames_it.hasNext()){
 			String currArgname = argnames_it.next();
@@ -1068,12 +1060,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 			}
 			else if (currArgname.startsWith(INPUT_SLOT_CLASS_PARAM_PREFIX)){
 				currArgVal = (String)args.get(currArgname);
-				try {
-					Class currSlotType = DataSlotHelper.classForName(currArgVal.trim());
-					_inputSlotTypes.add(currSlotType);
-				} catch (ClassNotFoundException e) {
-					throw new WorkflowException("Errore nell'inizializzazione dell handler:"+e);
-				}
+				
 			}
 		}
 		// out slot
@@ -1082,12 +1069,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Functio
 			_outputSlotName=outSlotName.trim();
 			«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","output slot:\"+outSlotName+\"")»
 			String outClassName = (String)args.get(OUTPUT_SLOT_CLASS_PARAM);
-			try {
-				Class outSlotType = DataSlotHelper.classForName(outClassName);
-				_outputSlotType=outSlotType;
-			} catch (ClassNotFoundException e) {
-				throw new WorkflowException("Errore nell'inizializzazione dell handler:"+e);
-			}
+			
 		}
 		else 
 			throw new WorkflowException("Errore interno nell'inizializzazione dell'hanlder: output slot nullo");
