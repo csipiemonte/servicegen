@@ -1812,7 +1812,7 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName
 		
 		«FOREACH input AS currIn-»
 			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
-				(«map2JavaTypeSDRelative(currIn.type)»)inputs.get("«getDataSlotAttrName(currIn)»");
+				(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»", ps);
 		«ENDFOREACH-»
 		
 		
