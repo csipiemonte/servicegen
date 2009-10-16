@@ -107,17 +107,18 @@ staging=FALSE
         url-qm="«fullQMGRJndiName(sd)»">
         <properties>
           <property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
-          «IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || model.targetPlatform.code==TargetPlatformCodes::WLS92-»
+          «IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
           <!-- initial contxt factory per WLS92 -->
           <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
-          «ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+          «ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
           <!-- initial context factory per JBoss43 -->
           <property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
+          <property name="jnp.disableDiscovery" value="true" />
           «ENDIF-»
           «IF sd.authLevel!=AuthLevelEnum::A0 -»
-          	«IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || model.targetPlatform.code==TargetPlatformCodes::WLS92-»
+          	«IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
           <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
-          	«ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+          	«ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode==null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
           <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.StandardJAASClient" />
           	«ENDIF-»
           <property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />

@@ -495,7 +495,7 @@ String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
 
 ///// target platform del servizio acceduto
 TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
-	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let paplatfLiteral = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pa-platform").value): null) :
 	if (paplatfLiteral=="WLS92") then
 		TargetPlatformCodes::WLS92
@@ -506,7 +506,7 @@ TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
 
 ///// classe del plugin ejb
 String pdEjbPluginFQN(PDPAServiceConnector pdpa) :
-	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let ejbver = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pd-plugin").value): "it.csi.csi.porte.ejb20.PortaDelegataEJB") :
 	if ejbver=="ejb-1" then 
 		"it.csi.csi.porte.ejb.PortaDelegataEJB"
@@ -517,17 +517,17 @@ String pdEjbPluginFQN(PDPAServiceConnector pdpa) :
 
 ///// target platform del servizio acceduto
 String getCustomEJBPAJndiName(PDPAServiceConnector pdpa) :
-	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let paplatf = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-ejbpa-jndiname").value): fullPAJndiName(pdpa.serviceDef)) :
 	paplatf; 
 
 String getCustomSoapPAEndpoint(PDPAServiceConnector pdpa) :
-	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let soapEndpoint = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-endpoint").value): null) :
 	soapEndpoint;
 
 String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
-	let rcann = pdpa.annotations.select(a|a.source=="appresources").first() :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
 	soapUri; 
 //// altre utility
