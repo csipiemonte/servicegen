@@ -768,6 +768,7 @@ creazione del build.properties richiamato dal build ANT
 #==================
 # General settings
 #==================
+# - Generato da SERVICEGEN, versione 1.0.0.001
 
 lib = lib
 build = build
