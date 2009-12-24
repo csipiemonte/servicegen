@@ -525,7 +525,7 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
 			throws WorkflowException {
 		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","START")»
 		selectorRes = (String)args.get(SELECTORPD_PARAM);
-		if (selectorRes==null && selectorRes.length()==0){
+		if (selectorRes==null || selectorRes.length()==0){
 			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
 					"occorre configurare il percorso del file del selettore tramite il "+
 					"parametro "+SELECTORPD_PARAM);
@@ -534,7 +534,7 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvid
 			selectorRes="/"+selectorRes;
 			
 		localPDRes = (String)args.get(SERVICEPD_PARAM);
-		if (localPDRes==null && localPDRes.length()==0){
+		if (localPDRes==null || localPDRes.length()==0){
 			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
 					"occorre configurare il percorso del file della PD Locale tramite il "+
 					"parametro "+SERVICEPD_PARAM);
