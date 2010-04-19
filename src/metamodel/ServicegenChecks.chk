@@ -136,6 +136,9 @@ context ServiceImpl
 	let orchs = ((OrchestrationFlowCompositeSC)serviceComponent).orchestrations :
 		orchs.select(o|o.service!=provides).size==0;
 
+context ResourceBasedSimpleSC ERROR "E' necessario specificare un ResourceSet:" +loc() :
+	resourceSet != null;
+	
 ////// WARNINGS ///////////////////////////////////
 context Operation WARNING "Tipo di ritorno non specificato per operazione "+name+": assumo che sia VOID " :
 	this.returnType != null;

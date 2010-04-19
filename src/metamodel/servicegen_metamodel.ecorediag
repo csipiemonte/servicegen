@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="_x9kzMMhnEd2l8_9u58bcsQ" type="EcoreTools" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_x9kzMMhnEd2l8_9u58bcsQ" type="EcoreTools" measurementUnit="Pixel">
   <children xmi:type="notation:Node" xmi:id="_x93uIMhnEd2l8_9u58bcsQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_x93uI8hnEd2l8_9u58bcsQ" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_x93uJMhnEd2l8_9u58bcsQ" type="5001">
@@ -234,6 +234,10 @@
   <children xmi:type="notation:Node" xmi:id="_1tqkMMhoEd2l8_9u58bcsQ" type="1001">
     <children xmi:type="notation:Node" xmi:id="_1tqkM8hoEd2l8_9u58bcsQ" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_1t0VMMhoEd2l8_9u58bcsQ" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_s6lksUuJEd-ke8S5P2oQRQ" type="2001">
+        <element xmi:type="ecore:EAttribute" href="servicegen_metamodel.ecore#//ManualImplCartridge/useInjectedPojo"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_s6lkskuJEd-ke8S5P2oQRQ"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_1t0VMchoEd2l8_9u58bcsQ"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_1t0VMshoEd2l8_9u58bcsQ"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_1t0VM8hoEd2l8_9u58bcsQ"/>

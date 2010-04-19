@@ -1000,6 +1000,23 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 «ENDDEFINE»
 
 
+«REM»SPRING«ENDREM»
+«DEFINE beanContextFile(SOABEModel model) FOR ManualImplCartridge»
+«LET (ServiceImpl)eContainer AS impl-»
+«FILE paConfigDir(impl.provides, model)+"/META-INF/beanContext.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"beancontext")»
+		<!-- Insert here your Spring Beans -->	
+	«ENDPROTECT»
+	
+</beans>
+«ENDFILE»
+«ENDLET-»
+«ENDDEFINE»
+
 
 «REM»frammento log4j con log e stopwatch«ENDREM»
 «DEFINE log4jfiles FOR SOABEModel»

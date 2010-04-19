@@ -1,0 +1,22 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicedef.oaw" 
+	model="servicegen/src/testmodel/spring/provaspring.servicedef"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkAppresources.oaw" 
+	model="servicegen/src/testmodel/spring/provaspring.servicegen.appresources"  
+    />
+    
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/checkServicegen.oaw" 
+	model="servicegen/src/testmodel/spring/provaspring.servicegen"  
+    />
+    
+    <cartridge file="it/csi/mddtools/servicegen/workflow/csi14.oaw" 
+	model="servicegen/src/testmodel/spring/provaspring.servicegen" 
+	targetProjectName="provaspring" 
+    />
+</workflow>

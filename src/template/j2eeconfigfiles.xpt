@@ -462,11 +462,38 @@
   	</module>
   «ENDFOREACH»	
   «ENDLET»
+  «IF targetPlatform.code==TargetPlatformCodes::JBoss43 && serviceimpl.implCartridge != null && serviceimpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(serviceimpl.implCartridge)).useInjectedPojo-»
+  «EXPAND springStartupJbossModule(this) FOR serviceimpl-»
+  «ENDIF-»
   «ENDFOREACH»
 </application>
 «ENDFILE»
+
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«FILE "conf/ear/jboss-app.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-app>
+  <!-- forza l'ordine di startup dei moduli in modo che il sar 
+       (che e' in fondo all'elenco) salga alla fine -->
+  <module-order>strict</module-order>
+</jboss-app>
+«ENDFILE-»
+«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
+«FILE "conf/sar/"+impl.provides.codServizio.toLowerCase()+"/META-INF/jboss-service.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<server>  
+  <mbean code="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.LoadStartupService" name="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup:service=LoadStartup">
+    <attribute name="Message">Startup contesto spring</attribute>
+  </mbean>
+</server>
+«ENDFILE-»
+«ENDFOREACH-»
+«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE springStartupJbossModule(SOABEModel model) FOR ServiceImpl-»
+	<module>
+		<ejb>«provides.codServizio.toLowerCase()»-startup.sar</ejb>
+	</module>
+«ENDDEFINE»
 
 «DEFINE soappabrwebxml (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
 «FILE getSpecificWarConfigRootDir("pabr", removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>

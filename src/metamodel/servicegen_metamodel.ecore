@@ -170,8 +170,14 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ManualImplCartridge" eSuperTypes="#//LogicImplCartridge">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      <details key="documentation" value="L'implementazione dei servizi &amp;egrave; manuale.&#xD;&#xA;A seconda del valore dell'attributo &lt;i>useInjectedPojo&lt;/i> sar&amp;agrave;&#xD;&#xA;possibile utilizzare un meccanismo di &lt;i>inverse injection&lt;/i>, tipo &lt;b>spring>/b>"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useInjectedPojo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Se valorizzata a &lt;i>true&lt;/i> il servizio verr&amp;agrave; predisposto con un meccanismo&#xD;&#xA;di &lt;i>inverse injection&lt;/i>, quale &lt;b>spring&lt;/b>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomTemplateBasedImplCartridge" eSuperTypes="#//LogicImplCartridge">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

@@ -514,6 +514,15 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getManualImplCartridge_UseInjectedPojo() {
+		return (EAttribute)manualImplCartridgeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomTemplateBasedImplCartridge() {
 		return customTemplateBasedImplCartridgeEClass;
 	}
@@ -625,6 +634,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		logicImplCartridgeEClass = createEClass(LOGIC_IMPL_CARTRIDGE);
 
 		manualImplCartridgeEClass = createEClass(MANUAL_IMPL_CARTRIDGE);
+		createEAttribute(manualImplCartridgeEClass, MANUAL_IMPL_CARTRIDGE__USE_INJECTED_POJO);
 
 		customTemplateBasedImplCartridgeEClass = createEClass(CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE);
 		createEAttribute(customTemplateBasedImplCartridgeEClass, CUSTOM_TEMPLATE_BASED_IMPL_CARTRIDGE__TEMPLATE);
@@ -727,6 +737,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		initEClass(logicImplCartridgeEClass, LogicImplCartridge.class, "LogicImplCartridge", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(manualImplCartridgeEClass, ManualImplCartridge.class, "ManualImplCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getManualImplCartridge_UseInjectedPojo(), ecorePackage.getEBoolean(), "useInjectedPojo", "false", 0, 1, ManualImplCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customTemplateBasedImplCartridgeEClass, CustomTemplateBasedImplCartridge.class, "CustomTemplateBasedImplCartridge", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomTemplateBasedImplCartridge_Template(), ecorePackage.getEString(), "template", null, 0, 1, CustomTemplateBasedImplCartridge.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -761,7 +772,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		   source, 
 		   new String[] {
 			 "documentation", "[[ TODO - add documentation here ]]"
-		   });												
+		   });													
 	}
 
 } //ServicegenPackageImpl

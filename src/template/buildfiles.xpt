@@ -416,7 +416,22 @@ creazione del build.xml per ANT
 		</jar>
 	</target>
 
-
+	«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+    «FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
+    <!-- generazione del pacchetto sar per lo startuplistener di jboss-->
+	<target name="_package-«impl.provides.codServizio.toLowerCase()»-sar" description="genera il pacchetto sar">
+		<jar destfile="${build}/archives/${target}/«impl.provides.codServizio.toLowerCase()»-startup.sar"
+			basedir="${build}/classes"
+	    	includes="«fullServiceEJBClassesDir(impl.provides.codServizio, this)+"/spring/startup/**"»">
+	    	<fileset dir="${conf}/sar/«impl.provides.codServizio.toLowerCase()»">
+	    		<include name="**"/>	    							
+	    	</fileset>
+		</jar>
+	</target>
+    
+    «ENDFOREACH-»
+    «ENDIF-»
+	
 	<target name="package-ear"  description="costruisce l&apos;ear"  
 		depends="compile-all, environment-config, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars">
 «LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${temp}/${target}/APP-INF/lib" :
@@ -430,8 +445,13 @@ AS sharedLibsPath»
 			<fileset dir="${build}/archives/${target}" includes="*client*.jar *common.jar" />
 		</copy>
 «ENDLET»
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
+		<antcall target="_package-«impl.provides.codServizio.toLowerCase()»-sar"/>
+«ENDFOREACH-»
+«ENDIF-»
 		<ear appxml="${temp}/application.xml" destfile="${build}/archives/${target}/«codComponente.toLowerCase()».ear">
-			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war" excludes="*client*.jar,*-common.jar"/>
+			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war, *.sar" excludes="*client*.jar,*-common.jar"/>
 			<fileset dir="${temp}/${target}" >
 				<include name="**/*"/>
 			</fileset>
@@ -832,6 +852,17 @@ wsdl4j-1.5.1.jar \
 «LET getAllResourceConnectors() AS allRC-»
 «EXPAND rcLibName FOREACH allRC-»
 «ENDLET-»
+«IF this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo ).size>0-»
+aopalliance-1.0.jar \
+spring-aop-2.0.7.jar \
+spring-beans-2.0.7.jar \
+spring-context-2.0.7.jar \
+spring-core-2.0.7.jar \
+spring-remoting-2.0.7.jar \
+spring-web-2.0.7.jar \
+spring-dao-2.0.7.jar \
+spring-jdbc-2.0.7.jar \
+«ENDIF-»
 «IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
 weblogic-client-3.0.0.jar \
 «ENDIF-»
@@ -999,6 +1030,10 @@ creazione del file di configurazione IVY
 	    «ENDFOREACH-»
 	    «ENDLET-»
 	    
+	    «IF this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo  ).size>0-»
+	    «EXPAND springIvyDependencies FOR this-»
+	    «ENDIF-»
+	    
 	    «IF this.targetPlatform.code==TargetPlatformCodes::WLS92»
         <!-- librerie specifiche della target platform WLS92 -->
 		<dependency org="bea" name="weblogic" rev="9.2.2.0">
@@ -1054,6 +1089,21 @@ creazione del file di configurazione IVY
 </ivysettings>
 «ENDFILE»
 
+«ENDDEFINE»
+
+«DEFINE springIvyDependencies FOR SOABEModel»
+		<!-- librerie necessarie per l'implementazione spring -->
+		<dependency org="others" name="spring" rev="2.0.7">
+  			<artifact name="aopalliance-1.0" type="jar" /> 
+  			<artifact name="spring-aop-2.0.7" type="jar" /> 
+  			<artifact name="spring-beans-2.0.7" type="jar" /> 
+  			<artifact name="spring-context-2.0.7" type="jar" /> 
+  			<artifact name="spring-core-2.0.7" type="jar" /> 
+  			<artifact name="spring-remoting-2.0.7" type="jar" /> 
+  			<artifact name="spring-web-2.0.7" type="jar" /> 
+  			<artifact name="spring-dao-2.0.7" type="jar" /> 
+  			<artifact name="spring-jdbc-2.0.7" type="jar" /> 
+  		</dependency>
 «ENDDEFINE»
 
 «DEFINE pdpaIvyDependency FOR PDPAServiceConnector»

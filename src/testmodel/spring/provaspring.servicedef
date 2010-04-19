@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="provaspring" versione="1.0" codProdotto="test" codComponente="provaspring">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+  <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+  <operations name="doSomething" throws="//@types/@types.1">
+    <params name="p1" type="//@types/@types.0"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="Something">
+      <features name="id">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Exception" name="MyException"/>
+  </types>
+</servicedef:ServiceDef>

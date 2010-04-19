@@ -500,13 +500,22 @@ public interface ServicegenPackage extends EPackage {
 	int MANUAL_IMPL_CARTRIDGE = 12;
 
 	/**
+	 * The feature id for the '<em><b>Use Injected Pojo</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MANUAL_IMPL_CARTRIDGE__USE_INJECTED_POJO = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Manual Impl Cartridge</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MANUAL_IMPL_CARTRIDGE_FEATURE_COUNT = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 0;
+	int MANUAL_IMPL_CARTRIDGE_FEATURE_COUNT = LOGIC_IMPL_CARTRIDGE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl <em>Custom Template Based Impl Cartridge</em>}' class.
@@ -914,6 +923,17 @@ public interface ServicegenPackage extends EPackage {
 	EClass getManualImplCartridge();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicegen.ManualImplCartridge#isUseInjectedPojo <em>Use Injected Pojo</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Injected Pojo</em>'.
+	 * @see it.csi.mddtools.servicegen.ManualImplCartridge#isUseInjectedPojo()
+	 * @see #getManualImplCartridge()
+	 * @generated
+	 */
+	EAttribute getManualImplCartridge_UseInjectedPojo();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicegen.CustomTemplateBasedImplCartridge <em>Custom Template Based Impl Cartridge</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1259,6 +1279,14 @@ public interface ServicegenPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MANUAL_IMPL_CARTRIDGE = eINSTANCE.getManualImplCartridge();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Injected Pojo</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MANUAL_IMPL_CARTRIDGE__USE_INJECTED_POJO = eINSTANCE.getManualImplCartridge_UseInjectedPojo();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicegen.impl.CustomTemplateBasedImplCartridgeImpl <em>Custom Template Based Impl Cartridge</em>}' class.

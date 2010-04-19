@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicegen:SOABEModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicegen="http://www.csi.it/mddtools/servicegen" codProdotto="test" codComponente="provaspring" versioneProdotto="1.0.0" versioneComponente="1.0.0">
+  <serviceimplementations>
+    <provides href="provaspring.servicedef#/"/>
+    <serviceComponent xsi:type="servicegen:ResourceBasedSimpleSC">
+      <resourceSet href="provaspring.servicegen.appresources#/"/>
+    </serviceComponent>
+    <implCartridge xsi:type="servicegen:ManualImplCartridge" useInjectedPojo="true"/>
+  </serviceimplementations>
+  <targetPlatform code="JBoss43"/>
+  <resourceSet href="provaspring.servicegen.appresources#/"/>
+</servicegen:SOABEModel>

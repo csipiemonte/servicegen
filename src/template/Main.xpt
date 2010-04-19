@@ -89,6 +89,10 @@ per ogni componente è necessario creare la struttura del progetto SVN:
  «LET getAllResourceConnectors(currSrvImpl) AS allRC»
  «EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
  «ENDLET»
+ «IF currSrvImpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(currSrvImpl.implCartridge)).useInjectedPojo -»
+ «EXPAND template::configfiles::beanContextFile(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
+ «EXPAND template::manualimpl::javafiles::springStartupFiles(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
+ «ENDIF-»
  «ENDFOREACH»
 «ENDLET»	
 «ENDDEFINE»
