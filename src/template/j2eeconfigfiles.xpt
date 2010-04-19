@@ -486,6 +486,16 @@
 </server>
 «ENDFILE-»
 «ENDFOREACH-»
+«ELSE-»
+«FILE "conf/ear/META-INF/weblogic-application.xml"»<?xml version="1.0" encoding="UTF-8"?> 
+<wls:weblogic-application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wls="http://www.bea.com/ns/weblogic/90" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/j2ee_1_4.xsd http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-application.xsd"> 
+«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»  
+  <wls:listener> 
+    <wls:listener-class>«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.SpringStartupListener</wls:listener-class> 
+  </wls:listener> 
+«ENDFOREACH-»
+</wls:weblogic-application> 
+«ENDFILE»
 «ENDIF-»
 «ENDDEFINE»
 

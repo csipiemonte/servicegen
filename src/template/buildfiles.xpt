@@ -214,7 +214,7 @@ creazione del build.xml per ANT
 
 	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
 		<copy todir="build/temp">
-			<fileset file="${conf}/ear/application.xml" />
+			<fileset file="${conf}/ear/*.xml" />
 		</copy>
 		
 		<copy todir="build/temp">
@@ -454,6 +454,9 @@ AS sharedLibsPath»
 			<fileset dir="${build}/archives/${target}" includes="*.jar,*.war, *.sar" excludes="*client*.jar,*-common.jar"/>
 			<fileset dir="${temp}/${target}" >
 				<include name="**/*"/>
+			</fileset>
+			<fileset dir="${temp}/ear" >
+				<include name="META-INF/*"/>
 			</fileset>
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
