@@ -1014,6 +1014,17 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 	
 </beans>
 «ENDFILE»
+«FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"Dao-beans.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"daobeans")»
+		<!-- Insert here your Spring Beans -->	
+	«ENDPROTECT»
+	
+</beans>
+«ENDFILE»
 «ENDLET-»
 «ENDDEFINE»
 

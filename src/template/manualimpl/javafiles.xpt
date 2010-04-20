@@ -772,9 +772,11 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 	public void start() throws Exception {
 		System.out.println("Messaggio di avvio MBEAN=" + message);
 		try {
-
-			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-					"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml");
+			String [] springCfg = new String[]{
+				"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml",
+				"META-INF/«impl.provides.codServizio.toLowerCase()»Dao-beans.xml"
+			};
+			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(springCfg);
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);
 
 		} catch (Exception e) {
@@ -889,8 +891,11 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 	public void postStart(ApplicationLifecycleEvent evt) {
 
 		try {			
-			
-			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml");
+			String [] springCfg = new String[]{
+				"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml",
+				"META-INF/«impl.provides.codServizio.toLowerCase()»Dao-beans.xml"
+			};			
+			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(springCfg);
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);			
 			
 		} catch (Exception e) {
