@@ -774,7 +774,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 		try {
 
 			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(
-					"META-INF/beanContext.xml");
+					"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml");
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);
 
 		} catch (Exception e) {
@@ -890,7 +890,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 
 		try {			
 			
-			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("META-INF/beanContext.xml");
+			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml");
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);			
 			
 		} catch (Exception e) {

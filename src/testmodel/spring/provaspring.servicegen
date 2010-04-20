@@ -7,6 +7,13 @@
     </serviceComponent>
     <implCartridge xsi:type="servicegen:ManualImplCartridge" useInjectedPojo="true"/>
   </serviceimplementations>
-  <targetPlatform code="JBoss43"/>
+  <serviceimplementations>
+    <provides href="provaspring2.servicedef#/"/>
+    <serviceComponent xsi:type="servicegen:ResourceBasedSimpleSC">
+      <resourceSet href="provaspring.servicegen.appresources#/"/>
+    </serviceComponent>
+    <implCartridge xsi:type="servicegen:ManualImplCartridge" useInjectedPojo="true"/>
+  </serviceimplementations>
+  <targetPlatform code="JBoss43"></targetPlatform>
   <resourceSet href="provaspring.servicegen.appresources#/"/>
 </servicegen:SOABEModel>
