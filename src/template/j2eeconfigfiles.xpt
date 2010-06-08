@@ -368,6 +368,8 @@
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
 
 <jboss>
+	@@@@CLUSTER_AWARE@@@@
+
     «IF serviceDef.authLevel!=AuthLevelEnum::A0»
 	<!-- Gli utenti del servizio devono essere definiti nel realm "services" -->
 	<security-domain>java:/jaas/services</security-domain> 

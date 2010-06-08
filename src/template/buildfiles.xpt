@@ -222,6 +222,11 @@ creazione del build.xml per ANT
 		</copy>
 		
 		«EXPAND varSubstForRC FOREACH getAllResourceConnectors()»
+		
+		«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+			«EXPAND varSubstForJBossClustering FOR this»
+		«ENDIF»
+		
 	</target>
 
 	
@@ -331,11 +336,23 @@ creazione del build.xml per ANT
 					<include name="*.properties"/>
 				</fileset>
 				
+				«REM»
+				Sostituito con la logica seguente per gestire il caso in cui vengano effettuate le sostituizioni sul file jboss.xml
+				--->> Vedi Jira STDMDD-507 
 				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
 					<patternset id="all-xml" >
 						<include name="**/*.xml"/>
 					</patternset>
 				</metainf>
+				«ENDREM»
+				
+			    <metainf dir="${build}/temp/ejb/${service.name}/META-INF" >
+					<patternset id="all-xml" >
+						<include name="**/*.xml"/>
+					</patternset>
+				</metainf>	
+				
+				
 			</jar>
 		</then>
 		<else>
@@ -761,6 +778,22 @@ AS sharedLibsPath»
 		«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE varSubstForJBossClustering FOR SOABEModel»
+	<if>
+ 		<equals arg1="${enableClustering}" arg2="true" />
+ 	<then>
+	    <replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="&lt;clustered&gt;True&lt;/clustered&gt;">
+		    <include name="**/jboss.xml"/>
+  		</replace>	
+  	</then>	
+  	<else>
+  		<replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="">
+		    <include name="**/jboss.xml"/>
+  		</replace>
+  	</else>
+  	</if>	
+«ENDDEFINE»
+
 «DEFINE ejbpa_calls FOR ServiceImpl»
     	<!-- binding ejb del servizio «this.provides.codServizio» -->
     	«EXPAND ejbpa_call(provides.codServizio,provides.versione,provides.serviceType) FOREACH (List[EJBPABinding])(provides.bindings.typeSelect(EJBPABinding))»
@@ -913,6 +946,12 @@ web.enabled = true
 «LET getAllResourceConnectors() AS allRC-»
 «EXPAND envVarDefs FOREACH allRC-»
 «ENDLET-»
+
+«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+#Per i targets che prevedono un'architettura a cluster su application server JBoss scommentare la seguente riga e commentare la successiva
+#enableClustering = true
+enableClustering=false
+«ENDIF»
 
 #Proprieta' aggiuntive
 #....
