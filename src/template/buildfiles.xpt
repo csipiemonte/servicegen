@@ -213,11 +213,11 @@ creazione del build.xml per ANT
 	
 
 	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
-		<copy todir="build/temp">
+		<copy todir="build/temp" overwrite="true">
 			<fileset file="${conf}/ear/*.xml" />
 		</copy>
 		
-		<copy todir="build/temp">
+		<copy todir="build/temp" overwrite="true">
 			<fileset file="${conf}/**" />
 		</copy>
 		
