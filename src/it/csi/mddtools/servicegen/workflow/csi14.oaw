@@ -11,6 +11,12 @@
 	
 	<property name="src-gen" value="../${targetProjectName}" />
 	
+	<!-- TRACK! -->
+	<bean class="it.csi.mddtools.servicegen.workflow.component.TrackingInvoker">
+		<modelName value="${model}"/>
+		<targetProjectName value="${targetProjectName}"/>
+		<track value="true"/>
+	</bean>
 	
 	<!-- set up EMF for standalone execution -->
 	<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
