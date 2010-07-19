@@ -1,5 +1,7 @@
 package it.csi.mddtools.servicegen.workflow.component;
 
+import it.csi.mddtools.servicegen.genutils.MiscUtils;
+
 import java.util.Properties;
 
 import mddtools.usagetracking.ProfilingPacketBuilder;
@@ -24,8 +26,7 @@ public class TrackingInvoker extends org.openarchitectureware.workflow.lib.Abstr
 
 	public void setTrack(boolean b){
 		System.out.println("setTrack:"+modelName);
-		Properties info = ProfilingPacketBuilder.packGenerateInfo("servicegen", "1.1.0.002", modelName, "?", targetProjectName);
-		System.out.println("333");
+		Properties info = ProfilingPacketBuilder.packGenerateInfo(MiscUtils.getPluginName(), MiscUtils.getPluginVersion(), modelName, "?", targetProjectName);
 		TrackingSender.sendTrackingInfo(info);
 	}
 	

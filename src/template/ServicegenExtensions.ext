@@ -531,6 +531,9 @@ String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
 	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
 	soapUri; 
 //// altre utility
+String getPluginVersion() : JAVA
+	it.csi.mddtools.servicegen.genutils.MiscUtils.getPluginVersion();
+	
 
 String getRegionUID(String src) : JAVA
   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.getRegionUID(java.lang.String);

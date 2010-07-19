@@ -812,7 +812,7 @@ creazione del build.properties richiamato dal build ANT
 #==================
 # General settings
 #==================
-# - Generato da SERVICEGEN, versione 1.1.0.002
+# - Generato da SERVICEGEN, versione «getPluginVersion()»
 
 lib = lib
 build = build
