@@ -1001,7 +1001,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 
 
 «REM»SPRING«ENDREM»
-«DEFINE beanContextFile(SOABEModel model) FOR ManualImplCartridge»
+«DEFINE beanContextFile(SOABEModel model, boolean useExternalDaoBeans) FOR ManualImplCartridge»
 «LET (ServiceImpl)eContainer AS impl-»
 «FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"BeanContext.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -1014,6 +1014,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 	
 </beans>
 «ENDFILE»
+«IF !useExternalDaoBeans-»
 «FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"Dao-beans.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -1025,6 +1026,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 	
 </beans>
 «ENDFILE»
+«ENDIF-»
 «ENDLET-»
 «ENDDEFINE»
 

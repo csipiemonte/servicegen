@@ -8,6 +8,7 @@
 	<!--<property name="modelfile" value="src/model/prova1.xmi" />
 	<property name="model" value="${modelfile}" />-->
 	
+	<property name="useExternalDaoBeans" value="true"/>
 	
 	<property name="src-gen" value="../${targetProjectName}" />
 	
@@ -57,7 +58,7 @@
 	<component class="org.openarchitectureware.xpand2.Generator">
 		<metaModel idRef="mm"/>
 		<expand
-			value="template::Main::main FOR model" />
+			value="template::Main::main(${useExternalDaoBeans}) FOR model" />
 		<!-- protected regions configurator -->
 		<prSrcPaths value="${src-gen}" />
 		<prDefaultExcludes value="true"/>

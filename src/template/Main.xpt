@@ -8,22 +8,22 @@
 
 «EXTENSION template::ServicegenExtensions»
 
-«DEFINE main FOR SOABEModel»
-«EXPAND main2 FOR this»
+«DEFINE main(boolean useExternalDaoBeans) FOR SOABEModel»
+«EXPAND main2(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
 
-«DEFINE main2 FOR SOABEModel»
-«EXPAND main_prodotto FOR this»
+«DEFINE main2(boolean useExternalDaoBeans) FOR SOABEModel»
+«EXPAND main_prodotto(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
  
-«DEFINE main_prodotto FOR SOABEModel»
-«EXPAND svn_project FOR this»
+«DEFINE main_prodotto(boolean useExternalDaoBeans) FOR SOABEModel»
+«EXPAND svn_project(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
 
 
 
 
-«DEFINE svn_project FOR SOABEModel»
+«DEFINE svn_project(boolean useExternalDaoBeans) FOR SOABEModel»
 «LET codComponente AS svn_project_dir»
 «REM»
 per ogni componente è necessario creare la struttura del progetto SVN:
@@ -90,7 +90,7 @@ per ogni componente è necessario creare la struttura del progetto SVN:
  «EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
  «ENDLET»
  «IF currSrvImpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(currSrvImpl.implCartridge)).useInjectedPojo -»
- «EXPAND template::configfiles::beanContextFile(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
+ «EXPAND template::configfiles::beanContextFile(this, useExternalDaoBeans) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
  «EXPAND template::manualimpl::javafiles::springStartupFiles(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
  «ENDIF-»
  «ENDFOREACH»
