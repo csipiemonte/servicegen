@@ -237,7 +237,7 @@ public interface «serviceInterfaceName()»{
 «ENDDEFINE»
 
 «DEFINE exceptionInThrowsClause (SOABEModel model,String codServ)FOR Exception»
-  ,«fullQualifiedServiceExceptionPkg(codServ,model)+"."+this.name.toFirstUpper()»
+  ,«map2JavaTypeSDRelative(this)»
 «ENDDEFINE»
 
 
@@ -648,8 +648,8 @@ public class «serviceTestClassName()» extends TestCase{
 «ENDDEFINE»
 
 «DEFINE typedefs (SOABEModel model,String codServ) FOR Types»
-	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity)»
-	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception)»
+	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity && !e.isTypedefAnnotated())»
+	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception && !e.isTypedefAnnotated())»
 «ENDDEFINE»
 
 

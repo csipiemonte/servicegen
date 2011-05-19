@@ -393,9 +393,16 @@ if (type==null) then
 else if (type.metaType==CSIDatatype) then
 	map2javaSimpleType(type)
 else if (type.metaType==Entity) then
-      fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
+      //fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
+      map2JavaTypeSDRelative((Entity)type)
 else 
-	map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
+	//map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
+	map2JavaTypeSDRelative((TypedArray)type);
+
+boolean isTypedefAnnotated(Type t) :
+	let tdann = t.annotations.select(a|a.source=="typedef").first() :
+	tdann != null; 
+
 
 /// mappa il tipo java contestualizzandolo nel servicedef contenitore
 /// (sfrutta codProdotto e codservizio di ServiceDef invece che quelli di SOABEModel)
