@@ -24,10 +24,14 @@ public class TrackingInvoker extends org.openarchitectureware.workflow.lib.Abstr
 		System.out.println("invoke TrackingInvoker");
 	}
 
-	public void setTrack(boolean b){
-		System.out.println("setTrack:"+modelName);
-		Properties info = ProfilingPacketBuilder.packGenerateInfo(MiscUtils.getPluginName(), MiscUtils.getPluginVersion(), modelName, "?", targetProjectName);
-		TrackingSender.sendTrackingInfo(info);
+	public void setTrack(boolean b) {
+		if (TrackingSender.isTrackingActive()) {
+			System.out.println("setTrack:" + modelName);
+			Properties info = ProfilingPacketBuilder.packGenerateInfo(
+					MiscUtils.getPluginName(), MiscUtils.getPluginVersion(),
+					modelName, "?", targetProjectName);
+			TrackingSender.sendTrackingInfo(info);
+		}
 	}
 	
 	public void setModelName(String modelName) {
