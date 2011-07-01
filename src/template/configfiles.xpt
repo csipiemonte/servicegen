@@ -1,53 +1,70 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
-«IMPORT template::papdconfigfiles»
-«IMPORT template::j2eeconfigfiles»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
+Â«IMPORT template::papdconfigfilesÂ»
+Â«IMPORT template::j2eeconfigfilesÂ»
 
-«REM»
+Â«EXTENSION template::ServicegenExtensionsÂ»
+
+Â«REMÂ»
 Contiene i template per la definizione dei file di configurazione necessari per
 l'implementazione della Specific Platform (CSI over J2EE) 
-«ENDREM»
+Â«ENDREMÂ»
 
 
-«DEFINE ejbpafiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
-  «EXPAND papdconfigfiles::defpafile (model, serviceDef) FOR this»
-  «EXPAND j2eeconfigfiles::defejbjarfiles (model, serviceDef) FOR this»
-  «EXPAND papdconfigfiles::defpdejbtestfile (model, serviceDef) FOR this»
-  «IF serviceDef.monitorable || serviceDef.diagEnabled»
-  	«EXPAND papdconfigfiles::coopdiagfile(model, serviceDef) FOR this»
-  «ENDIF»
-  «LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
-	  «IF asynchOps.size>0»
-	  	«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDef»
-	  «ENDIF»
-  «ENDLET»
-«ENDDEFINE»
+Â«DEFINE ejbpafiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABindingÂ»
+  Â«EXPAND papdconfigfiles::defpafile (model, serviceDef) FOR thisÂ»
+  Â«EXPAND j2eeconfigfiles::defejbjarfiles (model, serviceDef) FOR thisÂ»
+  Â«EXPAND papdconfigfiles::defpdejbtestfile (model, serviceDef) FOR thisÂ»
+  Â«IF serviceDef.monitorable || serviceDef.diagEnabledÂ»
+  	Â«EXPAND papdconfigfiles::coopdiagfile(model, serviceDef) FOR thisÂ»
+  Â«ENDIFÂ»
+  Â«LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOpsÂ»
+	  Â«IF asynchOps.size>0Â»
+	  	Â«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDefÂ»
+	  Â«ENDIFÂ»
+  Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE serviceFiles (SOABEModel model) FOR ServiceDef»
+Â«DEFINE serviceFiles (SOABEModel model) FOR ServiceDefÂ»
   
-  «FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS pa»
-    «EXPAND ejbpafiles(model, this) FOR pa»
+  Â«FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS paÂ»
+    Â«EXPAND ejbpafiles(model, this) FOR paÂ»
     
-  «ENDFOREACH»
+  Â«ENDFOREACHÂ»
   
-  «FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabr»
-    «EXPAND soappabrfiles(model ,this) FOR pabr»
-  «ENDFOREACH»
+  Â«FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabrÂ»
+    Â«EXPAND soappabrfiles(model ,this) FOR pabrÂ»
+  Â«ENDFOREACHÂ»
   
-  «FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
-    «EXPAND wsfadfiles(model, this) FOR wsfad»
-  «ENDFOREACH»
+  Â«FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfadÂ»
+    Â«EXPAND wsfadfiles(model, this) FOR wsfadÂ»
+  Â«ENDFOREACHÂ»
   
-  «LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOps»
-  «IF asynchOps.size>0»
-  «FILE getSQLSrcDir(model)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
+  Â«LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOpsÂ»
+  Â«IF asynchOps.size>0Â»
+  Â«FILE getSQLSrcDir(model)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"Â»
 
-DROP TABLE «asynchCounterTableName(this)» CASCADE CONSTRAINTS ; 
+DROP TABLE Â«asynchCounterTableName(this)Â» CASCADE CONSTRAINTS ; 
 
-CREATE TABLE «asynchCounterTableName(this)» ( 
+CREATE TABLE Â«asynchCounterTableName(this)Â» ( 
   MSGID         VARCHAR2 (500)  NOT NULL, 
   TARGETID      VARCHAR2 (100)  NOT NULL, 
   NUM_ATTEMPTS  NUMBER, 
@@ -56,10 +73,10 @@ CREATE TABLE «asynchCounterTableName(this)» (
  ); 
 
 COMMIT;
-  «ENDFILE»
-  «ENDIF»
-  «ENDLET»
-«ENDDEFINE»
+  Â«ENDFILEÂ»
+  Â«ENDIFÂ»
+  Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
 
 
@@ -69,35 +86,35 @@ COMMIT;
 
 
 
-«REM»
+Â«REMÂ»
 *************************************
 	File del bridge soap (web-app)
 *************************************
-«ENDREM»
-«DEFINE soappabrfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
-	«EXPAND j2eeconfigfiles::soappabrwebxml(model, serviceDef) FOR this»
-	«EXPAND papdconfigfiles::soappabrdeploy(model, serviceDef) FOR this»
-	«EXPAND papdconfigfiles::defpdsoaptestfile (model, serviceDef) FOR this»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE soappabrfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBindingÂ»
+	Â«EXPAND j2eeconfigfiles::soappabrwebxml(model, serviceDef) FOR thisÂ»
+	Â«EXPAND papdconfigfiles::soappabrdeploy(model, serviceDef) FOR thisÂ»
+	Â«EXPAND papdconfigfiles::defpdsoaptestfile (model, serviceDef) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
 
 
-«REM»
+Â«REMÂ»
 ******************************************
 	File per front adapter web-services
 ******************************************
-«ENDREM»
-«DEFINE wsfadfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-	«EXPAND j2eeconfigfiles::wsfadwebxml(model, serviceDef) FOR this»
-	«EXPAND axisstaticresources(model, serviceDef) FOR this»
-	«EXPAND serverconfigwsdd(model,serviceDef) FOR this»
-	«EXPAND papdconfigfiles::defpdejbembeddedinwsfad(model,serviceDef) FOR this»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE wsfadfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBindingÂ»
+	Â«EXPAND j2eeconfigfiles::wsfadwebxml(model, serviceDef) FOR thisÂ»
+	Â«EXPAND axisstaticresources(model, serviceDef) FOR thisÂ»
+	Â«EXPAND serverconfigwsdd(model,serviceDef) FOR thisÂ»
+	Â«EXPAND papdconfigfiles::defpdejbembeddedinwsfad(model,serviceDef) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE axisstaticresources (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/index.html"»<html>
+Â«DEFINE axisstaticresources (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBindingÂ»
+Â«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/index.html"Â»<html>
 
 <head>
 <meta http-equiv="Content-Type"
@@ -131,8 +148,8 @@ versions. We strongly recommend you download and install
 <a href="http://xml.apache.org/xerces2-j/">Xerces</a>-->
 </body>
 </html>
-«ENDFILE»
-«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/happyaxis.jsp"»<html>
+Â«ENDFILEÂ»
+Â«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/happyaxis.jsp"Â»<html>
 <%@ page import="java.io.InputStream,
                  java.io.IOException,
                  javax.xml.parsers.SAXParser,
@@ -651,8 +668,8 @@ versions. We strongly recommend you download and install
     Platform: <%= getServletConfig().getServletContext().getServerInfo()  %>
 </body>
 </html>
-«ENDFILE»
-«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/fingerprint.jsp"»<%@ page import="java.io.File,
+Â«ENDFILEÂ»
+Â«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/fingerprint.jsp"Â»<%@ page import="java.io.File,
                  java.io.IOException,
                  java.util.Date"
     session="false" %>
@@ -921,11 +938,11 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 %>
 </body>
 </html>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE serverconfigwsdd (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
-«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/server-config.wsdd"»<?xml version="1.0" encoding="UTF-8"?>
+Â«DEFINE serverconfigwsdd (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBindingÂ»
+Â«FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/server-config.wsdd"Â»<?xml version="1.0" encoding="UTF-8"?>
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
  <globalConfiguration>
   <parameter name="adminPassword" value="admin"/>
@@ -959,25 +976,25 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <namespace>http://xml.apache.org/axis/wsdd/</namespace>
  </service>
 
- <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler">
-  <parameter name="wsdlPortType" value="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" />
+ <service name="Â«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()Â»" provider="Handler">
+  <parameter name="wsdlPortType" value="Â«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()Â»" />
   <parameter name="allowedMethods" value="*"/>
-  <parameter name="defPDResource" value="/defpdelegata_embedded_«removeSeparator(serviceDef.codServizio).toLowerCase()».xml"/>
-  <parameter name="className" value="«fullQualifiedServiceInterfaceName(serviceDef, model)»"/>
+  <parameter name="defPDResource" value="/defpdelegata_embedded_Â«removeSeparator(serviceDef.codServizio).toLowerCase()Â».xml"/>
+  <parameter name="className" value="Â«fullQualifiedServiceInterfaceName(serviceDef, model)Â»"/>
   <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
-  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UnrecoverableException" qname="ns5:UnrecoverableException" xmlns:ns5="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UnrecoverableException" qname="ns5:UnrecoverableException" xmlns:ns5="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
   <!-- mapping delle user defined entities -->
-  «FOREACH serviceDef.types.types.typeSelect(Entity) AS bean»
-  <beanMapping languageSpecificType="java:«fullQualifiedEntitiesPkg(serviceDef.codServizio,model)».«bean.name»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  «ENDFOREACH»
+  Â«FOREACH serviceDef.types.types.typeSelect(Entity) AS beanÂ»
+  <beanMapping languageSpecificType="java:Â«fullQualifiedEntitiesPkg(serviceDef.codServizio,model)Â».Â«bean.nameÂ»" qname="ns10:Â«bean.nameÂ»" xmlns:ns10="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  Â«ENDFOREACHÂ»
   <!-- mapping delle user defined exceptions -->
-  «FOREACH serviceDef.types.types.typeSelect(Exception) AS exception»
-  <beanMapping languageSpecificType="java:«fullQualifiedServiceExceptionPkg(serviceDef.codServizio,model)».«exception.name»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
-  «ENDFOREACH»
+  Â«FOREACH serviceDef.types.types.typeSelect(Exception) AS exceptionÂ»
+  <beanMapping languageSpecificType="java:Â«fullQualifiedServiceExceptionPkg(serviceDef.codServizio,model)Â».Â«exception.nameÂ»" qname="ns10:Â«exception.nameÂ»" xmlns:ns10="urn:Â«model.codComponenteÂ»Â«removeSeparator(serviceDef.codServizio).toFirstUpper()Â»"/>
+  Â«ENDFOREACHÂ»
  </service>
 
  <service name="Version" provider="java:RPC">
@@ -996,84 +1013,84 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   </responseFlow>
  </transport>
 </deployment>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»SPRING«ENDREM»
-«DEFINE beanContextFile(SOABEModel model, boolean useExternalDaoBeans) FOR ManualImplCartridge»
-«LET (ServiceImpl)eContainer AS impl-»
-«FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"BeanContext.xml"»<?xml version="1.0" encoding="UTF-8"?>
+Â«REMÂ»SPRINGÂ«ENDREMÂ»
+Â«DEFINE beanContextFile(SOABEModel model, boolean useExternalDaoBeans) FOR ManualImplCartridgeÂ»
+Â«LET (ServiceImpl)eContainer AS impl-Â»
+Â«FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"BeanContext.xml"Â»<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        					   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"> 
        					   
 
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"beancontext")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"beancontext")Â»
 		<!-- Insert here your Spring Beans -->	
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	
 </beans>
-«ENDFILE»
-«IF !useExternalDaoBeans-»
-«FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"Dao-beans.xml"»<?xml version="1.0" encoding="UTF-8"?>
+Â«ENDFILEÂ»
+Â«IF !useExternalDaoBeans-Â»
+Â«FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"Dao-beans.xml"Â»<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
        					   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
-	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"daobeans")»
+	Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"daobeans")Â»
 		<!-- Insert here your Spring Beans -->	
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	
 </beans>
-«ENDFILE»
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»frammento log4j con log e stopwatch«ENDREM»
-«DEFINE log4jfiles FOR SOABEModel»
-«FILE getDocsRootDir()+"/log4j_"+this.codComponente+".properties"»
+Â«REMÂ»frammento log4j con log e stopwatchÂ«ENDREMÂ»
+Â«DEFINE log4jfiles FOR SOABEModelÂ»
+Â«FILE getDocsRootDir()+"/log4j_"+this.codComponente+".properties"Â»
 #-------------------------------------------------------------------
-# configurazione dei logger per il componente «this.codComponente»
+# configurazione dei logger per il componente Â«this.codComponenteÂ»
 #-------------------------------------------------------------------
-«LET getLoggerPrefixForComponent(this.codProdotto,this.codComponente) AS logger_name»
-log4j.logger.«logger_name»=INFO, «logger_name».file
-log4j.additivity.«logger_name»=false
+Â«LET getLoggerPrefixForComponent(this.codProdotto,this.codComponente) AS logger_nameÂ»
+log4j.logger.Â«logger_nameÂ»=INFO, Â«logger_nameÂ».file
+log4j.additivity.Â«logger_nameÂ»=false
 #tipologia di appender
-log4j.appender.«logger_name».file=org.apache.log4j.RollingFileAppender
-log4j.appender.«logger_name».file.File=/usr/prod/«this.codComponente»/logs/«this.codComponente»_[srvInstance].log
+log4j.appender.Â«logger_nameÂ».file=org.apache.log4j.RollingFileAppender
+log4j.appender.Â«logger_nameÂ».file.File=/usr/prod/Â«this.codComponenteÂ»/logs/Â«this.codComponenteÂ»_[srvInstance].log
 #politica di back-up
-log4j.appender.«logger_name».file.MaxFileSize=3Mb
-log4j.appender.«logger_name».file.MaxBackupIndex=5
+log4j.appender.Â«logger_nameÂ».file.MaxFileSize=3Mb
+log4j.appender.Â«logger_nameÂ».file.MaxBackupIndex=5
 #conversion pattern
-log4j.appender.«logger_name».file.layout=org.apache.log4j.PatternLayout
-log4j.appender.«logger_name».file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss} [«logger_name»] %p <%c> <%t> %m%n
+log4j.appender.Â«logger_nameÂ».file.layout=org.apache.log4j.PatternLayout
+log4j.appender.Â«logger_nameÂ».file.layout.ConversionPattern= %d{yyyy-MM-dd HH:mm:ss} [Â«logger_nameÂ»] %p <%c> <%t> %m%n
 
 #--------------------------------------------------------------------
-# configurazione dello stopwatch per il componente «codComponente»
+# configurazione dello stopwatch per il componente Â«codComponenteÂ»
 #--------------------------------------------------------------------
-log4j.logger.«logger_name».util.stopwatch=INFO, «logger_name».util.stopwatch.file
-log4j.additivity.«logger_name».util.stopwatch=false
-log4j.appender.«logger_name».util.stopwatch.file=org.apache.log4j.RollingFileAppender
-log4j.appender.«logger_name».util.stopwatch.file.File=/usr/prod/«this.codComponente»/logs/«this.codComponente»_perf_[srvInstance].csv
-log4j.appender.«logger_name».util.stopwatch.file.layout=org.apache.log4j.PatternLayout
-log4j.appender.«logger_name».util.stopwatch.file.layout.ConversionPattern=%t,%d{yyyy-MM-dd HH:mm:ss},%X{«logger_name».stopwatch.context},%X{«logger_name».stopwatch.elapsed},%m%n
-«IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
-	«EXPAND papdconfigfiles::cooptrace_logger_cfg FOR this»
-«ENDIF»
+log4j.logger.Â«logger_nameÂ».util.stopwatch=INFO, Â«logger_nameÂ».util.stopwatch.file
+log4j.additivity.Â«logger_nameÂ».util.stopwatch=false
+log4j.appender.Â«logger_nameÂ».util.stopwatch.file=org.apache.log4j.RollingFileAppender
+log4j.appender.Â«logger_nameÂ».util.stopwatch.file.File=/usr/prod/Â«this.codComponenteÂ»/logs/Â«this.codComponenteÂ»_perf_[srvInstance].csv
+log4j.appender.Â«logger_nameÂ».util.stopwatch.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.Â«logger_nameÂ».util.stopwatch.file.layout.ConversionPattern=%t,%d{yyyy-MM-dd HH:mm:ss},%X{Â«logger_nameÂ».stopwatch.context},%X{Â«logger_nameÂ».stopwatch.elapsed},%m%n
+Â«IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0Â»
+	Â«EXPAND papdconfigfiles::cooptrace_logger_cfg FOR thisÂ»
+Â«ENDIFÂ»
 #---------------------------------------------------------------------
-# fine sezione logger del componente «this.codComponente»
+# fine sezione logger del componente Â«this.codComponenteÂ»
 #---------------------------------------------------------------------
-«ENDLET»
-«ENDFILE»
+Â«ENDLETÂ»
+Â«ENDFILEÂ»
 
-«FILE getDocsRootDir()+"/README.txt"»
+Â«FILE getDocsRootDir()+"/README.txt"Â»
 Istruzioni per l'utilizzo dei files contenuti in questa directory.
 
-- «"log4j_"+this.codComponente+".properties"»: 
+- Â«"log4j_"+this.codComponente+".properties"Â»: 
   E'il frammento di configurazione di log4j da inserire nel file di configurazione
   del server (occorre completare i path di destinazione dei file di log).
   Contiene:
@@ -1081,11 +1098,11 @@ Istruzioni per l'utilizzo dei files contenuti in questa directory.
   - le configurazioni dello stopwatch
   - le configurazioni necessarie per abilitare coop-trace (se previsto) 
 
-- «"log4j_"+this.codComponente+".xml"»:
+- Â«"log4j_"+this.codComponente+".xml"Â»:
   E'il frammento di configuraizone di log4j necessario per configurare l'appender
   JMS che serve alle librerie coop-trace per tracciare le chiamate a servizi.
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 

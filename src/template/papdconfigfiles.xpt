@@ -1,168 +1,185 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
-«IMPORT appresources»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
+Â«IMPORT appresourcesÂ»
 
-«DEFINE defpafile (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
-«FILE paConfigDir(serviceDef, model)+"/"+paDefFileName(serviceDef)»<porta-applicativa name="«this.paSymName(serviceDef, model)»"
-	public-interface-class="«serviceDef.fullQualifiedServiceInterfaceName(model)»">
+Â«EXTENSION template::ServicegenExtensionsÂ»
+
+Â«DEFINE defpafile (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABindingÂ»
+Â«FILE paConfigDir(serviceDef, model)+"/"+paDefFileName(serviceDef)Â»<porta-applicativa name="Â«this.paSymName(serviceDef, model)Â»"
+	public-interface-class="Â«serviceDef.fullQualifiedServiceInterfaceName(model)Â»">
 
 	<listener class="it.csi.csi.porte.ejb20.PortaApplicativaEJB" listening-url="**NOT USED IN THIS BINDING TYPE**" />
 
 	<adapter class="it.csi.csi.wrapper.StatelessEJBAdapter">
 		<properties>
 			<!--<property name="jndi-name"
-				value="«fullServiceJndiName(serviceDef, model)»" />-->
+				value="Â«fullServiceJndiName(serviceDef, model)Â»" />-->
 			<property name="jndi-name"
-				value="java:comp/env/«getServiceBeanName(serviceDef)»" />				
+				value="java:comp/env/Â«getServiceBeanName(serviceDef)Â»" />				
 			<property name="home-class"
-				value="«fullQualifiedServiceLocalHomeInterfaceName(serviceDef, model)»" />
+				value="Â«fullQualifiedServiceLocalHomeInterfaceName(serviceDef, model)Â»" />
 			<property name="local-class"
-				value="«fullQualifiedServiceLocalInterfaceName(serviceDef, model)»" />
+				value="Â«fullQualifiedServiceLocalInterfaceName(serviceDef, model)Â»" />
 		</properties>
 	</adapter>
 	<options>
     	<pre-function-handler-list>
-    	«IF serviceDef.traceEnabled»
-    	«EXPAND cooptrace_pfh_pre_pa(model, serviceDef) FOR this»	
-    	«ENDIF»
+    	Â«IF serviceDef.traceEnabledÂ»
+    	Â«EXPAND cooptrace_pfh_pre_pa(model, serviceDef) FOR thisÂ»	
+    	Â«ENDIFÂ»
 		</pre-function-handler-list>
 		<post-function-handler-list>
-		«IF serviceDef.traceEnabled»
-    	«EXPAND cooptrace_pfh_post_pa(model, serviceDef) FOR this»	
-    	«ENDIF»
+		Â«IF serviceDef.traceEnabledÂ»
+    	Â«EXPAND cooptrace_pfh_post_pa(model, serviceDef) FOR thisÂ»	
+    	Â«ENDIFÂ»
 		</post-function-handler-list>
 	</options>
 </porta-applicativa>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»file di configurazione per coop-diag«ENDREM»
-«DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::papdconfigfiles::coopdiagfile(model, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::papdconfigfiles::coopdiagfile(model, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«REMÂ»file di configurazione per coop-diagÂ«ENDREMÂ»
+Â«DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»
+Â«LET getServiceImpl(sd,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::papdconfigfiles::coopdiagfile(model, sd) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::papdconfigfiles::coopdiagfile(model, sd) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE pdSelectorFile(ServiceDef context, SOABEModel model) FOR PDPAServiceConnector»
-«FILE getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSelectorFileName()»
-### Selettore del servizio «this.serviceDef.codServizio», binding «binding.codBinding»
-id.servizio=«selector.codProd»|«selector.codEnte»|«selector.codServ»|«selector.verServ»|«selector.istanza»|«selector.codBinding»
+Â«DEFINE pdSelectorFile(ServiceDef context, SOABEModel model) FOR PDPAServiceConnectorÂ»
+Â«FILE getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSelectorFileName()Â»
+### Selettore del servizio Â«this.serviceDef.codServizioÂ», binding Â«binding.codBindingÂ»
+id.servizio=Â«selector.codProdÂ»|Â«selector.codEnteÂ»|Â«selector.codServÂ»|Â«selector.verServÂ»|Â«selector.istanzaÂ»|Â«selector.codBindingÂ»
 ambiente=PROD
 purpose=RUNTIME
 staging=FALSE
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdejbtestfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«EXPAND defpdejbfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd), null, null, null) FOR this»
-«ENDDEFINE»
+Â«DEFINE defpdejbtestfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»
+Â«EXPAND defpdejbfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd), null, null, null) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdsoaptestfile(servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd), null, null) FOR this»
-«ENDDEFINE»
+Â«DEFINE defpdsoaptestfile(servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBindingÂ»
+Â«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd), null, null) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, TargetPlatformCodes paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
-«EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR this»
-«ENDDEFINE»
+Â«DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, TargetPlatformCodes paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABindingÂ»
+Â«EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, String customPAUrl, String customPAUri) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd), customPAUrl, customPAUri) FOR this»
-«ENDDEFINE»
+Â«DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, String customPAUrl, String customPAUri) FOR SOAPPABRBindingÂ»
+Â«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd), customPAUrl, customPAUri) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«REM»crea il file di PD nella directory test/xml«ENDREM»
-«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
-«FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
+Â«REMÂ»crea il file di PD nella directory test/xmlÂ«ENDREMÂ»
+Â«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABindingÂ»
+Â«FILE fullFileNameÂ»<porta-delegata name="Â«model.codComponenteÂ».Â«removeSeparator(sd.codServizio)Â»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd»
+  Â«EXPAND pdservicedef (model) FOR sdÂ»
   </services>
   <config>
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        name="«removeSeparator(sd.codServizio)»"
-        «LET pdPluginFQN == null ? "it.csi.csi.porte.ejb20.PortaDelegataEJB" : pdPluginFQN AS actPDPluginFQN-»
-        class="«actPDPluginFQN»"
-        «ENDLET-»
-        «LET customPAJndi!=null ? customPAJndi : fullPAJndiName(sd) AS actualPAJndi-»
-        url-pa="«actualPAJndi»"
-        «ENDLET-»
-        url-qm="«fullQMGRJndiName(sd)»">
+        name="Â«removeSeparator(sd.codServizio)Â»"
+        Â«LET pdPluginFQN == null ? "it.csi.csi.porte.ejb20.PortaDelegataEJB" : pdPluginFQN AS actPDPluginFQN-Â»
+        class="Â«actPDPluginFQNÂ»"
+        Â«ENDLET-Â»
+        Â«LET customPAJndi!=null ? customPAJndi : fullPAJndiName(sd) AS actualPAJndi-Â»
+        url-pa="Â«actualPAJndiÂ»"
+        Â«ENDLET-Â»
+        url-qm="Â«fullQMGRJndiName(sd)Â»">
         <properties>
-          <property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
-          «IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
+          <property name="java.naming.provider.url" value="Â«getPAURLPlaceHolder(sd)Â»"/>
+          Â«IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-Â»
           <!-- initial contxt factory per WLS92 -->
           <property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
-          «ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
+          Â«ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-Â»
           <!-- initial context factory per JBoss43 -->
           <property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
           <property name="jnp.disableDiscovery" value="true" />
-          «ENDIF-»
-          «IF sd.authLevel!=AuthLevelEnum::A0 -»
-          	«IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
+          Â«ENDIF-Â»
+          Â«IF sd.authLevel!=AuthLevelEnum::A0 -Â»
+          	Â«IF (paplatformcode != null && paplatformcode==TargetPlatformCodes::WLS92) || (paplatformcode == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-Â»
           <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.weblogic.WeblogicJAASNativeClient" />
-          	«ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode==null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
+          	Â«ELSEIF (paplatformcode != null && paplatformcode==TargetPlatformCodes::JBoss43) || (paplatformcode==null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-Â»
           <property name="csi.auth.jaas.client.class" value="it.csi.csi.porte.ejb.jaas.StandardJAASClient" />
-          	«ENDIF-»
-          <property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
-          «ENDIF-»
+          	Â«ENDIF-Â»
+          <property name="csi.auth.basic" value="Â«getCsiAuthCredentialsPlaceHolder(sd)Â»" />
+          Â«ENDIF-Â»
         </properties>
       </pluggable-pd>
     </pluggable-pd-list>
     <pre-function-handler-list>
-    	«IF sd.traceEnabled»
-    	«EXPAND cooptrace_pfh_pre_pd(model, sd) FOR this»	
-    	«ENDIF»
+    	Â«IF sd.traceEnabledÂ»
+    	Â«EXPAND cooptrace_pfh_pre_pd(model, sd) FOR thisÂ»	
+    	Â«ENDIFÂ»
 		</pre-function-handler-list>
 		<post-function-handler-list>
-		«IF sd.traceEnabled»
-    	«EXPAND cooptrace_pfh_post_pd(model, sd) FOR this»	
-    	«ENDIF»
+		Â«IF sd.traceEnabledÂ»
+    	Â«EXPAND cooptrace_pfh_post_pd(model, sd) FOR thisÂ»	
+    	Â«ENDIFÂ»
 		</post-function-handler-list>
     <queue-manager url=""/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBinding»
-«FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
+Â«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBindingÂ»
+Â«FILE fullFileNameÂ»<porta-delegata name="Â«model.codComponenteÂ».Â«removeSeparator(sd.codServizio)Â»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd»
+  Â«EXPAND pdservicedef (model) FOR sdÂ»
   </services>
   <config>
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        «LET customPAUri!=null ? customPAUri : removeSeparator(sd.codServizio) AS actualPAUri-»
-        name="«actualPAUri»"
-        «ENDLET-»
+        Â«LET customPAUri!=null ? customPAUri : removeSeparator(sd.codServizio) AS actualPAUri-Â»
+        name="Â«actualPAUriÂ»"
+        Â«ENDLET-Â»
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-        «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)+"/servlet/rpcrouter" AS actualPAEndpoint-»
-        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"
-        «ENDLET-»
+        Â«LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)+"/servlet/rpcrouter" AS actualPAEndpoint-Â»
+        url-pa="Â«getPAURLPlaceHolder(sd)Â»/Â«actualPAEndpointÂ»"
+        Â«ENDLET-Â»
         url-qm="">
         <properties>
-        «IF sd.authLevel!=AuthLevelEnum::A0-»
-        	<property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
-        «ENDIF-»
+        Â«IF sd.authLevel!=AuthLevelEnum::A0-Â»
+        	<property name="csi.auth.basic" value="Â«getCsiAuthCredentialsPlaceHolder(sd)Â»" />
+        Â«ENDIF-Â»
           <!--<property name="csi.ssl.keystore.location" value="c:/progetti/test_csi/resource/client.keystore" />-->
           <!--<property name="csi.ssl.truststore.location" value="c:/progetti/test_csi/resource/client.truststore" />-->
           <!-- <property name="csi.proxyhost" value="proxy.csi.it:80"/> -->
@@ -173,23 +190,23 @@ staging=FALSE
     <queue-manager url=""/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»invariante per le varie pd«ENDREM»
-«DEFINE pdservicedef(SOABEModel model) FOR ServiceDef»
-<service name="«removeSeparator(codServizio)»" public-interface-class="«fullQualifiedServiceInterfaceName(this, model)»" top-version="«versione»">
+Â«REMÂ»invariante per le varie pdÂ«ENDREMÂ»
+Â«DEFINE pdservicedef(SOABEModel model) FOR ServiceDefÂ»
+<service name="Â«removeSeparator(codServizio)Â»" public-interface-class="Â«fullQualifiedServiceInterfaceName(this, model)Â»" top-version="Â«versioneÂ»">
       <operations>
-      «EXPAND pdopdef (model, codServizio)FOREACH this.operations-»
-      «IF monitorable-»
+      Â«EXPAND pdopdef (model, codServizio)FOREACH this.operations-Â»
+      Â«IF monitorable-Â»
         <!-- operazione per monitoraggio -->
       	<operation name="testResources" type="synch-call">
           <param-list>
           </param-list>
           <ret-val type="boolean"/>
         </operation>
-      «ENDIF-»
-      «IF diagEnabled-»
+      Â«ENDIF-Â»
+      Â«IF diagEnabled-Â»
         <!-- operazioni per diagnostica -->
       	<operation name="selfCheck" type="synch-call">
           <param-list>
@@ -202,47 +219,47 @@ staging=FALSE
           </param-list>
           <ret-val type="boolean"/>
       	</operation>
-      «ENDIF-»
+      Â«ENDIF-Â»
       </operations>
     </service>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation-»
-		<operation name="«name»" type="«opTypeConst(opType)»" «IF since != null»since="«since»"«ENDIF-»>
+Â«DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation-Â»
+		<operation name="Â«nameÂ»" type="Â«opTypeConst(opType)Â»" Â«IF since != nullÂ»since="Â«sinceÂ»"Â«ENDIF-Â»>
           <param-list>
-          «EXPAND pd_op_par(model, codServ) FOREACH this.params-»
-          «IF opType!=OpTypeEnum::synch-»
+          Â«EXPAND pd_op_par(model, codServ) FOREACH this.params-Â»
+          Â«IF opType!=OpTypeEnum::synch-Â»
           <param name="datiMsg" type="it.csi.csi.util.DatiMessaggio" />
-          «ENDIF-»
+          Â«ENDIF-Â»
           </param-list>
-          «IF returnType!=null-»
-          «LET map2JavaTypeSDRelative(returnType) AS retType-»
-          	«LET retType==null?"void":retType AS retTypeOrVoid-»
-          	<ret-val type="«retTypeOrVoid»"/>
-          	«ENDLET-»
-          «ENDLET-»
-          «ELSE-»
+          Â«IF returnType!=null-Â»
+          Â«LET map2JavaTypeSDRelative(returnType) AS retType-Â»
+          	Â«LET retType==null?"void":retType AS retTypeOrVoid-Â»
+          	<ret-val type="Â«retTypeOrVoidÂ»"/>
+          	Â«ENDLET-Â»
+          Â«ENDLET-Â»
+          Â«ELSE-Â»
           	<ret-val type="void"/>
-          «ENDIF-»
+          Â«ENDIF-Â»
         </operation>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param-»
-			<param name="«name»" type="«map2JavaTypeSDRelative(this.type)»" />
-«ENDDEFINE»
+Â«DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param-Â»
+			<param name="Â«nameÂ»" type="Â«map2JavaTypeSDRelative(this.type)Â»" />
+Â«ENDDEFINEÂ»
 
-«DEFINE defpdejbembeddedinwsfad (servicegen::SOABEModel model, ServiceDef sd) FOR WSFADBinding»
-«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(sd.codServizio),model)+"/defpdelegata_embedded_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<porta-delegata name="@cod_fruitore@.«removeSeparator(sd.codServizio)»">
+Â«DEFINE defpdejbembeddedinwsfad (servicegen::SOABEModel model, ServiceDef sd) FOR WSFADBindingÂ»
+Â«FILE getSpecificWarResourcesRootDir("wsfad",removeSeparator(sd.codServizio),model)+"/defpdelegata_embedded_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"Â»<porta-delegata name="@cod_fruitore@.Â«removeSeparator(sd.codServizio)Â»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd-»
+  Â«EXPAND pdservicedef (model) FOR sd-Â»
   </services>
   <config>
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        name="«removeSeparator(sd.codServizio)»"
+        name="Â«removeSeparator(sd.codServizio)Â»"
         class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
-        url-pa="«fullPAJndiName(sd, model)»"
+        url-pa="Â«fullPAJndiName(sd, model)Â»"
         url-qm="">
         <properties>
         </properties>
@@ -251,63 +268,63 @@ staging=FALSE
     <queue-manager url=""/>
   </config>
 </porta-delegata>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE cooptrace_pfh_pre_pd (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»<pluggable-fh
+Â«DEFINE cooptrace_pfh_pre_pd (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»<pluggable-fh
          name="PD TXID Handler(pre)"
          class="it.csi.cooptrace.business.handler.PdTracingHandler" >
         <properties>
-          <property name="componentname" value="«model.codComponente»" />
-          <property name="callername" value="«model.codComponente»" />
-         <property name="interfacename" value="«serviceInterfaceName(sd)»" />
+          <property name="componentname" value="Â«model.codComponenteÂ»" />
+          <property name="callername" value="Â«model.codComponenteÂ»" />
+         <property name="interfacename" value="Â«serviceInterfaceName(sd)Â»" />
        </properties>
       </pluggable-fh>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE cooptrace_pfh_post_pd (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»<pluggable-fh
+Â«DEFINE cooptrace_pfh_post_pd (servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»<pluggable-fh
          name="PD TXID Handler(post)"
          class="it.csi.cooptrace.business.handler.PdTracingHandler" >
         <properties>
-          <property name="componentname" value="«model.codComponente»" />
-          <property name="callername" value="«model.codComponente»" />
-          <property name="interfacename" value="«serviceInterfaceName(sd)»" />
+          <property name="componentname" value="Â«model.codComponenteÂ»" />
+          <property name="callername" value="Â«model.codComponenteÂ»" />
+          <property name="interfacename" value="Â«serviceInterfaceName(sd)Â»" />
         </properties>
       </pluggable-fh>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE cooptrace_pfh_pre_pa(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»<pluggable-fh
+Â«DEFINE cooptrace_pfh_pre_pa(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»<pluggable-fh
          name="PA Chiamante TXID Handler(pre)"
          class="it.csi.cooptrace.business.handler.PaTracingHandler" >
         <properties>
-           <property name="componentname" value="«model.codComponente»" />
-           <property name="callername" value="«model.codComponente»" />
-           <property name="interfacename" value="«serviceInterfaceName(sd)»" />
+           <property name="componentname" value="Â«model.codComponenteÂ»" />
+           <property name="callername" value="Â«model.codComponenteÂ»" />
+           <property name="interfacename" value="Â«serviceInterfaceName(sd)Â»" />
        </properties>
       </pluggable-fh>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE cooptrace_pfh_post_pa(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»<pluggable-fh
+Â«DEFINE cooptrace_pfh_post_pa(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»<pluggable-fh
          name="PA Chiamante TXID Handler(post)"
          class="it.csi.cooptrace.business.handler.PaTracingHandler" >
         <properties>
-          <property name="componentname" value="«model.codComponente»" />
-          <property name="callername" value="«model.codComponente»" />
-          <property name="interfacename" value="«serviceInterfaceName(sd)»" />
+          <property name="componentname" value="Â«model.codComponenteÂ»" />
+          <property name="callername" value="Â«model.codComponenteÂ»" />
+          <property name="interfacename" value="Â«serviceInterfaceName(sd)Â»" />
         </properties>
       </pluggable-fh>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»artefatti per deploy in servizio di naming (1 per componente prodotto)«ENDREM»
-«DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModel»
-	«EXPAND registryDeployFile (tp) FOR this»
-	«EXPAND registryPD(this) FOREACH this.serviceimplementations»
-«ENDDEFINE»
+Â«REMÂ»artefatti per deploy in servizio di naming (1 per componente prodotto)Â«ENDREMÂ»
+Â«DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModelÂ»
+	Â«EXPAND registryDeployFile (tp) FOR thisÂ»
+	Â«EXPAND registryPD(this) FOREACH this.serviceimplementationsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE registryDeployFile(TargetPlatform tp) FOR SOABEModel»
-«FILE getfullRegistryDDFileName(this)»<?xml version="1.0" encoding="UTF-8" ?>
+Â«DEFINE registryDeployFile(TargetPlatform tp) FOR SOABEModelÂ»
+Â«FILE getfullRegistryDDFileName(this)Â»<?xml version="1.0" encoding="UTF-8" ?>
 <deploy-descriptor 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
@@ -316,133 +333,133 @@ staging=FALSE
 		ambiente="${rilascio.ambiente}" 
 		cliente="${rilascio.cliente}" 
 		istanza="${rilascio.istanza}" 
-		unita-installazione="«codComponente.toLowerCase()»"
+		unita-installazione="Â«codComponente.toLowerCase()Â»"
 		staging="false"
 	>
-		<prodotto codice="«codProdotto»" versione="«versioneProdotto»">
+		<prodotto codice="Â«codProdottoÂ»" versione="Â«versioneProdottoÂ»">
 			<descrizione>${prodotto.descrizione}</descrizione>
 		</prodotto>
-		<componente codice="«codComponente.toLowerCase()»">
+		<componente codice="Â«codComponente.toLowerCase()Â»">
 			<descrizione>${componente.descrizione}</descrizione>
 		</componente>
 	</rilascio>
 	
 	<lista-servizi>
-	    «FOREACH serviceimplementations AS servImpl»
-	    «LET servImpl.provides AS sd»
-	    	«LET sd.serviceType==SrvTypeEnum::infr ? "I" : (sd.serviceType==SrvTypeEnum::orch ? "O" : "A") AS serviceTypeStr»
-		<servizio nome="«removeSeparator(sd.codServizio)»" 
-		          versione-intf="«sd.versione»"
-		          versione-impl="«sd.versione»" 
-		          tipo-servizio="«serviceTypeStr»" 
+	    Â«FOREACH serviceimplementations AS servImplÂ»
+	    Â«LET servImpl.provides AS sdÂ»
+	    	Â«LET sd.serviceType==SrvTypeEnum::infr ? "I" : (sd.serviceType==SrvTypeEnum::orch ? "O" : "A") AS serviceTypeStrÂ»
+		<servizio nome="Â«removeSeparator(sd.codServizio)Â»" 
+		          versione-intf="Â«sd.versioneÂ»"
+		          versione-impl="Â«sd.versioneÂ»" 
+		          tipo-servizio="Â«serviceTypeStrÂ»" 
 		          tipo-erogazione="O">
 			<versione-retrocompatibile>true</versione-retrocompatibile>
 		</servizio>
-			«ENDLET»
-		«ENDLET»
-		«ENDFOREACH»
+			Â«ENDLETÂ»
+		Â«ENDLETÂ»
+		Â«ENDFOREACHÂ»
 	</lista-servizi>	
 	
 	<lista-binding>
-	    «FOREACH serviceimplementations AS servImpl»
-	    «LET servImpl.provides AS currSD»
-	    «FOREACH currSD.bindings AS currBind»
-	    <binding servizio="«removeSeparator(currSD.codServizio)»" versione="«currSD.versione»" 
-                     protocollo="«decodeTipoInter(currBind,tp)»">
+	    Â«FOREACH serviceimplementations AS servImplÂ»
+	    Â«LET servImpl.provides AS currSDÂ»
+	    Â«FOREACH currSD.bindings AS currBindÂ»
+	    <binding servizio="Â«removeSeparator(currSD.codServizio)Â»" versione="Â«currSD.versioneÂ»" 
+                     protocollo="Â«decodeTipoInter(currBind,tp)Â»">
 		  <endpoint>
-		  «IF currBind.metaType!=WSFADBinding»
+		  Â«IF currBind.metaType!=WSFADBindingÂ»
 		  	<csi-endpoint 
-                      pd-file="«removeSeparator(currSD.codServizio)+"/"+getRegistryPDFileName(currSD,currBind,tp, this)»">
+                      pd-file="Â«removeSeparator(currSD.codServizio)+"/"+getRegistryPDFileName(currSD,currBind,tp, this)Â»">
 		    </csi-endpoint>
-		  «ELSE»
+		  Â«ELSEÂ»
 		    <ws-endpoint>
-		    	<url>${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}/«wsfadWebContext(removeSeparator(currSD.codServizio),currBind.codBinding,currSD.serviceType.toString(), this)»</url>
+		    	<url>${service.Â«removeSeparator(currSD.codServizio)Â».Â«currBind.codBindingÂ».server.prefix}/Â«wsfadWebContext(removeSeparator(currSD.codServizio),currBind.codBinding,currSD.serviceType.toString(), this)Â»</url>
 		    	<wsdl>#####TODO######</wsdl>
 		    </ws-endpoint>
-		  «ENDIF»
+		  Â«ENDIFÂ»
                 
 		  </endpoint>
 		</binding>
 		
-	    «ENDFOREACH»
-	    «ENDLET»
-	    «ENDFOREACH»
+	    Â«ENDFOREACHÂ»
+	    Â«ENDLETÂ»
+	    Â«ENDFOREACHÂ»
 		
 		
 	</lista-binding>
 </deploy-descriptor>
 
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE registryPD(SOABEModel model) FOR ServiceImpl»
-«ENDDEFINE»
-
-
+Â«DEFINE registryPD(SOABEModel model) FOR ServiceImplÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»file di configurazione per features asincrone«ENDREM»
 
-«DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDef»
-«FILE paConfigDir(model)+"/"+qmgrDefFileName(this)»<queue-manager-conf
-  listening-url="*not-used*" name="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)».PDD_QMGR" >
+
+Â«REMÂ»file di configurazione per features asincroneÂ«ENDREMÂ»
+
+Â«DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDefÂ»
+Â«FILE paConfigDir(model)+"/"+qmgrDefFileName(this)Â»<queue-manager-conf
+  listening-url="*not-used*" name="Â«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)Â».PDD_QMGR" >
   <jms-queue-jndi-props>
 <!-- la configurazione jndi del server jms e' implicita nella maggiorparte dei casi -->
 <!--    <prop name="java.naming.provider.url" value="t3://censerv1wls1.csi.it:7001" />-->
 <!--    <prop name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />-->
   </jms-queue-jndi-props>
-  <jms-queue-connection-factory jndi-name="«queueConnectionFactoryJndiName()»" />
+  <jms-queue-connection-factory jndi-name="Â«queueConnectionFactoryJndiName()Â»" />
   <service-activator-config
-    activated-interface="«fullQualifiedServiceInterfaceName(this, model)»"
+    activated-interface="Â«fullQualifiedServiceInterfaceName(this, model)Â»"
     retry-delay="10000"
     max-retry="10"
-    counter-name="«asynchCounterTableName(this)»"
+    counter-name="Â«asynchCounterTableName(this)Â»"
   />
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
   <port-queue-map>
     <!-- il nome della porta deve coincidere con il nasme nel pluggable-pd del client! -->
-    <map port-name="«removeSeparator(codServizio)»" 
-    	 queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
+    <map port-name="Â«removeSeparator(codServizio)Â»" 
+    	 queue-jndi-name="Â«paQueueJndiName(this, pa.codBinding, model)Â»" />
   </port-queue-map>
 </queue-manager-conf>
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«REM»file di istruzioni per creazione code e tabelle«ENDREM»
-«FILE getDocsRootDir(model)+"/"+removeSeparator(codServizio)+"/README_ASYNCH.txt"»
-Istruzioni per la creazione degli oggetti di supporto all'asincronicità
-del servizio "«codServizio»".
+Â«REMÂ»file di istruzioni per creazione code e tabelleÂ«ENDREMÂ»
+Â«FILE getDocsRootDir(model)+"/"+removeSeparator(codServizio)+"/README_ASYNCH.txt"Â»
+Istruzioni per la creazione degli oggetti di supporto all'asincronicitÃ 
+del servizio "Â«codServizioÂ»".
 
 1) creare la tabella del contatore per i retry lanciando lo script 
-   "create_counter_«removeSeparator(this.codServizio)».sql"»;
+   "create_counter_Â«removeSeparator(this.codServizio)Â».sql"Â»;
 2) verificare l'esistenza sull'ambiente di deploy della QueueConnectionFactory
-   di nome "«queueConnectionFactoryJndiName()»";
+   di nome "Â«queueConnectionFactoryJndiName()Â»";
 3) creare un datasource con le seguenti caratteristiche:
-   - name: Counter«toCamel(codServizio)»TxDS (standard opzionale)
-   - jndi-name: «counterDSJndiName(this, model)»;
+   - name: CounterÂ«toCamel(codServizio)Â»TxDS (standard opzionale)
+   - jndi-name: Â«counterDSJndiName(this, model)Â»;
    - puntamento al DB che ospita la tabella creata al punto (1);
-4) creare la coda associata alla PA del servizio, con jndi name = «paQueueJndiName(this, pa.codBinding, model)»;
-«ENDFILE»
-«ENDDEFINE»
+4) creare la coda associata alla PA del servizio, con jndi name = Â«paQueueJndiName(this, pa.codBinding, model)Â»;
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE soappabrdeploy (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
-«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio), model)+"/WEB-INF/deploysoapejb-"+removeSeparator(serviceDef.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="UTF-8"?>
-<isd:service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:«removeSeparator(serviceDef.codServizio)»">
+Â«DEFINE soappabrdeploy (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBindingÂ»
+Â«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio), model)+"/WEB-INF/deploysoapejb-"+removeSeparator(serviceDef.codServizio).toLowerCase()+".xml"Â»<?xml version="1.0" encoding="UTF-8"?>
+<isd:service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:Â«removeSeparator(serviceDef.codServizio)Â»">
   <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
                 scope="Application" methods="invokeSynch invokeAsynch">
-    <isd:option key="JNDIName" value="«fullPAJndiName(serviceDef, model)»"/>
-    <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
+    <isd:option key="JNDIName" value="Â«fullPAJndiName(serviceDef, model)Â»"/>
+    <isd:option key="app.context.name" value="Â«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)Â»" />
   </isd:provider>
   <isd:faultListener>org.apache.soap.server.ExceptionFaultListener</isd:faultListener>
   <isd:mappings defaultRegistryClass="it.csi.csi.porte.soap.apache.GeneralizedMappingRegistry">
   </isd:mappings>
 </isd:service>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 	files per coop-trace:
 	-per ogni componente:
 		-frammento di configurazione log4j.xml per server host (v.par. 5.2.1)
@@ -450,9 +467,9 @@ del servizio "«codServizio»".
 	-per ogni binding PA EJB:
 		-inserimento nelle def pd e pa dei PFH di coop-trace (viene fatto in appositi template richiamati dai template che creano 
 		 le def pd e pa  
-«ENDREM»
-«DEFINE cooptracefiles FOR SOABEModel»
-«FILE getDocsRootDir(this)+"/log4j_"+this.codComponente+".xml"»<?xml version="1.0" encoding="UTF-8" ?>
+Â«ENDREMÂ»
+Â«DEFINE cooptracefiles FOR SOABEModelÂ»
+Â«FILE getDocsRootDir(this)+"/log4j_"+this.codComponente+".xml"Â»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <!-- deve essere inserito nella directory 
     /appserv/bea/beahome/beaConfigManaged/config/<dominio> -->
@@ -470,33 +487,33 @@ del servizio "«codServizio»".
 		<param name="QueueBindingName" value="jms/cooptraceDQ" />
        </appender>
         
-           <logger name="«codComponente».jmsAppender" additivity="false">
+           <logger name="Â«codComponenteÂ».jmsAppender" additivity="false">
               <level value="INFO" />
               <appender-ref ref="ASYNC" />
        </logger>
 </log4j:configuration>
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE cooptrace_logger_cfg FOR SOABEModel»
+Â«DEFINE cooptrace_logger_cfg FOR SOABEModelÂ»
 #-------------------------------------------------------------------------
-# Configurazione log per COOP-TRACE per il componente «codComponente»
-# L'output va sull'appender complessivo già definito per il componente
-# ma può essere acceso/spento separatamente
+# Configurazione log per COOP-TRACE per il componente Â«codComponenteÂ»
+# L'output va sull'appender complessivo giÃ  definito per il componente
+# ma puÃ² essere acceso/spento separatamente
 #-------------------------------------------------------------------------
-log4j.logger.«codComponente».cooptrace=ERROR, «codComponente».file
-log4j.additivity.«codComponente».cooptrace =false
-«EXPAND cooptrace_stopwatch_cfg FOR this»
-«ENDDEFINE»
+log4j.logger.Â«codComponenteÂ».cooptrace=ERROR, Â«codComponenteÂ».file
+log4j.additivity.Â«codComponenteÂ».cooptrace =false
+Â«EXPAND cooptrace_stopwatch_cfg FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
-Questa configurazione è da rivedere perchè non si capisce bene
-qual'è l'appender su cui deve scrivere.
-«ENDREM»
-«DEFINE cooptrace_stopwatch_cfg FOR SOABEModel»
-log4j.logger.«codComponente».cooptrace.util.stopwatch =ERROR, «codComponente».util.stopwatch.file
-log4j.additivity.«codComponente».cooptrace.util.stopwatch=false
-«ENDDEFINE»
+Â«REMÂ»
+Questa configurazione Ã¨ da rivedere perchÃ¨ non si capisce bene
+qual'Ã¨ l'appender su cui deve scrivere.
+Â«ENDREMÂ»
+Â«DEFINE cooptrace_stopwatch_cfg FOR SOABEModelÂ»
+log4j.logger.Â«codComponenteÂ».cooptrace.util.stopwatch =ERROR, Â«codComponenteÂ».util.stopwatch.file
+log4j.additivity.Â«codComponenteÂ».cooptrace.util.stopwatch=false
+Â«ENDDEFINEÂ»
 
 
 

@@ -1,39 +1,56 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
-«IMPORT template::javavalidator»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
+Â«IMPORT template::javavalidatorÂ»
+
+Â«EXTENSION template::ServicegenExtensionsÂ»
 
 
-«DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDef»
-	«REM»file del servizio«ENDREM»
-	«EXPAND javaCsiInterfaceFile (model) FOR this»
-	«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR this»
-	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
-	«EXPAND javaEJBServiceBeanFile (model)FOR this»
-	«REM»«EXPAND javavalidator::validatorFH(model) FOR this»«ENDREM»
-	«IF this.serviceType==SrvTypeEnum::orch»
-		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
-		«EXPAND svcflowFiles (model)FOR this»
-	«ELSE»
-		«EXPAND javaServiceDelegateClassFile (model)FOR this»
-	«ENDIF»
-	«REM»file per test«ENDREM»
-	«EXPAND javaServiceTestClassFile(model) FOR this»
-«ENDDEFINE»
+Â«DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDefÂ»
+	Â«REMÂ»file del servizioÂ«ENDREMÂ»
+	Â«EXPAND javaCsiInterfaceFile (model) FOR thisÂ»
+	Â«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR thisÂ»
+	Â«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR thisÂ»
+	Â«EXPAND javaEJBServiceBeanFile (model)FOR thisÂ»
+	Â«REMÂ»Â«EXPAND javavalidator::validatorFH(model) FOR thisÂ»Â«ENDREMÂ»
+	Â«IF this.serviceType==SrvTypeEnum::orchÂ»
+		Â«EXPAND javaOrchServiceDelegateClassFile (model)FOR thisÂ»
+		Â«EXPAND svcflowFiles (model)FOR thisÂ»
+	Â«ELSEÂ»
+		Â«EXPAND javaServiceDelegateClassFile (model)FOR thisÂ»
+	Â«ENDIFÂ»
+	Â«REMÂ»file per testÂ«ENDREMÂ»
+	Â«EXPAND javaServiceTestClassFile(model) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«REM»file per os workflow«ENDREM»
-«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDef»
-	«EXPAND svcflowConfigFiles(model) FOR this»
-	«FOREACH operations AS op»
-		«EXPAND svcflowDefinitionFile(this, model) FOR op»
-		«EXPAND svcflowHandlerFiles(this, model) FOR op»
-	«ENDFOREACH»
-«ENDDEFINE»
+Â«REMÂ»file per os workflowÂ«ENDREMÂ»
+Â«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDefÂ»
+	Â«EXPAND svcflowConfigFiles(model) FOR thisÂ»
+	Â«FOREACH operations AS opÂ»
+		Â«EXPAND svcflowDefinitionFile(this, model) FOR opÂ»
+		Â«EXPAND svcflowHandlerFiles(this, model) FOR opÂ»
+	Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
-	«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
+Â«DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDefÂ»
+	Â«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"Â»<?xml version="1.0" encoding="UTF-8"?>
 <osworkflow>
   <!-- corregge il bug di memory leak -->
   <persistence class="it.csi.svcflow.orchestrator.store.StatelessWorkflowEntryStore" />
@@ -41,84 +58,84 @@
     <property key="resource" value="workflows.xml" />
   </factory> 
 </osworkflow>
-	«ENDFILE»
+	Â«ENDFILEÂ»
 	
-	«FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"»
+	Â«FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"Â»
 <workflows>
-«FOREACH operations AS op»
-	<workflow name="«removeSeparator(codServizio)+op.name.toFirstUpper()»" type="resource" location="«svcflowDefinitionFileName(op,this.codServizio)»" />
-«ENDFOREACH»
+Â«FOREACH operations AS opÂ»
+	<workflow name="Â«removeSeparator(codServizio)+op.name.toFirstUpper()Â»" type="resource" location="Â«svcflowDefinitionFileName(op,this.codServizio)Â»" />
+Â«ENDFOREACHÂ»
   
 </workflows>
-	«ENDFILE»
+	Â«ENDFILEÂ»
 	
-	«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»
-«ENDDEFINE»
+	Â«EXPAND svcflowDefinitionFile(this, model) FOREACH operationsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
-
-
-«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«REM»niente da fare in questo caso«ENDREM»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR OperationÂ»
+	Â«LET getServiceImpl(sd,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+sd+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR OperationÂ»
+	Â«LET getServiceImpl(sd,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«REMÂ»niente da fare in questo casoÂ«ENDREMÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+sd+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
+
+
+Â«REMÂ»
 ***************************************
 interfaccia pubblica del servizio C.S.I
 ***************************************
-«ENDREM»
-«DEFINE javaCsiInterfaceFile (SOABEModel model)FOR servicedef::ServiceDef»
-	«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" »
-package «fullQualifiedServiceInterfacePkg(model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaCsiInterfaceFile (SOABEModel model)FOR servicedef::ServiceDefÂ»
+	Â«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" Â»
+package Â«fullQualifiedServiceInterfacePkg(model)Â»;
 
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
 
-  «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServizio)»
+  Â«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServizio)Â»
   /**
-   * Inserire qui la documentazione dell'interfaccia pubblica del servizio «codServizio».
+   * Inserire qui la documentazione dell'interfaccia pubblica del servizio Â«codServizioÂ».
    * Consigli:
    * <ul>
-   * <li> Descrivere qual'è lo scopo generale del servizio
+   * <li> Descrivere qual'Ã¨ lo scopo generale del servizio
    * <li> Se necessario fornire una overview delle funzioni messe a disposizione
    *      eventualmente raggruppandole logicamente. Il dettaglio dei singoli
    *      metodi va documentato in corrispondenza dei metodi stessi
-   * <li> Se necessario descrivere gli scenari di utilizzo più frequenti, ovvero
+   * <li> Se necessario descrivere gli scenari di utilizzo piÃ¹ frequenti, ovvero
    *      le "coreografie" (nel caso sia necessario richiamare in una sequenza
    *      particolare i metodi
    * <li> Inserire informazioni quali il livello di securizzazione A0-A3
@@ -126,16 +143,16 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
    * </ul>
    * @generated
    */
-  «ENDPROTECT»
-public interface «serviceInterfaceName()»{
-	«EXPAND operationDeclaration (model, codServizio)FOREACH this.operations»
-	«IF this.monitorable»
+  Â«ENDPROTECTÂ»
+public interface Â«serviceInterfaceName()Â»{
+	Â«EXPAND operationDeclaration (model, codServizio)FOREACH this.operationsÂ»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
-	«ENDIF»
-	«IF this.diagEnabled»
+	Â«ENDIFÂ»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
@@ -145,128 +162,128 @@ public interface «serviceInterfaceName()»{
 	 * @generated
 	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
-	«ENDIF»
+	Â«ENDIFÂ»
 }
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationDeclaration (SOABEModel model, String codServ) FOR Operation»
-  «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+Â«DEFINE operationDeclaration (SOABEModel model, String codServ) FOR OperationÂ»
+  Â«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)Â»
   /**
-   * Inserire qui la documentazione del metodo «name».
+   * Inserire qui la documentazione del metodo Â«nameÂ».
    * Descrivere dettagliatamente:
    * <ul>
    * <li>la semantica del metodo (facendo riferimento ai parametri). E'importante 
    *     elencare casi particolari (dati non trovati, ecc...)
-   * <li> i singoli parametri (nelle sezioni apposite sottostanti): è importante
+   * <li> i singoli parametri (nelle sezioni apposite sottostanti): Ã¨ importante
    *      indicare:
    *      <ul>
-   *      <li>se il parametro è obbligatorio
+   *      <li>se il parametro Ã¨ obbligatorio
    *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
-   *          dimensioni massime in caso di stringa o tipo array, eventuale necessità
-   *          di corrispondenza con una particolare codifica, che può essere prefissata
+   *          dimensioni massime in caso di stringa o tipo array, eventuale necessitÃ 
+   *          di corrispondenza con una particolare codifica, che puÃ² essere prefissata
    *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
    *          di un'applicazione)
    *      </ul>
    * <li> le eccezioni rilanciate (nelle sezioni apposite sottostanti)
    * <li> il tipo di ritorno
    * </ul>
-   «FOREACH params AS par»
-   * @param «par.name» [documentazione del parametro (vedere sopra per consigli sulla documentazione)]
-   	«REM»«EXPAND paramConstraintsDoc FOR par»«ENDREM»
-   «ENDFOREACH»
-   * @return «map2javaType(this.returnType, codServ, model)»
-   «FOREACH throws AS exc»
-   * @throws «exc.name»
-   «ENDFOREACH»
+   Â«FOREACH params AS parÂ»
+   * @param Â«par.nameÂ» [documentazione del parametro (vedere sopra per consigli sulla documentazione)]
+   	Â«REMÂ»Â«EXPAND paramConstraintsDoc FOR parÂ»Â«ENDREMÂ»
+   Â«ENDFOREACHÂ»
+   * @return Â«map2javaType(this.returnType, codServ, model)Â»
+   Â«FOREACH throws AS excÂ»
+   * @throws Â«exc.nameÂ»
+   Â«ENDFOREACHÂ»
    * @throws CSIException (eccezione base rilanciata dall'infrastruttura di cooperazione)
    * @throws SystemException in caso di errore di sistema (connessione, comunicazione, ecc.)
    * @throws UnrecoverableException in caso di errore imprevisto e non recuperabile
    * @generated
    */
-  «ENDPROTECT»
-  public «map2javaType(this.returnType,codServ, model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+  Â«ENDPROTECTÂ»
+  public Â«map2javaType(this.returnType,codServ, model)Â» Â«this.nameÂ» (
+    Â«IF params != null && params.size > 0Â»
+    	Â«IF params.size==1Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ELSEÂ»
+    		Â«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ENDIFÂ»	
+    Â«ENDIFÂ»
+    Â«IF this.opType != OpTypeEnum::synchÂ», it.csi.csi.util.DatiMessaggio datiMsgÂ«ENDIFÂ»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException 
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»;
-«ENDDEFINE»
+  Â«EXPAND exceptionInThrowsClause(model,codServ) FOREACH throwsÂ»;
+Â«ENDDEFINEÂ»
 
-«REM»documenta i constraint sul parametro
-«DEFINE paramConstraintsDoc FOR Param»
-   «LET this.validator AS validator»
-   «LET validator.constraint AS ctr»
-   «formatConstraint(validator)»
-   «ENDLET»
-   «ENDLET»
-«ENDDEFINE»
-«ENDREM»
+Â«REMÂ»documenta i constraint sul parametro
+Â«DEFINE paramConstraintsDoc FOR ParamÂ»
+   Â«LET this.validator AS validatorÂ»
+   Â«LET validator.constraint AS ctrÂ»
+   Â«formatConstraint(validator)Â»
+   Â«ENDLETÂ»
+   Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
+Â«ENDREMÂ»
 
-«DEFINE operationDeclaration4Remote (SOABEModel model, String codServ) FOR Operation»
+Â«DEFINE operationDeclaration4Remote (SOABEModel model, String codServ) FOR OperationÂ»
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+  public Â«map2javaType(this.returnType,codServ,model)Â» Â«this.nameÂ» (
+    Â«IF params != null && params.size > 0Â»
+    	Â«IF params.size==1Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ELSEÂ»
+    		Â«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ENDIFÂ»	
+    Â«ENDIFÂ»
+    Â«IF this.opType != OpTypeEnum::synchÂ», it.csi.csi.util.DatiMessaggio datiMsgÂ«ENDIFÂ»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException,
   	java.rmi.RemoteException
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»;
-«ENDDEFINE»
+  Â«EXPAND exceptionInThrowsClause(model,codServ) FOREACH throwsÂ»;
+Â«ENDDEFINEÂ»
 
-«DEFINE paramDef (SOABEModel model, String codServ, boolean addComma) FOR Param»
-	«map2javaType(this.type,codServ,model)» «name»«IF addComma»,«ENDIF»
-«ENDDEFINE»
+Â«DEFINE paramDef (SOABEModel model, String codServ, boolean addComma) FOR ParamÂ»
+	Â«map2javaType(this.type,codServ,model)Â» Â«nameÂ»Â«IF addCommaÂ»,Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE exceptionInThrowsClause (SOABEModel model,String codServ)FOR Exception»
-  ,«map2JavaTypeSDRelative(this)»
-«ENDDEFINE»
+Â«DEFINE exceptionInThrowsClause (SOABEModel model,String codServ)FOR ExceptionÂ»
+  ,Â«map2JavaTypeSDRelative(this)Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ******************************************************
 interfaccia remota dell'EJB che implementa il servizio
 ******************************************************
-«ENDREM»
-«DEFINE javaEJBServiceRemoteInterfaceFile (SOABEModel model) FOR servicedef::ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" »
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaEJBServiceRemoteInterfaceFile (SOABEModel model) FOR servicedef::ServiceDefÂ»
+	Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
 
 /**
- * Interfaccia remota dell'EJB che implementa il servizio «this.codServizio».
+ * Interfaccia remota dell'EJB che implementa il servizio Â«this.codServizioÂ».
  * @generated
  */
-public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
-	«EXPAND operationDeclaration4Remote (model,codServizio)FOREACH this.operations»
-	«IF this.monitorable»
+public interface Â«serviceRemoteInterfaceName()Â» extends javax.ejb.EJBObject{
+	Â«EXPAND operationDeclaration4Remote (model,codServizio)FOREACH this.operationsÂ»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
-	«ENDIF»
+	Â«ENDIFÂ»
 	
-	«IF this.diagEnabled»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
@@ -276,29 +293,29 @@ public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
 	 * @generated
 	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
-	«ENDIF»
+	Â«ENDIFÂ»
 }
-	«ENDFILE»
+	Â«ENDFILEÂ»
 	
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalInterfaceName()+".java" »
-package «getFullServiceEJBPkg(codServizio, model)»;
+	Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalInterfaceName()+".java" Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
 
 /**
- * Interfaccia locale dell'EJB che implementa il servizio «this.codServizio».
+ * Interfaccia locale dell'EJB che implementa il servizio Â«this.codServizioÂ».
  * @generated
  */
-public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject, «fullQualifiedServiceInterfaceName(model)»{
-	«IF this.monitorable»
+public interface Â«serviceLocalInterfaceName()Â» extends javax.ejb.EJBLocalObject, Â«fullQualifiedServiceInterfaceName(model)Â»{
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
-	«ENDIF»
+	Â«ENDIFÂ»
 	
-	«IF this.diagEnabled»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
@@ -308,19 +325,19 @@ public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObject,
 	 * @generated
 	 */
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
-	«ENDIF»
+	Â«ENDIFÂ»
 }
-	«ENDFILE»	
-«ENDDEFINE»
+	Â«ENDFILEÂ»	
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 **************************************************
 home interface dell'ejb che implementa il servizio
 **************************************************
-«ENDREM»
-«DEFINE javaEJBServiceHomeInterfaceFile (SOABEModel model)FOR ServiceDef»
-«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceHomeInterfaceName()+".java" »
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaEJBServiceHomeInterfaceFile (SOABEModel model)FOR ServiceDefÂ»
+Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceHomeInterfaceName()+".java" Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
 import java.rmi.*;
 import javax.ejb.*;
@@ -328,16 +345,16 @@ import javax.ejb.*;
 /**
  * @generated
  */
-public interface «serviceHomeInterfaceName()» extends EJBHome{
+public interface Â«serviceHomeInterfaceName()Â» extends EJBHome{
     /**
 	 * @generated
 	 */
-	public «serviceRemoteInterfaceName()» create() throws RemoteException, CreateException;
+	public Â«serviceRemoteInterfaceName()Â» create() throws RemoteException, CreateException;
 }
-«ENDFILE»
+Â«ENDFILEÂ»
 
-«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalHomeInterfaceName()+".java" »
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalHomeInterfaceName()+".java" Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
 import java.rmi.*;
 import javax.ejb.*;
@@ -345,164 +362,164 @@ import javax.ejb.*;
 /**
  * @generated
  */
-public interface «serviceLocalHomeInterfaceName()» extends EJBLocalHome{
+public interface Â«serviceLocalHomeInterfaceName()Â» extends EJBLocalHome{
     /**
 	 * @generated
 	 */
-	public «serviceLocalInterfaceName()» create() throws CreateException;
+	public Â«serviceLocalInterfaceName()Â» create() throws CreateException;
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 *************************************************************
 classe dell'EJB che implementa il servizio (tramite delegate)
 *************************************************************
-«ENDREM»
-«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
-	«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET (ServiceComponent)(impl.serviceComponent) AS sc»
-	«LET (LogicImplCartridge)(impl.implCartridge) AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«LET getServiceImpl(this,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET (ServiceComponent)(impl.serviceComponent) AS scÂ»
+	Â«LET (LogicImplCartridge)(impl.implCartridge) AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationDelegation (SOABEModel model,String codServ, ServiceDef sd) FOR Operation»
+Â«DEFINE operationDelegation (SOABEModel model,String codServ, ServiceDef sd) FOR OperationÂ»
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+  public Â«map2javaType(this.returnType,codServ,model)Â» Â«this.nameÂ» (
+    Â«IF params != null && params.size > 0Â»
+    	Â«IF params.size==1Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ELSEÂ»
+    		Â«EXPAND paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())Â»
+    		Â«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ENDIFÂ»	
+    Â«ENDIFÂ»
+    Â«IF this.opType != OpTypeEnum::synchÂ», it.csi.csi.util.DatiMessaggio datiMsgÂ«ENDIFÂ»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
+  Â«EXPAND exceptionInThrowsClause(model,codServ) FOREACH throwsÂ»
   {
      try{
-     	«IF this.returnType != null»return
-     	«ENDIF»
-     	delegate.«this.name»(
-     		«IF params.size != 0»
-     			«IF params.size==1»
-    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())»
-    			«ELSE»
-	    			«EXPAND paramPassSameName(true) FOREACH params.select(e|e!=params.last())»
-    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.last())»
-    			«ENDIF»
-    		«ENDIF»
-    		«IF this.opType != OpTypeEnum::synch», datiMsg«ENDIF»
-    		«IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»ctx.getCallerPrincipal()«ENDIF»
+     	Â«IF this.returnType != nullÂ»return
+     	Â«ENDIFÂ»
+     	delegate.Â«this.nameÂ»(
+     		Â«IF params.size != 0Â»
+     			Â«IF params.size==1Â»
+    				Â«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())Â»
+    			Â«ELSEÂ»
+	    			Â«EXPAND paramPassSameName(true) FOREACH params.select(e|e!=params.last())Â»
+    				Â«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.last())Â»
+    			Â«ENDIFÂ»
+    		Â«ENDIFÂ»
+    		Â«IF this.opType != OpTypeEnum::synchÂ», datiMsgÂ«ENDIFÂ»
+    		Â«IF sd.authLevel != AuthLevelEnum::A0Â»Â«IF this.params.size>0Â», Â«ENDIFÂ»ctx.getCallerPrincipal()Â«ENDIFÂ»
     	);
     }
     catch(CSIException e){
-    	«IF this.txType!=TXTypeEnum::noTX»
+    	Â«IF this.txType!=TXTypeEnum::noTXÂ»
     	ctx.setRollbackOnly();
-    	«ENDIF»
+    	Â«ENDIFÂ»
 		throw e;
 	}
     catch(Exception e){
-    «IF this.txType!=TXTypeEnum::noTX»
+    Â«IF this.txType!=TXTypeEnum::noTXÂ»
     	ctx.setRollbackOnly();
-    «ENDIF»
+    Â«ENDIFÂ»
     	throw new UnrecoverableException("Errore non recuperabile durante l'esecuzione del metodo:"+e,e);
     }
   }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE paramPassSameName(boolean addComma) FOR Param»
-«name»«IF addComma»,«ENDIF»
-«ENDDEFINE»
+Â«DEFINE paramPassSameName(boolean addComma) FOR ParamÂ»
+Â«nameÂ»Â«IF addCommaÂ»,Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro).
 In caso di livello di sicurezza > A0 viene aggiunto un parametro
-che conterrà il principal derivante dal SessionContext [STDAPS-82]
+che conterrÃ  il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
-«ENDREM»
-«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaServiceDelegateClassFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDefÂ»
+Â«LET getServiceImpl(this,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::javafiles::javaServiceDelegateClassFile(model) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
 ***************************************************************
-«ENDREM»
-«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-	«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«LET getServiceImpl(this,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::javafiles::javaOrchServiceDelegateClassFile(model) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ***********************
 test junit del servizio
 ***********************
-«ENDREM»
-«DEFINE javaServiceTestClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceTestClassesDir(codServizio, model)+"/"+serviceTestClassName()+".java"»
-package «getFullServiceTestPkg(codServizio,model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaServiceTestClassFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«FILE fullServiceTestClassesDir(codServizio, model)+"/"+serviceTestClassName()+".java"Â»
+package Â«getFullServiceTestPkg(codServizio,model)Â»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceInterfacePkg(model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
 import it.csi.csi.util.xml.*;
 import it.csi.csi.porte.*;
 import it.csi.csi.porte.proxy.*;
@@ -510,46 +527,46 @@ import javax.sql.DataSource;
 import org.apache.log4j.*;
 import junit.framework.TestCase;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testExtraImport"+codServizio)»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testExtraImport"+codServizio)Â»
 /// inserire qui eventuali import aggiuntive
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 /**
  * @generated
  */
-public class «serviceTestClassName()» extends TestCase{
+public class Â«serviceTestClassName()Â» extends TestCase{
     
     /**
 	 * @generated
 	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final String LOGGER_PREFIX = "Â«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)Â»";
 	
 	/**
 	 * @generated
 	 */
-	«fullQualifiedServiceInterfaceName(model)» pd = null;
+	Â«fullQualifiedServiceInterfaceName(model)Â» pd = null;
 	
 	/**
 	 * @generated
 	 */
 	public void setUp() throws Exception{
-		InfoPortaDelegata info = PDConfigReader.read("test/java/test/«removeSeparator(codServizio)+"/"+pdEJBDefFileName(this.bindings.typeSelect(EJBPABinding).first(),this)»");
-		pd = («fullQualifiedServiceInterfaceName(model)»)
+		InfoPortaDelegata info = PDConfigReader.read("test/java/test/Â«removeSeparator(codServizio)+"/"+pdEJBDefFileName(this.bindings.typeSelect(EJBPABinding).first(),this)Â»");
+		pd = (Â«fullQualifiedServiceInterfaceName(model)Â»)
 			PDProxy.newInstance(info);
 	}
 	
 	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testLocalVars"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("testLocalVars"+codServizio)Â»
 	// inserire qui la definizione di variabili locali, costanti da usare nel test.
 	// non verranno sovrascritte da successive rigenerazioni
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	
 	
 	/// Implementazione operazioni esposte dal servizio
 	
-	«EXPAND operationTestDeclaration (model, codServizio)FOREACH this.operations»
+	Â«EXPAND operationTestDeclaration (model, codServizio)FOREACH this.operationsÂ»
 	
-	«IF this.monitorable»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
@@ -561,8 +578,8 @@ public class «serviceTestClassName()» extends TestCase{
 			fail(e.getMessage());
 		}
 	}
-	«ENDIF»
-	«IF this.diagEnabled»
+	Â«ENDIFÂ»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
@@ -574,7 +591,7 @@ public class «serviceTestClassName()» extends TestCase{
 			fail(e.getMessage());
 		}
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 	/**
 	 * @generated
 	 */
@@ -586,138 +603,138 @@ public class «serviceTestClassName()» extends TestCase{
 	}
 	
 	/// eventuali metodi aggiuntivi
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test"+codServizio+"OtherMethods"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test"+codServizio+"OtherMethods"+codServizio)Â»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
-	«ENDPROTECT»
+	// non verrÃ  sovrascritto da successive rigenerazioni.
+	Â«ENDPROTECTÂ»
 }
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR OperationÂ»
+	Â«LET getServiceImpl(sd,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR OperationÂ»
+	Â«LET getServiceImpl(sd,model) AS impl-Â»
+	Â«IF impl !=null-Â»
+	Â«LET impl.serviceComponent AS scÂ»
+	Â«LET impl.implCartridge AS crtÂ»
+	Â«IF crt==null || crt.metaType==ManualImplCartridgeÂ»
+		Â«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR thisÂ»
+	Â«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridgeÂ»
+		Â«EXPAND template::flowmodel::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR thisÂ»
+	Â«ELSEÂ»
+	Â«ERROR "tipo di cartridge non gestita per implementazione "+implÂ»
+	Â«ENDIFÂ»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+	Â«ELSE-Â»
+	Â«ERROR "la definizione di servizio "+this+" non ha implementazione"Â»		
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationTestDeclaration(SOABEModel model,String codServ) FOR Operation»
+Â«DEFINE operationTestDeclaration(SOABEModel model,String codServ) FOR OperationÂ»
 	/**
 	 * @generated
 	 */
-	public void testOperation«name.toFirstUpper()»(){
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test_"+codServ+"_"+name) »
+	public void testOperationÂ«name.toFirstUpper()Â»(){
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test_"+codServ+"_"+name) Â»
 	/// inserire qui la logica di test per l'operazione.
-	/// il codice sarà preservato per successive rigenerazioni
-	«ENDPROTECT»
+	/// il codice sarÃ  preservato per successive rigenerazioni
+	Â«ENDPROTECTÂ»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE typedefs (SOABEModel model,String codServ) FOR Types»
-	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity && !e.isTypedefAnnotated())»
-	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception && !e.isTypedefAnnotated())»
-«ENDDEFINE»
+Â«DEFINE typedefs (SOABEModel model,String codServ) FOR TypesÂ»
+	Â«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity && !e.isTypedefAnnotated())Â»
+	Â«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception && !e.isTypedefAnnotated())Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 **********************************************************
 classe dei dto (entity) usate nella signature del servizio
 **********************************************************
-«ENDREM»
-«DEFINE javaEntityClass (SOABEModel model,String codServ)FOR Entity»
-	«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
-package «fullQualifiedEntitiesPkg(codServ, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaEntityClass (SOABEModel model,String codServ)FOR EntityÂ»
+	Â«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"Â»
+package Â«fullQualifiedEntitiesPkg(codServ, model)Â»;
 
-  «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+  Â«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)Â»
   /**
-   * Inserire qui la documentazione della classe «name».
+   * Inserire qui la documentazione della classe Â«nameÂ».
    * Consigli:
    * <ul>
-   * <li> Descrivere il "concetto" rappresentato dall'entita' (qual'è l'oggetto
+   * <li> Descrivere il "concetto" rappresentato dall'entita' (qual'Ã¨ l'oggetto
    *      del dominio del servizio rappresentato)
-   * <li> Se necessario indicare se questo concetto è mantenuto sugli archivi di
+   * <li> Se necessario indicare se questo concetto Ã¨ mantenuto sugli archivi di
    *      una particolare applicazione
    * <li> Se l'oggetto ha un particolare ciclo di vita (stati, es. creato, da approvare, 
-   *      approvato, respinto, annullato.....) si può decidere di descrivere
+   *      approvato, respinto, annullato.....) si puÃ² decidere di descrivere
    *      la state machine qui o nella documentazione dell'interfaccia del servizio
    *      che manipola quest'oggetto
    * </ul>
    * @generated
    */
-  «ENDPROTECT»
-public class «name» implements java.io.Serializable {
-	// il serial version UID è impostato in base a quanto configurato nel modello
+  Â«ENDPROTECTÂ»
+public class Â«nameÂ» implements java.io.Serializable {
+	// il serial version UID Ã¨ impostato in base a quanto configurato nel modello
 	/**
 	 * @generated
 	 */
-	static final long serialVersionUID = «this.versionuid»;
+	static final long serialVersionUID = Â«this.versionuidÂ»;
 	
-«EXPAND featureDef (model,codServ,name) FOREACH features»
+Â«EXPAND featureDef (model,codServ,name) FOREACH featuresÂ»
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(codServ+name+"customToStringAndCo")»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(codServ+name+"customToStringAndCo")Â»
 	/// inserire qui eventuali ridefinizioni di toString, hashCode, equals
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 }
 
-	«ENDFILE»	
-«ENDDEFINE»
+	Â«ENDFILEÂ»	
+Â«ENDDEFINEÂ»
 
-«DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR Feature»
+Â«DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR FeatureÂ»
 	/**
 	 * @generated
 	 */
-	private «map2javaType(type,codServ,model)» «name» = «defaultInitVal(type)»;
+	private Â«map2javaType(type,codServ,model)Â» Â«nameÂ» = Â«defaultInitVal(type)Â»;
 	
 	/**
 	 * @generated
 	 */
-	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
-		«name» = val;
+	public void setÂ«name.toFirstUpper()Â»(Â«map2javaType(type,codServ,model)Â» val){
+		Â«nameÂ» = val;
 	}
 	
-	«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)»
+	Â«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)Â»
   	/**
-   	 * Inserire qui la documentazione dell'attributo «name». 
+   	 * Inserire qui la documentazione dell'attributo Â«nameÂ». 
    	 * Descrivere:
    	 * <ul>
 	 *      <li>se l'attributo deve essere sempre valoriuzzato o meno
 	 *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
-     *          dimensioni massime in caso di stringa o tipo array, eventuale necessità
-     *          di corrispondenza con una particolare codifica, che può essere prefissata
+     *          dimensioni massime in caso di stringa o tipo array, eventuale necessitÃ 
+     *          di corrispondenza con una particolare codifica, che puÃ² essere prefissata
      *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
      *          di un'applicazione)
      *      <li>se ci sono particolari vincoli di valorizzazione relativi al valore di
@@ -726,29 +743,29 @@ public class «name» implements java.io.Serializable {
      *      </ul>
      * @generated 
    	 */
-  	«ENDPROTECT»
-	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
-		return «name»;
+  	Â«ENDPROTECTÂ»
+	public Â«map2javaType(type,codServ,model)Â» getÂ«name.toFirstUpper()Â»(){
+		return Â«nameÂ»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 ********************************
 classe delle eccezioni custom
 ********************************
-«ENDREM»
-«DEFINE javaExceptionClass (SOABEModel model,String codServ)FOR Exception»
-	«FILE fullServiceExceptionsDir(codServ, model)+"/"+name+".java"»
-package «fullQualifiedServiceExceptionPkg(codServ, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaExceptionClass (SOABEModel model,String codServ)FOR ExceptionÂ»
+	Â«FILE fullServiceExceptionsDir(codServ, model)+"/"+name+".java"Â»
+package Â«fullQualifiedServiceExceptionPkg(codServ, model)Â»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UserException;
 import it.csi.csi.wrapper.UnrecoverableException;
 
-«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+Â«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)Â»
   /**
-   * Inserire qui la documentazione dell'eccezione «name».
+   * Inserire qui la documentazione dell'eccezione Â«nameÂ».
    * Consigli:
    * <ul>
    * <li> Dire se l'eccezione rappresenta una condizione di errore oppure 
@@ -759,16 +776,16 @@ import it.csi.csi.wrapper.UnrecoverableException;
    * </ul>
    * @generated
    */
-  «ENDPROTECT»
-public class «name» extends 
-	«IF this.exceptionType == typedef::CSIExceptionTypes::USER»UserException
-	«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::SYSTEM»SystemException
-	«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::UNRECOVERABLE»UnrecoverableException
-	«ENDIF»
+  Â«ENDPROTECTÂ»
+public class Â«nameÂ» extends 
+	Â«IF this.exceptionType == typedef::CSIExceptionTypes::USERÂ»UserException
+	Â«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::SYSTEMÂ»SystemException
+	Â«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::UNRECOVERABLEÂ»UnrecoverableException
+	Â«ENDIFÂ»
 {
 
     /**
-     * il serial version UID di una eccezione csi è sempre "1" perchè le
+     * il serial version UID di una eccezione csi Ã¨ sempre "1" perchÃ¨ le
      * eccezioni CSI non possono contenere features aggiuntive
 	 * @generated
 	 */
@@ -777,30 +794,30 @@ public class «name» extends
 	/**
 	 * @generated
 	 */
-	public «name»(String msg, String nestedExcClassName, String nestedExcMessage, String nestedExcStackTrace) {
+	public Â«nameÂ»(String msg, String nestedExcClassName, String nestedExcMessage, String nestedExcStackTrace) {
 		super(msg, nestedExcClassName, nestedExcMessage, nestedExcStackTrace);
 	}
 
     /**
 	 * @generated
 	 */
-	public «name»(String msg, String nestedExcClassName, String nestedExcMessage) {
+	public Â«nameÂ»(String msg, String nestedExcClassName, String nestedExcMessage) {
 		super(msg, nestedExcClassName, nestedExcMessage);
 	}
     
     /**
 	 * @generated
 	 */
-	public «name»(String msg, Throwable nested) {
+	public Â«nameÂ»(String msg, Throwable nested) {
 		super(msg, nested);
 	}
 
     /**
 	 * @generated
 	 */
-	public «name»(String msg) {
+	public Â«nameÂ»(String msg) {
 		super(msg);		
 	}
 } 	
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

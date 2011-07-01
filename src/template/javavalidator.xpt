@@ -1,12 +1,29 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
 
-«DEFINE validatorFH (SOABEModel model) FOR ServiceDef»
-«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceValidatorClassName(this)+".java"»
-package «getFullServiceEJBPkg(this.codServizio,model)»;
+Â«EXTENSION template::ServicegenExtensionsÂ»
+
+Â«DEFINE validatorFH (SOABEModel model) FOR ServiceDefÂ»
+Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceValidatorClassName(this)+".java"Â»
+package Â«getFullServiceEJBPkg(this.codServizio,model)Â»;
 
 import it.csi.csi.pfh.FHInfo;
 import it.csi.csi.pfh.FHResult;
@@ -27,13 +44,13 @@ import org.apache.log4j.Logger;
 /**
  * Permette di validare il valore presente in uno dei parametri a fronte di 
  * 
- * Se la validazione è OK il PFH non fa niente di specifico. Se invece la validazione
- * è KO il pfh inserisce nell'attributo eccezione una eccezione di tipo 
+ * Se la validazione Ã¨ OK il PFH non fa niente di specifico. Se invece la validazione
+ * Ã¨ KO il pfh inserisce nell'attributo eccezione una eccezione di tipo 
  * JValidationException.
  * @author 869
  * @generated
  */
-public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable {
+public class Â«serviceValidatorClassName(this)Â» implements FunctHandler, Loggable {
 
 	/**
      * @generated
@@ -41,7 +58,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 	private String _acn;
 		
 	/**
-	 * skip.if.previous.error: true=> skippa se nei passi precedenti c'è stato un errore
+	 * skip.if.previous.error: true=> skippa se nei passi precedenti c'Ã¨ stato un errore
 	 * @generated
 	 */
 	public final static String PROP_SKIP_IF_PREVIOUS_ERROR="skip.if.previous.error";
@@ -86,10 +103,10 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
     /**
      * @generated
      */
-	public «serviceValidatorClassName(this)»(FHInfo fhi) {
+	public Â«serviceValidatorClassName(this)Â»(FHInfo fhi) {
 		_fhi = fhi;
 		Logger log=getLogger();
-		log.debug("[«serviceValidatorClassName(this)»::«serviceValidatorClassName(this)»] - BEGIN");
+		log.debug("[Â«serviceValidatorClassName(this)Â»::Â«serviceValidatorClassName(this)Â»] - BEGIN");
 		
 		if (_fhi.getProps().getProperty(PROP_SKIP_IF_PREVIOUS_ERROR)!=null && _fhi.getProps().getProperty(PROP_SKIP_IF_PREVIOUS_ERROR).equals("true"))
 			mustSkip = true;
@@ -102,7 +119,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 			mustSkipInvokeIfFailed=false;
 		
 
-		log.debug("[«serviceValidatorClassName(this)»::«serviceValidatorClassName(this)»] - END");
+		log.debug("[Â«serviceValidatorClassName(this)Â»::Â«serviceValidatorClassName(this)Â»] - END");
 		
 	}
 
@@ -117,7 +134,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 			fhr.setException(new UnrecoverableException("Errore nella validazione dell'input:"+e,e));
 		// mustSkipInvoke?
 		if (mustSkipInvokeIfFailed){
-			log.debug("[«serviceValidatorClassName(this)»::markAborted] - skipInvoke -> true");
+			log.debug("[Â«serviceValidatorClassName(this)Â»::markAborted] - skipInvoke -> true");
 			fhr.setSkipInvoke(true);
 		}
 		return fhr;
@@ -130,10 +147,10 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 			FHResult prevRes, Hashtable bag, boolean inPreChain)
 			throws CSIException {
 		Logger log = getLogger();
-		log.debug("[«serviceValidatorClassName(this)»::doOnInvokeSynch] - BEGIN");
+		log.debug("[Â«serviceValidatorClassName(this)Â»::doOnInvokeSynch] - BEGIN");
 		if(mustSkip){
 			if (prevRes.getException()!=null){
-				log.debug("[«serviceValidatorClassName(this)»::doOnInvokeSynch] - i passi precedenti hanno trovato un'eccezione ed è presente la direttiva must-skip.");
+				log.debug("[Â«serviceValidatorClassName(this)Â»::doOnInvokeSynch] - i passi precedenti hanno trovato un'eccezione ed Ã¨ presente la direttiva must-skip.");
 				return prevRes;
 			}
 		}
@@ -142,11 +159,11 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 	    java.util.Vector errorMessages = new java.util.Vector();
 	    if (false)
 	    	return null; // dummy
-	    «FOREACH operations AS op»
-	    else if(method.equals("«op.name»")){
-	    	validInput = _validate_«op.name»(prevRes, errorMessages);
+	    Â«FOREACH operations AS opÂ»
+	    else if(method.equals("Â«op.nameÂ»")){
+	    	validInput = _validate_Â«op.nameÂ»(prevRes, errorMessages);
 	    }
-	    «ENDFOREACH»
+	    Â«ENDFOREACHÂ»
 	    ;
 	    //////// fine logica di validazione
 	    if (!validInput)
@@ -156,9 +173,9 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 		
 	}
 	
-	«FOREACH operations AS op»
-	«EXPAND operationValidation FOR op»
-	«ENDFOREACH»
+	Â«FOREACH operations AS opÂ»
+	Â«EXPAND operationValidation FOR opÂ»
+	Â«ENDFOREACHÂ»
 	
 	/**
 	 * @generated
@@ -186,12 +203,12 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 				}
 			}
 			// se arrivo qui => non trovato
-			return  markAborted(new IllegalArgumentException("«serviceValidatorClassName(this)»: impossibile trovare il parametro ("+name+")"), fhr);
+			return  markAborted(new IllegalArgumentException("Â«serviceValidatorClassName(this)Â»: impossibile trovare il parametro ("+name+")"), fhr);
 			
 		}	
 				
 		else{
-			return  markAborted(new IllegalArgumentException("«serviceValidatorClassName(this)»: impossibile trovare il parametro ("+name+")"), fhr);
+			return  markAborted(new IllegalArgumentException("Â«serviceValidatorClassName(this)Â»: impossibile trovare il parametro ("+name+")"), fhr);
 		}
 	}
 	
@@ -202,12 +219,12 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
 		return (Logger)Categories.getLogger(getAppContextName(), Categories.PFH+"."+_fhi.getName());
 	}
 	
-    //// metodi di utilità per i constraints
+    //// metodi di utilitÃ  per i constraints
     public static boolean checkMustBeNull(Object value, Param par, Vector messages){
       if(value == null)
       	return true;
       else{
-        messages.add("Il parametro "+par.getName()+" non è stato valorizzato");
+        messages.add("Il parametro "+par.getName()+" non Ã¨ stato valorizzato");
       	return false;
       }
     }
@@ -221,60 +238,60 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggable
       }
     }	
 }
-«ENDFILE»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE operationValidation FOR Operation»
+Â«DEFINE operationValidation FOR OperationÂ»
     /**
      * Validazione dei constraints (globali e di parametro) definiti per il metodo
-     * «name»
+     * Â«nameÂ»
      * @generated
      */
-	private boolean _validate_«name»(FHResult fhr, java.util.Vector messages){
+	private boolean _validate_Â«nameÂ»(FHResult fhr, java.util.Vector messages){
 		// validazione dei singoli parametri dell'operazione
 		boolean paramsValid = true;
-		«FOREACH params.select(p|p.validator!=null) AS parToValidate»
-		paramsValid &= _validate_param_«name»_«parToValidate.name»(findParamValue(fhr,"«parToValidate.name»"), fhr, messages);
-		«ENDFOREACH»
+		Â«FOREACH params.select(p|p.validator!=null) AS parToValidateÂ»
+		paramsValid &= _validate_param_Â«nameÂ»_Â«parToValidate.nameÂ»(findParamValue(fhr,"Â«parToValidate.nameÂ»"), fhr, messages);
+		Â«ENDFOREACHÂ»
 		// validazione a livello di operazione
 		boolean opValid = true;
 		// TODO
 		return paramsValid && opValid;
 	};
 	
-	«FOREACH params.select(p|p.validator!=null) AS partoValidate»
-	«EXPAND paramValidation(this) FOR partoValidate»
-	«ENDFOREACH»
-«ENDDEFINE»
+	Â«FOREACH params.select(p|p.validator!=null) AS partoValidateÂ»
+	Â«EXPAND paramValidation(this) FOR partoValidateÂ»
+	Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE paramValidation(Operation op) FOR Param»
+Â«DEFINE paramValidation(Operation op) FOR ParamÂ»
 	/**
-	 * Validazione dei constraints definiti sul parametro «name» del metodo «op.name»
+	 * Validazione dei constraints definiti sul parametro Â«nameÂ» del metodo Â«op.nameÂ»
 	 * @generated
 	 */
-	private boolean _validate_param_«op.name»_«name»(Object value, FHResult fhr, java.util.Vector messages){
+	private boolean _validate_param_Â«op.nameÂ»_Â«nameÂ»(Object value, FHResult fhr, java.util.Vector messages){
 		// TODO
 		return true;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE constraint(Operation op, Param par) FOR ANDParamConstraint»
+Â«DEFINE constraint(Operation op, Param par) FOR ANDParamConstraintÂ»
     
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE constraint(Operation op, Param par) FOR ORParamConstraint»
+Â«DEFINE constraint(Operation op, Param par) FOR ORParamConstraintÂ»
     
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE constraint(Operation op, Param par) FOR NOTParamConstraint»
+Â«DEFINE constraint(Operation op, Param par) FOR NOTParamConstraintÂ»
     
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE constraint(Operation op, Param par) FOR ValueValorizationConstraint»
-    «IF this.mustNotBeNull»
+Â«DEFINE constraint(Operation op, Param par) FOR ValueValorizationConstraintÂ»
+    Â«IF this.mustNotBeNullÂ»
     (value!=null)
-    «ELSE»
+    Â«ELSEÂ»
     (value==null)
-    «ENDIF»
-«ENDDEFINE»
+    Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
