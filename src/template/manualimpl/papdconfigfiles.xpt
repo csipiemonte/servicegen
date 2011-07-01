@@ -1,14 +1,31 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
 
-«REM»file di configurazione per coop-diag«ENDREM»
-«DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-	«FILE getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio),model)+"/checked_resources_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="utf-8"?>
+Â«EXTENSION template::ServicegenExtensionsÂ»
+
+Â«REMÂ»file di configurazione per coop-diagÂ«ENDREMÂ»
+Â«DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABindingÂ»
+	Â«FILE getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio),model)+"/checked_resources_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"Â»<?xml version="1.0" encoding="utf-8"?>
 <DiagnosticEngineConfig>
-«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("calledResources"+model.codComponente+sd.codServizio)»
+Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("calledResources"+model.codComponente+sd.codServizio)Â»
 	<!--
 	inserire qui la cofigurazione delle risorse invocate dal servizio.
 	(consultare la documentazione di coop diag per i dettagli sulla
@@ -47,8 +64,8 @@
   <Caller
     classe = "it.csi.coopdiag.engine.plugin.fs.FSCaller"
     name = "DUMMY_FS"
-    codSistema = "«model.codProdotto»"
-    codRisorsa = "«model.codProdotto»_FS"
+    codSistema = "Â«model.codProdottoÂ»"
+    codRisorsa = "Â«model.codProdottoÂ»_FS"
     codTipoRisorsa = "fs-rw"
     descrTipoRisorsa = "File system">
     <Properties>
@@ -57,7 +74,7 @@
       <Property name="path.filetoread" value="TAPPO.txt"/>
     </Properties>
   </Caller>
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 </DiagnosticEngineConfig>
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»

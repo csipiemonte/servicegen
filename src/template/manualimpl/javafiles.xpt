@@ -1,14 +1,31 @@
-«IMPORT servicegen»
-«IMPORT servicedef»
-«IMPORT typedef»
-«IMPORT template::javavalidator»
+Â«REMÂ»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+Â«ENDREMÂ»
 
-«EXTENSION template::ServicegenExtensions»
+Â«IMPORT servicegenÂ»
+Â«IMPORT servicedefÂ»
+Â«IMPORT typedefÂ»
+Â«IMPORT template::javavalidatorÂ»
 
-«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
-	«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
+Â«EXTENSION template::ServicegenExtensionsÂ»
+
+Â«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR OperationÂ»
+	Â«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)Â»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
-«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("svcflow"+model.codComponente+sd.codServizio+name)»
+Â«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("svcflow"+model.codComponente+sd.codServizio+name)Â»
 <!-- inserire qui la definizione del workflow (verra' preservata nelle successive
      generazioni). Ricordarsi di mantenere identificata con '0' la azione iniziale. -->
 <workflow>
@@ -35,23 +52,23 @@
 		<step name="Fine" id="2"></step>
 	</steps>
 </workflow>
-«ENDPROTECT»
-	«ENDFILE»
-«ENDDEFINE»
+Â«ENDPROTECTÂ»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
 
-«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
 import it.csi.csi.wrapper.CSIException;
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceInterfacePkg(model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
 
 import java.rmi.RemoteException;
 
@@ -66,32 +83,32 @@ import org.apache.log4j.*;
 /**
  * @generated
  */
-public class «serviceBeanClassName()» implements SessionBean{
+public class Â«serviceBeanClassName()Â» implements SessionBean{
 
 	// business delegate contenente le implementazioni del servizio
 	/**
 	 * @generated
 	 */
-	protected «serviceImplClassName()» delegate = null;
+	protected Â«serviceImplClassName()Â» delegate = null;
 	
 	/**
 	 * @generated
 	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
+	public static final String LOGGER_PREFIX = "Â«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)Â»";
 	
 	/// Operazioni esposte dal servizio
 	
-	«EXPAND template::javafiles::operationDelegation (model,codServizio, this)FOREACH this.operations»
+	Â«EXPAND template::javafiles::operationDelegation (model,codServizio, this)FOREACH this.operationsÂ»
 	
-	«IF this.monitorable»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		return delegate.testResources();
 	}
-	«ENDIF»
-	«IF this.diagEnabled»
+	Â«ENDIFÂ»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
@@ -105,7 +122,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return delegate.hasSelfCheck();
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 	
 	/// lifecycle dell EJB
 	
@@ -150,17 +167,17 @@ public class «serviceBeanClassName()» implements SessionBean{
 	 */
 	public void createImpl(Object initOptions) throws EJBException{
 		Logger logger = getLogger(null);
-	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
+	    logger.debug("[Â«serviceBeanClassName()Â»::createImpl] - START");
 		try{
-			delegate = new «serviceImplClassName()»();
+			delegate = new Â«serviceImplClassName()Â»();
 			delegate.init(initOptions);
 		}
 		catch(Exception ie){
-			logger.debug("[«serviceBeanClassName()»::createImpl] - ERROR", ie);
-			throw new EJBException("Errore nella inizializzazione dell'implementazione del servizio «codServizio»:"+ie.getMessage(),ie);
+			logger.debug("[Â«serviceBeanClassName()Â»::createImpl] - ERROR", ie);
+			throw new EJBException("Errore nella inizializzazione dell'implementazione del servizio Â«codServizioÂ»:"+ie.getMessage(),ie);
 		}
 		finally{
-			logger.debug("[«serviceBeanClassName()»::createImpl] - END");
+			logger.debug("[Â«serviceBeanClassName()Â»::createImpl] - END");
 		}
 	}
 	
@@ -171,27 +188,27 @@ public class «serviceBeanClassName()» implements SessionBean{
 	  
 	    /// META-TODO: forse sarebbe opportuno accodare il nome del servizio al logger...
 	    Logger logger = getLogger(null);
-	    logger.debug("[«serviceBeanClassName()»::setSessionContext] - START");
+	    logger.debug("[Â«serviceBeanClassName()Â»::setSessionContext] - START");
 		this.ctx = ctx;
 		// contiene eventuali oggetti inizializzati nella sezione seguente e che
 		// devono essere passati all'oggetto delegate
 		Object implInitOptions = null;
 		
 		/// Inizializzazione risorse
-		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initResources"+codServizio)»
+		Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initResources"+codServizio)Â»
         // inserire qui il codice di inziializzazione risorse:
-        // non verrà cancellato dalle successive rignerazioni
+        // non verrÃ  cancellato dalle successive rignerazioni
         // esempio di cose da fare:
         // -- leggere environment entry o context jndi 
         // -- inizializzare datasource, altre risorse
         // -- inserire le options in 'implInitOptions': saranno poi 
         //    passate al metodo initImpl()
-        // NOTA: il contenuto specifico dell'oggetto implInitOptions è
+        // NOTA: il contenuto specifico dell'oggetto implInitOptions Ã¨
         // specifico di ogni applicazione		
-		«ENDPROTECT» 
+		Â«ENDPROTECTÂ» 
 	    /// creazione dell'implementazione
 		createImpl(implInitOptions);	
-		logger.debug("[«serviceBeanClassName()»::setSessionContext] - END");
+		logger.debug("[Â«serviceBeanClassName()Â»::setSessionContext] - END");
 	}
 	
 	/**
@@ -205,131 +222,131 @@ public class «serviceBeanClassName()» implements SessionBean{
 	}
 }
 
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
 
-«REM»
+Â«REMÂ»
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro).
 In caso di livello di sicurezza > A0 viene aggiunto un parametro
-che conterrà il principal derivante dal SessionContext [STDAPS-82]
+che conterrÃ  il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
-«ENDREM»
-«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio,model)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«FILE fullServiceEJBClassesDir(codServizio,model)+"/"+serviceImplClassName()+".java"Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
 import it.csi.csi.wrapper.*;
 
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-«IF monitorable||diagEnabled»
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceInterfacePkg(model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
+Â«IF monitorable||diagEnabledÂ»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
-«ENDIF»
+Â«ENDIFÂ»
 import javax.sql.DataSource;
 import org.apache.log4j.*;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)Â»
 // aggiungere qui eventuali import aggiuntive.
 // verranno preservate in rigenerazioni successive del progetto
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 /**
  * @generated
  */
-public class «serviceImplClassName()» {
+public class Â«serviceImplClassName()Â» {
     /**
 	 * @generated
 	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final String LOGGER_PREFIX = "Â«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)Â»";
 	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)Â»
 	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
 	// non verranno sovrascritte da successive rigenerazioni
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	
 	/// Implementazione operazioni esposte dal servizio
 	
-	«EXPAND operationImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
-	«IF this.monitorable || this.diagEnabled»
+	Â«EXPAND operationImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operationsÂ»
+	Â«IF this.monitorable || this.diagEnabledÂ»
 	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
 	/**
 	 * @generated
 	 */
-	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
+	String _codS = "Â«model.codProdottoÂ»"; // e' corretto che sia il codice prodotto?
 	/**
 	 * @generated
 	 */
-	String _codR = "«removeSeparator(codServizio)»";
+	String _codR = "Â«removeSeparator(codServizio)Â»";
 	/**
 	 * @generated
 	 */
 	String [] _suppS = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)Â»
 	// inserire qui i codici sistema dei supplier diretti (se ci sono)
 	// es: "Sistema1","Sistema2"
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	};
 	/**
 	 * @generated
 	 */
 	String [] _suppR = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)Â»
 	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
 	// es: "risorsa1","risorsa2"
 	// (corrispondono ai codici servizio dei corrispondenti servizi -
 	// vedere documentazione coop-diag)
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	};
 	
 	/**
 	 * @generated
 	 */
 	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
-					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
+					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_Â«removeSeparator(codServizio).toLowerCase()Â».xml");
 	
-	«ENDIF»
-	«IF this.monitorable»
+	Â«ENDIFÂ»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
-		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
+		logger.debug("[Â«serviceImplClassName()Â»::testResources()] BEGIN");
 		InvocationNode in = new InvocationNode();
 		try {					
-			logger.debug("[«serviceImplClassName()»::testResources()] END");
+			logger.debug("[Â«serviceImplClassName()Â»::testResources()] END");
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[Â«serviceImplClassName()Â»::testResources()] : si Ã¨ verificato un errore  "
 							+ ex);
 			throw ex;
 		}
 	}
-	«ENDIF»
-	«IF this.diagEnabled»
+	Â«ENDIFÂ»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
-	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
+	 	logger.debug("[Â«serviceImplClassName()Â»::selfCheck] - BEGIN");
 		InvocationNode in = new InvocationNode();
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[Â«serviceImplClassName()Â»::selfCheck()] si Ã¨ verificato un errore  "
 					+ ex);
 		}
-		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
+		logger.debug("[Â«serviceImplClassName()Â»::selfCheck] - END");
+		// restituisco lâ€™invocation node
 		return in;
 	}
 	
@@ -339,17 +356,17 @@ public class «serviceImplClassName()» {
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return true;
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 	
 	/// inizializzazione
 	/**
 	 * @generated
 	 */
 	public void init(Object initOptions){
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)Â»
 	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
-	«ENDPROTECT»
+	// non verrÃ  sovrascritto da successive rigenerazioni
+	Â«ENDPROTECTÂ»
 	}
 	
 	/**
@@ -363,138 +380,138 @@ public class «serviceImplClassName()» {
 	}
 	
 	/// eventuali metodi aggiuntivi
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)Â»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
-	«ENDPROTECT»
+	// non verrÃ  sovrascritto da successive rigenerazioni.
+	Â«ENDPROTECTÂ»
 }
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
 ***************************************************************
-«ENDREM»
-«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceImplClassName()+".java"»
-package «getFullServiceEJBPkg(codServizio, model)»;
+Â«ENDREMÂ»
+Â«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDefÂ»
+	Â«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceImplClassName()+".java"Â»
+package Â«getFullServiceEJBPkg(codServizio, model)Â»;
 
 import it.csi.csi.wrapper.*;
 import it.csi.svcflow.orchestrator.engine.OswMainEngine;
 import com.opensymphony.workflow.WorkflowException;
 
-import «fullQualifiedEntitiesPkg(codServizio, model)».*;
-import «fullQualifiedServiceInterfacePkg(model)».*;
-import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-«IF monitorable||diagEnabled»
+import Â«fullQualifiedEntitiesPkg(codServizio, model)Â».*;
+import Â«fullQualifiedServiceInterfacePkg(model)Â».*;
+import Â«fullQualifiedServiceExceptionPkg(codServizio, model)Â».*;
+Â«IF monitorable||diagEnabledÂ»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
-«ENDIF»
+Â«ENDIFÂ»
 import javax.sql.DataSource;
 import org.apache.log4j.*;
 
-«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)»
+Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("extraImport"+codServizio)Â»
 // aggiungere qui eventuali import aggiuntive.
 // verranno preservate in rigenerazioni successive del progetto
-«ENDPROTECT»
+Â«ENDPROTECTÂ»
 
 /**
  * @generated
  */
-public class «serviceImplClassName()» implements «serviceInterfaceName()»{
+public class Â«serviceImplClassName()Â» implements Â«serviceInterfaceName()Â»{
     
     /**
 	 * @generated
 	 */
-	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final String LOGGER_PREFIX = "Â«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)Â»";
 	
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)Â»
 	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
 	// non verranno sovrascritte da successive rigenerazioni
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	
 	/// Implementazione operazioni esposte dal servizio
 	
-	«EXPAND operationOrchImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
-	«IF this.monitorable || this.diagEnabled»
+	Â«EXPAND operationOrchImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operationsÂ»
+	Â«IF this.monitorable || this.diagEnabledÂ»
 	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
 	/**
 	 * @generated
 	 */
-	String _codS = "«model.codProdotto»"; // e' corretto che sia il codice prodotto?
+	String _codS = "Â«model.codProdottoÂ»"; // e' corretto che sia il codice prodotto?
 	
 	/**
 	 * @generated
 	 */
-	String _codR = "«removeSeparator(codServizio)»";
+	String _codR = "Â«removeSeparator(codServizio)Â»";
 	
 	/**
 	 * @generated
 	 */
 	String [] _suppS = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppS"+model.codComponente+codServizio)Â»
 	// inserire qui i codici sistema dei supplier diretti (se ci sono)
 	// es: "Sistema1","Sistema2"
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	};
 	
 	/**
 	 * @generated
 	 */
 	String [] _suppR = new String[]{
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("suppR"+model.codComponente+codServizio)Â»
 	// inserire qui i codici risorsa dei supplier diretti (se ci sono)
 	// es: "risorsa1","risorsa2"
 	// (corrispondono ai codici servizio dei corrispondenti servizi -
 	// vedere documentazione coop-diag)
-	«ENDPROTECT»
+	Â«ENDPROTECTÂ»
 	};
 	
 	/**
 	 * @generated
 	 */
 	DefaultSelfChecker schk = new DefaultSelfChecker(_codS, _codR,
-					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_«removeSeparator(codServizio).toLowerCase()».xml");
+					getLogger(null).getName(), _suppS, _suppR, "/checked_resources_Â«removeSeparator(codServizio).toLowerCase()Â».xml");
 	
-	«ENDIF»
-	«IF this.monitorable»
+	Â«ENDIFÂ»
+	Â«IF this.monitorableÂ»
 	/**
 	 * @generated
 	 */
 	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
-		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
+		logger.debug("[Â«serviceImplClassName()Â»::testResources()] BEGIN");
 		InvocationNode in = new InvocationNode();
 		try {					
-			logger.debug("[«serviceImplClassName()»::testResources()] END");
+			logger.debug("[Â«serviceImplClassName()Â»::testResources()] END");
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[Â«serviceImplClassName()Â»::testResources()] : si Ã¨ verificato un errore  "
 							+ ex);
 			throw ex;
 		}
 	}
-	«ENDIF»
-	«IF this.diagEnabled»
+	Â«ENDIFÂ»
+	Â«IF this.diagEnabledÂ»
 	/**
 	 * @generated
 	 */
 	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
 		Logger logger = getLogger(null);
-	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
+	 	logger.debug("[Â«serviceImplClassName()Â»::selfCheck] - BEGIN");
 		InvocationNode in = new InvocationNode();
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[Â«serviceImplClassName()Â»::selfCheck()] si Ã¨ verificato un errore  "
 					+ ex);
 		}
-		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
+		logger.debug("[Â«serviceImplClassName()Â»::selfCheck] - END");
+		// restituisco lâ€™invocation node
 		return in;
 	}
 	
@@ -504,17 +521,17 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
 		return true;
 	}
-	«ENDIF»
+	Â«ENDIFÂ»
 	
 	/// inizializzazione
 	/**
 	 * @generated
 	 */
 	public void init(Object initOptions){
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)Â»
 	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
-	«ENDPROTECT»
+	// non verrÃ  sovrascritto da successive rigenerazioni
+	Â«ENDPROTECTÂ»
 	}
 	
 	/**
@@ -528,175 +545,175 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	}
 	
 	/// eventuali metodi aggiuntivi
-	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
+	Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)Â»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
-	«ENDPROTECT»
+	// non verrÃ  sovrascritto da successive rigenerazioni.
+	Â«ENDPROTECTÂ»
 }
-	«ENDFILE»
-«ENDDEFINE»
+	Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
 
 
-«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+Â«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR OperationÂ»
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND template::javafiles::paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-    «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF» java.security.Principal principal«ENDIF»
+  public Â«map2javaType(this.returnType,codServ,model)Â» Â«this.nameÂ» (
+    Â«IF params != null && params.size > 0Â»
+    	Â«IF params.size==1Â»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ELSEÂ»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())Â»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ENDIFÂ»	
+    Â«ENDIFÂ»
+    Â«IF this.opType != OpTypeEnum::synchÂ», it.csi.csi.util.DatiMessaggio datiMsgÂ«ENDIFÂ»
+    Â«IF sd.authLevel != AuthLevelEnum::A0Â»Â«IF this.params.size>0Â», Â«ENDIFÂ» java.security.Principal principalÂ«ENDIFÂ»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
+  Â«EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throwsÂ»
   {
      Logger logger = getLogger(null);
-	 logger.debug("[«implClassName»::«name»] - START");
-	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
-	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
+	 logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - START");
+	 Â«IF sd.authLevel != AuthLevelEnum::A0Â»logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - caller principal:"+principal);Â«ENDIFÂ»
+	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("Â«model.codComponenteÂ»");
 	 // inizio misurazione
 	 watcher.start();
 	 
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
+	 Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)Â»
 	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
-	 «ENDPROTECT»
+	 // non verrÃ  sovrascritto nelle successive rigenerazioni
+	 Â«ENDPROTECTÂ»
 	 try {
-     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmt"+implClassName+"_"+name)»
-     // inserire qui il codice di implementazione del metodo '«name»'.
-     // non verrà sovrascritto nelle successive rigenerazioni
+     Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmt"+implClassName+"_"+name)Â»
+     // inserire qui il codice di implementazione del metodo 'Â«nameÂ»'.
+     // non verrÃ  sovrascritto nelle successive rigenerazioni
 	 
-     «IF returnType!=null»return «defaultInitVal(returnType)»;
-     «ENDIF»
-     «ENDPROTECT»
+     Â«IF returnType!=nullÂ»return Â«defaultInitVal(returnType)Â»;
+     Â«ENDIFÂ»
+     Â«ENDPROTECTÂ»
      }
      
      catch(Throwable ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
-        	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
+        	logger.error("[Â«implClassNameÂ»::Â«nameÂ»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
         }
         else{
-			logger.error("[«implClassName»::«name»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
+			logger.error("[Â«implClassNameÂ»::Â«nameÂ»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
 			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
 		}        
      }
      finally{
        // fine misurazione
        watcher.stop();
-	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
-	   logger.debug("[«implClassName»::«name»] - END");
+	   watcher.dumpElapsed("Â«implClassNameÂ»", "Â«nameÂ»()", "invocazione servizio [Â«removeSeparator(codServ)Â»]::[Â«nameÂ»]", "(valore input omesso)");
+	   logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - END");
      }
   }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+Â«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR OperationÂ»
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ, model)» «this.name» (
-    «IF params != null && params.size > 0»
-    	«IF params.size==1»
-    		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ELSE»
-    		«EXPAND template::javafiles::paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())»
-    		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
-    	«ENDIF»	
-    «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-    «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»java.security.Principal principal«ENDIF»
+  public Â«map2javaType(this.returnType,codServ, model)Â» Â«this.nameÂ» (
+    Â«IF params != null && params.size > 0Â»
+    	Â«IF params.size==1Â»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ELSEÂ»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,true) FOREACH params.select(e|e!=params.last())Â»
+    		Â«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())Â»
+    	Â«ENDIFÂ»	
+    Â«ENDIFÂ»
+    Â«IF this.opType != OpTypeEnum::synchÂ», it.csi.csi.util.DatiMessaggio datiMsgÂ«ENDIFÂ»
+    Â«IF sd.authLevel != AuthLevelEnum::A0Â»Â«IF this.params.size>0Â», Â«ENDIFÂ»java.security.Principal principalÂ«ENDIFÂ»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
+  Â«EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throwsÂ»
   {
      Logger logger = getLogger(null);
-	 logger.debug("[«implClassName»::«name»] - START");
-	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
-	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
+	 logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - START");
+	 Â«IF sd.authLevel != AuthLevelEnum::A0Â»logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - caller principal:"+principal);Â«ENDIFÂ»
+	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("Â«model.codComponenteÂ»");
 	 // inizio misurazione
 	 watcher.start();
 	 
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
+	 Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)Â»
 	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
+	 // non verrÃ  sovrascritto nelle successive rigenerazioni
 	 String remoteUser = "<???>";
-	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
+	 String workflowDescriptor="Â«removeSeparator(codServ)+name.toFirstUpper()Â»";
 	 java.util.HashMap persistentParams = new java.util.HashMap();
-	 «ENDPROTECT»
+	 Â«ENDPROTECTÂ»
 	 try {
 	 	// inserimento nel context dei parametri del metodo (senza trasformazioni)
-	 	«FOREACH params AS currPar»
-	 	persistentParams.put("input.parameter.«currPar.name»",«currPar.name»);
-	 	«ENDFOREACH»
-	 	«IF this.opType != OpTypeEnum::synch»persistentParams.put("input.parameter.datiMsg",datiMsg);«ENDIF»
-     «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPreFlow"+implClassName+"_"+name)»
+	 	Â«FOREACH params AS currParÂ»
+	 	persistentParams.put("input.parameter.Â«currPar.nameÂ»",Â«currPar.nameÂ»);
+	 	Â«ENDFOREACHÂ»
+	 	Â«IF this.opType != OpTypeEnum::synchÂ»persistentParams.put("input.parameter.datiMsg",datiMsg);Â«ENDIFÂ»
+     Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPreFlow"+implClassName+"_"+name)Â»
      	// inserire qui eventuale codice aggiuntivo di inizializzazione del flusso
      	// (inserimento nel context degli oggetti necessari al flusso oltre ai parametri)
-     	// non verrà sovrascritto nelle successive rigenerazioni
+     	// non verrÃ  sovrascritto nelle successive rigenerazioni
 	 
-	 «ENDPROTECT»
+	 Â«ENDPROTECTÂ»
 		 // inizializzazione e richiamo del flusso
 		 try{
 		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,new Integer(0),persistentParams);
 		 }
 		 catch(WorkflowException wfe){
-		 	logger.error("[«implClassName»::«name»] - errore non gestito nell'esecuzione del flusso",wfe);
+		 	logger.error("[Â«implClassNameÂ»::Â«nameÂ»] - errore non gestito nell'esecuzione del flusso",wfe);
 		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
 		 	throw ue;
 		 }
-	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPostFlow"+implClassName+"_"+name)»
+	 Â«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmtPostFlow"+implClassName+"_"+name)Â»
 	     // inserire qui il codice di terminazione del flusso
 	     // (reperimento del risultato dal context del flusso e trasformazione
 	     // nel risultato finale)
-	     // non verrà sovrascritto nelle successive rigenerazioni
-     «IF returnType!=null»
+	     // non verrÃ  sovrascritto nelle successive rigenerazioni
+     Â«IF returnType!=nullÂ»
      	
-     	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
-     «ENDIF»
-     «ENDPROTECT»
+     	return (Â«map2javaType(returnType,codServ, model)Â»)persistentParams.get("result");
+     Â«ENDIFÂ»
+     Â«ENDPROTECTÂ»
      	}
      catch(Throwable ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
-        	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
+        	logger.error("[Â«implClassNameÂ»::Â«nameÂ»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
         }
         else{
-			logger.error("[«implClassName»::«name»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
+			logger.error("[Â«implClassNameÂ»::Â«nameÂ»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
 			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
 		}        
      }
      finally{
        // fine misurazione
        watcher.stop();
-	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
-	   logger.debug("[«implClassName»::«name»] - END");
+	   watcher.dumpElapsed("Â«implClassNameÂ»", "Â«nameÂ»()", "invocazione servizio [Â«removeSeparator(codServ)Â»]::[Â«nameÂ»]", "(valore input omesso)");
+	   logger.debug("[Â«implClassNameÂ»::Â«nameÂ»] - END");
      }
   }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»classi di startup per SPRING«ENDREM»
-«DEFINE springStartupFiles (SOABEModel model) FOR ManualImplCartridge»
-«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43»
-«EXPAND loadStartupServiceMBeanFiles(model) FOR this»
-«ELSE»
-«EXPAND springStartupListener(model) FOR this»
-«ENDIF»
-«EXPAND springLocatorFile(model) FOR this»
-«ENDDEFINE»
+Â«REMÂ»classi di startup per SPRINGÂ«ENDREMÂ»
+Â«DEFINE springStartupFiles (SOABEModel model) FOR ManualImplCartridgeÂ»
+Â«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43Â»
+Â«EXPAND loadStartupServiceMBeanFiles(model) FOR thisÂ»
+Â«ELSEÂ»
+Â«EXPAND springStartupListener(model) FOR thisÂ»
+Â«ENDIFÂ»
+Â«EXPAND springLocatorFile(model) FOR thisÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE springLocatorFile(SOABEModel model) FOR ManualImplCartridge»
-«LET (ServiceImpl)eContainer AS impl-»
-«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/"+"SpringBeanLocator.java"»package «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring;
+Â«DEFINE springLocatorFile(SOABEModel model) FOR ManualImplCartridgeÂ»
+Â«LET (ServiceImpl)eContainer AS impl-Â»
+Â«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/"+"SpringBeanLocator.java"Â»package Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring;
 
 /**
  * 
@@ -709,22 +726,22 @@ public class SpringBeanLocator {
 	 * @generated
 	 */
 	public static Object getBean(String beanName) {
-«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
-		return «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup.LoadStartupService.getBean(beanName);
-«ELSE-»
-		return «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup.SpringStartupListener.getBean(beanName);
-«ENDIF-»
+Â«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-Â»
+		return Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring.startup.LoadStartupService.getBean(beanName);
+Â«ELSE-Â»
+		return Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring.startup.SpringStartupListener.getBean(beanName);
+Â«ENDIF-Â»
 		
 	}
 }
 
-«ENDFILE»
-«ENDLET»
-«ENDDEFINE»
+Â«ENDFILEÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE loadStartupServiceMBeanFiles(SOABEModel model) FOR ManualImplCartridge»
-«LET (ServiceImpl)eContainer AS impl-»
-«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"LoadStartupService.java"»package «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup;
+Â«DEFINE loadStartupServiceMBeanFiles(SOABEModel model) FOR ManualImplCartridgeÂ»
+Â«LET (ServiceImpl)eContainer AS impl-Â»
+Â«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"LoadStartupService.java"Â»package Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring.startup;
 
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.access.ContextBeanFactoryReference;
@@ -773,14 +790,14 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 		System.out.println("Messaggio di avvio MBEAN=" + message);
 		try {
 			String [] springCfg = new String[]{
-				"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml",
-				"META-INF/«impl.provides.codServizio.toLowerCase()»Dao-beans.xml"
+				"META-INF/Â«impl.provides.codServizio.toLowerCase()Â»BeanContext.xml",
+				"META-INF/Â«impl.provides.codServizio.toLowerCase()Â»Dao-beans.xml"
 			};
 			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(springCfg);
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);
 
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e);
+			System.out.println("Attenzione si Ã¨ verificata un'eccezione: " + e);
 		}
 		System.out.println("Chiamata da MBEAN eseguita!!!!");
 	}
@@ -797,7 +814,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e);
+			System.out.println("Attenzione si Ã¨ verificata un'eccezione: " + e);
 		}
 
 		return beanObject;
@@ -811,9 +828,9 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 	}
 }
 
-«ENDFILE-»
+Â«ENDFILE-Â»
 
-«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"LoadStartupServiceMBean.java"»package «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup;
+Â«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"LoadStartupServiceMBean.java"Â»package Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring.startup;
 
 /**
  * @generated
@@ -846,13 +863,13 @@ public interface LoadStartupServiceMBean
    void stop();
 }
 
-«ENDFILE-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDFILE-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE springStartupListener(SOABEModel model) FOR ManualImplCartridge»
-«LET (ServiceImpl)eContainer AS impl-»
-«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"SpringStartupListener.java"»package «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup;
+Â«DEFINE springStartupListener(SOABEModel model) FOR ManualImplCartridgeÂ»
+Â«LET (ServiceImpl)eContainer AS impl-Â»
+Â«FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"SpringStartupListener.java"Â»package Â«getFullServiceEJBPkg(impl.provides.codServizio, model)Â».spring.startup;
 
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.access.ContextBeanFactoryReference;
@@ -892,14 +909,14 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 
 		try {			
 			String [] springCfg = new String[]{
-				"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml",
-				"META-INF/«impl.provides.codServizio.toLowerCase()»Dao-beans.xml"
+				"META-INF/Â«impl.provides.codServizio.toLowerCase()Â»BeanContext.xml",
+				"META-INF/Â«impl.provides.codServizio.toLowerCase()Â»Dao-beans.xml"
 			};			
 			ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(springCfg);
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);			
 			
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e); 
+			System.out.println("Attenzione si Ã¨ verificata un'eccezione: " + e); 
 		}
 		
 	}
@@ -916,7 +933,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 			
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e); 
+			System.out.println("Attenzione si Ã¨ verificata un'eccezione: " + e); 
 		}
 		
 		return beanObject;
@@ -937,6 +954,6 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 	}
 	
 }
-«ENDFILE-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDFILE-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
