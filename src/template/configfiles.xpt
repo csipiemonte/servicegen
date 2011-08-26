@@ -989,11 +989,11 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   <!-- mapping delle user defined entities -->
   «FOREACH serviceDef.types.types.typeSelect(Entity) AS bean»
-  <beanMapping languageSpecificType="java:«fullQualifiedEntitiesPkg(serviceDef.codServizio,model)».«bean.name»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:«map2javaType(bean,serviceDef.codServizio,model)»" qname="ns10:«bean.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   «ENDFOREACH»
   <!-- mapping delle user defined exceptions -->
   «FOREACH serviceDef.types.types.typeSelect(Exception) AS exception»
-  <beanMapping languageSpecificType="java:«fullQualifiedServiceExceptionPkg(serviceDef.codServizio,model)».«exception.name»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
+  <beanMapping languageSpecificType="java:«map2javaType(exception,serviceDef.codServizio,model)»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   «ENDFOREACH»
  </service>
 
