@@ -455,6 +455,16 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 				}
 				
 			}
+			else if(isCSIGenericException(e)){
+				// se l'eccezione e' una delle eccezioni base di CSI
+				// viene restituita as-is
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						e, ps);
+			}
+			else{
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						new it.csi.csi.wrapper.UnrecoverableException("internal error: "+e+ " not mapped"), ps);
+			}
 		}
 		else if (_outputbindingName != null) {
 			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","impostazione valore di ritorno dallo slot \"+_outputbindingName+\"")»
@@ -466,6 +476,12 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
+	/**
+	 * verifica se l'eccezione e' una eccezione base di CSI.
+	 */
+	private boolean isCSIGenericException(Exception e){
+		return e.getClass().getPackage().getName().contains("it.csi.csi.wrapper");
+	}
 }
 «ENDFILE»
 «ENDDEFINE»
