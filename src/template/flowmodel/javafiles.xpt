@@ -628,13 +628,13 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 		 	throw ue;
 		 }
 	 
-     «IF returnType!=null»
-     	Object retVal = persistentParams.get("result");
-     	// se il valore di ritorno e'un'eccezione occorre rilanciarla
-     	if (retVal instanceof Throwable) {
+	 	Object retVal = persistentParams.get("result");
+     	// se il valore di ritorno e'un'eccezione occorre rilanciarla (anche se metodo void)
+      	if (retVal != null && retVal instanceof Throwable) {
      		«errorLog(implClassName,this.name,"Errore occorso nell'esecuzione del flusso\"+retVal+\"","(Throwable)retVal" )»
      		throw (Throwable)retVal;
      	}
+     «IF returnType!=null»
      	else{
      		return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
      	}
