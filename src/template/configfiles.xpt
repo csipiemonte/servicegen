@@ -1027,8 +1027,17 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
        					   
 
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+"beancontext")»
-		<!-- Insert here your Spring Beans -->	
+		<!-- Insert here your custom Spring Beans -->				
 	«ENDPROTECT»
+	
+	
+	
+	<bean id="«serviceImplBeanId(impl.provides)»" class="«getFullServiceEJBPkg(impl.provides.codServizio, model)».«serviceImplClassName(impl.provides)»">			
+	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(""+impl.provides.codServizio+serviceImplBeanId(impl.provides))»
+			<!-- Insert here «impl.provides.codServizio» bean properties (Dao, customBeans, etc...) -->
+	«ENDPROTECT»
+	</bean>
+	
 	
 </beans>
 «ENDFILE»

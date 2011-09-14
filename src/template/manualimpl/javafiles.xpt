@@ -69,6 +69,7 @@ import it.csi.csi.wrapper.UnrecoverableException;
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
 import «fullQualifiedServiceInterfacePkg(model)».*;
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+import «getFullServiceEJBPkg(codServizio, model)».spring.SpringBeanLocator;
 
 import java.rmi.RemoteException;
 
@@ -169,7 +170,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 		Logger logger = getLogger(null);
 	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
 		try{
-			delegate = new «serviceImplClassName()»();
+			delegate = («serviceImplClassName()») SpringBeanLocator.getBean("«serviceImplClassName().toFirstLower()»");
 			delegate.init(initOptions);
 		}
 		catch(Exception ie){

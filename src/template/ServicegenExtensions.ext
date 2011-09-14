@@ -191,6 +191,9 @@ String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEMo
 
 String serviceImplClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Impl";
+
+String serviceImplBeanId(ServiceDef sd) :
+	toCamel(sd.codServizio).toFirstLower()+"Impl";	
 	
 String serviceValidatorClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"ValidatorFH";
