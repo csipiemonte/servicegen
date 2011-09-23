@@ -28,7 +28,7 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND javaCsiInterfaceFile (model) FOR this»
 	«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR this»
 	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
-	«EXPAND javaEJBServiceBeanFile (model)FOR this»
+	«EXPAND javaEJBServiceBeanFile (model, this.getServiceImpl(model))FOR this»
 	«REM»«EXPAND javavalidator::validatorFH(model) FOR this»«ENDREM»
 	«IF this.serviceType==SrvTypeEnum::orch»
 		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
@@ -377,13 +377,13 @@ public interface «serviceLocalHomeInterfaceName()» extends EJBLocalHome{
 classe dell'EJB che implementa il servizio (tramite delegate)
 *************************************************************
 «ENDREM»
-«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaEJBServiceBeanFile (SOABEModel model, ServiceImpl serviceImpl)FOR ServiceDef»
 	«LET getServiceImpl(this,model) AS impl-»
 	«IF impl !=null-»
 	«LET (ServiceComponent)(impl.serviceComponent) AS sc»
 	«LET (LogicImplCartridge)(impl.implCartridge) AS crt»
 	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model) FOR this»
+		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model,impl) FOR this»
 	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
 		«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR this»
 	«ELSE»

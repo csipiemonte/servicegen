@@ -59,7 +59,7 @@ e le limitazioni secondo i termini della Licenza.
 
 
 
-«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaEJBServiceBeanFile (SOABEModel model, ServiceImpl serviceImpl)FOR ServiceDef»
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
 package «getFullServiceEJBPkg(codServizio, model)»;
 
@@ -69,7 +69,9 @@ import it.csi.csi.wrapper.UnrecoverableException;
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
 import «fullQualifiedServiceInterfacePkg(model)».*;
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«IF ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo -»
 import «getFullServiceEJBPkg(codServizio, model)».spring.SpringBeanLocator;
+«ENDIF»
 
 import java.rmi.RemoteException;
 
@@ -170,9 +172,14 @@ public class «serviceBeanClassName()» implements SessionBean{
 		Logger logger = getLogger(null);
 	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
 		try{
-			delegate = («serviceImplClassName()») SpringBeanLocator.getBean("«serviceImplClassName().toFirstLower()»");
+		«IF ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo -»
+		delegate = («serviceImplClassName()») SpringBeanLocator.getBean("«serviceImplClassName().toFirstLower()»");
+		«ELSE-»
+		delegate = new «serviceImplClassName()»();
+		«ENDIF-»
 			delegate.init(initOptions);
 		}
+		
 		catch(Exception ie){
 			logger.debug("[«serviceBeanClassName()»::createImpl] - ERROR", ie);
 			throw new EJBException("Errore nella inizializzazione dell'implementazione del servizio «codServizio»:"+ie.getMessage(),ie);
