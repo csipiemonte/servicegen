@@ -562,6 +562,13 @@ String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
 	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
 	soapUri; 
 //// altre utility
+///// risoluzione hostname del repository artefatti
+String getIvyRepositoryHost() :
+	getProperty("servicegen.ivyRepositoryHost")==null||getProperty("servicegen.ivyRepositoryHost").length==0?
+	"repart.csi.it":
+	getProperty("servicegen.ivyRepositoryHost");		
+
+
 String getPluginVersion() : JAVA
 	it.csi.mddtools.servicegen.genutils.MiscUtils.getPluginVersion();
 	
