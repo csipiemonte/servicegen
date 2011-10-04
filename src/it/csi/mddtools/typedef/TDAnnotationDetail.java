@@ -27,6 +27,19 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>TD Annotation Detail</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Dettaglio dell'annotazione.
+ * Al momento le annotazioni previste sono:
+ * <ul>
+ * <li>source=typedef
+ * 	<ul>
+ * 	<li>key=java-fqn: value=full qualified name della classe java corrispondente.
+ * 		Necessaria per gestire situazioni legacy o che non rispettano lo standard di naming</li>
+ * 	</ul>
+ * </li>
+ * </ul>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -48,6 +61,9 @@ public interface TDAnnotationDetail extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * chiave dell'annotazione
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Key</em>' attribute.
 	 * @see #setKey(String)
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getTDAnnotationDetail_Key()
@@ -74,6 +90,9 @@ public interface TDAnnotationDetail extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * valore dell'annotazione
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getTDAnnotationDetail_Value()

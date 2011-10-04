@@ -24,9 +24,11 @@ import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
+import it.csi.mddtools.typedef.TypeLanguageBinding;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -128,6 +130,14 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTDAnnotationDetail(TDAnnotationDetail object) {
 				return createTDAnnotationDetailAdapter();
+			}
+			@Override
+			public Adapter casePrimitiveType(PrimitiveType object) {
+				return createPrimitiveTypeAdapter();
+			}
+			@Override
+			public Adapter caseTypeLanguageBinding(TypeLanguageBinding object) {
+				return createTypeLanguageBindingAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -272,6 +282,34 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTDAnnotationDetailAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.PrimitiveType <em>Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.PrimitiveType
+	 * @generated
+	 */
+	public Adapter createPrimitiveTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.TypeLanguageBinding <em>Type Language Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding
+	 * @generated
+	 */
+	public Adapter createTypeLanguageBindingAdapter() {
 		return null;
 	}
 

@@ -32,7 +32,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * and utility methods for working with them.
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Tipi di eccezione previsti dall'infrastruttura di cooperazione CSI
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.typedef.TypedefPackage#getCSIExceptionTypes()
  * @model
@@ -78,7 +78,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * UserException
 	 * <!-- end-model-doc -->
 	 * @see #USER
 	 * @model
@@ -96,7 +97,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * SystemException
 	 * <!-- end-model-doc -->
 	 * @see #SYSTEM
 	 * @model
@@ -114,7 +116,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * UnrecoverableException
 	 * <!-- end-model-doc -->
 	 * @see #UNRECOVERABLE
 	 * @model

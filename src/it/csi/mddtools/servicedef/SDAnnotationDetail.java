@@ -27,6 +27,19 @@ import org.eclipse.emf.ecore.EObject;
  * A representation of the model object '<em><b>SD Annotation Detail</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Dettaglio dell'annotazione.
+ * Al momento le annotazioni previste sono:
+ * <ul>
+ * <li>source=servicedef
+ * 	<ul>
+ * 	<li>key=java-fqn: value=full qualified name della classe java corrispondente all'interfaccia CSI del servizio.
+ * 		Necessaria per gestire situazioni legacy o che non rispettano lo standard di naming</li>
+ * 	</ul>
+ * </li>
+ * </ul>
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>

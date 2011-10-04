@@ -274,6 +274,52 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.PrimitiveType} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PrimitiveTypeItemProvider primitiveTypeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.PrimitiveType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPrimitiveTypeAdapter() {
+		if (primitiveTypeItemProvider == null) {
+			primitiveTypeItemProvider = new PrimitiveTypeItemProvider(this);
+		}
+
+		return primitiveTypeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.TypeLanguageBinding} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeLanguageBindingItemProvider typeLanguageBindingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.TypeLanguageBinding}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeLanguageBindingAdapter() {
+		if (typeLanguageBindingItemProvider == null) {
+			typeLanguageBindingItemProvider = new TypeLanguageBindingItemProvider(this);
+		}
+
+		return typeLanguageBindingItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -323,7 +369,7 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
@@ -380,6 +426,8 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 		if (exceptionItemProvider != null) exceptionItemProvider.dispose();
 		if (typeAnnotationItemProvider != null) typeAnnotationItemProvider.dispose();
 		if (tdAnnotationDetailItemProvider != null) tdAnnotationDetailItemProvider.dispose();
+		if (primitiveTypeItemProvider != null) primitiveTypeItemProvider.dispose();
+		if (typeLanguageBindingItemProvider != null) typeLanguageBindingItemProvider.dispose();
 	}
 
 }

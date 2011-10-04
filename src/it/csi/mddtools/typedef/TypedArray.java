@@ -27,7 +27,11 @@ package it.csi.mddtools.typedef;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Array tipato. Può essere un array di tipi semplici (CSIDatatype) o di tipi 
+ * user defined (Entity). Normalmente gli array di tipi semplici sono forniti in
+ * un file da includere come risorsa e referenziare negli altri modelli che
+ * ne hanno bisogno, mentre gli array di tipi user defined devono essere
+ * definiti localmente alla definizione del singolo servizio.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -51,7 +55,7 @@ public interface TypedArray extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * indica il tipo degli elementi dell'array
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Component Type</em>' reference.
 	 * @see #setComponentType(Type)

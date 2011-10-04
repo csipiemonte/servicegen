@@ -27,6 +27,7 @@
     </genClasses>
     <genClasses image="false" ecoreClass="typedef_metamodel.ecore#//Type">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//Type/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference typedef_metamodel.ecore#//Type/annotations"/>
     </genClasses>
     <genClasses ecoreClass="typedef_metamodel.ecore#//CSIDatatype">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//CSIDatatype/code"/>
@@ -45,6 +46,26 @@
     </genClasses>
     <genClasses ecoreClass="typedef_metamodel.ecore#//Exception">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//Exception/exceptionType"/>
+    </genClasses>
+    <genClasses ecoreClass="typedef_metamodel.ecore#//TypeAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeAnnotation/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference typedef_metamodel.ecore#//TypeAnnotation/details"/>
+    </genClasses>
+    <genClasses ecoreClass="typedef_metamodel.ecore#//TDAnnotationDetail">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TDAnnotationDetail/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TDAnnotationDetail/value"/>
+    </genClasses>
+    <genClasses ecoreClass="typedef_metamodel.ecore#//PrimitiveType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//PrimitiveType/typesetName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//PrimitiveType/nillable"/>
+      <genFeatures notify="false" children="true" createChild="true" ecoreFeature="ecore:EReference typedef_metamodel.ecore#//PrimitiveType/languageBindings"/>
+    </genClasses>
+    <genClasses ecoreClass="typedef_metamodel.ecore#//TypeLanguageBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeLanguageBinding/lang"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeLanguageBinding/langSpecificType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeLanguageBinding/langSpecificNS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeLanguageBinding/defaultInitValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute typedef_metamodel.ecore#//TypeLanguageBinding/nullValueLiteral"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

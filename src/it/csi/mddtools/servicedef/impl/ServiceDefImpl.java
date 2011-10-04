@@ -637,9 +637,9 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__BINDINGS:
 				return getBindings();
 			case ServicedefPackage.SERVICE_DEF__MONITORABLE:
-				return isMonitorable() ? Boolean.TRUE : Boolean.FALSE;
+				return isMonitorable();
 			case ServicedefPackage.SERVICE_DEF__DIAG_ENABLED:
-				return isDiagEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isDiagEnabled();
 			case ServicedefPackage.SERVICE_DEF__OPERATIONS:
 				return getOperations();
 			case ServicedefPackage.SERVICE_DEF__VERSIONE:
@@ -647,7 +647,7 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__TYPES:
 				return getTypes();
 			case ServicedefPackage.SERVICE_DEF__TRACE_ENABLED:
-				return isTraceEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isTraceEnabled();
 			case ServicedefPackage.SERVICE_DEF__SERVICE_TYPE:
 				return getServiceType();
 			case ServicedefPackage.SERVICE_DEF__AUTH_LEVEL:
@@ -681,10 +681,10 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				getBindings().addAll((Collection<? extends ServiceBinding>)newValue);
 				return;
 			case ServicedefPackage.SERVICE_DEF__MONITORABLE:
-				setMonitorable(((Boolean)newValue).booleanValue());
+				setMonitorable((Boolean)newValue);
 				return;
 			case ServicedefPackage.SERVICE_DEF__DIAG_ENABLED:
-				setDiagEnabled(((Boolean)newValue).booleanValue());
+				setDiagEnabled((Boolean)newValue);
 				return;
 			case ServicedefPackage.SERVICE_DEF__OPERATIONS:
 				getOperations().clear();
@@ -697,7 +697,7 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				setTypes((Types)newValue);
 				return;
 			case ServicedefPackage.SERVICE_DEF__TRACE_ENABLED:
-				setTraceEnabled(((Boolean)newValue).booleanValue());
+				setTraceEnabled((Boolean)newValue);
 				return;
 			case ServicedefPackage.SERVICE_DEF__SERVICE_TYPE:
 				setServiceType((SrvTypeEnum)newValue);

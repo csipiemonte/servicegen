@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Il singolo campo di un tipo complesso.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -53,7 +53,8 @@ public interface Feature extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * nome menmonico del tipo. Dovrebbe seguire le specifiche di naming delle
+	 * proprietà javabean
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -82,7 +83,12 @@ public interface Feature extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Tipo del campo. Può essere valorizzato con:
+	 * <ul>
+	 * <li>un tipo semplice
+	 * <li>un tipo complesso
+	 * <li>un tipo array
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
 	 * @see #setType(Type)

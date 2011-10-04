@@ -91,7 +91,7 @@ public interface TypedefFactory extends EFactory {
 	 * @return a new object of class '<em>Exception</em>'.
 	 * @generated
 	 */
-	it.csi.mddtools.typedef.Exception createException();
+	Exception createException();
 
 	/**
 	 * Returns a new object of class '<em>Type Annotation</em>'.
@@ -110,6 +110,24 @@ public interface TypedefFactory extends EFactory {
 	 * @generated
 	 */
 	TDAnnotationDetail createTDAnnotationDetail();
+
+	/**
+	 * Returns a new object of class '<em>Primitive Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Primitive Type</em>'.
+	 * @generated
+	 */
+	PrimitiveType createPrimitiveType();
+
+	/**
+	 * Returns a new object of class '<em>Type Language Binding</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Language Binding</em>'.
+	 * @generated
+	 */
+	TypeLanguageBinding createTypeLanguageBinding();
 
 	/**
 	 * Returns the package supported by this factory.

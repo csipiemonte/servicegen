@@ -24,9 +24,11 @@ import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
+import it.csi.mddtools.typedef.TypeLanguageBinding;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefPackage;
 
@@ -167,6 +169,19 @@ public class TypedefSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TypedefPackage.PRIMITIVE_TYPE: {
+				PrimitiveType primitiveType = (PrimitiveType)theEObject;
+				T result = casePrimitiveType(primitiveType);
+				if (result == null) result = caseType(primitiveType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TypedefPackage.TYPE_LANGUAGE_BINDING: {
+				TypeLanguageBinding typeLanguageBinding = (TypeLanguageBinding)theEObject;
+				T result = caseTypeLanguageBinding(typeLanguageBinding);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -303,6 +318,36 @@ public class TypedefSwitch<T> {
 	 * @generated
 	 */
 	public T caseTDAnnotationDetail(TDAnnotationDetail object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Primitive Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Primitive Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePrimitiveType(PrimitiveType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Language Binding</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Language Binding</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeLanguageBinding(TypeLanguageBinding object) {
 		return null;
 	}
 

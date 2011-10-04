@@ -27,7 +27,11 @@ package it.csi.mddtools.typedef;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Tipo base previsto dall'infrastruttura di cooperazione CSI.
+ * Normalmente un insieme di tipi predefiniti è incluso come risorsa nei vari
+ * modelli (definizione servizi, orchestrazioni, ...) e dunque in ogni insieme
+ * di risorse (modelli) interconnesse è opportuno che vi sia una sola istanza
+ * di <b>CSIDatatype</b> per ogni tipo semplice previsto.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -53,7 +57,10 @@ public interface CSIDatatype extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Codice che determina il reale tipo. Vedere la documentazione della 
+	 * enumeration <b>CSIDatatypeCodes</b> perl'elenco dei tipi supportati.
+	 * 
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see it.csi.mddtools.typedef.CSIDatatypeCodes
@@ -84,7 +91,13 @@ public interface CSIDatatype extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Qualificatore di tipo che defiisce se il tipo è un tipo che può assumere valore
+	 * nullo oppure no.
+	 * Es: 
+	 * <ul>
+	 * <li> code==CSIInteger & nillable == false: tipo intero non annullabile (es. java int)
+	 * <li> code==CSIInteger & nillable == true: tipo intero annullabile (es. java Integer)
+	 * </ul>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Nillable</em>' attribute.
 	 * @see #setNillable(boolean)

@@ -27,7 +27,8 @@ package it.csi.mddtools.typedef;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Tipo eccezione. E' utilizzato nelle interfacce di servizio per la
+ * dichiarazioen delle eccezioni previste dai vari metodi.
  * <!-- end-model-doc -->
  *
  * <p>
@@ -52,7 +53,7 @@ public interface Exception extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Tipo di eccezioni (tra le tipologie previste dall'infrastruttura di cooperazione CSI)
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Exception Type</em>' attribute.
 	 * @see it.csi.mddtools.typedef.CSIExceptionTypes

@@ -184,6 +184,11 @@ public class DocumentRootItemProvider
 			(createChildParameter
 				(TypedefPackage.Literals.DOCUMENT_ROOT__TYPES,
 				 TypedefFactory.eINSTANCE.createException()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TypedefPackage.Literals.DOCUMENT_ROOT__TYPES,
+				 TypedefFactory.eINSTANCE.createPrimitiveType()));
 	}
 
 	/**

@@ -22,6 +22,7 @@ import it.csi.mddtools.servicedef.DiscreteRangeConstraint;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Exception;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedArray;
 
@@ -125,7 +126,9 @@ public class EditUtils {
 	}
 	
 	public static String formatTypeLabel(Type t){
-		if (t instanceof CSIDatatype)
+		if (t instanceof PrimitiveType)
+			return formatTypeLabel((PrimitiveType)t);
+		else if (t instanceof CSIDatatype)
 			return formatTypeLabel((CSIDatatype)t);
 		else if(t instanceof Entity)
 			return formatTypeLabel((Entity)t);
@@ -139,6 +142,10 @@ public class EditUtils {
 	
 	public static String formatTypeLabel(CSIDatatype t){
 		return (t.isNillable()?"Wrapped":"")+t.getCode().getLiteral();
+	}
+	
+	public static String formatTypeLabel(PrimitiveType t){
+		return ""+t.getTypesetName()+":"+t.getName();
 	}
 	
 	public static String formatTypeLabel(Entity t){

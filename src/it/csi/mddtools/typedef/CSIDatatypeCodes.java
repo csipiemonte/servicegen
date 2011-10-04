@@ -128,7 +128,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su int o java.lang.Integer (se nillable==true)
 	 * <!-- end-model-doc -->
 	 * @see #CSI_INTEGER
 	 * @model name="CSIInteger"
@@ -146,7 +146,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su java.lang.String
 	 * <!-- end-model-doc -->
 	 * @see #CSI_STRING
 	 * @model name="CSIString"
@@ -164,7 +164,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su float o java.lang.Float (se nillable==true)
 	 * <!-- end-model-doc -->
 	 * @see #CSI_FLOAT
 	 * @model name="CSIFloat"
@@ -182,7 +182,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su double o java.lang.Double (se nillable==true)
 	 * <!-- end-model-doc -->
 	 * @see #CSI_DOUBLE
 	 * @model name="CSIDouble"
@@ -200,7 +200,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su boolean o java.lang.Boolean (se nillable==true)
 	 * <!-- end-model-doc -->
 	 * @see #CSI_BOOLEAN
 	 * @model name="CSIBoolean"
@@ -218,7 +218,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su java.util.Date. Consigliato l'uso per gestire timestamp; non 
+	 * consigliato per gestire date prive di informazioni sull'ora. Usare stringhe
+	 * formattate.
 	 * <!-- end-model-doc -->
 	 * @see #CSI_DATE
 	 * @model name="CSIDate"
@@ -236,7 +238,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su byte o java.lang.Byte (se nillable==true). E' sconsigliata la versione nillable.
 	 * <!-- end-model-doc -->
 	 * @see #CSI_BYTE
 	 * @model name="CSIByte"
@@ -254,7 +256,7 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * mappato su long o java.lang.Long (se nillable==true)
 	 * <!-- end-model-doc -->
 	 * @see #CSI_LONG
 	 * @model name="CSILong"

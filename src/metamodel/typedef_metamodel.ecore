@@ -196,4 +196,52 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" eSuperTypes="#//Type">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Tipo base customizzabile. Permette di definire differenti &lt;i>Typeset&lt;/i>.&#xD;&#xA;In particolare &amp;egrave; possibile definire anche un insieme di &lt;i>language binding&lt;/i>&#xD;&#xA;che permettono di indicare il tipo &lt;i>language specific&lt;/i> a cui deve essere associato&#xD;&#xA;il tipo modellato."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typesetName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Nome del typeset, es.: &lt;i>xsd&lt;/i>, &lt;i>CSI&lt;/i>.&#xD;&#xA;Ha scopo tipicamente mnemonico, a meno che non sia referenziato &#xD;&#xA;esplicitamente da qualche cartuccia di generazione. "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nillable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Se impostato a &lt;i>true&lt;/i> indica che il tipo prevede tra i valori possibili&#xD;&#xA;il valore nullo."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="languageBindings" upperBound="-1"
+        eType="#//TypeLanguageBinding" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Binding del tipo nei vari linguaggi. Ciascun binding permette di definire come&#xD;&#xA;deve essere trattato il tipo nel linguaggio specifico, ovvero a quale tipo effettivo&#xD;&#xA;dovr&amp;agrave; essere associato e con che caratteristiche di dettaglio."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeLanguageBinding">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lang" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="codice del linguaggio.&#xD;&#xA;&#xD;&#xA;E' un codice mnemonico eventualmente utilizzato dalle cartucce di generazione, pertanto&#xD;&#xA;non vi sono vincoli a priori sulla codifica da utilizzare."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="langSpecificType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indica il nome del tipo del linguaggio target, privo dell'eventuale namespace.&#xD;&#xA;L'unione di &lt;i>langSpecificNS&lt;/i> e &lt;i>langSpecificType&lt;/i> rappresenta il&#xD;&#xA;&lt;i>full qualified name&lt;/i> del tipo.&#xD;&#xA;&#xD;&#xA;Es, per java:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>int (namespace: nessuno)&lt;/li>&#xD;&#xA;&lt;li>String (namespace: java.lang.&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="langSpecificNS" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indica il nome del namespace (pacakge) che contiene il tipo del linguaggio &#xD;&#xA;target. N.B: comprende anche un eventuale carattere separatore da anteporre al nome del tipo.&#xD;&#xA;L'unione di &lt;i>langSpecificNS&lt;/i> e &lt;i>langSpecificType&lt;/i> rappresenta il&#xD;&#xA;&lt;i>full qualified name&lt;/i> del tipo.&#xD;&#xA;&#xD;&#xA;Es, per java:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>int (namespace: nessuno)&lt;/li>&#xD;&#xA;&lt;li>String (namespace: java.lang.&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultInitValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indica il valore iniziale che deve essere impostato nel codice rleativo al&#xD;&#xA;linguaggio in oggetto, nelle dichiarazioni di variabili&#xD;&#xA;che coinvolgono il &lt;b>PrimitiveType&lt;/b>."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullValueLiteral" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Utilizzato in congiunzione con &lt;i>nillable==true&lt;/i> sull'elemento&#xD;&#xA;padre &lt;b>PrimitiveType&lt;/p>. &#xD;&#xA;Permette di impostare il valore nullo da utilizzare per il linguaggio in oggetto.&#xD;&#xA;Es. per java: &lt;code>nullValueLiteral=null&lt;/code> "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
 </ecore:EPackage>

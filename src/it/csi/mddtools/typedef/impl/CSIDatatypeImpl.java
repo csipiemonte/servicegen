@@ -157,7 +157,7 @@ public class CSIDatatypeImpl extends TypeImpl implements CSIDatatype {
 			case TypedefPackage.CSI_DATATYPE__CODE:
 				return getCode();
 			case TypedefPackage.CSI_DATATYPE__NILLABLE:
-				return isNillable() ? Boolean.TRUE : Boolean.FALSE;
+				return isNillable();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -174,7 +174,7 @@ public class CSIDatatypeImpl extends TypeImpl implements CSIDatatype {
 				setCode((CSIDatatypeCodes)newValue);
 				return;
 			case TypedefPackage.CSI_DATATYPE__NILLABLE:
-				setNillable(((Boolean)newValue).booleanValue());
+				setNillable((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

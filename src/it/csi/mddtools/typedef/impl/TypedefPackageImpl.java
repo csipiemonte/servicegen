@@ -26,9 +26,11 @@ import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
+import it.csi.mddtools.typedef.TypeLanguageBinding;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -116,6 +118,20 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass primitiveTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeLanguageBindingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum csiDatatypeCodesEEnum = null;
 
 	/**
@@ -152,20 +168,10 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link TypedefPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -177,7 +183,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		if (isInited) return (TypedefPackage)EPackage.Registry.INSTANCE.getEPackage(TypedefPackage.eNS_URI);
 
 		// Obtain or create and register package
-		TypedefPackageImpl theTypedefPackage = (TypedefPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof TypedefPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new TypedefPackageImpl());
+		TypedefPackageImpl theTypedefPackage = (TypedefPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof TypedefPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new TypedefPackageImpl());
 
 		isInited = true;
 
@@ -190,6 +196,9 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		// Mark meta-data to indicate it can't be changed
 		theTypedefPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(TypedefPackage.eNS_URI, theTypedefPackage);
 		return theTypedefPackage;
 	}
 
@@ -414,6 +423,96 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPrimitiveType() {
+		return primitiveTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPrimitiveType_TypesetName() {
+		return (EAttribute)primitiveTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPrimitiveType_Nillable() {
+		return (EAttribute)primitiveTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPrimitiveType_LanguageBindings() {
+		return (EReference)primitiveTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeLanguageBinding() {
+		return typeLanguageBindingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeLanguageBinding_Lang() {
+		return (EAttribute)typeLanguageBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeLanguageBinding_LangSpecificType() {
+		return (EAttribute)typeLanguageBindingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeLanguageBinding_LangSpecificNS() {
+		return (EAttribute)typeLanguageBindingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeLanguageBinding_DefaultInitValue() {
+		return (EAttribute)typeLanguageBindingEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTypeLanguageBinding_NullValueLiteral() {
+		return (EAttribute)typeLanguageBindingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCSIDatatypeCodes() {
 		return csiDatatypeCodesEEnum;
 	}
@@ -488,6 +587,18 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		createEAttribute(tdAnnotationDetailEClass, TD_ANNOTATION_DETAIL__KEY);
 		createEAttribute(tdAnnotationDetailEClass, TD_ANNOTATION_DETAIL__VALUE);
 
+		primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
+		createEAttribute(primitiveTypeEClass, PRIMITIVE_TYPE__TYPESET_NAME);
+		createEAttribute(primitiveTypeEClass, PRIMITIVE_TYPE__NILLABLE);
+		createEReference(primitiveTypeEClass, PRIMITIVE_TYPE__LANGUAGE_BINDINGS);
+
+		typeLanguageBindingEClass = createEClass(TYPE_LANGUAGE_BINDING);
+		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__LANG);
+		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_TYPE);
+		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_NS);
+		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__DEFAULT_INIT_VALUE);
+		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__NULL_VALUE_LITERAL);
+
 		// Create enums
 		csiDatatypeCodesEEnum = createEEnum(CSI_DATATYPE_CODES);
 		csiExceptionTypesEEnum = createEEnum(CSI_EXCEPTION_TYPES);
@@ -525,6 +636,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		entityEClass.getESuperTypes().add(this.getType());
 		typedArrayEClass.getESuperTypes().add(this.getType());
 		exceptionEClass.getESuperTypes().add(this.getType());
+		primitiveTypeEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -559,6 +671,18 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		initEClass(tdAnnotationDetailEClass, TDAnnotationDetail.class, "TDAnnotationDetail", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTDAnnotationDetail_Key(), ecorePackage.getEString(), "key", null, 0, 1, TDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTDAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, TDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getPrimitiveType_TypesetName(), ecorePackage.getEString(), "typesetName", null, 0, 1, PrimitiveType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPrimitiveType_Nillable(), ecorePackage.getEBoolean(), "nillable", null, 0, 1, PrimitiveType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPrimitiveType_LanguageBindings(), this.getTypeLanguageBinding(), null, "languageBindings", null, 0, -1, PrimitiveType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeLanguageBindingEClass, TypeLanguageBinding.class, "TypeLanguageBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTypeLanguageBinding_Lang(), ecorePackage.getEString(), "lang", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeLanguageBinding_LangSpecificType(), ecorePackage.getEString(), "langSpecificType", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeLanguageBinding_LangSpecificNS(), ecorePackage.getEString(), "langSpecificNS", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeLanguageBinding_DefaultInitValue(), ecorePackage.getEString(), "defaultInitValue", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTypeLanguageBinding_NullValueLiteral(), ecorePackage.getEString(), "nullValueLiteral", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(csiDatatypeCodesEEnum, CSIDatatypeCodes.class, "CSIDatatypeCodes");

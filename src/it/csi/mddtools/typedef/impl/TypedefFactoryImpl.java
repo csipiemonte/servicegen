@@ -26,8 +26,10 @@ import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
 import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
 import it.csi.mddtools.typedef.TypeAnnotation;
+import it.csi.mddtools.typedef.TypeLanguageBinding;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -93,6 +95,8 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 			case TypedefPackage.EXCEPTION: return createException();
 			case TypedefPackage.TYPE_ANNOTATION: return createTypeAnnotation();
 			case TypedefPackage.TD_ANNOTATION_DETAIL: return createTDAnnotationDetail();
+			case TypedefPackage.PRIMITIVE_TYPE: return createPrimitiveType();
+			case TypedefPackage.TYPE_LANGUAGE_BINDING: return createTypeLanguageBinding();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -210,6 +214,26 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 	public TDAnnotationDetail createTDAnnotationDetail() {
 		TDAnnotationDetailImpl tdAnnotationDetail = new TDAnnotationDetailImpl();
 		return tdAnnotationDetail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrimitiveType createPrimitiveType() {
+		PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
+		return primitiveType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeLanguageBinding createTypeLanguageBinding() {
+		TypeLanguageBindingImpl typeLanguageBinding = new TypeLanguageBindingImpl();
+		return typeLanguageBinding;
 	}
 
 	/**

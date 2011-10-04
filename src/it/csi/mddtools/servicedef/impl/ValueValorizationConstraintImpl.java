@@ -112,7 +112,7 @@ public class ValueValorizationConstraintImpl extends SimpleValueConstraintImpl i
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ServicedefPackage.VALUE_VALORIZATION_CONSTRAINT__MUST_NOT_BE_NULL:
-				return isMustNotBeNull() ? Boolean.TRUE : Boolean.FALSE;
+				return isMustNotBeNull();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -126,7 +126,7 @@ public class ValueValorizationConstraintImpl extends SimpleValueConstraintImpl i
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ServicedefPackage.VALUE_VALORIZATION_CONSTRAINT__MUST_NOT_BE_NULL:
-				setMustNotBeNull(((Boolean)newValue).booleanValue());
+				setMustNotBeNull((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

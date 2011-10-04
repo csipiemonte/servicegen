@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Classe astratta: rappresenta il generico tipo, sia esso un tipo base, array o complesso
  * <!-- end-model-doc -->
  *
  * <p>
@@ -54,7 +54,8 @@ public interface Type extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Nome mnemonico del tipo.
+	 * Non prevede indicazioni di namespace.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -83,6 +84,13 @@ public interface Type extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Annotazioni associate al tipo. Le informaziopni contenute in questo campo
+	 * sono utilizzate per ottenere particolari comportamenti in fase di 
+	 * generazione.
+	 * Vedere la documentazione della metaclasse <b>TypeAnnotation</b> per
+	 * i dettagli sulle possibili valorizzazioni.
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Annotations</em>' containment reference list.
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getType_Annotations()
 	 * @model containment="true"

@@ -38,7 +38,8 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Questo package contiene le metaclassi necessarie per modellare i tipi
+ * (di base e definiti da utente) utilizzati nelle interfacce dei servizi.
  * <!-- end-model-doc -->
  * @see it.csi.mddtools.typedef.TypedefFactory
  * @model kind="package"
@@ -456,6 +457,134 @@ public interface TypedefPackage extends EPackage {
 	int TD_ANNOTATION_DETAIL_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.PrimitiveTypeImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getPrimitiveType()
+	 * @generated
+	 */
+	int PRIMITIVE_TYPE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Typeset Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__TYPESET_NAME = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Nillable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__NILLABLE = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Language Bindings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__LANGUAGE_BINDINGS = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Primitive Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl <em>Type Language Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypeLanguageBinding()
+	 * @generated
+	 */
+	int TYPE_LANGUAGE_BINDING = 10;
+
+	/**
+	 * The feature id for the '<em><b>Lang</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING__LANG = 0;
+
+	/**
+	 * The feature id for the '<em><b>Lang Specific Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Lang Specific NS</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_NS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Default Init Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING__DEFAULT_INIT_VALUE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Null Value Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING__NULL_VALUE_LITERAL = 4;
+
+	/**
+	 * The number of structural features of the '<em>Type Language Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LANGUAGE_BINDING_FEATURE_COUNT = 5;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -463,7 +592,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
 	 * @generated
 	 */
-	int CSI_DATATYPE_CODES = 9;
+	int CSI_DATATYPE_CODES = 11;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
@@ -473,7 +602,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
 	 * @generated
 	 */
-	int CSI_EXCEPTION_TYPES = 10;
+	int CSI_EXCEPTION_TYPES = 12;
 
 
 	/**
@@ -732,6 +861,114 @@ public interface TypedefPackage extends EPackage {
 	EAttribute getTDAnnotationDetail_Value();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.PrimitiveType <em>Primitive Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Primitive Type</em>'.
+	 * @see it.csi.mddtools.typedef.PrimitiveType
+	 * @generated
+	 */
+	EClass getPrimitiveType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.PrimitiveType#getTypesetName <em>Typeset Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Typeset Name</em>'.
+	 * @see it.csi.mddtools.typedef.PrimitiveType#getTypesetName()
+	 * @see #getPrimitiveType()
+	 * @generated
+	 */
+	EAttribute getPrimitiveType_TypesetName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.PrimitiveType#isNillable <em>Nillable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nillable</em>'.
+	 * @see it.csi.mddtools.typedef.PrimitiveType#isNillable()
+	 * @see #getPrimitiveType()
+	 * @generated
+	 */
+	EAttribute getPrimitiveType_Nillable();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.PrimitiveType#getLanguageBindings <em>Language Bindings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Language Bindings</em>'.
+	 * @see it.csi.mddtools.typedef.PrimitiveType#getLanguageBindings()
+	 * @see #getPrimitiveType()
+	 * @generated
+	 */
+	EReference getPrimitiveType_LanguageBindings();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TypeLanguageBinding <em>Type Language Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Language Binding</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding
+	 * @generated
+	 */
+	EClass getTypeLanguageBinding();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeLanguageBinding#getLang <em>Lang</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding#getLang()
+	 * @see #getTypeLanguageBinding()
+	 * @generated
+	 */
+	EAttribute getTypeLanguageBinding_Lang();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeLanguageBinding#getLangSpecificType <em>Lang Specific Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang Specific Type</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding#getLangSpecificType()
+	 * @see #getTypeLanguageBinding()
+	 * @generated
+	 */
+	EAttribute getTypeLanguageBinding_LangSpecificType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeLanguageBinding#getLangSpecificNS <em>Lang Specific NS</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lang Specific NS</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding#getLangSpecificNS()
+	 * @see #getTypeLanguageBinding()
+	 * @generated
+	 */
+	EAttribute getTypeLanguageBinding_LangSpecificNS();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeLanguageBinding#getDefaultInitValue <em>Default Init Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Init Value</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding#getDefaultInitValue()
+	 * @see #getTypeLanguageBinding()
+	 * @generated
+	 */
+	EAttribute getTypeLanguageBinding_DefaultInitValue();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TypeLanguageBinding#getNullValueLiteral <em>Null Value Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Null Value Literal</em>'.
+	 * @see it.csi.mddtools.typedef.TypeLanguageBinding#getNullValueLiteral()
+	 * @see #getTypeLanguageBinding()
+	 * @generated
+	 */
+	EAttribute getTypeLanguageBinding_NullValueLiteral();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -982,6 +1219,90 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TD_ANNOTATION_DETAIL__VALUE = eINSTANCE.getTDAnnotationDetail_Value();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.PrimitiveTypeImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getPrimitiveType()
+		 * @generated
+		 */
+		EClass PRIMITIVE_TYPE = eINSTANCE.getPrimitiveType();
+
+		/**
+		 * The meta object literal for the '<em><b>Typeset Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PRIMITIVE_TYPE__TYPESET_NAME = eINSTANCE.getPrimitiveType_TypesetName();
+
+		/**
+		 * The meta object literal for the '<em><b>Nillable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PRIMITIVE_TYPE__NILLABLE = eINSTANCE.getPrimitiveType_Nillable();
+
+		/**
+		 * The meta object literal for the '<em><b>Language Bindings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PRIMITIVE_TYPE__LANGUAGE_BINDINGS = eINSTANCE.getPrimitiveType_LanguageBindings();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl <em>Type Language Binding</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTypeLanguageBinding()
+		 * @generated
+		 */
+		EClass TYPE_LANGUAGE_BINDING = eINSTANCE.getTypeLanguageBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Lang</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_LANGUAGE_BINDING__LANG = eINSTANCE.getTypeLanguageBinding_Lang();
+
+		/**
+		 * The meta object literal for the '<em><b>Lang Specific Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_TYPE = eINSTANCE.getTypeLanguageBinding_LangSpecificType();
+
+		/**
+		 * The meta object literal for the '<em><b>Lang Specific NS</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_LANGUAGE_BINDING__LANG_SPECIFIC_NS = eINSTANCE.getTypeLanguageBinding_LangSpecificNS();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Init Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_LANGUAGE_BINDING__DEFAULT_INIT_VALUE = eINSTANCE.getTypeLanguageBinding_DefaultInitValue();
+
+		/**
+		 * The meta object literal for the '<em><b>Null Value Literal</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TYPE_LANGUAGE_BINDING__NULL_VALUE_LITERAL = eINSTANCE.getTypeLanguageBinding_NullValueLiteral();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.

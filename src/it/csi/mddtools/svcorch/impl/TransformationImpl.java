@@ -194,7 +194,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 				if (resolve) return getOutput();
 				return basicGetOutput();
 			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
-				return isInitOutSlot() ? Boolean.TRUE : Boolean.FALSE;
+				return isInitOutSlot();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -216,7 +216,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 				setOutput((DataSlot)newValue);
 				return;
 			case SvcorchPackage.TRANSFORMATION__INIT_OUT_SLOT:
-				setInitOutSlot(((Boolean)newValue).booleanValue());
+				setInitOutSlot((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

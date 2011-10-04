@@ -28,7 +28,9 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * [[ TODO - add documentation here ]]
+ * Tipo complesso costituito da 1 o più <b>feature</b> (campi).
+ * Non è prevista la possibilità di definire gerarchie.
+ * 
  * <!-- end-model-doc -->
  *
  * <p>
@@ -54,7 +56,9 @@ public interface Entity extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * Campi che costituiscono il tipo complesso. 
+	 * Ciascuna feature può essere definita con un tipo semplice, array o complesso.
+	 * 
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Features</em>' containment reference list.
 	 * @see it.csi.mddtools.typedef.TypedefPackage#getEntity_Features()
@@ -73,7 +77,10 @@ public interface Entity extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * campo opzionale che serve come marcatore di discontinuità dal punto
+	 * di vista della retrocompatibilità.
+	 * Tra due versioni differenti di uno stesso complex type la variazione
+	 * del versionuid indica una non retrocompatibilità tra i due tipi.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versionuid</em>' attribute.
 	 * @see #setVersionuid(int)

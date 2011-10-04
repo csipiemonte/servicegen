@@ -161,7 +161,7 @@ public class EntityImpl extends TypeImpl implements Entity {
 			case TypedefPackage.ENTITY__FEATURES:
 				return getFeatures();
 			case TypedefPackage.ENTITY__VERSIONUID:
-				return new Integer(getVersionuid());
+				return getVersionuid();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,7 +180,7 @@ public class EntityImpl extends TypeImpl implements Entity {
 				getFeatures().addAll((Collection<? extends Feature>)newValue);
 				return;
 			case TypedefPackage.ENTITY__VERSIONUID:
-				setVersionuid(((Integer)newValue).intValue());
+				setVersionuid((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
