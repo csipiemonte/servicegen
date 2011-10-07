@@ -417,6 +417,11 @@ public class ServiceDefItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(ServicedefPackage.Literals.SERVICE_DEF__BINDINGS,
+				 ServicedefFactory.eINSTANCE.createWSBinding()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(ServicedefPackage.Literals.SERVICE_DEF__OPERATIONS,
 				 ServicedefFactory.eINSTANCE.createOperation()));
 

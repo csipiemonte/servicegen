@@ -85,6 +85,15 @@ public interface ServicedefFactory extends EFactory {
 	WSFADBinding createWSFADBinding();
 
 	/**
+	 * Returns a new object of class '<em>WS Binding</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Binding</em>'.
+	 * @generated
+	 */
+	WSBinding createWSBinding();
+
+	/**
 	 * Returns a new object of class '<em>Operation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -68,6 +68,7 @@ public class PrimitiveTypeItemProvider
 
 			addTypesetNamePropertyDescriptor(object);
 			addNillablePropertyDescriptor(object);
+			addLanguageBindingsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +113,28 @@ public class PrimitiveTypeItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Language Bindings feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLanguageBindingsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PrimitiveType_languageBindings_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PrimitiveType_languageBindings_feature", "_UI_PrimitiveType_type"),
+				 TypedefPackage.Literals.PRIMITIVE_TYPE__LANGUAGE_BINDINGS,
+				 true,
+				 false,
+				 false,
+				 null,
 				 null,
 				 null));
 	}
@@ -188,9 +211,6 @@ public class PrimitiveTypeItemProvider
 			case TypedefPackage.PRIMITIVE_TYPE__TYPESET_NAME:
 			case TypedefPackage.PRIMITIVE_TYPE__NILLABLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case TypedefPackage.PRIMITIVE_TYPE__LANGUAGE_BINDINGS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);

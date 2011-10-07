@@ -363,6 +363,34 @@ public interface ServicedefPackage extends EPackage {
 	int WSFAD_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSBindingImpl <em>WS Binding</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.WSBindingImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSBinding()
+	 * @generated
+	 */
+	int WS_BINDING = 6;
+
+	/**
+	 * The feature id for the '<em><b>Cod Binding</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_BINDING__COD_BINDING = SERVICE_BINDING__COD_BINDING;
+
+	/**
+	 * The number of structural features of the '<em>WS Binding</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.OperationImpl <em>Operation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -370,7 +398,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOperation()
 	 * @generated
 	 */
-	int OPERATION = 6;
+	int OPERATION = 7;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -470,7 +498,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParam()
 	 * @generated
 	 */
-	int PARAM = 7;
+	int PARAM = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -525,7 +553,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTypes()
 	 * @generated
 	 */
-	int TYPES = 8;
+	int TYPES = 9;
 
 	/**
 	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
@@ -553,7 +581,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getBaseTypes()
 	 * @generated
 	 */
-	int BASE_TYPES = 9;
+	int BASE_TYPES = 10;
 
 	/**
 	 * The feature id for the '<em><b>Base Types</b></em>' containment reference list.
@@ -581,7 +609,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getRole()
 	 * @generated
 	 */
-	int ROLE = 10;
+	int ROLE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -609,7 +637,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getInputValidator()
 	 * @generated
 	 */
-	int INPUT_VALIDATOR = 11;
+	int INPUT_VALIDATOR = 12;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -637,7 +665,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamValidator()
 	 * @generated
 	 */
-	int PARAM_VALIDATOR = 12;
+	int PARAM_VALIDATOR = 13;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -665,7 +693,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueConstraint()
 	 * @generated
 	 */
-	int VALUE_CONSTRAINT = 17;
+	int VALUE_CONSTRAINT = 18;
 
 	/**
 	 * The number of structural features of the '<em>Value Constraint</em>' class.
@@ -684,7 +712,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleValueConstraint()
 	 * @generated
 	 */
-	int SIMPLE_VALUE_CONSTRAINT = 28;
+	int SIMPLE_VALUE_CONSTRAINT = 29;
 
 	/**
 	 * The number of structural features of the '<em>Simple Value Constraint</em>' class.
@@ -703,7 +731,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueRangeConstraint()
 	 * @generated
 	 */
-	int VALUE_RANGE_CONSTRAINT = 13;
+	int VALUE_RANGE_CONSTRAINT = 14;
 
 	/**
 	 * The number of structural features of the '<em>Value Range Constraint</em>' class.
@@ -722,7 +750,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getValueValorizationConstraint()
 	 * @generated
 	 */
-	int VALUE_VALORIZATION_CONSTRAINT = 14;
+	int VALUE_VALORIZATION_CONSTRAINT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Must Not Be Null</b></em>' attribute.
@@ -750,7 +778,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCustomConstraint()
 	 * @generated
 	 */
-	int CUSTOM_CONSTRAINT = 15;
+	int CUSTOM_CONSTRAINT = 16;
 
 	/**
 	 * The feature id for the '<em><b>Check Method Name</b></em>' attribute.
@@ -778,7 +806,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getRelativeConstraint()
 	 * @generated
 	 */
-	int RELATIVE_CONSTRAINT = 16;
+	int RELATIVE_CONSTRAINT = 17;
 
 	/**
 	 * The number of structural features of the '<em>Relative Constraint</em>' class.
@@ -797,7 +825,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getParamConstraint()
 	 * @generated
 	 */
-	int PARAM_CONSTRAINT = 22;
+	int PARAM_CONSTRAINT = 23;
 
 	/**
 	 * The number of structural features of the '<em>Param Constraint</em>' class.
@@ -816,7 +844,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleParamCoinstraint()
 	 * @generated
 	 */
-	int SIMPLE_PARAM_COINSTRAINT = 18;
+	int SIMPLE_PARAM_COINSTRAINT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Param</b></em>' reference.
@@ -853,7 +881,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeParamConstraint()
 	 * @generated
 	 */
-	int COMPOSITE_PARAM_CONSTRAINT = 19;
+	int COMPOSITE_PARAM_CONSTRAINT = 20;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -881,7 +909,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDParamConstraint()
 	 * @generated
 	 */
-	int AND_PARAM_CONSTRAINT = 20;
+	int AND_PARAM_CONSTRAINT = 21;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -909,7 +937,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORParamConstraint()
 	 * @generated
 	 */
-	int OR_PARAM_CONSTRAINT = 21;
+	int OR_PARAM_CONSTRAINT = 22;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -937,7 +965,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTParamConstraint()
 	 * @generated
 	 */
-	int NOT_PARAM_CONSTRAINT = 23;
+	int NOT_PARAM_CONSTRAINT = 24;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -965,7 +993,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeValueConstraint()
 	 * @generated
 	 */
-	int COMPOSITE_VALUE_CONSTRAINT = 24;
+	int COMPOSITE_VALUE_CONSTRAINT = 25;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -993,7 +1021,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDValueConstraint()
 	 * @generated
 	 */
-	int AND_VALUE_CONSTRAINT = 25;
+	int AND_VALUE_CONSTRAINT = 26;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -1021,7 +1049,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORValueConstraint()
 	 * @generated
 	 */
-	int OR_VALUE_CONSTRAINT = 26;
+	int OR_VALUE_CONSTRAINT = 27;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -1049,7 +1077,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTValueConstraint()
 	 * @generated
 	 */
-	int NOT_VALUE_CONSTRAINT = 27;
+	int NOT_VALUE_CONSTRAINT = 28;
 
 	/**
 	 * The feature id for the '<em><b>Component</b></em>' containment reference list.
@@ -1077,7 +1105,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getContinuousRangeConstraint()
 	 * @generated
 	 */
-	int CONTINUOUS_RANGE_CONSTRAINT = 29;
+	int CONTINUOUS_RANGE_CONSTRAINT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Lowerbound</b></em>' attribute.
@@ -1114,7 +1142,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getDiscreteRangeConstraint()
 	 * @generated
 	 */
-	int DISCRETE_RANGE_CONSTRAINT = 30;
+	int DISCRETE_RANGE_CONSTRAINT = 31;
 
 	/**
 	 * The feature id for the '<em><b>Literals</b></em>' attribute list.
@@ -1142,7 +1170,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getFeatureConstraint()
 	 * @generated
 	 */
-	int FEATURE_CONSTRAINT = 31;
+	int FEATURE_CONSTRAINT = 32;
 
 	/**
 	 * The number of structural features of the '<em>Feature Constraint</em>' class.
@@ -1161,7 +1189,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getCompositeFeatureConstraint()
 	 * @generated
 	 */
-	int COMPOSITE_FEATURE_CONSTRAINT = 32;
+	int COMPOSITE_FEATURE_CONSTRAINT = 33;
 
 	/**
 	 * The number of structural features of the '<em>Composite Feature Constraint</em>' class.
@@ -1180,7 +1208,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSimpleFeatureConstraint()
 	 * @generated
 	 */
-	int SIMPLE_FEATURE_CONSTRAINT = 33;
+	int SIMPLE_FEATURE_CONSTRAINT = 34;
 
 	/**
 	 * The feature id for the '<em><b>Constraint</b></em>' containment reference.
@@ -1226,7 +1254,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getANDFeatureConstraint()
 	 * @generated
 	 */
-	int AND_FEATURE_CONSTRAINT = 34;
+	int AND_FEATURE_CONSTRAINT = 35;
 
 	/**
 	 * The number of structural features of the '<em>AND Feature Constraint</em>' class.
@@ -1245,7 +1273,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getORFeatureConstraint()
 	 * @generated
 	 */
-	int OR_FEATURE_CONSTRAINT = 35;
+	int OR_FEATURE_CONSTRAINT = 36;
 
 	/**
 	 * The number of structural features of the '<em>OR Feature Constraint</em>' class.
@@ -1264,7 +1292,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getNOTFeatureConstraint()
 	 * @generated
 	 */
-	int NOT_FEATURE_CONSTRAINT = 36;
+	int NOT_FEATURE_CONSTRAINT = 37;
 
 	/**
 	 * The number of structural features of the '<em>NOT Feature Constraint</em>' class.
@@ -1283,7 +1311,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getServiceDefAnnotation()
 	 * @generated
 	 */
-	int SERVICE_DEF_ANNOTATION = 37;
+	int SERVICE_DEF_ANNOTATION = 38;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -1320,7 +1348,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSDAnnotationDetail()
 	 * @generated
 	 */
-	int SD_ANNOTATION_DETAIL = 38;
+	int SD_ANNOTATION_DETAIL = 39;
 
 	/**
 	 * The feature id for the '<em><b>Key</b></em>' attribute.
@@ -1357,7 +1385,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 39;
+	int OP_TYPE_ENUM = 40;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1367,7 +1395,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 40;
+	int TX_TYPE_ENUM = 41;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1377,7 +1405,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 41;
+	int SRV_TYPE_ENUM = 42;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1387,7 +1415,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 42;
+	int AUTH_LEVEL_ENUM = 43;
 
 
 	/**
@@ -1625,6 +1653,16 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getWSFADBinding();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSBinding <em>WS Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>WS Binding</em>'.
+	 * @see it.csi.mddtools.servicedef.WSBinding
+	 * @generated
+	 */
+	EClass getWSBinding();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Operation <em>Operation</em>}'.
@@ -2579,6 +2617,16 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EClass WSFAD_BINDING = eINSTANCE.getWSFADBinding();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSBindingImpl <em>WS Binding</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.WSBindingImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSBinding()
+		 * @generated
+		 */
+		EClass WS_BINDING = eINSTANCE.getWSBinding();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.OperationImpl <em>Operation</em>}' class.

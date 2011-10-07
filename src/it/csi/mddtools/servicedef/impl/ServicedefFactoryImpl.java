@@ -80,6 +80,7 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.EJBPA_BINDING: return createEJBPABinding();
 			case ServicedefPackage.SOAPPABR_BINDING: return createSOAPPABRBinding();
 			case ServicedefPackage.WSFAD_BINDING: return createWSFADBinding();
+			case ServicedefPackage.WS_BINDING: return createWSBinding();
 			case ServicedefPackage.OPERATION: return createOperation();
 			case ServicedefPackage.PARAM: return createParam();
 			case ServicedefPackage.TYPES: return createTypes();
@@ -200,6 +201,16 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public WSFADBinding createWSFADBinding() {
 		WSFADBindingImpl wsfadBinding = new WSFADBindingImpl();
 		return wsfadBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSBinding createWSBinding() {
+		WSBindingImpl wsBinding = new WSBindingImpl();
+		return wsBinding;
 	}
 
 	/**

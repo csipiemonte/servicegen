@@ -64,6 +64,7 @@ import it.csi.mddtools.servicedef.Types;
 import it.csi.mddtools.servicedef.ValueConstraint;
 import it.csi.mddtools.servicedef.ValueRangeConstraint;
 import it.csi.mddtools.servicedef.ValueValorizationConstraint;
+import it.csi.mddtools.servicedef.WSBinding;
 import it.csi.mddtools.servicedef.WSFADBinding;
 
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -124,6 +125,13 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * @generated
 	 */
 	private EClass wsfadBindingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wsBindingEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -644,6 +652,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 */
 	public EClass getWSFADBinding() {
 		return wsfadBindingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWSBinding() {
+		return wsBindingEClass;
 	}
 
 	/**
@@ -1341,6 +1358,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		wsfadBindingEClass = createEClass(WSFAD_BINDING);
 
+		wsBindingEClass = createEClass(WS_BINDING);
+
 		operationEClass = createEClass(OPERATION);
 		createEAttribute(operationEClass, OPERATION__NAME);
 		createEReference(operationEClass, OPERATION__PARAMS);
@@ -1482,6 +1501,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		ejbpaBindingEClass.getESuperTypes().add(this.getServiceBinding());
 		soappabrBindingEClass.getESuperTypes().add(this.getServiceBinding());
 		wsfadBindingEClass.getESuperTypes().add(this.getServiceBinding());
+		wsBindingEClass.getESuperTypes().add(this.getServiceBinding());
 		valueRangeConstraintEClass.getESuperTypes().add(this.getSimpleValueConstraint());
 		valueValorizationConstraintEClass.getESuperTypes().add(this.getSimpleValueConstraint());
 		customConstraintEClass.getESuperTypes().add(this.getSimpleValueConstraint());
@@ -1533,6 +1553,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEClass(soappabrBindingEClass, SOAPPABRBinding.class, "SOAPPABRBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wsfadBindingEClass, WSFADBinding.class, "WSFADBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(wsBindingEClass, WSBinding.class, "WSBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(operationEClass, Operation.class, "Operation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOperation_Name(), ecorePackage.getEString(), "name", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

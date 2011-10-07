@@ -140,6 +140,13 @@ public class ServicedefSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ServicedefPackage.WS_BINDING: {
+				WSBinding wsBinding = (WSBinding)theEObject;
+				T result = caseWSBinding(wsBinding);
+				if (result == null) result = caseServiceBinding(wsBinding);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ServicedefPackage.OPERATION: {
 				Operation operation = (Operation)theEObject;
 				T result = caseOperation(operation);
@@ -473,6 +480,21 @@ public class ServicedefSwitch<T> {
 	 * @generated
 	 */
 	public T caseWSFADBinding(WSFADBinding object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>WS Binding</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>WS Binding</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWSBinding(WSBinding object) {
 		return null;
 	}
 

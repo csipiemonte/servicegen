@@ -205,6 +205,29 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSBinding} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSBindingItemProvider wsBindingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSBinding}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSBindingAdapter() {
+		if (wsBindingItemProvider == null) {
+			wsBindingItemProvider = new WSBindingItemProvider(this);
+		}
+
+		return wsBindingItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.Operation} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -883,6 +906,7 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (ejbpaBindingItemProvider != null) ejbpaBindingItemProvider.dispose();
 		if (soappabrBindingItemProvider != null) soappabrBindingItemProvider.dispose();
 		if (wsfadBindingItemProvider != null) wsfadBindingItemProvider.dispose();
+		if (wsBindingItemProvider != null) wsBindingItemProvider.dispose();
 		if (operationItemProvider != null) operationItemProvider.dispose();
 		if (paramItemProvider != null) paramItemProvider.dispose();
 		if (typesItemProvider != null) typesItemProvider.dispose();

@@ -110,6 +110,10 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createWSFADBindingAdapter();
 			}
 			@Override
+			public Adapter caseWSBinding(WSBinding object) {
+				return createWSBindingAdapter();
+			}
+			@Override
 			public Adapter caseOperation(Operation object) {
 				return createOperationAdapter();
 			}
@@ -342,6 +346,20 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWSFADBindingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSBinding <em>WS Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSBinding
+	 * @generated
+	 */
+	public Adapter createWSBindingAdapter() {
 		return null;
 	}
 
