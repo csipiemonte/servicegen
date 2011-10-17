@@ -28,6 +28,17 @@ context SOABEModel ERROR "E'necessario specificare la versione del componente ne
 context SOABEModel ERROR "E' necessario scegliere la Target Platform" :
 	targetPlatform!=null;
 
+////////////////////////////////////////////////////////
+//// vincoli di elementi non validi per la cartuccia csi
+////////////////////////////////////////////////////////
+/////// Check per disabilitare gli elementi WSBinding e PrimitiveType
+context WSBinding ERROR "Il WSBinding non è ammesso per la cartuccia basata su framework C.S.I":
+	false;
+
+context PrimitiveType ERROR "Il tipo 'PrimitiveType' non è ammesso per la cartuccia basata su framework C.S.I":
+	false;
+
+
 /////////////////////////////////////
 // vincoli sulle definizioni di tipi
 /////////////////////////////////////
@@ -338,3 +349,4 @@ context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al
 
 context CheckCondition if elseNode!=null ERROR "il nodo 'else' non può essere il nodo CheckCondition stesso:"+loc() :
 	elseNode!=this;
+	
