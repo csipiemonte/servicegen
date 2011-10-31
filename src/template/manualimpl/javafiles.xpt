@@ -66,9 +66,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 import it.csi.csi.wrapper.CSIException;
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 «IF ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo -»
 import «getFullServiceEJBPkg(codServizio, model)».spring.SpringBeanLocator;
 «ENDIF»
@@ -250,9 +254,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 
 import it.csi.csi.wrapper.*;
 
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 «IF monitorable||diagEnabled»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;

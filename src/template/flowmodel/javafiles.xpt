@@ -30,9 +30,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 import it.csi.csi.wrapper.CSIException;
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 
 import java.rmi.RemoteException;
 
@@ -205,10 +209,13 @@ che conterrà il principal derivante dal SessionContext [STDAPS-82]
 package «getFullServiceEJBPkg(codServizio, model)»;
 
 import it.csi.csi.wrapper.*;
-
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 «IF monitorable||diagEnabled»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
@@ -366,10 +373,13 @@ package «getFullServiceEJBPkg(codServizio, model)»;
 import it.csi.csi.wrapper.*;
 import it.csi.svcflow.orchestrator.engine.OswMainEngine;
 import com.opensymphony.workflow.WorkflowException;
-
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 «IF monitorable||diagEnabled»
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;

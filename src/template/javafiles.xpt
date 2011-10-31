@@ -123,9 +123,12 @@ interfaccia pubblica del servizio C.S.I
 	«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" »
 package «fullQualifiedServiceInterfacePkg(model)»;
 
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-
+«ENDIF»
   «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServizio)»
   /**
    * Inserire qui la documentazione dell'interfaccia pubblica del servizio «codServizio».
@@ -266,10 +269,12 @@ interfaccia remota dell'EJB che implementa il servizio
 «DEFINE javaEJBServiceRemoteInterfaceFile (SOABEModel model) FOR servicedef::ServiceDef»
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" »
 package «getFullServiceEJBPkg(codServizio, model)»;
-
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
-
+«ENDIF»
 /**
  * Interfaccia remota dell'EJB che implementa il servizio «this.codServizio».
  * @generated
@@ -299,9 +304,12 @@ public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
 	
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceLocalInterfaceName()+".java" »
 package «getFullServiceEJBPkg(codServizio, model)»;
-
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 
 /**
  * Interfaccia locale dell'EJB che implementa il servizio «this.codServizio».
@@ -517,9 +525,13 @@ package «getFullServiceTestPkg(codServizio,model)»;
 
 import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UnrecoverableException;
+«IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
+«ENDIF»
 import «fullQualifiedServiceInterfacePkg(model)».*;
+«IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
+«ENDIF»
 import it.csi.csi.util.xml.*;
 import it.csi.csi.porte.*;
 import it.csi.csi.porte.proxy.*;
