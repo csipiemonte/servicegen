@@ -25,126 +25,149 @@ e le limitazioni secondo i termini della Licenza.
 
 «EXTENSION template::ServicegenExtensions»
 
+
+«REM»Main Method (chiamato dal workflow OAW)«ENDREM»
 «DEFINE main(boolean useExternalDaoBeans) FOR SOABEModel»
-«EXPAND main2(useExternalDaoBeans) FOR this»
+	«EXPAND main2(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
 
 «DEFINE main2(boolean useExternalDaoBeans) FOR SOABEModel»
-«EXPAND main_prodotto(useExternalDaoBeans) FOR this»
+	«EXPAND main_prodotto(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
  
 «DEFINE main_prodotto(boolean useExternalDaoBeans) FOR SOABEModel»
-«EXPAND svn_project(useExternalDaoBeans) FOR this»
+	«EXPAND svn_project(useExternalDaoBeans) FOR this»
 «ENDDEFINE»
 
 
 
-
-«DEFINE svn_project(boolean useExternalDaoBeans) FOR SOABEModel»
-«LET codComponente AS svn_project_dir»
 «REM»
-per ogni componente è necessario creare la struttura del progetto SVN:
-- build.xml
-- build.properties
-- ivy
-- ivyconf
-- ...
- 
+REAL MAIN INTERNAL METHOD
+Metodo centralizzato per la genarazione del progetto
 «ENDREM»
- «EXPAND buildfiles::buildfile FOR this»
- «EXPAND buildfiles::buildproperties  FOR this»
- «EXPAND buildfiles::buildEnvProperties FOR this»
- «EXPAND buildfiles::ivyfiles FOR this»
- «EXPAND buildfiles::aboutfiles FOR this»
- 
- «REM»
- poi è necessario configurare i componenti j2ee necessari per l'implementazione 
- della platform CSI over J2EE:
- - per tutti:
- -- application xml che contiene tutti i moduli (1 per binding in sostanza)
- - per ogni PA ejb:
- -- defpa.xml
- -- ejb-jar.xml
- -- weblogic-ejb-jar.xml 
- -- defpd-ejb.xml (da passare ai fruitori)
- - per ogni PABR
- -- web.xml
- -- tutti i file del template di applicazione (???)
- -- defpd-soap.xml (da passare ai fornitori)
- -- file di deploy bridge da inserire nell'autoinstaller servlet
- - per ogni WSFAD
- -- server-config.wsdd
- -- tutti i file del template di applicazione
- -- defpd-ejb.xml da includere nel pacchetto
- «ENDREM»
- 
- «REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
- 
- 
- «EXPAND j2eeconfigfiles::applicationfiles  FOR this»
- «LET getProvidedServices(this) AS services»
- 	«EXPAND configfiles::serviceFiles(this) FOREACH services»
- 	«EXPAND javafiles::serviceFiles (this)FOREACH services»
- 	«FOREACH services AS currsrv»
- 		«EXPAND javafiles::typedefs (this,currsrv.codServizio) FOR currsrv.types»
- 	«ENDFOREACH» 	
- «ENDLET»
- 
- «REM»il file log4j è unico per tutto il componente«ENDREM»
- «EXPAND configfiles::log4jfiles FOR this»
- «REM»se c'e' almeno un servizio cooptrace enabled creao le config di log apposite«ENDREM»
- «IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
- 	«EXPAND papdconfigfiles::cooptracefiles FOR this»
- «ENDIF»
- «REM»se c'è almeno una cartridge FlowModelImpl creo le classi base degli handler«ENDREM»
- «IF serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==FlowModelImplCartridge).size>0»
- 	«EXPAND template::flowmodel::handlerfiles::baseHandlers FOR this»
- «ENDIF»
- 
- «REM»files associati ai resource set«ENDREM»
- «FOREACH this.serviceimplementations AS currSrvImpl»
- «LET getAllResourceConnectors(currSrvImpl) AS allRC»
- «EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
- «ENDLET»
- «IF currSrvImpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(currSrvImpl.implCartridge)).useInjectedPojo -»
- «EXPAND template::configfiles::beanContextFile(this, useExternalDaoBeans) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
- «EXPAND template::manualimpl::javafiles::springStartupFiles(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
- «ENDIF-»
- «ENDFOREACH»
-«ENDLET»	
+«DEFINE svn_project(boolean useExternalDaoBeans) FOR SOABEModel»
+	«LET codComponente AS svn_project_dir»
+		«REM»
+		per ogni componente è necessario creare la struttura del progetto SVN:
+		- build.xml
+		- build.properties
+		- ivy
+		- ivyconf
+		- ... (altri files di configurazione del processo di build)
+		«ENDREM»
+		«EXPAND buildfiles::buildfile FOR this»
+		«EXPAND buildfiles::buildproperties  FOR this»
+		«EXPAND buildfiles::buildEnvProperties FOR this»
+		«EXPAND buildfiles::ivyfiles FOR this»
+		«EXPAND buildfiles::aboutfiles FOR this»
+
+		«REM»
+		poi è necessario configurare i componenti j2ee necessari per l'implementazione
+		della platform CSI over J2EE:
+		- per tutti:
+			-- application.xml che contiene tutti i moduli (1 per binding in sostanza)
+			-- weblogic-application.xml o jboss-app.xml (a seconda dell'AS utilizzato)
+		- per ogni PA ejb:
+			-- defpa.xml
+			-- ejb-jar.xml
+			-- weblogic-ejb-jar.xml o jboss.xml (a seconda dell'AS utilizzato)
+			-- defpd-ejb.xml (da passare ai fruitori)
+		- per ogni PABR
+			-- web.xml
+			-- tutti i file del template di applicazione (???)
+			-- defpd-soap.xml (da passare ai fornitori)
+			-- file di deploy bridge da inserire nell'autoinstaller servlet
+		- per ogni WSFAD
+			-- server-config.wsdd
+			-- tutti i file del template di applicazione
+			-- defpd-ejb.xml da includere nel pacchetto
+		«ENDREM»
+
+		«REM»Configurazione del registry«ENDREM»
+		«REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
+
+		«REM»File di configurazione dell'applicazione«ENDREM»
+		«EXPAND j2eeconfigfiles::applicationfiles  FOR this»
+
+		«REM»Ciclo su ciascun servizio e genero i files necessari«ENDREM»
+		«LET getProvidedServices(this) AS services»
+			«EXPAND configfiles::serviceFiles(this) FOREACH services»
+			«EXPAND javafiles::serviceFiles(this) FOREACH services»
+			«FOREACH services AS currsrv»
+				«EXPAND javafiles::typedefs(this, currsrv.codServizio) FOR currsrv.types»
+			«ENDFOREACH»
+		«ENDLET»
+
+		«REM»Il file log4j è unico per tutto il componente«ENDREM»
+		«EXPAND configfiles::log4jfiles FOR this»
+
+		«REM»Se c'e' almeno un servizio cooptrace enabled creao le config di log apposite«ENDREM»
+		«IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
+			«EXPAND papdconfigfiles::cooptracefiles FOR this»
+		«ENDIF»
+
+		«REM»se c'è almeno una cartridge FlowModelImpl creo le classi base degli handler«ENDREM»
+		«IF serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==FlowModelImplCartridge).size>0»
+			«EXPAND template::flowmodel::handlerfiles::baseHandlers FOR this»
+		«ENDIF»
+
+		«REM»files associati ai resource set«ENDREM»
+		«FOREACH this.serviceimplementations AS currSrvImpl»
+			«LET getAllResourceConnectors(currSrvImpl) AS allRC»
+				«EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
+			«ENDLET»
+			«IF currSrvImpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(currSrvImpl.implCartridge)).useInjectedPojo -»
+				«EXPAND template::configfiles::beanContextFile(this, useExternalDaoBeans) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
+				«EXPAND template::manualimpl::javafiles::springStartupFiles(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
+			«ENDIF-»
+		«ENDFOREACH»
+	«ENDLET»
 «ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+RESOURCE CONNECTOR FILES
+==========================================================================================================================
+«ENDREM»
 
 «DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR ResourceConnector»
-«ERROR "tipo di risorsa "+this.metaType+" non gestito"»
+	«ERROR "tipo di risorsa "+this.metaType+" non gestito"»
 «ENDDEFINE»
+
 
 «DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR PDPAServiceConnector»
-«EXPAND papdconnectorFiles(context, model, this.binding) FOR this»
+	«EXPAND papdconnectorFiles(context, model, this.binding) FOR this»
 «ENDDEFINE»
+
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, ServiceBinding bnd) FOR PDPAServiceConnector»
-«ERROR "service binding non gestito "+bnd»
+	«ERROR "service binding non gestito "+bnd»
 «ENDDEFINE»
+
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, EJBPABinding bnd) FOR PDPAServiceConnector»
-«LET getServiceTargetPlatform() AS paplatform»
-«LET pdEjbPluginFQN() AS pdPluginFQN»
-«LET getCustomEJBPAJndiName() AS customPAJndi»
-«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context, paplatform, pdPluginFQN, customPAJndi) FOR bnd»
-«ENDLET»
-«ENDLET»
-«ENDLET»
-«EXPAND papdconfigfiles::pdSelectorFile(context, model) FOR this»
+	«LET getServiceTargetPlatform() AS paplatform»
+		«LET pdEjbPluginFQN() AS pdPluginFQN»
+			«LET getCustomEJBPAJndiName() AS customPAJndi»
+				«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context, paplatform, pdPluginFQN, customPAJndi) FOR bnd»
+			«ENDLET»
+		«ENDLET»
+	«ENDLET»
+	«EXPAND papdconfigfiles::pdSelectorFile(context, model) FOR this»
 «ENDDEFINE»
+
 
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
-«LET getCustomSoapPAEndpoint() AS customPAEndpoint»
-«LET getCustomSoapPAUri() AS customPAUri»
-«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context, customPAEndpoint, customPAUri) FOR bnd»
-«ENDLET»
-«ENDLET»
+	«LET getCustomSoapPAEndpoint() AS customPAEndpoint»
+		«LET getCustomSoapPAUri() AS customPAUri»
+			«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context, customPAEndpoint, customPAUri) FOR bnd»
+		«ENDLET»
+	«ENDLET»
 «ENDDEFINE»
 
+
 «DEFINE resourceConnectorFiles(ServiceDef context) FOR JDBCDataSourceConnector»
-«REM»nessun file previsto«ENDREM»
+	«REM»nessun file previsto«ENDREM»
 «ENDDEFINE»

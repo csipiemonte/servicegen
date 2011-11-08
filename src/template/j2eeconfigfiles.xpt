@@ -21,6 +21,104 @@ e le limitazioni secondo i termini della Licenza.
 
 «EXTENSION template::ServicegenExtensions»
 
+
+
+«REM»
+==========================================================================================================================
+APPLICATION CONFIGURATION
+Crea il descrittore di applicazione application.xml
+Crea i descrittori specifici per l'Application Server scelto (weblogic-application.xml o jboss-app.xml)
+==========================================================================================================================
+«ENDREM»
+«DEFINE applicationfiles FOR SOABEModel»
+«FILE "conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	version="1.4" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>«codComponente»</display-name>
+
+  <!-- moduli relativi ai vari binding -->
+  «FOREACH serviceimplementations AS serviceimpl»
+  «LET serviceimpl.provides AS service»
+  	«FOREACH service.bindings.typeSelect(servicedef::EJBPABinding) AS ejbpa»
+  	<!-- ejb module relativo alla PA del servizio con codice binding=«ejbpa.codBinding». -->
+	<module>
+		<ejb>«getEJBPAJarName(service.codServizio,ejbpa.codBinding,service.serviceType.toString(), this)»</ejb>
+  	</module>
+  	«ENDFOREACH»
+  	«FOREACH service.bindings.typeSelect(servicedef::SOAPPABRBinding) AS soapbr»
+  	<!-- web module relativo al bridge SOAP della PA del servizio «service.codServizio» con codice binding=«soapbr.codBinding». --> 
+  	<module>
+    	<web>
+      		<web-uri>«getPABRWarName(service.codServizio,soapbr.codBinding,service.serviceType.toString(),this)»</web-uri>
+      		<context-root>«pabrWebContext(service.codServizio,soapbr.codBinding,service.serviceType.toString(), this)»</context-root>
+    	</web>
+  	</module>
+  	«ENDFOREACH»
+    «FOREACH service.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
+  	<!-- web module relativo al front-adapter web-services della PA con codice binding=«wsfad.codBinding». --> 
+  	<module>
+    	<web>
+      		<web-uri>«getWSFADWarName(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</web-uri>
+     		<context-root>«wsfadWebContext(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</context-root>
+    	</web>
+  	</module>
+  «ENDFOREACH»	
+  «ENDLET»
+  «IF targetPlatform.code==TargetPlatformCodes::JBoss43 && serviceimpl.implCartridge != null && serviceimpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(serviceimpl.implCartridge)).useInjectedPojo-»
+  «EXPAND springStartupJbossModule(this) FOR serviceimpl-»
+  «ENDIF-»
+  «ENDFOREACH»
+</application>
+«ENDFILE»
+
+«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«FILE "conf/ear/jboss-app.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-app>
+  <!-- forza l'ordine di startup dei moduli in modo che il sar 
+       (che e' in fondo all'elenco) salga alla fine -->
+  <module-order>strict</module-order>
+</jboss-app>
+«ENDFILE-»
+«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
+«FILE "conf/sar/"+impl.provides.codServizio.toLowerCase()+"/META-INF/jboss-service.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<server>  
+  <mbean code="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.LoadStartupService" name="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup:service=LoadStartup">
+    <attribute name="Message">Startup contesto spring</attribute>
+  </mbean>
+</server>
+«ENDFILE-»
+«ENDFOREACH-»
+«ELSE-»
+«FILE "conf/ear/META-INF/weblogic-application.xml"»<?xml version="1.0" encoding="UTF-8"?> 
+<wls:weblogic-application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wls="http://www.bea.com/ns/weblogic/90" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/j2ee_1_4.xsd http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-application.xsd"> 
+«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»  
+  <wls:listener> 
+    <wls:listener-class>«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.SpringStartupListener</wls:listener-class> 
+  </wls:listener> 
+«ENDFOREACH-»
+</wls:weblogic-application> 
+«ENDFILE»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE springStartupJbossModule(SOABEModel model) FOR ServiceImpl-»
+	<module>
+		<ejb>«provides.codServizio.toLowerCase()»-startup.sar</ejb>
+	</module>
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+PA/PD BINDING EJB MODULE CONFIGURATION
+Crea il descrittore generico ejb-jar.xml
+Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.xml o jboss.xml)
+==========================================================================================================================
+«ENDREM»
+
 «DEFINE defejbjarfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
 «REM»ejb-jar.xml«ENDREM»
 «FILE paConfigDir(serviceDef, model)+"/META-INF/ejb-jar.xml"»<?xml version="1.0" encoding="UTF-8"?>
@@ -445,85 +543,14 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 
-«DEFINE applicationfiles  FOR SOABEModel»
-«FILE "conf/ear/application.xml"»<?xml version="1.0" encoding="UTF-8"?>
-<application xmlns="http://java.sun.com/xml/ns/j2ee" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	version="1.4" 
-	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
-  <display-name>«codComponente»</display-name>
 
-  <!-- moduli relativi ai vari binding -->
-  «FOREACH serviceimplementations AS serviceimpl»
-  «LET serviceimpl.provides AS service»
-  	«FOREACH service.bindings.typeSelect(servicedef::EJBPABinding) AS ejbpa»
-  	<!-- ejb module relativo alla PA del servizio con codice binding=«ejbpa.codBinding». -->
-	<module>
-		<ejb>«getEJBPAJarName(service.codServizio,ejbpa.codBinding,service.serviceType.toString(), this)»</ejb>
-  	</module>
-  	«ENDFOREACH»
-  	«FOREACH service.bindings.typeSelect(servicedef::SOAPPABRBinding) AS soapbr»
-  	<!-- web module relativo al bridge SOAP della PA del servizio «service.codServizio» con codice binding=«soapbr.codBinding». --> 
-  	<module>
-    	<web>
-      		<web-uri>«getPABRWarName(service.codServizio,soapbr.codBinding,service.serviceType.toString(),this)»</web-uri>
-      		<context-root>«pabrWebContext(service.codServizio,soapbr.codBinding,service.serviceType.toString(), this)»</context-root>
-    	</web>
-  	</module>
-  	«ENDFOREACH»
-    «FOREACH service.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
-  	<!-- web module relativo al front-adapter web-services della PA con codice binding=«wsfad.codBinding». --> 
-  	<module>
-    	<web>
-      		<web-uri>«getWSFADWarName(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</web-uri>
-     		<context-root>«wsfadWebContext(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</context-root>
-    	</web>
-  	</module>
-  «ENDFOREACH»	
-  «ENDLET»
-  «IF targetPlatform.code==TargetPlatformCodes::JBoss43 && serviceimpl.implCartridge != null && serviceimpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(serviceimpl.implCartridge)).useInjectedPojo-»
-  «EXPAND springStartupJbossModule(this) FOR serviceimpl-»
-  «ENDIF-»
-  «ENDFOREACH»
-</application>
-«ENDFILE»
-
-«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
-«FILE "conf/ear/jboss-app.xml"»<?xml version="1.0" encoding="UTF-8"?>
-<jboss-app>
-  <!-- forza l'ordine di startup dei moduli in modo che il sar 
-       (che e' in fondo all'elenco) salga alla fine -->
-  <module-order>strict</module-order>
-</jboss-app>
-«ENDFILE-»
-«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
-«FILE "conf/sar/"+impl.provides.codServizio.toLowerCase()+"/META-INF/jboss-service.xml"»<?xml version="1.0" encoding="UTF-8"?>
-<server>  
-  <mbean code="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.LoadStartupService" name="«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup:service=LoadStartup">
-    <attribute name="Message">Startup contesto spring</attribute>
-  </mbean>
-</server>
-«ENDFILE-»
-«ENDFOREACH-»
-«ELSE-»
-«FILE "conf/ear/META-INF/weblogic-application.xml"»<?xml version="1.0" encoding="UTF-8"?> 
-<wls:weblogic-application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wls="http://www.bea.com/ns/weblogic/90" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/j2ee_1_4.xsd http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-application.xsd"> 
-«FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»  
-  <wls:listener> 
-    <wls:listener-class>«getFullServiceEJBPkg(impl.provides.codServizio, this)».spring.startup.SpringStartupListener</wls:listener-class> 
-  </wls:listener> 
-«ENDFOREACH-»
-</wls:weblogic-application> 
-«ENDFILE»
-«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE springStartupJbossModule(SOABEModel model) FOR ServiceImpl-»
-	<module>
-		<ejb>«provides.codServizio.toLowerCase()»-startup.sar</ejb>
-	</module>
-«ENDDEFINE»
-
+«REM»
+==========================================================================================================================
+SOAP PA BRIDGE
+Crea il deployment descriptor generico (web.xml) 
+Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml o jboss-web.xml) 
+==========================================================================================================================
+«ENDREM»
 «DEFINE soappabrwebxml (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
 «FILE getSpecificWarConfigRootDir("pabr", removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" 
@@ -621,14 +648,16 @@ e le limitazioni secondo i termini della Licenza.
   «ENDIF»
 </weblogic-web-app>
 «ENDFILE»
-
-
 «ENDDEFINE»
 
 
-
-
-
+«REM»
+==========================================================================================================================
+WS FRONT ADAPTER
+Crea il deployment descriptor generico (web.xml) 
+Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml o jboss-web.xml) 
+==========================================================================================================================
+«ENDREM»
 «DEFINE wsfadwebxml (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
 «FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.4" 

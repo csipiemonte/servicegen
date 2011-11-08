@@ -411,17 +411,19 @@ String map2javaSimpleType(Type type) :
 	else 
   	"???";
 
+
 String map2javaType(Type type, String codServ, SOABEModel model) :
-if (type==null) then
-	"void"
-else if (type.metaType==CSIDatatype) then
-	map2javaSimpleType(type)
-else if (type.metaType==Entity) then
-      //fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
-      map2JavaTypeSDRelative((Entity)type)
-else 
-	//map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
-	map2JavaTypeSDRelative((TypedArray)type);
+	if (type==null) then
+		"void"
+	else if (type.metaType==CSIDatatype) then
+		map2javaSimpleType(type)
+	else if (type.metaType==Entity) then
+		//fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
+		map2JavaTypeSDRelative((Entity)type)
+	else 
+		//map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
+		map2JavaTypeSDRelative((TypedArray)type);
+
 
 boolean isTypedefAnnotated(Type t) :
 	let tdann = t.annotations.select(a|a.source=="typedef").first() :
@@ -431,17 +433,17 @@ boolean isTypedefAnnotated(Type t) :
 /// mappa il tipo java contestualizzandolo nel servicedef contenitore
 /// (sfrutta codProdotto e codservizio di ServiceDef invece che quelli di SOABEModel)
 String map2JavaTypeSDRelative(Type type) :
-if (type==null) then
-	"void"
-else if (type.metaType==CSIDatatype) then
-	map2javaSimpleType(type)
-else if (type.metaType==Entity) then
-      map2JavaTypeSDRelative((Entity)type)
-else if (type.metaType==Exception) then
-      map2JavaTypeSDRelative((Exception)type) 
-else 
-	map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
-	
+	if (type==null) then
+		"void"
+	else if (type.metaType==CSIDatatype) then
+		map2javaSimpleType(type)
+	else if (type.metaType==Entity) then
+		map2JavaTypeSDRelative((Entity)type)
+	else if (type.metaType==Exception) then
+		map2JavaTypeSDRelative((Exception)type) 
+	else 
+		map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
+
 String map2JavaTypeSDRelative(Entity e) :
 	let tdann = e.annotations.select(a|a.source=="typedef").first() :
 	let javafqn = (tdann!=null? (tdann.details.selectFirst(ad|ad.key=="java-fqn").value): null) :

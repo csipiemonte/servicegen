@@ -23,44 +23,32 @@ e le limitazioni secondo i termini della Licenza.
 
 «EXTENSION template::ServicegenExtensions»
 
+
 «REM»
 Contiene i template per la definizione dei file di configurazione necessari per
 l'implementazione della Specific Platform (CSI over J2EE) 
 «ENDREM»
 
-
-«DEFINE ejbpafiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
-  «EXPAND papdconfigfiles::defpafile (model, serviceDef) FOR this»
-  «EXPAND j2eeconfigfiles::defejbjarfiles (model, serviceDef) FOR this»
-  «EXPAND papdconfigfiles::defpdejbtestfile (model, serviceDef) FOR this»
-  «IF serviceDef.monitorable || serviceDef.diagEnabled»
-  	«EXPAND papdconfigfiles::coopdiagfile(model, serviceDef) FOR this»
-  «ENDIF»
-  «LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
-	  «IF asynchOps.size>0»
-	  	«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDef»
-	  «ENDIF»
-  «ENDLET»
-«ENDDEFINE»
-
 «DEFINE serviceFiles (SOABEModel model) FOR ServiceDef»
-  
-  «FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS pa»
-    «EXPAND ejbpafiles(model, this) FOR pa»
-    
-  «ENDFOREACH»
-  
-  «FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabr»
-    «EXPAND soappabrfiles(model ,this) FOR pabr»
-  «ENDFOREACH»
-  
-  «FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
-    «EXPAND wsfadfiles(model, this) FOR wsfad»
-  «ENDFOREACH»
-  
-  «LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOps»
-  «IF asynchOps.size>0»
-  «FILE getSQLSrcDir(model)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
+  	«REM»EJB PA FILES«ENDREM»
+	«FOREACH this.bindings.typeSelect(servicedef::EJBPABinding) AS pa»
+		«EXPAND ejbpafiles(model, this) FOR pa»
+	«ENDFOREACH»
+
+	«REM»SOAP PA BRIDGE FILES«ENDREM»
+	«FOREACH this.bindings.typeSelect(servicedef::SOAPPABRBinding) AS pabr»
+		«EXPAND soappabrfiles(model ,this) FOR pabr»
+	«ENDFOREACH»
+
+	«REM»WS FRONT ADAPTER (WSFAD) FILES«ENDREM»
+	«FOREACH this.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
+		«EXPAND wsfadfiles(model, this) FOR wsfad»
+	«ENDFOREACH»
+ 
+ «REM»Crea lo script SQL di creazione tabella count per operazioni asincrone«ENDREM»
+ «LET this.operations.select(o|o.opType != OpTypeEnum::synch) AS asynchOps»
+ «IF asynchOps.size>0»
+ «FILE getSQLSrcDir(model)+"/create_counter_"+removeSeparator(this.codServizio)+".sql"»
 
 DROP TABLE «asynchCounterTableName(this)» CASCADE CONSTRAINTS ; 
 
@@ -73,24 +61,44 @@ CREATE TABLE «asynchCounterTableName(this)» (
  ); 
 
 COMMIT;
-  «ENDFILE»
-  «ENDIF»
-  «ENDLET»
+«ENDFILE»
+«ENDIF»
+«ENDLET»
+
 «ENDDEFINE»
 
 
 
+«REM»
+==========================================================================================================================
+EJB PA FILES
+Genera i files della PA EJB
+==========================================================================================================================
+«ENDREM»
 
-
-
+«DEFINE ejbpafiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::EJBPABinding»
+	«EXPAND papdconfigfiles::defpafile (model, serviceDef) FOR this»
+	«EXPAND j2eeconfigfiles::defejbjarfiles (model, serviceDef) FOR this»
+	«EXPAND papdconfigfiles::defpdejbtestfile (model, serviceDef) FOR this»
+	«IF serviceDef.monitorable || serviceDef.diagEnabled»
+		«EXPAND papdconfigfiles::coopdiagfile(model, serviceDef) FOR this»
+	«ENDIF»
+	«LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
+		«IF asynchOps.size>0»
+			«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDef»
+		«ENDIF»
+	«ENDLET»
+«ENDDEFINE»
 
 
 
 «REM»
-*************************************
-	File del bridge soap (web-app)
-*************************************
+==========================================================================================================================
+SOAP PA BRIDGE FILES
+Genera i file del bridge soap (web-app)
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE soappabrfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::SOAPPABRBinding»
 	«EXPAND j2eeconfigfiles::soappabrwebxml(model, serviceDef) FOR this»
 	«EXPAND papdconfigfiles::soappabrdeploy(model, serviceDef) FOR this»
@@ -99,12 +107,13 @@ COMMIT;
 
 
 
-
 «REM»
-******************************************
-	File per front adapter web-services
-******************************************
+==========================================================================================================================
+WS FRONT ADAPTER (WSFAD) FILES
+Genera i file per front adapter web-services (axis 1)
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE wsfadfiles (servicegen::SOABEModel model, servicedef::ServiceDef serviceDef) FOR servicedef::WSFADBinding»
 	«EXPAND j2eeconfigfiles::wsfadwebxml(model, serviceDef) FOR this»
 	«EXPAND axisstaticresources(model, serviceDef) FOR this»
@@ -1017,7 +1026,14 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 «ENDDEFINE»
 
 
-«REM»SPRING«ENDREM»
+
+«REM»
+==========================================================================================================================
+SPRING CONFIGURATION
+Genera il file per la configurazione della Dependency Injection con Spring
+==========================================================================================================================
+«ENDREM»
+
 «DEFINE beanContextFile(SOABEModel model, boolean useExternalDaoBeans) FOR ManualImplCartridge»
 «LET (ServiceImpl)eContainer AS impl-»
 «FILE paConfigDir(impl.provides, model)+"/META-INF/"+impl.provides.codServizio.toLowerCase()+"BeanContext.xml"»<?xml version="1.0" encoding="UTF-8"?>
@@ -1059,7 +1075,14 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
 «ENDDEFINE»
 
 
-«REM»frammento log4j con log e stopwatch«ENDREM»
+
+«REM»
+==========================================================================================================================
+LOGGING CONFIGURATION
+Genera il frammento log4j con log e stopwatch
+==========================================================================================================================
+«ENDREM»
+
 «DEFINE log4jfiles FOR SOABEModel»
 «FILE getDocsRootDir()+"/log4j_"+this.codComponente+".properties"»
 #-------------------------------------------------------------------
@@ -1112,9 +1135,3 @@ Istruzioni per l'utilizzo dei files contenuti in questa directory.
   JMS che serve alle librerie coop-trace per tracciare le chiamate a servizi.
 «ENDFILE»
 «ENDDEFINE»
-
-
-
-
-
-

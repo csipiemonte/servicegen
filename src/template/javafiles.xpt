@@ -23,6 +23,11 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::ServicegenExtensions»
 
 
+«REM»
+***************************************************************
+Metodo centralizzato per la generazione delle classi dei servizi
+***************************************************************
+«ENDREM»
 «DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDef»
 	«REM»file del servizio«ENDREM»
 	«EXPAND javaCsiInterfaceFile (model) FOR this»
@@ -30,97 +35,29 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
 	«EXPAND javaEJBServiceBeanFile (model, this.getServiceImpl(model))FOR this»
 	«REM»«EXPAND javavalidator::validatorFH(model) FOR this»«ENDREM»
+
+	«REM»Files della implementation cartridge«ENDREM»
 	«IF this.serviceType==SrvTypeEnum::orch»
 		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
 		«EXPAND svcflowFiles (model)FOR this»
 	«ELSE»
 		«EXPAND javaServiceDelegateClassFile (model)FOR this»
 	«ENDIF»
+
 	«REM»file per test«ENDREM»
 	«EXPAND javaServiceTestClassFile(model) FOR this»
 «ENDDEFINE»
 
-«REM»file per os workflow«ENDREM»
-«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDef»
-	«EXPAND svcflowConfigFiles(model) FOR this»
-	«FOREACH operations AS op»
-		«EXPAND svcflowDefinitionFile(this, model) FOR op»
-		«EXPAND svcflowHandlerFiles(this, model) FOR op»
-	«ENDFOREACH»
-«ENDDEFINE»
-
-«DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
-	«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
-<osworkflow>
-  <!-- corregge il bug di memory leak -->
-  <persistence class="it.csi.svcflow.orchestrator.store.StatelessWorkflowEntryStore" />
-  <factory class="com.opensymphony.workflow.loader.XMLWorkflowFactory">
-    <property key="resource" value="workflows.xml" />
-  </factory> 
-</osworkflow>
-	«ENDFILE»
-	
-	«FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"»
-<workflows>
-«FOREACH operations AS op»
-	<workflow name="«removeSeparator(codServizio)+op.name.toFirstUpper()»" type="resource" location="«svcflowDefinitionFileName(op,this.codServizio)»" />
-«ENDFOREACH»
-  
-</workflows>
-	«ENDFILE»
-	
-	«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»
-«ENDDEFINE»
-
-«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
-
-
-«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
-	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«REM»niente da fare in questo caso«ENDREM»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
-	«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
 
 
 «REM»
-***************************************
-interfaccia pubblica del servizio C.S.I
-***************************************
+==========================================================================================================================
+Interfaccia pubblica del servizio C.S.I
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE javaCsiInterfaceFile (SOABEModel model)FOR servicedef::ServiceDef»
-	«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" »
+«FILE fullServiceInterfaceDir(codServizio, model)+"/"+serviceInterfaceName()+".java" »
 package «fullQualifiedServiceInterfacePkg(model)»;
 
 «IF this.types.types.select(t|t.metaType== Entity)!=null»
@@ -261,13 +198,15 @@ public interface «serviceInterfaceName()»{
 «ENDDEFINE»
 
 
+
 «REM»
-******************************************************
-interfaccia remota dell'EJB che implementa il servizio
-******************************************************
+==========================================================================================================================
+Interfaccia remota dell'EJB che implementa il servizio
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE javaEJBServiceRemoteInterfaceFile (SOABEModel model) FOR servicedef::ServiceDef»
-	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" »
+«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceRemoteInterfaceName()+".java" »
 package «getFullServiceEJBPkg(codServizio, model)»;
 «IF this.types.types.select(t|t.metaType== Entity)!=null»
 import «fullQualifiedEntitiesPkg(codServizio, model)».*;
@@ -338,11 +277,14 @@ public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObjec
 	«ENDFILE»	
 «ENDDEFINE»
 
+
+
 «REM»
-**************************************************
-home interface dell'ejb che implementa il servizio
-**************************************************
+==========================================================================================================================
+Home interface dell'EJB che implementa il servizio
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE javaEJBServiceHomeInterfaceFile (SOABEModel model)FOR ServiceDef»
 «FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceHomeInterfaceName()+".java" »
 package «getFullServiceEJBPkg(codServizio, model)»;
@@ -380,28 +322,30 @@ public interface «serviceLocalHomeInterfaceName()» extends EJBLocalHome{
 «ENDDEFINE»
 
 
+
 «REM»
-*************************************************************
-classe dell'EJB che implementa il servizio (tramite delegate)
-*************************************************************
+==========================================================================================================================
+Classe dell'EJB che implementa il servizio (tramite delegate)
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE javaEJBServiceBeanFile (SOABEModel model, ServiceImpl serviceImpl)FOR ServiceDef»
 	«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET (ServiceComponent)(impl.serviceComponent) AS sc»
-	«LET (LogicImplCartridge)(impl.implCartridge) AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model,impl) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+		«IF impl !=null-»
+			«LET (ServiceComponent)(impl.serviceComponent) AS sc»
+				«LET (LogicImplCartridge)(impl.implCartridge) AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::javaEJBServiceBeanFile(model,impl) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::javafiles::javaEJBServiceBeanFile(model) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -459,6 +403,14 @@ classe dell'EJB che implementa il servizio (tramite delegate)
 «name»«IF addComma»,«ENDIF»
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+SERVICE DELEGATE CLASSES
+==========================================================================================================================
+«ENDREM»
+
 «REM»
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
@@ -467,23 +419,23 @@ In caso di livello di sicurezza > A0 viene aggiunto un parametro
 che conterrà il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
-«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
-«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaServiceDelegateClassFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+«DEFINE javaServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
+	«LET getServiceImpl(this,model) AS impl-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::javaServiceDelegateClassFile(model) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::javafiles::javaServiceDelegateClassFile(model) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -493,34 +445,36 @@ classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
 ***************************************************************
 «ENDREM»
-«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaOrchServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
 	«LET getServiceImpl(this,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::javafiles::javaOrchServiceDelegateClassFile(model) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
 
+
 «REM»
-***********************
-test junit del servizio
-***********************
+==========================================================================================================================
+Test junit del servizio
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE javaServiceTestClassFile (SOABEModel model)FOR ServiceDef»
-	«FILE fullServiceTestClassesDir(codServizio, model)+"/"+serviceTestClassName()+".java"»
+«FILE fullServiceTestClassesDir(codServizio, model)+"/"+serviceTestClassName()+".java"»
 package «getFullServiceTestPkg(codServizio,model)»;
 
 import it.csi.csi.wrapper.SystemException;
@@ -624,43 +578,43 @@ public class «serviceTestClassName()» extends TestCase{
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+«DEFINE operationImplementation(SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::javafiles::operationImplementation(model, codServ, implClassName, sd) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
-«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+«DEFINE operationOrchImplementation(SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::javafiles::operationOrchImplementation(model, codServ, implClassName, sd) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
@@ -676,6 +630,14 @@ public class «serviceTestClassName()» extends TestCase{
 	}
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+DATA TYPES GENERATION
+==========================================================================================================================
+«ENDREM»
+
 «DEFINE typedefs (SOABEModel model,String codServ) FOR Types»
 	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity && !e.isTypedefAnnotated())»
 	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception && !e.isTypedefAnnotated())»
@@ -683,12 +645,12 @@ public class «serviceTestClassName()» extends TestCase{
 
 
 «REM»
-**********************************************************
+***************************************************************
 classe dei dto (entity) usate nella signature del servizio
-**********************************************************
+***************************************************************
 «ENDREM»
-«DEFINE javaEntityClass (SOABEModel model,String codServ)FOR Entity»
-	«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
+«DEFINE javaEntityClass(SOABEModel model,String codServ) FOR Entity»
+«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
 package «fullQualifiedEntitiesPkg(codServ, model)»;
 
   «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
@@ -722,7 +684,7 @@ public class «name» implements java.io.Serializable {
 «ENDPROTECT»
 }
 
-	«ENDFILE»	
+«ENDFILE»	
 «ENDDEFINE»
 
 «DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR Feature»
@@ -763,12 +725,12 @@ public class «name» implements java.io.Serializable {
 
 
 «REM»
-********************************
+***************************************************************
 classe delle eccezioni custom
-********************************
+***************************************************************
 «ENDREM»
 «DEFINE javaExceptionClass (SOABEModel model,String codServ)FOR Exception»
-	«FILE fullServiceExceptionsDir(codServ, model)+"/"+name+".java"»
+«FILE fullServiceExceptionsDir(codServ, model)+"/"+name+".java"»
 package «fullQualifiedServiceExceptionPkg(codServ, model)»;
 
 import it.csi.csi.wrapper.SystemException;
@@ -832,4 +794,86 @@ public class «name» extends
 	}
 } 	
 	«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+OS WORKFLOW FILES
+==========================================================================================================================
+«ENDREM»
+
+«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDef»
+	«EXPAND svcflowConfigFiles(model) FOR this»
+	«FOREACH operations AS op»
+		«EXPAND svcflowDefinitionFile(this, model) FOR op»
+		«EXPAND svcflowHandlerFiles(this, model) FOR op»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«REM»OsWorkflow Configuration files«ENDREM»
+«DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
+«FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<osworkflow>
+  <!-- corregge il bug di memory leak -->
+  <persistence class="it.csi.svcflow.orchestrator.store.StatelessWorkflowEntryStore" />
+  <factory class="com.opensymphony.workflow.loader.XMLWorkflowFactory">
+    <property key="resource" value="workflows.xml" />
+  </factory> 
+</osworkflow>
+«ENDFILE»
+	
+«FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"»
+<workflows>
+«FOREACH operations AS op»
+	<workflow name="«removeSeparator(codServizio)+op.name.toFirstUpper()»" type="resource" location="«svcflowDefinitionFileName(op,this.codServizio)»" />
+«ENDFOREACH»
+  
+</workflows>
+«ENDFILE»
+	
+	«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»
+«ENDDEFINE»
+
+
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
+	«LET getServiceImpl(sd,model) AS impl-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
+		«ENDIF-»
+	«ENDLET-»
+«ENDDEFINE»
+
+
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
+	«LET getServiceImpl(sd,model) AS impl-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«REM»niente da fare in questo caso«ENDREM»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+sd+" non ha implementazione"»		
+		«ENDIF-»
+	«ENDLET-»
 «ENDDEFINE»
