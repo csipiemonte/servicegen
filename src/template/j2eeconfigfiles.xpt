@@ -59,7 +59,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
     «FOREACH service.bindings.typeSelect(servicedef::WSFADBinding) AS wsfad»
   	<!-- web module relativo al front-adapter web-services della PA con codice binding=«wsfad.codBinding». --> 
   	<module>
-    	<web>
+    	<web> 
       		<web-uri>«getWSFADWarName(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</web-uri>
      		<context-root>«wsfadWebContext(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</context-root>
     	</web>

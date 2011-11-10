@@ -30,7 +30,6 @@ creazione del build.xml per ANT
 «DEFINE buildfile  FOR SOABEModel»
 «FILE "build.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!--
-		Copyright 2006 (c) CSI Piemonte.
 
         build.xml file per compilazione, rilascio e deploy. del
 
@@ -674,7 +673,6 @@ AS sharedLibsPath»
 
 «FILE "buildfiles/buildAxisTestStubs.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <!--
-		Copyright 2006 (c) CSI Piemonte.
 
         build.xml file per compilazione, rilascio e deploy. del
 
