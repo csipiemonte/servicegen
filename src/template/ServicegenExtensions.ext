@@ -393,23 +393,23 @@ String map2javaSimpleType(Type type) :
 	let code = ((CSIDatatype)type).code :
 	let nillable =  ((CSIDatatype)type).nillable :
 	if (code == typedef::CSIDatatypeCodes::CSIInteger) then
-  	(nillable ? "java.lang.Integer" : "int")
+  		(nillable ? "java.lang.Integer" : "int")
 	else if (code == typedef::CSIDatatypeCodes::CSIString) then
-  	(nillable ? "java.lang.String" : "java.lang.String")
+  		(nillable ? "java.lang.String" : "java.lang.String")
 	else if (code == typedef::CSIDatatypeCodes::CSIFloat) then
-  	(nillable ? "java.lang.Float" : "float")
+  		(nillable ? "java.lang.Float" : "float")
   	else if (code == typedef::CSIDatatypeCodes::CSILong) then
-  	(nillable ? "java.lang.Long" : "long")
+  		(nillable ? "java.lang.Long" : "long")
 	else if (code == typedef::CSIDatatypeCodes::CSIDouble) then
-  	(nillable ? "java.lang.Double" : "double")
+  		(nillable ? "java.lang.Double" : "double")
 	else if (code == typedef::CSIDatatypeCodes::CSIBoolean) then
-  	(nillable ? "java.lang.Boolean" : "boolean")
+  		(nillable ? "java.lang.Boolean" : "boolean")
 	else if (code == typedef::CSIDatatypeCodes::CSIDate) then
-  	(nillable ? "java.util.Date" : "java.util.Date")
+  		(nillable ? "java.util.Date" : "java.util.Date")
 	else if (code == typedef::CSIDatatypeCodes::CSIByte) then
-  	(nillable ? "byte" : "byte")
+  		(nillable ? "byte" : "byte")
 	else 
-  	"???";
+  		"???";
 
 
 String map2javaType(Type type, String codServ, SOABEModel model) :
@@ -472,33 +472,33 @@ String map2JavaTypeSDRelative(ServiceDef sd) :
 
 String defaultInitVal(Type type) :
 	if(type==null) then
-	  "null"
-	else if(type.metaType==CSIDatatype) then
-	  defaultSimpleInitVal(type)
+		"null"
+	else if (type.metaType==CSIDatatype) then
+		defaultSimpleInitVal(type)
 	else
-	  "null";
+		"null";
 
 String defaultSimpleInitVal(Type type) :
-let code = ((CSIDatatype)type).code :
+	let code = ((CSIDatatype)type).code :
 	let nillable =  ((CSIDatatype)type).nillable :
 	if (code == typedef::CSIDatatypeCodes::CSIInteger) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == typedef::CSIDatatypeCodes::CSIString) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
 	else if (code == typedef::CSIDatatypeCodes::CSIFloat) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
   	else if (code == typedef::CSIDatatypeCodes::CSILong) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == typedef::CSIDatatypeCodes::CSIDouble) then
-  	(nillable ? "null" : "0")
+  		(nillable ? "null" : "0")
 	else if (code == typedef::CSIDatatypeCodes::CSIBoolean) then
-  	(nillable ? "null" : "true")
+  		(nillable ? "null" : "true")
 	else if (code == typedef::CSIDatatypeCodes::CSIDate) then
-  	(nillable ? "null" : "null")
+  		(nillable ? "null" : "null")
 	else if (code == typedef::CSIDatatypeCodes::CSIByte) then
-  	(nillable ? "0" : "0")
+  		(nillable ? "0" : "0")
 	else 
-  	"???";
+  		"???";
   	
 /// restituisce la service impl data una service def.
 /// serve come soluzione temporanea per la gestioen di impl-cartridge e service-component
