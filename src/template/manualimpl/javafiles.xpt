@@ -73,7 +73,7 @@ import «fullQualifiedServiceInterfacePkg(model)».*;
 «IF this.types.types.select(t|t.metaType== Exception)!=null»
 import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 «ENDIF»
-«IF ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo -»
+«IF (serviceImpl.implCartridge!=null && ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo) -»
 import «getFullServiceEJBPkg(codServizio, model)».spring.SpringBeanLocator;
 «ENDIF»
 
@@ -176,7 +176,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 		Logger logger = getLogger(null);
 	    logger.debug("[«serviceBeanClassName()»::createImpl] - START");
 		try{
-		«IF ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo -»
+		«IF (serviceImpl.implCartridge!=null && ((ManualImplCartridge)serviceImpl.implCartridge).useInjectedPojo) -»
 		delegate = («serviceImplClassName()») SpringBeanLocator.getBean("«serviceImplClassName().toFirstLower()»");
 		«ELSE-»
 		delegate = new «serviceImplClassName()»();
