@@ -1,5 +1,12 @@
 <workflow>
+	<!-- parametri:
+	- model: il percorso del modello di cui fare il report
+	- graphvizBin: il percorso della directory "bin" di graphviz (con indicatore di drive iniziale e slash finale)
+	- targetDir: la directory in cui devono essere generati i files
+	-->
 	<cartridge file="it/csi/mddtools/servicegen/workflow/setup.oaw" />
+	
+	<!--<property name="graphvizBin" value="C:/graphtools/Graphviz-2.28/bin/"/>-->
 	
 	<component class="org.eclipse.mwe.emf.Reader">
 		<useSingleGlobalResourceSet value="true"/>
@@ -8,8 +15,8 @@
 	</component>
 	
 	<cartridge file="model2dotfile.oaw"
-		targetDir="src-gen"
+		targetDir="${targetDir}"
 		topFunctionCallExpression="template::svcorch2graphviz::toGraphvizModel(model)"
-		pathToDotExe="D:/Programmi/ATT/Graphviz/bin/"
+		pathToDotExe="${graphvizBin}"
 		inheritAll="true"/>
-	</workflow>
+</workflow>
