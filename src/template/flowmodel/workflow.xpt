@@ -26,8 +26,14 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::ServicegenExtensions»
 «EXTENSION template::flowmodel::FlowModelExtensions»
 
+
+«REM»
+****************************************
+Costruisce il file di configurazione dell'orchestrazione che verra' dato in pasto a OsWorkflow
+****************************************
+«ENDREM»
 «DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
-	«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
+«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
 <!-- definizione di workflow generata a partire dal modello dell'orchestrazione -->
 <workflow>
@@ -61,21 +67,25 @@ e le limitazioni secondo i termini della Licenza.
 		<step name="Fine" id="9999"></step>
 	</steps>
 </workflow>
-	«ENDFILE»
+«ENDFILE»
 «ENDDEFINE»
+
 
 «REM»
 Inizia la creazione nel descrittore dei vari step.
-
 «ENDREM»
 «DEFINE steps(ServiceDef sd, SOABEModel model) FOR Orchestration-»
 	«EXPAND step(this, sd, model) FOREACH nodes.nodes-»
 «ENDDEFINE»
 
+
+«REM»Step non gestito: ERRORE«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR Node»
 «ERROR "tipo di nodo "+this+"non gestito"»
 «ENDDEFINE»
 
+
+«REM»StartNode«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StartNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -100,6 +110,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»StopNode«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -114,8 +126,8 @@ Inizia la creazione nel descrittore dei vari step.
 						«ENDLET-»
 						«IF orch.exceptionMappings!=null»
 						«FOREACH orch.exceptionMappings.mapping AS currExcMap-»
-						<arg name="exception.mapping.from.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«map2JavaTypeSDRelative(currExcMap.from)»</arg>
-						<arg name="exception.mapping.to.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«map2JavaTypeSDRelative(currExcMap.to)»</arg>
+						<arg name="exception.mapping.from.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.from))»</arg>
+						<arg name="exception.mapping.to.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.to))»</arg>
 						<arg name="exception.mapping.msg.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«currExcMap.msg»</arg>
 						«ENDFOREACH-»
 						«ENDIF»
@@ -131,6 +143,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»PAPDCall«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR PAPDCall»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -152,7 +166,7 @@ Inizia la creazione nel descrittore dei vari step.
 						<conditions>
 							<condition type="class">
   								<arg name="class.name">«excRaisedConditionFQN(model)»</arg>
-  								<arg name="handled.exceptions">«FOREACH currExcHnd.handledException AS currExc SEPARATOR ","»«map2JavaTypeSDRelative(currExc)»«ENDFOREACH»</arg> 
+  								<arg name="handled.exceptions">«FOREACH currExcHnd.handledException AS currExc SEPARATOR ","»«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExc))»«ENDFOREACH»</arg> 
   							</condition>
   						</conditions>
 					</result>
@@ -166,6 +180,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»WSCall«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR WSCall»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -191,6 +207,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»CheckCondition«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CheckCondition»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -220,6 +238,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»ForEach«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR ForEach»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -261,6 +281,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»CustomTransformation«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CustomTransformation»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -283,24 +305,27 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+«REM»Tranformation: configurazione degli slot di input e output«ENDREM»
 «DEFINE txSlotDecl FOR Transformation»
 						<!-- configurazione degli input slot -->
 						«IF input.size>0-»
 						«FOREACH input AS currIn-»
 						<arg name="input.slot.name.«input.indexOf(currIn)»">«getDataSlotAttrName(currIn)»</arg>
-						<arg name="input.slot.class.«input.indexOf(currIn)»">«map2JavaTypeSDRelative(currIn.type)»</arg>
+						<arg name="input.slot.class.«input.indexOf(currIn)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currIn.type))»</arg>
 						«ENDFOREACH-»
 						«ENDIF-»
 						«IF output!=null-»
 						<!-- configurazione dell'output slot -->
 						<arg name="output.slot.name">«getDataSlotAttrName(output)»</arg>
-						<arg name="output.slot.class">«map2JavaTypeSDRelative(output.type)»</arg>
+						<arg name="output.slot.class">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(output.type))»</arg>
 						«IF initOutSlot-»
 						<arg name="output.slot.init">true</arg>
 						«ENDIF-»
 						«ENDIF-»
 «ENDDEFINE»
 
+
+«REM»DeclarativeTransformation«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -323,6 +348,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»EndLoop«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
@@ -350,6 +377,8 @@ Inizia la creazione nel descrittore dei vari step.
 	</step>
 «ENDDEFINE»
 
+
+«REM»UserDefinedOpNode«ENDREM»
 «DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>

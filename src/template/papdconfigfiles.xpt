@@ -59,27 +59,33 @@ e le limitazioni secondo i termini della Licenza.
 
 «REM»file di configurazione per coop-diag«ENDREM»
 «DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«LET getServiceImpl(sd,model) AS impl-»
-	«IF impl !=null-»
-	«LET impl.serviceComponent AS sc»
-	«LET impl.implCartridge AS crt»
-	«IF crt==null || crt.metaType==ManualImplCartridge»
-		«EXPAND template::manualimpl::papdconfigfiles::coopdiagfile(model, sd) FOR this»
-	«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-		«EXPAND template::flowmodel::papdconfigfiles::coopdiagfile(model, sd) FOR this»
-	«ELSE»
-	«ERROR "tipo di cartridge non gestita per implementazione "+impl»
-	«ENDIF»
-	«ENDLET-»
-	«ENDLET-»
-	«ELSE-»
-	«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
-	«ENDIF-»
+	«LET getServiceImpl(sd,model) AS impl-»
+		«IF impl !=null-»
+			«LET impl.serviceComponent AS sc»
+				«LET impl.implCartridge AS crt»
+					«IF crt==null || crt.metaType==ManualImplCartridge»
+						«EXPAND template::manualimpl::papdconfigfiles::coopdiagfile(model, sd) FOR this»
+					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
+						«EXPAND template::flowmodel::papdconfigfiles::coopdiagfile(model, sd) FOR this»
+					«ELSE»
+						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
+					«ENDIF»
+				«ENDLET-»
+			«ENDLET-»
+		«ELSE-»
+			«ERROR "la definizione di servizio "+this+" non ha implementazione"»		
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 
+
+«REM»PD Selector«ENDREM»
 «DEFINE pdSelectorFile(ServiceDef context, SOABEModel model) FOR PDPAServiceConnector»
-«FILE getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSelectorFileName()»
+	«EXPAND pdSelectorFile(context, model, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSelectorFileName()) FOR this»
+«ENDDEFINE»
+
+«DEFINE pdSelectorFile(ServiceDef context, SOABEModel model, String fullFileName) FOR PDPAServiceConnector»
+«FILE fullFileName»
 ### Selettore del servizio «this.serviceDef.codServizio», binding «binding.codBinding»
 id.servizio=«selector.codProd»|«selector.codEnte»|«selector.codServ»|«selector.verServ»|«selector.istanza»|«selector.codBinding»
 ambiente=PROD
@@ -88,21 +94,27 @@ staging=FALSE
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Genera i files di TEST per il binding EJBPABinding«ENDREM»
 «DEFINE defpdejbtestfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
-«EXPAND defpdejbfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd), null, null, null) FOR this»
+	«EXPAND defpdejbfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdEJBDefFileName(sd), null, null, null) FOR this»
 «ENDDEFINE»
 
+«REM»Genera i files di TEST per il binding SOAPPABRBinding«ENDREM»
 «DEFINE defpdsoaptestfile(servicegen::SOABEModel model, ServiceDef sd) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd), null, null) FOR this»
+	«EXPAND defpdsoapfile(model, sd, getTestXmlFilesDir(sd.codServizio, model)+"/"+pdSOAPDefFileName(sd), null, null) FOR this»
 «ENDDEFINE»
 
+«REM»comment«ENDREM»
 «DEFINE defpdejbclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, TargetPlatformCodes paplatform, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
-«EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR this»
+	«EXPAND defpdejbfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdEJBDefFileName(sd), paplatform, pdPluginFQN, customPAJndi) FOR this»
 «ENDDEFINE»
 
+«REM»comment«ENDREM»
 «DEFINE defpdsoapclientfile(servicegen::SOABEModel model, ServiceDef sd, ServiceDef context, String customPAUrl, String customPAUri) FOR SOAPPABRBinding»
-«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd), customPAUrl, customPAUri) FOR this»
+	«EXPAND defpdsoapfile(model, sd, getSpecificEjbConfigRootDir(context.codServizio, model)+"/"+pdSOAPDefFileName(sd), customPAUrl, customPAUri) FOR this»
 «ENDDEFINE»
+
 
 «REM»crea il file di PD nella directory test/xml«ENDREM»
 «DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
@@ -159,6 +171,8 @@ staging=FALSE
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»comment«ENDREM»
 «DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBinding»
 «FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
@@ -317,7 +331,14 @@ staging=FALSE
 «ENDDEFINE»
 
 
-«REM»artefatti per deploy in servizio di naming (1 per componente prodotto)«ENDREM»
+
+«REM»
+==========================================================================================================================
+REGISTRY
+artefatti per deploy in servizio di naming (1 per componente prodotto)
+==========================================================================================================================
+«ENDREM»
+
 «DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModel»
 	«EXPAND registryDeployFile (tp) FOR this»
 	«EXPAND registryPD(this) FOREACH this.serviceimplementations»
@@ -397,8 +418,12 @@ staging=FALSE
 
 
 
-
-«REM»file di configurazione per features asincrone«ENDREM»
+«REM»
+==========================================================================================================================
+ASYNCH
+file di configurazione per features asincrone
+==========================================================================================================================
+«ENDREM»
 
 «DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDef»
 «FILE paConfigDir(model)+"/"+qmgrDefFileName(this)»<queue-manager-conf
@@ -459,15 +484,19 @@ del servizio "«codServizio»".
 «ENDDEFINE»
 
 
+
 «REM»
-	files per coop-trace:
+==========================================================================================================================
+files per coop-trace:
 	-per ogni componente:
 		-frammento di configurazione log4j.xml per server host (v.par. 5.2.1)
 		-frammento di configurazione log4j.properties per on/off log4j
 	-per ogni binding PA EJB:
 		-inserimento nelle def pd e pa dei PFH di coop-trace (viene fatto in appositi template richiamati dai template che creano 
 		 le def pd e pa  
+==========================================================================================================================
 «ENDREM»
+
 «DEFINE cooptracefiles FOR SOABEModel»
 «FILE getDocsRootDir(this)+"/log4j_"+this.codComponente+".xml"»<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
@@ -514,8 +543,3 @@ qual'è l'appender su cui deve scrivere.
 log4j.logger.«codComponente».cooptrace.util.stopwatch =ERROR, «codComponente».util.stopwatch.file
 log4j.additivity.«codComponente».cooptrace.util.stopwatch=false
 «ENDDEFINE»
-
-
-
-
-

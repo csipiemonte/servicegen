@@ -29,22 +29,22 @@ Metodo centralizzato per la generazione delle classi dei servizi
 ***************************************************************
 «ENDREM»
 «DEFINE serviceFiles(SOABEModel model)FOR servicedef::ServiceDef»
-	«REM»file del servizio«ENDREM»
+	«REM»File del servizio«ENDREM»
 	«EXPAND javaCsiInterfaceFile (model) FOR this»
-	«EXPAND javaEJBServiceRemoteInterfaceFile (model)FOR this»
-	«EXPAND javaEJBServiceHomeInterfaceFile (model)FOR this»
-	«EXPAND javaEJBServiceBeanFile (model, this.getServiceImpl(model))FOR this»
+	«EXPAND javaEJBServiceRemoteInterfaceFile(model) FOR this»
+	«EXPAND javaEJBServiceHomeInterfaceFile(model) FOR this»
+	«EXPAND javaEJBServiceBeanFile(model, this.getServiceImpl(model)) FOR this»
 	«REM»«EXPAND javavalidator::validatorFH(model) FOR this»«ENDREM»
 
 	«REM»Files della implementation cartridge«ENDREM»
 	«IF this.serviceType==SrvTypeEnum::orch»
-		«EXPAND javaOrchServiceDelegateClassFile (model)FOR this»
-		«EXPAND svcflowFiles (model)FOR this»
+		«EXPAND javaOrchServiceDelegateClassFile(model) FOR this»
+		«EXPAND svcflowFiles(model) FOR this»
 	«ELSE»
-		«EXPAND javaServiceDelegateClassFile (model)FOR this»
+		«EXPAND javaServiceDelegateClassFile(model) FOR this»
 	«ENDIF»
 
-	«REM»file per test«ENDREM»
+	«REM»File per test«ENDREM»
 	«EXPAND javaServiceTestClassFile(model) FOR this»
 «ENDDEFINE»
 
@@ -812,8 +812,16 @@ OS WORKFLOW FILES
 	«ENDFOREACH»
 «ENDDEFINE»
 
-«REM»OsWorkflow Configuration files«ENDREM»
+
+«REM»
+OsWorkflow Configuration files
+Genera i files per la configurazione di OsWorkflow, ovvero:
+   - osworkflow.xml : file di configurazione generale di OsWorkflow
+   - workflows.xml  : file di definizione dei workflow utilizzati
+«ENDREM»
 «DEFINE svcflowConfigFiles(SOABEModel model) FOR ServiceDef»
+
+«REM»OsWorkflow Configuration file«ENDREM»
 «FILE svcflowConfDirForService(this.codServizio, model)+"/osworkflow.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <osworkflow>
   <!-- corregge il bug di memory leak -->
@@ -823,7 +831,8 @@ OS WORKFLOW FILES
   </factory> 
 </osworkflow>
 «ENDFILE»
-	
+
+«REM»Workflows Configuration file: definisce tutti i workflow«ENDREM»
 «FILE svcflowConfDirForService(this.codServizio, model)+"/workflows.xml"»
 <workflows>
 «FOREACH operations AS op»
@@ -832,11 +841,13 @@ OS WORKFLOW FILES
   
 </workflows>
 «ENDFILE»
-	
-	«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»
+
+«REM»Workflow Configuration file (forse è un duplicato)«ENDREM»
+«REM»«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»«ENDREM»
 «ENDDEFINE»
 
 
+«REM»Genera il file xml di definizione di un singolo Workflow«ENDREM»
 «DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
 		«IF impl !=null-»
@@ -858,6 +869,7 @@ OS WORKFLOW FILES
 «ENDDEFINE»
 
 
+«REM»Genera gli Handler specifici di una orchestrazione«ENDREM»
 «DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
 		«IF impl !=null-»

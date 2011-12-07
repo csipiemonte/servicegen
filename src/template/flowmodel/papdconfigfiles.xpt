@@ -21,6 +21,8 @@ e le limitazioni secondo i termini della Licenza.
 
 «EXTENSION template::ServicegenExtensions»
 
+
+
 «REM»file di configurazione per coop-diag«ENDREM»
 «DEFINE coopdiagfile(servicegen::SOABEModel model, ServiceDef sd) FOR EJBPABinding»
 	«FILE getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio),model)+"/checked_resources_"+removeSeparator(sd.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="utf-8"?>

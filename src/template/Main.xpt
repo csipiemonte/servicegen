@@ -101,7 +101,7 @@ Metodo centralizzato per la genarazione del progetto
 		«REM»Il file log4j è unico per tutto il componente«ENDREM»
 		«EXPAND configfiles::log4jfiles FOR this»
 
-		«REM»Se c'e' almeno un servizio cooptrace enabled creao le config di log apposite«ENDREM»
+		«REM»Se c'e' almeno un servizio cooptrace enabled creo le config di log apposite«ENDREM»
 		«IF serviceimplementations.select(srvimpl|srvimpl.provides.traceEnabled==true).size>0»
 			«EXPAND papdconfigfiles::cooptracefiles FOR this»
 		«ENDIF»
@@ -114,7 +114,7 @@ Metodo centralizzato per la genarazione del progetto
 		«REM»files associati ai resource set«ENDREM»
 		«FOREACH this.serviceimplementations AS currSrvImpl»
 			«LET getAllResourceConnectors(currSrvImpl) AS allRC»
-				«EXPAND resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
+				«EXPAND template::resourceconnectorfiles::resourceConnectorFiles(currSrvImpl.provides, this) FOREACH allRC»
 			«ENDLET»
 			«IF currSrvImpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(currSrvImpl.implCartridge)).useInjectedPojo -»
 				«EXPAND template::configfiles::beanContextFile(this, useExternalDaoBeans) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
@@ -122,52 +122,4 @@ Metodo centralizzato per la genarazione del progetto
 			«ENDIF-»
 		«ENDFOREACH»
 	«ENDLET»
-«ENDDEFINE»
-
-
-
-«REM»
-==========================================================================================================================
-RESOURCE CONNECTOR FILES
-==========================================================================================================================
-«ENDREM»
-
-«DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR ResourceConnector»
-	«ERROR "tipo di risorsa "+this.metaType+" non gestito"»
-«ENDDEFINE»
-
-
-«DEFINE resourceConnectorFiles(ServiceDef context, SOABEModel model) FOR PDPAServiceConnector»
-	«EXPAND papdconnectorFiles(context, model, this.binding) FOR this»
-«ENDDEFINE»
-
-
-«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, ServiceBinding bnd) FOR PDPAServiceConnector»
-	«ERROR "service binding non gestito "+bnd»
-«ENDDEFINE»
-
-
-«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, EJBPABinding bnd) FOR PDPAServiceConnector»
-	«LET getServiceTargetPlatform() AS paplatform»
-		«LET pdEjbPluginFQN() AS pdPluginFQN»
-			«LET getCustomEJBPAJndiName() AS customPAJndi»
-				«EXPAND papdconfigfiles::defpdejbclientfile(model, this.serviceDef, context, paplatform, pdPluginFQN, customPAJndi) FOR bnd»
-			«ENDLET»
-		«ENDLET»
-	«ENDLET»
-	«EXPAND papdconfigfiles::pdSelectorFile(context, model) FOR this»
-«ENDDEFINE»
-
-
-«DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
-	«LET getCustomSoapPAEndpoint() AS customPAEndpoint»
-		«LET getCustomSoapPAUri() AS customPAUri»
-			«EXPAND papdconfigfiles::defpdsoapclientfile(model, this.serviceDef, context, customPAEndpoint, customPAUri) FOR bnd»
-		«ENDLET»
-	«ENDLET»
-«ENDDEFINE»
-
-
-«DEFINE resourceConnectorFiles(ServiceDef context) FOR JDBCDataSourceConnector»
-	«REM»nessun file previsto«ENDREM»
 «ENDDEFINE»

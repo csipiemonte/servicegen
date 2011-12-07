@@ -26,9 +26,17 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::ServicegenExtensions»
 «EXTENSION template::flowmodel::FlowModelExtensions»
 
+
+«REM»
+****************************************
+Main method for Workflow Base Handlers
+****************************************
+«ENDREM»
 «DEFINE baseHandlers FOR SOABEModel»
+	«REM»Classe di utilita' per la gestione dei data-slot«ENDREM»
 	«EXPAND dataSlotHelper FOR this»
  
+ 	«REM»Classi base degli Handles per i vari tipi di nodo«ENDREM»
 	«EXPAND startNodeBaseHandler FOR this»
 	«EXPAND stopNodeBaseHandler FOR this»
 	«EXPAND papdCallBaseHandler FOR this»
@@ -38,11 +46,20 @@ e le limitazioni secondo i termini della Licenza.
 	«EXPAND checkCondBaseHandler FOR this»
 	«EXPAND customTransformBaseHandler FOR this»
 	«EXPAND declTransformBaseHandler FOR this»
-	
+
+	«REM»Classi base delle Condition«ENDREM»
 	«EXPAND forEachConditionClass FOR this»
 	«EXPAND lastConditionSatisfiedClass FOR this»
 	«EXPAND exceptionRaisedConditionClass FOR this»
 «ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+UTILITA' PER LA GESTIONE DEI DATA SLOT
+==========================================================================================================================
+«ENDREM»
 
 «DEFINE dataSlotHelper FOR SOABEModel»
 «FILE dataSlotHelperFile()»package «baseHandlersPkg()»;
@@ -150,6 +167,15 @@ public static Class classForName(String clname) throws ClassNotFoundException{
 «ENDFILE»
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+CLASSI HANDLER BASE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Base Handler per il nodo START dell'orchestrazione«ENDREM»
 «DEFINE startNodeBaseHandler FOR SOABEModel»
 «FILE startNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -269,6 +295,8 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per il nodo STOP dell'orchestrazione«ENDREM»
 «DEFINE stopNodeBaseHandler FOR SOABEModel»
 «FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -486,6 +514,8 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per il nodo PAPDCall (chiamata ad un servizio CSI)«ENDREM»
 «DEFINE papdCallBaseHandler FOR SOABEModel»
 «FILE papdCallBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -599,6 +629,8 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProv
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per il nodo WSCall (chiamata ad un Web Service)«ENDREM»
 «DEFINE wsCallBaseHandler FOR SOABEModel»
 «FILE wsCallBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -667,6 +699,8 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per il nodo ForEach (nodo di impostazione di un ciclo)«ENDREM»
 «DEFINE forEachBaseHandler FOR SOABEModel»
 «FILE forEachBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -829,6 +863,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 «ENDDEFINE»
 
 
+«REM»Base Handler per il nodo EndLoop (nodo di terminazione di un ciclo)«ENDREM»
 «DEFINE endLoopBaseHandler FOR SOABEModel»
 «FILE endLoopBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -898,6 +933,7 @@ public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvi
 «ENDDEFINE»
 
 
+«REM»Base Handler per il nodo CheckCondition (verifica di una condizione)«ENDREM»
 «DEFINE checkCondBaseHandler FOR SOABEModel»
 «FILE checkCondBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -985,6 +1021,8 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per il nodo CustomTransformation (trasformazione custom di dati tra DataSlot)«ENDREM»
 «DEFINE customTransformBaseHandler FOR SOABEModel»
 «FILE customTransformBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -1152,6 +1190,8 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per la gestione di una trasformazione«ENDREM»
 «DEFINE declTransformBaseHandler FOR SOABEModel»
 «FILE declTransformBaseHandlerFile()»package «baseHandlersPkg()»;
 
@@ -1194,6 +1234,8 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTr
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»Base Handler per la verifica di una eccezione«ENDREM»
 «DEFINE exceptionRaisedConditionClass FOR SOABEModel»
 «FILE excRaisedConditionFile()»package «baseHandlersPkg()»;
 
@@ -1270,9 +1312,17 @@ public class «excRaisedConditionClassName()» implements Condition {
 	}
 }
 «ENDFILE»
-
 «ENDDEFINE»
 
+
+
+«REM»
+==========================================================================================================================
+CLASSI CONDITION BASE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Base Condition per il nodo ForEach (condizione per la continuazione del ciclo o uscita da esso))«ENDREM»
 «DEFINE forEachConditionClass FOR SOABEModel»
 «FILE forEachConditionFile()»package «baseHandlersPkg()»;
 
@@ -1358,6 +1408,7 @@ public class «forEachConditionClassName()» implements Condition{
 «ENDDEFINE»
 
 
+«REM»Base Condition per la verifica di una generica condizione«ENDREM»
 «DEFINE lastConditionSatisfiedClass FOR SOABEModel»
 «FILE lastConditionSatisfiedFile()»package «baseHandlersPkg()»;
 
@@ -1412,25 +1463,40 @@ public class «lastConditionSatisfiedClassName()» implements Condition{
 «ENDFILE»
 «ENDDEFINE»
 
-«REM»crea gli handler relativi ad una singola orchestrazione«ENDREM»
+
+
+«REM»
+==========================================================================================================================
+HANDLER SINGOLA ORCHESTRAZIONE
+Genera gli handler specifici dell'orchestrazione modellata
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea gli handler relativi ad una singola orchestrazione«ENDREM»
 «DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
-«LET findOrchestrationForOperation(sd, model) AS currentOrchModel»
-«IF currentOrchModel!=null»
-	«EXPAND svcflowHandlers(sd, model) FOR currentOrchModel»
-«ELSE»
-«ERROR "Inconsistenza: impossibile trovare l'orchestrazione relativa al servizio "+sd.codServizio+", op: "+this.name»
-«ENDIF»
-«ENDLET»
+	«LET findOrchestrationForOperation(sd, model) AS currentOrchModel»
+		«IF currentOrchModel!=null»
+			«EXPAND svcflowHandlers(sd, model) FOR currentOrchModel»
+		«ELSE»
+			«ERROR "Inconsistenza: impossibile trovare l'orchestrazione relativa al servizio "+sd.codServizio+", op: "+this.name»
+		«ENDIF»
+	«ENDLET»
 «ENDDEFINE»
 
+
+«REM»Crea gli handler dell'orchestrazione«ENDREM»
 «DEFINE svcflowHandlers(ServiceDef sd, SOABEModel model) FOR Orchestration»
 	«EXPAND svcflowHandler(this, sd, model) FOREACH this.nodes.nodes»
 «ENDDEFINE»
 
+
+«REM»Nodo generico: gestisce con un errore i casi di nodi non ancora implementati«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR Node»
-«ERROR "Tipo di nodo non gestito"»
+	«ERROR "Tipo di nodo non gestito"»
 «ENDDEFINE»
 
+
+«REM»StartNode: nodo di inizio dell'orchestrazione«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StartNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1450,6 +1516,8 @@ public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassN
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»StopNode: nodo finale dell'orchestrazione«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1469,6 +1537,8 @@ public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassNa
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»PAPDCall node: esegue una chiamata PA/PD ad un servizio CSI«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR PAPDCall»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1605,6 +1675,8 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»WSCall node: esegue una chiamata via Web Service ad un servizio - > TODO: DA IMPLEMENTARE«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR WSCall»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1649,6 +1721,8 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»CustomTransformation node: esegue una trasformazione custom tra DataSlot«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CustomTransformation»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1705,6 +1779,8 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandler
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»DeclarativeTransformation node: esegue una trasformazione«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1758,6 +1834,8 @@ public class «specificHandlerClassName()» extends «declTransformBaseHandlerCl
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»ForEach node: esegue un ciclo«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR ForEach»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1778,6 +1856,8 @@ public class «specificHandlerClassName()» extends «forEachBaseHandlerClassNam
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»EndLoop node: termina un ciclo iniziato con un ForEach node«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1806,6 +1886,8 @@ public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassNam
 «ENDFILE»
 «ENDDEFINE»
 
+
+«REM»CheckCondition node: verifica una data condizione«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CheckCondition»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
@@ -1872,6 +1954,9 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassN
 «ENDDEFINE»
 
 
+«REM»
+UserDefinedOpNode: nodo completamente custom, esegue qualunque operazione l'utente voglia
+NOTA: da usare solo in casi estremi e di REALE necessita'«ENDREM»
 «DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 

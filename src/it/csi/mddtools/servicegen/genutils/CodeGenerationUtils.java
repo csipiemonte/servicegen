@@ -6,6 +6,8 @@ import it.csi.mddtools.servicegen.ServiceImpl;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.Feature;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
@@ -19,7 +21,13 @@ import java.util.regex.Pattern;
 
 public class CodeGenerationUtils {
 
+	//////
+	public final static String SDANNOTATION_SRC_SERVICEDEF = "servicedef";
+	public final static String TDANNOTATION_SRC_TYPEDEF = "typedef";
 	
+	public final static String ANNOTATION_KEY_JAVAFQN = "java-fqn";
+
+
 	/**
 	 * 
 	 * @param sourceId
@@ -241,10 +249,52 @@ public class CodeGenerationUtils {
 			orgPrefix = optionalOrgPrefix;
 		return orgPrefix+"."+sd.getCodProdotto().toLowerCase()+"."+sd.getCodComponente().toLowerCase()+".interfacecsi."+removeSeparator(sd.getCodServizio());
 	}
-	
-	//////
-	public final static String SDANNOTATION_SRC_SERVICEDEF = "servicedef";
-	public final static String TDANNOTATION_SRC_TYPEDEF = "typedef";
-	
-	public final static String ANNOTATION_KEY_JAVAFQN = "java-fqn";
+
+
+	/**
+	 * Verifica se il tipo passato (Entity o typedArray contiene almeno
+	 * un CSIDAtaType
+	 * @param t
+	 * @return
+	 */
+	public static boolean typeContainsCSIDataType(Type t) {
+		if (t instanceof TypedArray) {
+			if (typeContainsCSIDataType(((TypedArray) t).getComponentType())) {
+				return true;
+			}
+		} else if (t instanceof Entity) {
+			for (Feature f : ((Entity)t).getFeatures()) {
+				if (typeContainsCSIDataType(f.getType())) {
+					return true;
+				}
+			}
+		} else if (t instanceof CSIDatatype) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Verifica se il tipo passato (Entity o typedArray contiene almeno
+	 * un CSIDAtaType
+	 * @param t
+	 * @return
+	 */
+	public static boolean typeContainsPrimitiveType(Type t) {
+		if (t instanceof TypedArray) {
+			if (typeContainsPrimitiveType(((TypedArray) t).getComponentType())) {
+				return true;
+			}
+		} else if (t instanceof Entity) {
+			for (Feature f : ((Entity)t).getFeatures()) {
+				if (typeContainsPrimitiveType(f.getType())) {
+					return true;
+				}
+			}
+		} else if (t instanceof PrimitiveType) {
+			return true;
+		}
+		return false;		
+	}
+
 }

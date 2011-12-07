@@ -719,12 +719,12 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 
 «REM»classi di startup per SPRING«ENDREM»
 «DEFINE springStartupFiles (SOABEModel model) FOR ManualImplCartridge»
-«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43»
-«EXPAND loadStartupServiceMBeanFiles(model) FOR this»
-«ELSE»
-«EXPAND springStartupListener(model) FOR this»
-«ENDIF»
-«EXPAND springLocatorFile(model) FOR this»
+	«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43»
+		«EXPAND loadStartupServiceMBeanFiles(model) FOR this»
+	«ELSE»
+		«EXPAND springStartupListener(model) FOR this»
+	«ENDIF»
+	«EXPAND springLocatorFile(model) FOR this»
 «ENDDEFINE»
 
 «DEFINE springLocatorFile(SOABEModel model) FOR ManualImplCartridge»

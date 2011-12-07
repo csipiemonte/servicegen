@@ -23,7 +23,7 @@ e le limitazioni secondo i termini della Licenza.
 «EXTENSION template::ServicegenExtensions»
 
 
-«DEFINE javaEJBServiceBeanFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaEJBServiceBeanFile(SOABEModel model) FOR ServiceDef»
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceBeanClassName()+".java"»
 package «getFullServiceEJBPkg(codServizio, model)»;
 

@@ -441,8 +441,12 @@ String map2JavaTypeSDRelative(Type type) :
 		map2JavaTypeSDRelative((Entity)type)
 	else if (type.metaType==Exception) then
 		map2JavaTypeSDRelative((Exception)type) 
-	else 
-		map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
+	else if (type.metaType==TypedArray) then
+		map2JavaTypeSDRelative((TypedArray)type) // [DM] aggiunto per orchestrazione
+	else if (type.metaType==PrimitiveType) then
+		map2JavaTypeSDRelative((PrimitiveType)type); // [DM] aggiunto per orchestrazione con CXF
+	//else 
+	//	map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
 
 String map2JavaTypeSDRelative(Entity e) :
 	let tdann = e.annotations.select(a|a.source=="typedef").first() :
@@ -460,6 +464,34 @@ String map2JavaTypeSDRelative(Exception e) :
 		fullQualifiedServiceExceptionsPkgSDRelative((Exception)e)+"."+e.name.toFirstUpper()  
 		
 	); 
+
+// [DM] Orchestrazione: diversificare gestione di CSIDatatype e PrimitiveType
+// Per gli array di Entity supponiamo che se un entity contiene CSIDatatype vada gestito come i TypedArray di CSIDatatype,
+// mentre se contiene PrimitiveType allora vada gestito come un TypedArray di PrimitiveType.
+String map2JavaTypeSDRelative(TypedArray e) :
+	if (e.componentType.metaType == CSIDatatype) then
+		map2JavaTypeSDRelative(e.componentType)+"[]"
+	else if (e.componentType.metaType == PrimitiveType) then
+		"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+	else if (e.componentType.metaType == Entity) then
+		( typeContainsCSIDataType((Entity)e.componentType) ?
+			map2JavaTypeSDRelative(e.componentType)+"[]" :
+			( typeContainsPrimitiveType((Entity)e.componentType) ?
+				"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">" :
+				"???"
+			)
+		);
+
+// [DM] Orchestrazione: data slot di tipo PrimitiveType
+String map2JavaTypeSDRelative(PrimitiveType e) :
+	let binding = e.languageBindings.select(a|a.lang=="java").first() :
+	let ns = (binding.langSpecificNS != null ? binding.langSpecificNS : "") :
+	ns + binding.langSpecificType;
+
+// [DM] utility per sostituire nei files XML alcuni caratteri speciali con le relative entities
+String replaceJavaTypeSpecialChars(String s) :
+	s.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+
 
 String map2JavaTypeSDRelative(ServiceDef sd) :
 	let sdann = sd.annotations.select(a|a.source=="servicedef").first() :
@@ -534,7 +566,7 @@ TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
 		TargetPlatformCodes::WLS92
 	else if (paplatfLiteral=="JBoss43") then
 		TargetPlatformCodes::JBoss43
-		else
+	else
 		null;  
 
 ///// classe del plugin ejb
@@ -610,3 +642,12 @@ String getRepartName(String fullLoc) : JAVA
    
 String getRepartVer(String fullLoc) : JAVA
    it.csi.mddtools.appresources.genutils.GenUtils.getRepartVer(java.lang.String);
+   
+// [DM]
+boolean typeContainsCSIDataType(Type t) : JAVA
+   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.typeContainsCSIDataType(it.csi.mddtools.typedef.Type);
+   
+//[DM]
+boolean typeContainsPrimitiveType(Type t) : JAVA
+   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.typeContainsPrimitiveType(it.csi.mddtools.typedef.Type);
+   

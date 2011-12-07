@@ -770,10 +770,11 @@ AS sharedLibsPath»
 «ENDFILE»
 «ENDDEFINE»
 
-
+«REM»Sostituzione delle variabili: ResourceConnector non definito«ENDREM»
 «DEFINE varSubstForRC FOR ResourceConnector»
 «ENDDEFINE»
 
+«REM»Sostituzione delle variabili: PDPAServiceConnector«ENDREM»
 «DEFINE varSubstForRC FOR PDPAServiceConnector»
 		<replace dir="${build}/temp/ejb" token="«getPAURLPlaceHolder(serviceDef)»"  value="${«getPAURLVar(serviceDef)»}"/>
 		«IF serviceDef.authLevel!=AuthLevelEnum::A0-»
@@ -781,6 +782,7 @@ AS sharedLibsPath»
 		«ENDIF-»
 «ENDDEFINE»
 
+«REM»Sostituzione delle variabili: JBoss Clustering«ENDREM»
 «DEFINE varSubstForJBossClustering FOR SOABEModel»
 	<if>
  		<equals arg1="${enableClustering}" arg2="true" />
