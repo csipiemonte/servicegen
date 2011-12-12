@@ -543,7 +543,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
     		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
     «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF» java.security.Principal principal«ENDIF»
   )
   throws
@@ -603,7 +603,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
     		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+   «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
     «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»java.security.Principal principal«ENDIF»
   )
   throws

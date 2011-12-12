@@ -151,7 +151,7 @@ public interface «serviceInterfaceName()»{
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException 
@@ -181,7 +181,7 @@ public interface «serviceInterfaceName()»{
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException,
@@ -362,7 +362,7 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch», it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
