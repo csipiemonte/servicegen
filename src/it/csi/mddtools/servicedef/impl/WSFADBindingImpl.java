@@ -42,6 +42,7 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	 */
 	protected WSFADBindingImpl() {
 		super();
+		this.setCodBinding("wsfad");
 	}
 
 	/**

@@ -38,10 +38,11 @@ public class EJBPABindingImpl extends ServiceBindingImpl implements EJBPABinding
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected EJBPABindingImpl() {
 		super();
+		this.setCodBinding("ejbpa");
 	}
 
 	/**

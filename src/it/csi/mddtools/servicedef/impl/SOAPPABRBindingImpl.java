@@ -42,6 +42,7 @@ public class SOAPPABRBindingImpl extends ServiceBindingImpl implements SOAPPABRB
 	 */
 	protected SOAPPABRBindingImpl() {
 		super();
+		this.setCodBinding("pabr");
 	}
 
 	/**
