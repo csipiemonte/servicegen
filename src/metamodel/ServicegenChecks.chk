@@ -359,4 +359,7 @@ context WSFADBinding ERROR "Il parametro CodBinding deve valere wsfad nel caso d
 	this.codBinding=="wsfad";		
 	
 context SOAPPABRBinding ERROR "Il parametro CodBinding deve valere pabr nel caso di SOAPPABRBinding: "+loc():
-	this.codBinding=="pabr";		
+	this.codBinding=="pabr";	
+	
+context ServiceBinding ERROR "Il parametro codBinding deve essere valorizzato : "+loc()	:
+	this.codBinding != null && this.codBinding.length>0;
