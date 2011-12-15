@@ -28,14 +28,21 @@ context SOABEModel ERROR "E'necessario specificare la versione del componente ne
 context SOABEModel ERROR "E' necessario scegliere la Target Platform" :
 	targetPlatform!=null;
 
+
 ////////////////////////////////////////////////////////
 //// vincoli di elementi non validi per la cartuccia csi
 ////////////////////////////////////////////////////////
-/////// Check per disabilitare gli elementi WSBinding e PrimitiveType
-context WSBinding ERROR "Il WSBinding non è ammesso per la cartuccia basata su framework C.S.I":
+
+// Disabilito il WSBinding (ammesssi )
+context WSBinding ERROR "Il WSBinding non è ammesso per la cartuccia basata su framework C.S.I" :
 	false;
 
-context PrimitiveType ERROR "Il tipo 'PrimitiveType' non è ammesso per la cartuccia basata su framework C.S.I":
+// Disabilito i PrimitiveType (ammessi solo CSIDatatype)
+context PrimitiveType ERROR "Il tipo 'PrimitiveType' non è ammesso per la cartuccia basata su framework C.S.I" :
+	false;
+
+// Disabilito il WSCall
+context WSCall ERROR "Il nodo WSCall non è al momento implementato per la cartuccia basata su framework C.S.I" :
 	false;
 
 

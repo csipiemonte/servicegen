@@ -32,13 +32,13 @@ e le limitazioni secondo i termini della Licenza.
 Main method for Workflow Base Handlers
 ****************************************
 «ENDREM»
-«DEFINE baseHandlers FOR SOABEModel»
+«DEFINE baseHandlers(String source) FOR SOABEModel»
 	«REM»Classe di utilita' per la gestione dei data-slot«ENDREM»
 	«EXPAND dataSlotHelper FOR this»
  
  	«REM»Classi base degli Handles per i vari tipi di nodo«ENDREM»
 	«EXPAND startNodeBaseHandler FOR this»
-	«EXPAND stopNodeBaseHandler FOR this»
+	«EXPAND stopNodeBaseHandler(source) FOR this»
 	«EXPAND papdCallBaseHandler FOR this»
 	«EXPAND wsCallBaseHandler FOR this»
 	«EXPAND forEachBaseHandler FOR this»
@@ -296,8 +296,11 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 «ENDDEFINE»
 
 
-«REM»Base Handler per il nodo STOP dell'orchestrazione«ENDREM»
-«DEFINE stopNodeBaseHandler FOR SOABEModel»
+«REM»
+Base Handler per il nodo STOP dell'orchestrazione
+[DM] aggiunto parametro source per identificare il tipo di cartuccia (csi o cxf) nella gestione delle eccezioni
+«ENDREM»
+«DEFINE stopNodeBaseHandler(String source) FOR SOABEModel»
 «FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.Map;
@@ -450,9 +453,9 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 				java.lang.reflect.Constructor exCtr;
 				try {
 					exCtr = trgExcCl.getConstructor(String.class, Throwable.class);
-					CSIException eToThrow;
+					«IF source=="csi"-»CSI«ENDIF-»Exception eToThrow;
 					try {
-						eToThrow = (CSIException)exCtr.newInstance(msg, e);
+						eToThrow = («IF source=="csi"-»CSI«ENDIF-»Exception)exCtr.newInstance(msg, e);
 						DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
 								ps);
 					} catch (IllegalArgumentException e1) {
@@ -490,8 +493,13 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 						e, ps);
 			}
 			else{
+				«IF source=="csi"-»
 				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
 						new it.csi.csi.wrapper.UnrecoverableException("internal error: "+e+ " not mapped"), ps);
+				«ELSEIF source=="cxf"-»
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						new javax.xml.ws.WebServiceException("internal error: "+e+ " not mapped"), ps);
+				«ENDIF-»
 			}
 		}
 		else if (_outputbindingName != null) {
@@ -1681,7 +1689,9 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1712,11 +1722,63 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName
  	 * @generated
  	 */
 	@Override
-	public void eseguiFunctionHandler(Map transientVars, Map args,
-			PropertySet ps) throws WorkflowException {
-		// TODO Auto-generated method stub
-		
+	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		try {
+			«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» port = getPort();
+			
+			/// valore degli input slot
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","binding parametri")»
+		«FOREACH this.paramBindings AS currPB-»
+		«LET currPB.slot AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+			(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»",ps);
+			
+		«ENDLET-»
+		«ENDFOREACH-»
+			
+			// binding dei parametri e richiamo del servizio 
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			«IF this.operation.returnType!=null-»
+			«map2JavaTypeSDRelative(this.operation.returnType)» result = port.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			/// inserimento risultato nello slot apposito
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","inserimento del risultato nello slot "+getDataSlotAttrName(this.outputSlot))»
+			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
+			«ELSE-»
+			// binding dei parametri e richiamo del servizio 
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			pd.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			«ENDIF-»
+		} catch (Exception e) {
+			DataSlotHelper.setLastError(e, ps);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
+			«errorLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot","e")»
+		}
 	}
+
+	/**
+ 	 * @generated
+ 	 */
+	protected «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» getPort() {
+		«debugLog(specificHandlerClassName(),"getPort","START")»
+	
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"classpath:«this.serviceConnector.serviceDef.codServizio.toLowerCase()»ClientCxf.xml"});
+        «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» client = 
+        	(«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)»)context.getBean("«toCamel(this.serviceConnector.serviceDef.codServizio).toFirstLower()»Client");
+	
+		return client;
+	}	
+	
 }
 «ENDFILE»
 «ENDDEFINE»
