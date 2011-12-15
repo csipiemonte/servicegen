@@ -38,7 +38,7 @@ public class SOAPPABRBindingImpl extends ServiceBindingImpl implements SOAPPABRB
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected SOAPPABRBindingImpl() {
 		super();

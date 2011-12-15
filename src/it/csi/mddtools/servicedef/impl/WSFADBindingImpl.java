@@ -38,7 +38,7 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected WSFADBindingImpl() {
 		super();

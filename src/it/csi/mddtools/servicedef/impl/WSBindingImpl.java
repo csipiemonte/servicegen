@@ -24,10 +24,11 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected WSBindingImpl() {
 		super();
+		this.setCodBinding("ws");
 	}
 
 	/**
