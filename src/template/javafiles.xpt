@@ -39,7 +39,7 @@ Metodo centralizzato per la generazione delle classi dei servizi
 	«REM»Files della implementation cartridge«ENDREM»
 	«IF this.serviceType==SrvTypeEnum::orch»
 		«EXPAND javaOrchServiceDelegateClassFile(model) FOR this»
-		«EXPAND svcflowFiles(model) FOR this»
+		«EXPAND svcflowFiles(model, "csi") FOR this»
 	«ELSE»
 		«EXPAND javaServiceDelegateClassFile(model) FOR this»
 	«ENDIF»
@@ -71,11 +71,11 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
    * Inserire qui la documentazione dell'interfaccia pubblica del servizio «codServizio».
    * Consigli:
    * <ul>
-   * <li> Descrivere qual'è lo scopo generale del servizio
+   * <li> Descrivere qual'&egrave; lo scopo generale del servizio
    * <li> Se necessario fornire una overview delle funzioni messe a disposizione
    *      eventualmente raggruppandole logicamente. Il dettaglio dei singoli
    *      metodi va documentato in corrispondenza dei metodi stessi
-   * <li> Se necessario descrivere gli scenari di utilizzo più frequenti, ovvero
+   * <li> Se necessario descrivere gli scenari di utilizzo pi&ugrave; frequenti, ovvero
    *      le "coreografie" (nel caso sia necessario richiamare in una sequenza
    *      particolare i metodi
    * <li> Inserire informazioni quali il livello di securizzazione A0-A3
@@ -113,15 +113,15 @@ public interface «serviceInterfaceName()»{
    * Inserire qui la documentazione del metodo «name».
    * Descrivere dettagliatamente:
    * <ul>
-   * <li>la semantica del metodo (facendo riferimento ai parametri). E'importante 
+   * <li>la semantica del metodo (facendo riferimento ai parametri). E' importante 
    *     elencare casi particolari (dati non trovati, ecc...)
-   * <li> i singoli parametri (nelle sezioni apposite sottostanti): è importante
+   * <li> i singoli parametri (nelle sezioni apposite sottostanti): &egrave; importante
    *      indicare:
    *      <ul>
-   *      <li>se il parametro è obbligatorio
+   *      <li>se il parametro &egrave; obbligatorio
    *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
-   *          dimensioni massime in caso di stringa o tipo array, eventuale necessità
-   *          di corrispondenza con una particolare codifica, che può essere prefissata
+   *          dimensioni massime in caso di stringa o tipo array, eventuale necessit&agrave;
+   *          di corrispondenza con una particolare codifica, che pu&ograve; essere prefissata
    *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
    *          di un'applicazione)
    *      </ul>
@@ -572,7 +572,7 @@ public class «serviceTestClassName()» extends TestCase{
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test"+codServizio+"OtherMethods"+codServizio)»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
+	// non verra' sovrascritto da successive rigenerazioni.
 	«ENDPROTECT»
 }
 	«ENDFILE»
@@ -625,7 +625,7 @@ public class «serviceTestClassName()» extends TestCase{
 	public void testOperation«name.toFirstUpper()»(){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("test_"+codServ+"_"+name) »
 	/// inserire qui la logica di test per l'operazione.
-	/// il codice sarà preservato per successive rigenerazioni
+	/// il codice sara' preservato per successive rigenerazioni
 	«ENDPROTECT»
 	}
 «ENDDEFINE»
@@ -658,12 +658,12 @@ package «fullQualifiedEntitiesPkg(codServ, model)»;
    * Inserire qui la documentazione della classe «name».
    * Consigli:
    * <ul>
-   * <li> Descrivere il "concetto" rappresentato dall'entita' (qual'è l'oggetto
+   * <li> Descrivere il "concetto" rappresentato dall'entita' (qual'&egrave; l'oggetto
    *      del dominio del servizio rappresentato)
-   * <li> Se necessario indicare se questo concetto è mantenuto sugli archivi di
+   * <li> Se necessario indicare se questo concetto &egrave; mantenuto sugli archivi di
    *      una particolare applicazione
    * <li> Se l'oggetto ha un particolare ciclo di vita (stati, es. creato, da approvare, 
-   *      approvato, respinto, annullato.....) si può decidere di descrivere
+   *      approvato, respinto, annullato.....) si pu&ograve; decidere di descrivere
    *      la state machine qui o nella documentazione dell'interfaccia del servizio
    *      che manipola quest'oggetto
    * </ul>
@@ -671,7 +671,7 @@ package «fullQualifiedEntitiesPkg(codServ, model)»;
    */
   «ENDPROTECT»
 public class «name» implements java.io.Serializable {
-	// il serial version UID è impostato in base a quanto configurato nel modello
+	// il serial version UID e' impostato in base a quanto configurato nel modello
 	/**
 	 * @generated
 	 */
@@ -707,8 +707,8 @@ public class «name» implements java.io.Serializable {
    	 * <ul>
 	 *      <li>se l'attributo deve essere sempre valoriuzzato o meno
 	 *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
-     *          dimensioni massime in caso di stringa o tipo array, eventuale necessità
-     *          di corrispondenza con una particolare codifica, che può essere prefissata
+     *          dimensioni massime in caso di stringa o tipo array, eventuale necessit&agrave;
+     *          di corrispondenza con una particolare codifica, che pu&ograve; essere prefissata
      *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
      *          di un'applicazione)
      *      <li>se ci sono particolari vincoli di valorizzazione relativi al valore di
@@ -759,7 +759,7 @@ public class «name» extends
 {
 
     /**
-     * il serial version UID di una eccezione csi è sempre "1" perchè le
+     * il serial version UID di una eccezione csi &egrave; sempre "1" perch&egrave; le
      * eccezioni CSI non possono contenere features aggiuntive
 	 * @generated
 	 */
@@ -804,11 +804,11 @@ OS WORKFLOW FILES
 ==========================================================================================================================
 «ENDREM»
 
-«DEFINE svcflowFiles(SOABEModel model) FOR ServiceDef»
+«DEFINE svcflowFiles(SOABEModel model, String source) FOR ServiceDef»
 	«EXPAND svcflowConfigFiles(model) FOR this»
 	«FOREACH operations AS op»
 		«EXPAND svcflowDefinitionFile(this, model) FOR op»
-		«EXPAND svcflowHandlerFiles(this, model) FOR op»
+		«EXPAND svcflowHandlerFiles(this, model, source) FOR op»
 	«ENDFOREACH»
 «ENDDEFINE»
 
@@ -870,7 +870,7 @@ Genera i files per la configurazione di OsWorkflow, ovvero:
 
 
 «REM»Genera gli Handler specifici di una orchestrazione«ENDREM»
-«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model, String source) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
 		«IF impl !=null-»
 			«LET impl.serviceComponent AS sc»
@@ -878,7 +878,7 @@ Genera i files per la configurazione di OsWorkflow, ovvero:
 					«IF crt==null || crt.metaType==ManualImplCartridge»
 						«REM»niente da fare in questo caso«ENDREM»
 					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-						«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd,model) FOR this»
+						«EXPAND template::flowmodel::handlerfiles::svcflowHandlerFiles(sd, model, source) FOR this»
 					«ELSE»
 						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 					«ENDIF»

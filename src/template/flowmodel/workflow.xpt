@@ -189,15 +189,21 @@ Inizia la creazione nel descrittore dei vari step.
 				<pre-functions>
 				    <function type="class">
 						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
-						<!--  	
-						<arg name="selectorPD">gestionecittadini.properties</arg>
-								
-						<arg name="servicePD">defpd_gestionecittadini</arg>
-					    <arg name="handleException">CittadinoNonTrovatoException</arg>
-					    -->
+						<arg name="wscall.client">«wsCallClientName(((RPCWebServiceConnector)this.serviceConnector).serviceDef)»</arg>
 					</function>
 				</pre-functions>
 				<results>
+					«FOREACH onException AS currExcHnd-»
+					<result old-status="Queued"
+						status="Finished" step="«currExcHnd.firstRecoveryNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«excRaisedConditionFQN(model)»</arg>
+  								<arg name="handled.exceptions">«FOREACH currExcHnd.handledException AS currExc SEPARATOR ","»«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExc))»«ENDFOREACH»</arg> 
+  							</condition>
+  						</conditions>
+					</result>
+					«ENDFOREACH-»
 					<unconditional-result old-status="Queued"
 						status="Finished" step="«this.next.nodeID(orch)»">
 					</unconditional-result>

@@ -318,7 +318,7 @@ import it.csi.svcflow.orchestrator.handler.*;
 /**
  * @generated
  */
-public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
+public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 
 	/**
 	 * @generated
@@ -393,32 +393,22 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
+
 		// se il parametro non e' valorizzato l'operazione viene considerata void
 		_outputbindingName = (String) args.get(OUTPUT_BINDING_PARAM);
+
 		// mapping eccezioni
 		excMap = new HashMap<Class, Class>();
 		excMapMsg = new HashMap<Class, String>();
-		
-		Iterator<String> key_it = args.keySet().iterator();
-		while (key_it.hasNext()) {
-			String currK = (String) key_it.next();
-			if (currK.startsWith(EXC_MAP_FROM_PARAM_PREFIX)){
-				String currFrom = (String)args.get(currK);
-				String index = currK.substring(currK.lastIndexOf(".")+1);
-				String currTo = (String)args.get(EXC_MAP_TO_PARAM_PREFIX+index);
-				String currMsg = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+index);
-				try{
-					Class fromClass = Class.forName(currFrom);
-					Class toClass = Class.forName(currTo);
-					excMap.put(fromClass,toClass);
-					excMapMsg.put(fromClass,currMsg);
-				}
-				catch(Exception e){
-					«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
-					throw new WorkflowException("Errore nell'inizializzazione dell'handler:"+e);
-				}
-			}
-		}
+
+		// delego alla sottoclasse il popolamento delle mappe degli errori
+		try {
+			fillErrorMaps(args, excMap, excMapMsg);
+		} catch (Exception e) {
+			«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
+			throw new WorkflowException("Errore nell'inizializzazione dell'handler:" + e);
+		}		
+
 	}
 
 	/**
@@ -430,7 +420,7 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 
 	/**
 	 * Ricopia il valore del dataSlot di output nell'attributo "result", che
-	 * sarà utilizzato nel metodo di orchestrazione come fonte del valore
+	 * sar&agrave; utilizzato nel metodo di orchestrazione come fonte del valore
 	 * di ritorno (se _outputbindingname==null => void)
 	 * @param transientVars
 	 * @param args
@@ -518,6 +508,17 @@ public class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
 	private boolean isCSIGenericException(Exception e){
 		return e.getClass().getPackage().getName().contains("it.csi.csi.wrapper");
 	}
+
+	/**
+	 * Determina la modalit&agrave; di popolamento delle mappe degli errori.
+	 * @param args mappa contenente la configurazione del workflow
+	 * @param excMap rimappa le eccezioni interne con quelle restituibili dal servizio orchestrato
+	 * @param excMapMsg rimappa i messaggi di errore
+	 * @throws Exception in caso di errore
+	 * @generated
+	 */
+	protected abstract void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception;
+
 }
 «ENDFILE»
 «ENDDEFINE»
@@ -660,7 +661,18 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
-	
+
+	/**
+	 * @generated
+	 */
+	public final static String WSCLIENT_PARAM = "wscall.client";
+
+	/**
+	 * @generated
+	 */
+	protected String wsClientName = null;
+
+
 	/**
 	 * @generated
 	 */
@@ -674,7 +686,7 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 	/**
  	 * @generated
  	 */
-    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+    public void execute(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
 		
 		this.initFunctionHandler(transientVars,args,ps);
 		
@@ -687,8 +699,19 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
  	 * @generated
  	 */	
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
-		
-		
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","START")»
+		wsClientName = (String) args.get(WSCLIENT_PARAM);
+		if (wsClientName == null || wsClientName.length() == 0) {
+			throw new WorkflowException(
+					"Errore nella inizializzazione dell'handler WSCall: "
+							+ "occorre configurare il client tramite il "
+							+ "parametro " + WSCLIENT_PARAM);
+		}		
+
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","wsClientName:\"+wsClientName+\"")»
+		// reset dello slot destinato a contenere un eventuale errore
+		DataSlotHelper.setLastError(null, ps);
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","END")»
 	}
 	
 	/**
@@ -1481,10 +1504,10 @@ Genera gli handler specifici dell'orchestrazione modellata
 «ENDREM»
 
 «REM»Crea gli handler relativi ad una singola orchestrazione«ENDREM»
-«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model) FOR Operation»
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model, String source) FOR Operation»
 	«LET findOrchestrationForOperation(sd, model) AS currentOrchModel»
 		«IF currentOrchModel!=null»
-			«EXPAND svcflowHandlers(sd, model) FOR currentOrchModel»
+			«EXPAND svcflowHandlers(sd, model, source) FOR currentOrchModel»
 		«ELSE»
 			«ERROR "Inconsistenza: impossibile trovare l'orchestrazione relativa al servizio "+sd.codServizio+", op: "+this.name»
 		«ENDIF»
@@ -1493,19 +1516,19 @@ Genera gli handler specifici dell'orchestrazione modellata
 
 
 «REM»Crea gli handler dell'orchestrazione«ENDREM»
-«DEFINE svcflowHandlers(ServiceDef sd, SOABEModel model) FOR Orchestration»
-	«EXPAND svcflowHandler(this, sd, model) FOREACH this.nodes.nodes»
+«DEFINE svcflowHandlers(ServiceDef sd, SOABEModel model, String source) FOR Orchestration»
+	«EXPAND svcflowHandler(this, sd, model, source) FOREACH this.nodes.nodes»
 «ENDDEFINE»
 
 
 «REM»Nodo generico: gestisce con un errore i casi di nodi non ancora implementati«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR Node»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR Node»
 	«ERROR "Tipo di nodo non gestito"»
 «ENDDEFINE»
 
 
 «REM»StartNode: nodo di inizio dell'orchestrazione«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StartNode»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StartNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1526,9 +1549,10 @@ public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassN
 
 
 «REM»StopNode: nodo finale dell'orchestrazione«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StopNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
+«IF source == "csi"-»import java.util.Iterator;«ENDIF»
 import java.util.Map;
 import org.apache.log4j.Logger;
 
@@ -1541,13 +1565,68 @@ import «baseHandlersPkg(model)».*;
  * @generated
  */
 public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName()»{
+
+	/**
+	 * Determina la modalit&agrave; di popolamento delle mappe degli errori.
+	 * @param args mappa contenente la configurazione del workflow
+	 * @param excMap rimappa le eccezioni interne con quelle restituibili dal servizio orchestrato
+	 * @param excMapMsg rimappa i messaggi di errore
+	 * @throws Exception in caso di errore
+	 * @generated
+	 */
+	protected void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception {
+	«IF source == "csi"-»
+		«EXPAND fillErrorMapsCsi(orch, sd, model) FOR this-»
+	«ELSEIF source == "cxf"-»
+		«EXPAND fillErrorMapsCxf(orch, sd, model) FOR this-»
+	«ENDIF»
+	}
 }
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»Fill errors map: CSI version«ENDREM»
+«DEFINE fillErrorMapsCsi(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+Iterator<String> key_it = args.keySet().iterator();
+while (key_it.hasNext()) {
+	String currK = (String) key_it.next();
+	if (currK.startsWith(EXC_MAP_FROM_PARAM_PREFIX)){
+		String currFrom = (String)args.get(currK);
+		String index = currK.substring(currK.lastIndexOf(".")+1);
+		String currTo = (String)args.get(EXC_MAP_TO_PARAM_PREFIX+index);
+		String currMsg = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+index);
+		try{
+			Class fromClass = Class.forName(currFrom);
+			Class toClass = Class.forName(currTo);
+			excMap.put(fromClass,toClass);
+			excMapMsg.put(fromClass,currMsg);
+		}
+		catch(Exception e){
+			«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
+			throw new WorkflowException("Errore nell'inizializzazione dell'handler:"+e);
+		}
+	}
+}
+«ENDDEFINE»
+
+«REM»Fill errors map: CXF version«ENDREM»
+«DEFINE fillErrorMapsCxf(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+«IF orch.exceptionMappings!=null»
+«FOREACH orch.exceptionMappings.mapping AS currExcMap-»
+Class from«orch.exceptionMappings.mapping.indexOf(currExcMap)» = «replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.from))».class;
+Class to«orch.exceptionMappings.mapping.indexOf(currExcMap)» = «replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.to))».class;
+String msg«orch.exceptionMappings.mapping.indexOf(currExcMap)» = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+"«orch.exceptionMappings.mapping.indexOf(currExcMap)»");
+excMap.put(from«orch.exceptionMappings.mapping.indexOf(currExcMap)», to«orch.exceptionMappings.mapping.indexOf(currExcMap)»);
+excMapMsg.put(from«orch.exceptionMappings.mapping.indexOf(currExcMap)», msg«orch.exceptionMappings.mapping.indexOf(currExcMap)»);
+«ENDFOREACH-»
+«ELSE»
+// NO EXCEPTION MAPPING: NOTHING TO DO
+«ENDIF»
+«ENDDEFINE»
+
 
 «REM»PAPDCall node: esegue una chiamata PA/PD ad un servizio CSI«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR PAPDCall»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR PAPDCall»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1625,8 +1704,6 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
 			«ENDIF-»
 			
-			
-			
 		} catch (Exception e) {
 			DataSlotHelper.setLastError(e, ps);
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
@@ -1685,13 +1762,12 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 
 
 «REM»WSCall node: esegue una chiamata via Web Service ad un servizio - > TODO: DA IMPLEMENTARE«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR WSCall»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR WSCall»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.opensymphony.module.propertyset.PropertySet;
 import com.opensymphony.workflow.WorkflowException;
@@ -1725,7 +1801,7 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName
 	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
 		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
 		try {
-			«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» port = getPort();
+			«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» port = getPort(ps);
 			
 			/// valore degli input slot
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","binding parametri")»
@@ -1769,12 +1845,11 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName
 	/**
  	 * @generated
  	 */
-	protected «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» getPort() {
+	protected «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» getPort(PropertySet ps) {
 		«debugLog(specificHandlerClassName(),"getPort","START")»
 	
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"classpath:«this.serviceConnector.serviceDef.codServizio.toLowerCase()»ClientCxf.xml"});
         «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» client = 
-        	(«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)»)context.getBean("«toCamel(this.serviceConnector.serviceDef.codServizio).toFirstLower()»Client");
+        	(«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)») ps.getObject(WSCLIENT_PARAM + "." + wsClientName);
 	
 		return client;
 	}	
@@ -1785,7 +1860,7 @@ public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName
 
 
 «REM»CustomTransformation node: esegue una trasformazione custom tra DataSlot«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CustomTransformation»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CustomTransformation»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1843,7 +1918,7 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandler
 
 
 «REM»DeclarativeTransformation node: esegue una trasformazione«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR DeclarativeTransformation»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1898,7 +1973,7 @@ public class «specificHandlerClassName()» extends «declTransformBaseHandlerCl
 
 
 «REM»ForEach node: esegue un ciclo«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR ForEach»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR ForEach»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1920,7 +1995,7 @@ public class «specificHandlerClassName()» extends «forEachBaseHandlerClassNam
 
 
 «REM»EndLoop node: termina un ciclo iniziato con un ForEach node«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR EndLoop»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -1950,7 +2025,7 @@ public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassNam
 
 
 «REM»CheckCondition node: verifica una data condizione«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CheckCondition»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CheckCondition»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;
@@ -2019,7 +2094,7 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassN
 «REM»
 UserDefinedOpNode: nodo completamente custom, esegue qualunque operazione l'utente voglia
 NOTA: da usare solo in casi estremi e di REALE necessita'«ENDREM»
-«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR UserDefinedOpNode»
 «FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
 
 import java.util.Map;

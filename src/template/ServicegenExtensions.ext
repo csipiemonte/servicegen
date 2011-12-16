@@ -665,3 +665,6 @@ String fullQualifiedWebServiceInterfaceName(ServiceDef sd) :
     	sdann_dtl.value	
     else
     	fullQualifiedWebServiceInterfacePkg(sd)+"."+serviceInterfaceName(sd);
+
+String wsCallClientName(ServiceDef sd) :
+	toCamel(sd.codServizio).toFirstLower()+"Client";
