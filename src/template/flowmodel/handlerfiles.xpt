@@ -1748,6 +1748,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			try {
 				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
 				tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
+				cachedPD = tempPd;
 			} catch (Exception e) {
 				throw new ConfigException("Errore nella lettura della configurazione da "+localPDRes,e);
 			}
