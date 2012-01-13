@@ -251,50 +251,5 @@ public class CodeGenerationUtils {
 	}
 
 
-	/**
-	 * Verifica se il tipo passato (Entity o typedArray contiene almeno
-	 * un CSIDAtaType
-	 * @param t
-	 * @return
-	 */
-	public static boolean typeContainsCSIDataType(Type t) {
-		if (t instanceof TypedArray) {
-			if (typeContainsCSIDataType(((TypedArray) t).getComponentType())) {
-				return true;
-			}
-		} else if (t instanceof Entity) {
-			for (Feature f : ((Entity)t).getFeatures()) {
-				if (typeContainsCSIDataType(f.getType())) {
-					return true;
-				}
-			}
-		} else if (t instanceof CSIDatatype) {
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Verifica se il tipo passato (Entity o typedArray contiene almeno
-	 * un CSIDAtaType
-	 * @param t
-	 * @return
-	 */
-	public static boolean typeContainsPrimitiveType(Type t) {
-		if (t instanceof TypedArray) {
-			if (typeContainsPrimitiveType(((TypedArray) t).getComponentType())) {
-				return true;
-			}
-		} else if (t instanceof Entity) {
-			for (Feature f : ((Entity)t).getFeatures()) {
-				if (typeContainsPrimitiveType(f.getType())) {
-					return true;
-				}
-			}
-		} else if (t instanceof PrimitiveType) {
-			return true;
-		}
-		return false;		
-	}
 
 }

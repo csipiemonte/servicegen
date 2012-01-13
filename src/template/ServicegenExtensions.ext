@@ -469,18 +469,21 @@ String map2JavaTypeSDRelative(Exception e) :
 // Per gli array di Entity supponiamo che se un entity contiene CSIDatatype vada gestito come i TypedArray di CSIDatatype,
 // mentre se contiene PrimitiveType allora vada gestito come un TypedArray di PrimitiveType.
 String map2JavaTypeSDRelative(TypedArray e) :
-	if (e.componentType.metaType == CSIDatatype) then
-		map2JavaTypeSDRelative(e.componentType)+"[]"
-	else if (e.componentType.metaType == PrimitiveType) then
-		"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
-	else if (e.componentType.metaType == Entity) then
-		( typeContainsCSIDataType((Entity)e.componentType) ?
-			map2JavaTypeSDRelative(e.componentType)+"[]" :
-			( typeContainsPrimitiveType((Entity)e.componentType) ?
-				"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">" :
-				"???"
-			)
-		);
+ if (e.componentType.metaType == CSIDatatype) then
+  map2JavaTypeSDRelative(e.componentType)+"[]"
+ else if (e.componentType.metaType == PrimitiveType) then
+  "java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+ else if (e.componentType.metaType == Entity) then
+  (isCSITypeSet((Entity)e.componentType) ? 
+   map2JavaTypeSDRelative(e.componentType)+"[]" : 
+   "java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+  );
+
+// [DM] verifica che il typeset sia CSI
+boolean isCSITypeSet(Entity t) :
+ let types = (Types)t.eContainer:
+ let sd = (ServiceDef)types.eContainer:
+ sd.bindings.typeSelect(WSBinding).size == 0;
 
 // [DM] Orchestrazione: data slot di tipo PrimitiveType
 String map2JavaTypeSDRelative(PrimitiveType e) :
@@ -642,14 +645,6 @@ String getRepartName(String fullLoc) : JAVA
    
 String getRepartVer(String fullLoc) : JAVA
    it.csi.mddtools.appresources.genutils.GenUtils.getRepartVer(java.lang.String);
-   
-// [DM]
-boolean typeContainsCSIDataType(Type t) : JAVA
-   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.typeContainsCSIDataType(it.csi.mddtools.typedef.Type);
-   
-//[DM]
-boolean typeContainsPrimitiveType(Type t) : JAVA
-   it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.typeContainsPrimitiveType(it.csi.mddtools.typedef.Type);
    
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
