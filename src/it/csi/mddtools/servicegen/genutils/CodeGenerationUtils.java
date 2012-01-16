@@ -6,8 +6,6 @@ import it.csi.mddtools.servicegen.ServiceImpl;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.Entity;
-import it.csi.mddtools.typedef.Feature;
-import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedArray;
 import it.csi.mddtools.typedef.TypedefFactory;
@@ -251,5 +249,24 @@ public class CodeGenerationUtils {
 	}
 
 
+	/**
+	 * 
+	 * @param versione
+	 * @return
+	 */
+	public static String normalizeRegistryVersionNumber(String versione) {
+		String res = null;
+		if (versione != null) {
+			String[] parts = versione.split("\\.");
+			if (parts.length == 2) {
+				// versione a 2 (x.y) -> normalizzo a 3
+				res = versione + ".0";
+			} else if (parts.length == 3) {
+				// versione a 3 (x.y.z) -> e' gia' corretta
+				res = versione;
+			}
+		}
+		return res;
+	}
 
 }

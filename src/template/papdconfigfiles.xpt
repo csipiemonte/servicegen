@@ -117,10 +117,10 @@ staging=FALSE
 
 
 «REM»crea il file di PD nella directory test/xml«ENDREM»
-«DEFINE defpdejbfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
+«DEFINE defpdejbfile(servicegen::SOABEModel model, ServiceDef sd, String fullFileName, TargetPlatformCodes paplatformcode, String pdPluginFQN, String customPAJndi) FOR EJBPABinding»
 «FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd»
+  «EXPAND pdservicedef(model) FOR sd»
   </services>
   <config>
     <url-pa>**not used**</url-pa>
@@ -173,10 +173,10 @@ staging=FALSE
 
 
 «REM»comment«ENDREM»
-«DEFINE defpdsoapfile (servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBinding»
+«DEFINE defpdsoapfile(servicegen::SOABEModel model, ServiceDef sd, String fullFileName, String customPAEndpoint, String customPAUri) FOR SOAPPABRBinding»
 «FILE fullFileName»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
   <services>
-  «EXPAND pdservicedef (model) FOR sd»
+  «EXPAND pdservicedef(model) FOR sd»
   </services>
   <config>
     <url-pa>**not used**</url-pa>
@@ -328,92 +328,6 @@ staging=FALSE
           <property name="interfacename" value="«serviceInterfaceName(sd)»" />
         </properties>
       </pluggable-fh>
-«ENDDEFINE»
-
-
-
-«REM»
-==========================================================================================================================
-REGISTRY
-artefatti per deploy in servizio di naming (1 per componente prodotto)
-==========================================================================================================================
-«ENDREM»
-
-«DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModel»
-	«EXPAND registryDeployFile (tp) FOR this»
-	«EXPAND registryPD(this) FOREACH this.serviceimplementations»
-«ENDDEFINE»
-
-«DEFINE registryDeployFile(TargetPlatform tp) FOR SOABEModel»
-«FILE getfullRegistryDDFileName(this)»<?xml version="1.0" encoding="UTF-8" ?>
-<deploy-descriptor 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
-	
-	<rilascio 
-		ambiente="${rilascio.ambiente}" 
-		cliente="${rilascio.cliente}" 
-		istanza="${rilascio.istanza}" 
-		unita-installazione="«codComponente.toLowerCase()»"
-		staging="false"
-	>
-		<prodotto codice="«codProdotto»" versione="«versioneProdotto»">
-			<descrizione>${prodotto.descrizione}</descrizione>
-		</prodotto>
-		<componente codice="«codComponente.toLowerCase()»">
-			<descrizione>${componente.descrizione}</descrizione>
-		</componente>
-	</rilascio>
-	
-	<lista-servizi>
-	    «FOREACH serviceimplementations AS servImpl»
-	    «LET servImpl.provides AS sd»
-	    	«LET sd.serviceType==SrvTypeEnum::infr ? "I" : (sd.serviceType==SrvTypeEnum::orch ? "O" : "A") AS serviceTypeStr»
-		<servizio nome="«removeSeparator(sd.codServizio)»" 
-		          versione-intf="«sd.versione»"
-		          versione-impl="«sd.versione»" 
-		          tipo-servizio="«serviceTypeStr»" 
-		          tipo-erogazione="O">
-			<versione-retrocompatibile>true</versione-retrocompatibile>
-		</servizio>
-			«ENDLET»
-		«ENDLET»
-		«ENDFOREACH»
-	</lista-servizi>	
-	
-	<lista-binding>
-	    «FOREACH serviceimplementations AS servImpl»
-	    «LET servImpl.provides AS currSD»
-	    «FOREACH currSD.bindings AS currBind»
-	    <binding servizio="«removeSeparator(currSD.codServizio)»" versione="«currSD.versione»" 
-                     protocollo="«decodeTipoInter(currBind,tp)»">
-		  <endpoint>
-		  «IF currBind.metaType!=WSFADBinding»
-		  	<csi-endpoint 
-                      pd-file="«removeSeparator(currSD.codServizio)+"/"+getRegistryPDFileName(currSD,currBind,tp, this)»">
-		    </csi-endpoint>
-		  «ELSE»
-		    <ws-endpoint>
-		    	<url>${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}/«wsfadWebContext(removeSeparator(currSD.codServizio),currBind.codBinding,currSD.serviceType.toString(), this)»</url>
-		    	<wsdl>#####TODO######</wsdl>
-		    </ws-endpoint>
-		  «ENDIF»
-                
-		  </endpoint>
-		</binding>
-		
-	    «ENDFOREACH»
-	    «ENDLET»
-	    «ENDFOREACH»
-		
-		
-	</lista-binding>
-</deploy-descriptor>
-
-«ENDFILE»
-«ENDDEFINE»
-
-«DEFINE registryPD(SOABEModel model) FOR ServiceImpl»
 «ENDDEFINE»
 
 

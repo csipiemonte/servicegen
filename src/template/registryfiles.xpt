@@ -1,0 +1,270 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT appresources»
+
+«EXTENSION template::ServicegenExtensions»
+
+
+«DEFINE registryArtifacts(TargetPlatform tp) FOR SOABEModel»
+	«REM»Registry files«ENDREM»
+	«EXPAND registryDeployFile(tp) FOR this»
+	«EXPAND registryPD(this, tp) FOREACH this.serviceimplementations»
+
+	«REM»CoopDiag files«ENDREM»
+	«IF isAtLeastOneServiceDiagEnabled(this)-»
+		«EXPAND diagPropertyFile(this, tp) FOREACH this.serviceimplementations»
+	«ENDIF»
+
+	«REM»Monit files«ENDREM»
+	«IF isAtLeastOneServiceMonitorable(this)»
+		«EXPAND monitPropertyFile(this, tp) FOREACH this.serviceimplementations»
+	«ENDIF»
+«ENDDEFINE»
+
+
+«REM»
+==========================================================================================================================
+REGISTRY
+artefatti per deploy in servizio di naming (1 per componente prodotto)
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea il deployment descriptor«ENDREM»
+«DEFINE registryDeployFile(TargetPlatform tp) FOR SOABEModel»
+«FILE getfullRegistryDDFileName(this)»<?xml version="1.0" encoding="UTF-8"?>
+<deploy-descriptor 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
+	<rilascio
+		ambiente="@rilascio.ambiente@"
+		cliente="@rilascio.cliente@"
+		istanza="@rilascio.istanza@"
+		unita-installazione="«codComponente.toLowerCase()»"
+		staging="false">
+		<prodotto codice="«codProdotto.toUpperCase()»" versione="«versioneProdotto»">
+			<descrizione>@prodotto.descrizione@</descrizione>
+		</prodotto>
+		<componente codice="«codComponente.toUpperCase()»">
+			<descrizione>@componente.descrizione@</descrizione>
+		</componente>
+	</rilascio>
+	<lista-servizi>
+	«FOREACH serviceimplementations AS servImpl-»
+	    «LET servImpl.provides AS sd-»
+		<servizio nome="«removeSeparator(sd.codServizio)»" versione-intf="«normalizeVersionNumber(sd.versione)»" versione-impl="«normalizeVersionNumber(sd.versione)»" tipo-servizio="«decodeServiceType(sd)»" tipo-erogazione="O">
+			<versione-retrocompatibile>true</versione-retrocompatibile>
+		</servizio>
+		«ENDLET-»
+	«ENDFOREACH-»
+	</lista-servizi>
+	<lista-binding>
+	    «FOREACH serviceimplementations AS servImpl-»
+	    «LET servImpl.provides AS currSD-»
+	    «FOREACH currSD.bindings AS currBind-»
+	    <binding servizio="«removeSeparator(currSD.codServizio)»" versione="«normalizeVersionNumber(currSD.versione)»" protocollo="«decodeTipoInter(currBind, tp)»">
+			<endpoint>
+			«IF currBind.metaType == EJBPABinding-»
+				<csi-endpoint pd-file="«getRegistryPDFileName(currSD, currBind, tp, this)»">
+					<override-url>«getPAURLPlaceHolder(currSD)»</override-url>
+				</csi-endpoint>
+			«ELSEIF currBind.metaType == SOAPPABRBinding-»
+				<csi-endpoint pd-file="«getRegistryPDFileName(currSD, currBind, tp, this)»">
+					<override-url>«getPAURLPlaceHolder(currSD)»/«pabrWebContext(currSD.codServizio, currBind.codBinding, currSD.serviceType.toString(), this)»/servlet/rpcrouter</override-url>
+				</csi-endpoint>
+			«ELSEIF currBind.metaType == WSFADBinding-»
+				<ws-endpoint>
+					<url>@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix@/«wsfadWebContext(removeSeparator(currSD.codServizio), currBind.codBinding, currSD.serviceType.toString(), this)»</url>
+					<wsdl>@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl@</wsdl>
+				</ws-endpoint>
+			«ENDIF-»
+			</endpoint>
+		</binding>
+	    «ENDFOREACH-»
+	    «ENDLET-»
+	    «ENDFOREACH-»
+	</lista-binding>
+</deploy-descriptor>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE registryPD(SOABEModel model, TargetPlatform tp) FOR ServiceImpl»
+	«LET this.provides AS sd»
+		«FOREACH sd.bindings AS currBind»
+			«IF currBind.metaType == EJBPABinding»
+				«EXPAND defpdejbfile(model, tp, sd) FOR (EJBPABinding)currBind»
+			«ELSEIF currBind.metaType == SOAPPABRBinding»
+				«EXPAND defpdsoapfile(model, tp, sd) FOR (SOAPPABRBinding)currBind»
+			«ENDIF»
+		«ENDFOREACH»
+	«ENDLET»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE defpdejbfile(SOABEModel model, TargetPlatform tp, ServiceDef sd) FOR EJBPABinding»
+(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model)
+«FILE getFullRegistryPDFileName(sd, this, tp, model)»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
+	<services>
+		«EXPAND pdservicedef(model) FOR sd-»
+	</services>
+	<config>
+		<url-pa>**not used**</url-pa>
+		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+			<pluggable-pd name="«removeSeparator(sd.codServizio)»"
+			              class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
+			              url-pa="«fullPAJndiName(sd)»"
+			              url-qm="«fullQMGRJndiName(sd)»">
+				<properties>
+					<property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
+					«IF (tp != null && tp==TargetPlatformCodes::WLS92) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
+					<!-- initial contxt factory per WLS92 -->
+					<property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
+					«ELSEIF (tp != null && tp==TargetPlatformCodes::JBoss43) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
+					<!-- initial context factory per JBoss43 -->
+					<property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
+					<property name="jnp.disableDiscovery" value="true" />
+					«ENDIF-»
+				</properties>
+			</pluggable-pd>
+		</pluggable-pd-list>
+		<queue-manager url=""/>
+	</config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»comment«ENDREM»
+«DEFINE defpdsoapfile(SOABEModel model, TargetPlatform tp, ServiceDef sd) FOR SOAPPABRBinding»
+«FILE getFullRegistryPDFileName(sd, this, tp, model)»<porta-delegata name="«model.codComponente».«removeSeparator(sd.codServizio)»">
+	<services>
+		«EXPAND pdservicedef(model) FOR sd-»
+	</services>
+	<config>
+		<url-pa>**not used**</url-pa>
+		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+			<pluggable-pd name="«removeSeparator(sd.codServizio)»"
+			              class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
+			              url-pa="«getPAURLPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(), model)»/servlet/rpcrouter"
+			              url-qm="">
+				<properties>
+				</properties>
+			</pluggable-pd>
+		</pluggable-pd-list>
+		<queue-manager url=""/>
+	</config>
+</porta-delegata>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»invariante per le varie pd«ENDREM»
+«DEFINE pdservicedef(SOABEModel model) FOR ServiceDef-»
+<service name="«removeSeparator(codServizio)»"
+         public-interface-class="«fullQualifiedServiceInterfaceName(this, model)»" 
+         top-version="«normalizeVersionNumber(versione)»">
+	<operations>
+		«EXPAND pdopdef(model, codServizio) FOREACH this.operations-»
+	</operations>
+</service>
+«ENDDEFINE»
+
+«DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation-»
+<operation name="«name»" type="«opTypeConst(opType)»"«IF since != null» since="«since»"«ENDIF-»>
+	<param-list>
+		«EXPAND pd_op_par(model, codServ) FOREACH this.params-»
+		«IF opType!=OpTypeEnum::synch-»
+		<param name="datiMsg" type="it.csi.csi.util.DatiMessaggio" />
+		«ENDIF-»
+	</param-list>
+	«IF returnType!=null-»
+	«LET map2JavaTypeSDRelative(returnType) AS retType-»
+	«LET retType==null?"void":retType AS retTypeOrVoid-»
+	<ret-val type="«retTypeOrVoid»" />
+	«ENDLET-»
+	«ENDLET-»
+	«ELSE-»
+	<ret-val type="void" />
+	«ENDIF-»
+</operation>
+«ENDDEFINE»
+
+«DEFINE pd_op_par(SOABEModel model, String codServ) FOR Param-»
+<param name="«name»" type="«map2JavaTypeSDRelative(this.type)»" />
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+DIAG
+==========================================================================================================================
+«ENDREM»
+
+«DEFINE diagPropertyFile(SOABEModel model, TargetPlatform tp) FOR ServiceImpl»
+«LET this.provides AS sd»
+«IF sd.diagEnabled»
+«FILE getFullDiagPropertiesFileName(sd, model)»id.servizio=«model.codProdotto.toUpperCase()»|@rilascio.cliente@|«removeSeparator(sd.codServizio)»|«normalizeVersionNumber(sd.versione)»|@rilascio.istanza@|«decodeBinding(tp)»
+ambiente=@rilascio.ambiente@
+purpose=DIAG
+staging=FALSE
+codice.prodotto.fruitore=
+versione.prodotto.fruitore=
+codice.componente.fruitore=
+codice.cliente.fruitore=
+codice.prodotto.fruitore.as=
+versione.prodotto.fruitore.as=
+codice.componente.fruitore.as=
+codice.cliente.fruitore.as=
+«ENDFILE»
+«ENDIF»
+«ENDLET»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+MONIT
+==========================================================================================================================
+«ENDREM»
+
+«DEFINE monitPropertyFile(SOABEModel model, TargetPlatform tp) FOR ServiceImpl»
+«LET this.provides AS sd»
+«IF sd.monitorable»
+«FILE getFullMonitPropertiesFileName(sd, model)»id.servizio=«model.codProdotto.toUpperCase()»|@rilascio.cliente@|«removeSeparator(sd.codServizio)»|«normalizeVersionNumber(sd.versione)»|@rilascio.istanza@|«decodeBinding(tp)»
+ambiente=@rilascio.ambiente@
+purpose=MONITOR
+staging=FALSE
+codice.prodotto.fruitore=
+versione.prodotto.fruitore=
+codice.componente.fruitore=
+codice.cliente.fruitore=
+codice.prodotto.fruitore.as=
+versione.prodotto.fruitore.as=
+codice.componente.fruitore.as=
+codice.cliente.fruitore.as=
+«ENDFILE»
+«ENDIF»
+«ENDLET»
+«ENDDEFINE»

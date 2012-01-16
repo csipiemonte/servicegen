@@ -226,7 +226,8 @@ String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
 
 String fullServiceTestClassesDir(String codServ, SOABEModel model) :
     getTestJavaDir(model)+"/test"+"/"+removeSeparator(codServ);
-        
+
+
 // da par. 3.7 linee guida gestione oggetti SOA        
 String fullCSIRegistryConfigDir(SOABEModel model) :
 	getConfigRootDir(model)+"/registry";
@@ -235,22 +236,59 @@ String fullCSIRegistryConfigDir(SOABEModel model) :
 String getfullRegistryDDFileName(SOABEModel model) :
     fullCSIRegistryConfigDir(model)+"/deploy-descriptor.xml";
     
-String getFullRegistryServiceDir(ServiceDef sd, SOABEModel model) :
-	fullCSIRegistryConfigDir(model)+"/"+removeSeparator(sd.codServizio);
+String getFullRegistryPDServiceDir(SOABEModel model) :
+	fullCSIRegistryConfigDir(model)+"/pd";
 
 String getRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
 	"defpd_"+removeSeparator(sd.codServizio)+"_"+decodeTipoInter(bind, tp)+".xml";
-	
+
 String getFullRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
-    fullCSIRegistryConfigDir(model)+"/"+getRegistryPDFileName(sd,bind,tp, model);
-    
+    getFullRegistryPDServiceDir(model)+"/"+getRegistryPDFileName(sd, bind, tp, model);
+
 String decodeTipoInter(ServiceBinding sd, TargetPlatform tp) :
 	(sd.metaType==EJBPABinding ? 
       (tp.code==TargetPlatformCodes::WLS92 ? "CSI-java-t3" : "CSI-java-jnp")
     : 
       ( sd.metaType==WSFADBinding ? "WS-SOAP" : "CSI-http")
     );
-     
+
+String decodeBinding(TargetPlatform tp) :
+	tp.code==TargetPlatformCodes::WLS92 ? "CSI-java-t3" : "CSI-java-jnp";
+
+String decodeServiceType(ServiceDef sd) :
+	sd.serviceType==SrvTypeEnum::infr ? "I" : (sd.serviceType==SrvTypeEnum::orch ? "O" : "A");
+
+String normalizeVersionNumber(String versione) : JAVA
+	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.normalizeRegistryVersionNumber(java.lang.String);
+
+
+// [DM] diag
+String fullDiagConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/diag";
+
+String getDiagPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	removeSeparator(sd.codServizio)+".properties";
+
+String getFullDiagPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	fullDiagConfigDir(model)+"/"+removeSeparator(sd.codServizio)+"/"+getDiagPropertiesFileName(sd, model);
+
+boolean isAtLeastOneServiceDiagEnabled(SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides.diagEnabled==true).size > 0;
+
+
+// [DM] monit
+String fullMonitConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/monit";
+
+String getMonitPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	removeSeparator(sd.codServizio)+".properties";
+
+String getFullMonitPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	fullMonitConfigDir(model)+"/"+removeSeparator(sd.codServizio)+"/"+getMonitPropertiesFileName(sd, model);
+	
+boolean isAtLeastOneServiceMonitorable(SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides.monitorable==true).size > 0;
+
     
 // metto anche i files di config svcflow divisi per modulo
 String svcflowConfDirForService(String codServizio, SOABEModel model) :
@@ -469,21 +507,21 @@ String map2JavaTypeSDRelative(Exception e) :
 // Per gli array di Entity supponiamo che se un entity contiene CSIDatatype vada gestito come i TypedArray di CSIDatatype,
 // mentre se contiene PrimitiveType allora vada gestito come un TypedArray di PrimitiveType.
 String map2JavaTypeSDRelative(TypedArray e) :
- if (e.componentType.metaType == CSIDatatype) then
-  map2JavaTypeSDRelative(e.componentType)+"[]"
- else if (e.componentType.metaType == PrimitiveType) then
-  "java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
- else if (e.componentType.metaType == Entity) then
-  (isCSITypeSet((Entity)e.componentType) ? 
-   map2JavaTypeSDRelative(e.componentType)+"[]" : 
-   "java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
-  );
+	if (e.componentType.metaType == CSIDatatype) then
+		map2JavaTypeSDRelative(e.componentType)+"[]"
+	else if (e.componentType.metaType == PrimitiveType) then
+		"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+	else if (e.componentType.metaType == Entity) then
+		(isCSITypeSet((Entity)e.componentType) ? 
+			map2JavaTypeSDRelative(e.componentType)+"[]" : 
+			"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+		);
 
 // [DM] verifica che il typeset sia CSI
 boolean isCSITypeSet(Entity t) :
- let types = (Types)t.eContainer:
- let sd = (ServiceDef)types.eContainer:
- sd.bindings.typeSelect(WSBinding).size == 0;
+	let types = (Types)t.eContainer:
+	let sd = (ServiceDef)types.eContainer:
+	sd.bindings.typeSelect(WSBinding).size == 0;
 
 // [DM] Orchestrazione: data slot di tipo PrimitiveType
 String map2JavaTypeSDRelative(PrimitiveType e) :
@@ -597,14 +635,16 @@ String getCustomSoapPAEndpoint(PDPAServiceConnector pdpa) :
 String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
 	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
 	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
-	soapUri; 
+	soapUri;
+
+
 //// altre utility
+
 ///// risoluzione hostname del repository artefatti
 String getIvyRepositoryHost() :
 	getProperty("servicegen.ivyRepositoryHost")==null||getProperty("servicegen.ivyRepositoryHost").length==0?
 	"repart.csi.it":
 	getProperty("servicegen.ivyRepositoryHost");		
-
 
 String getPluginVersion() : JAVA
 	it.csi.mddtools.servicegen.genutils.MiscUtils.getPluginVersion();

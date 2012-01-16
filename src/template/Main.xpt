@@ -83,9 +83,6 @@ Metodo centralizzato per la genarazione del progetto
 			-- defpd-ejb.xml da includere nel pacchetto
 		«ENDREM»
 
-		«REM»Configurazione del registry«ENDREM»
-		«REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
-
 		«REM»File di configurazione dell'applicazione«ENDREM»
 		«EXPAND j2eeconfigfiles::applicationfiles  FOR this»
 
@@ -121,5 +118,9 @@ Metodo centralizzato per la genarazione del progetto
 				«EXPAND template::manualimpl::javafiles::springStartupFiles(this) FOR (ManualImplCartridge)(currSrvImpl.implCartridge)»
 			«ENDIF-»
 		«ENDFOREACH»
+
+		«REM»Configurazione del registry«ENDREM»
+		«REM»«EXPAND configfiles::registryDeployFile(svn_project_dir, codProd, verProd, this.targetPlatform) FOR this»«ENDREM»
+		«EXPAND registryfiles::registryArtifacts(this.targetPlatform) FOR this»
 	«ENDLET»
 «ENDDEFINE»

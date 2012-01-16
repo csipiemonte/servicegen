@@ -498,8 +498,14 @@ AS sharedLibsPath»
 		<!-- inserire qui eventuali statement antcall aggiuntivi da invocare
 		     nel processo di distribuzione del tar -->
 «ENDPROTECT»
+
+		<!-- Configurazione del registry -->
+		<antcall target="_configure-registry"/>
+
+		<!-- creazione pacchetto distribution -->
 		<tar tarfile="${dist}/${target}/${project}-${version}.tar" 
-			basedir="${build}/archives/${target}" includes="*.ear" >
+	         basedir="${build}/archives/${target}"
+	         includes="*.ear,*.zip" >
 			<tarfileset dir="buildfiles">
 				<include name="readme.txt"/>
 				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(codComponente+"package-all-extraincludes")»
@@ -645,8 +651,79 @@ AS sharedLibsPath»
 		<antcall target="load-dependencies" />
 	</target>
 
+
+	<!-- Configurazione registry -->
+	<target name="_configure-registry">
+		<!-- sostituisce le variabili -->
+		<antcall target="_replace-registry-vars" />
+		
+		<!-- REGISTRY -->		
+		<zip destfile="${build}/archives/${target}/${project}-reg-${version}.zip">
+			<zipfileset dir="${temp}/registry">
+				<include name="*/**"/>
+			</zipfileset>
+		</zip>
+
+		<!-- DIAG -->
+		<zip destfile="${build}/archives/${target}/diag-${project}-${version}.zip">
+			<zipfileset dir="${temp}/diag">
+				<include name="**/*.properties"/>
+			</zipfileset>
+		</zip>
+
+		<!-- MONIT -->
+		<zip destfile="${build}/archives/${target}/monit-${project}-${version}.zip">
+			<zipfileset dir="${temp}/monit">
+				<include name="**/*.properties"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+	<target name="_replace-registry-vars">
+		<!-- REGISTRY -->
+		<replace dir="${temp}/registry">
+			<replacefilter token="@rilascio.ambiente@" value="${rilascio.ambiente}"/>
+			<replacefilter token="@rilascio.cliente@" value="${rilascio.cliente}"/>
+			<replacefilter token="@rilascio.istanza@" value="${rilascio.istanza}"/>
+			<replacefilter token="@prodotto.descrizione@" value="${prodotto.descrizione}"/>
+			<replacefilter token="@componente.descrizione@" value="${componente.descrizione}"/>
+			«FOREACH serviceimplementations AS servImpl-»
+			«LET servImpl.provides AS currSD-»
+			«FOREACH currSD.bindings AS currBind-»
+			«IF currBind.metaType==EJBPABinding-»
+			<replacefilter token="«getPAURLPlaceHolder(currSD)»" value="${«getPAURLVar(currSD)»}"/>
+			«ELSEIF currBind.metaType==WSFADBinding-»
+			<replacefilter token="@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix@" value="${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}"/>
+			<replacefilter token="@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl@" value="${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl}"/>
+			«ENDIF-»
+			«ENDFOREACH-»
+			«ENDLET-»
+			«ENDFOREACH-»
+		</replace>	
+
+		«IF isAtLeastOneServiceDiagEnabled(this)-»
+		<!-- DIAG -->
+		<replace dir="${temp}/diag">
+			<replacefilter token="@rilascio.ambiente@" value="${rilascio.ambiente}"/>
+			<replacefilter token="@rilascio.cliente@" value="${rilascio.cliente}"/>
+			<replacefilter token="@rilascio.istanza@" value="${rilascio.istanza}"/>
+		</replace>
+		«ENDIF-»
+
+		«IF isAtLeastOneServiceMonitorable(this)-»
+		<!-- MONIT -->
+		<replace dir="${temp}/monit">
+			<replacefilter token="@rilascio.ambiente@" value="${rilascio.ambiente}"/>
+			<replacefilter token="@rilascio.cliente@" value="${rilascio.cliente}"/>
+			<replacefilter token="@rilascio.istanza@" value="${rilascio.istanza}"/>
+		</replace>
+		«ENDIF-»
+	</target>
+
+
     <taskdef resource="net/sf/antcontrib/antlib.xml"/>
-    
+
+
     «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(codComponente+"build.extratargets")»
     <!-- inserire qui eventuali target extra -->
     «ENDPROTECT»
@@ -957,6 +1034,26 @@ web.enabled = true
 #enableClustering = true
 enableClustering=false
 «ENDIF»
+
+# proprieta' per REGISTRY, MONIT, DIAG
+rilascio.ambiente=
+rilascio.cliente=
+rilascio.istanza=
+prodotto.descrizione=
+componente.descrizione=
+«FOREACH serviceimplementations AS servImpl-»
+«LET servImpl.provides AS currSD-»
+«FOREACH currSD.bindings AS currBind-»
+«IF currBind.metaType==EJBPABinding-»
+«getPAURLVar(currSD)»=
+«ELSEIF currBind.metaType==WSFADBinding-»
+service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix=
+service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl=
+«ENDIF-»
+«ENDFOREACH-»
+«ENDLET-»
+«ENDFOREACH-»
+
 
 #Proprieta' aggiuntive
 #....
