@@ -90,9 +90,8 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 					<override-url>«getPAURLPlaceHolder(currSD)»/«pabrWebContext(currSD.codServizio, currBind.codBinding, currSD.serviceType.toString(), this)»/servlet/rpcrouter</override-url>
 				</csi-endpoint>
 			«ELSEIF currBind.metaType == WSFADBinding-»
-				<ws-endpoint>
-					<url>@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix@/«wsfadWebContext(removeSeparator(currSD.codServizio), currBind.codBinding, currSD.serviceType.toString(), this)»</url>
-					<wsdl>@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl@</wsdl>
+				<ws-endpoint wsdl="«getWsfadRegistryWsdl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»">
+					<url>«getWsfadRegistryUrl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»</url>
 				</ws-endpoint>
 			«ENDIF-»
 			</endpoint>
@@ -185,12 +184,34 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
          top-version="«normalizeVersionNumber(versione)»">
 	<operations>
 		«EXPAND pdopdef(model, codServizio) FOREACH this.operations-»
+		«IF monitorable-»
+		<!-- operazione per monitoraggio -->
+		<operation name="testResources" type="synch-call">
+			<param-list>
+			</param-list>
+			<ret-val type="boolean"/>
+		</operation>
+		«ENDIF-»
+		«IF diagEnabled-»
+		<!-- operazioni per diagnostica -->
+		<operation name="selfCheck" type="synch-call">
+			<param-list>
+				<param name="alreadyCalled" type="it.csi.coopdiag.api.CalledResource[]"/>
+			</param-list>
+			<ret-val type="it.csi.coopdiag.api.InvocationNode"/>
+		</operation>
+		<operation name="hasSelfCheck" type="synch-call">
+			<param-list>
+			</param-list>
+			<ret-val type="boolean"/>
+		</operation>
+		«ENDIF-»
 	</operations>
 </service>
 «ENDDEFINE»
 
 «DEFINE pdopdef(SOABEModel model, String codServ) FOR Operation-»
-<operation name="«name»" type="«opTypeConst(opType)»"«IF since != null» since="«since»"«ENDIF-»>
+<operation name="«name»" type="«opTypeConst(opType)»"«IF since != null» since="«normalizeVersionNumber(since)»"«ENDIF-»>
 	<param-list>
 		«EXPAND pd_op_par(model, codServ) FOREACH this.params-»
 		«IF opType!=OpTypeEnum::synch-»

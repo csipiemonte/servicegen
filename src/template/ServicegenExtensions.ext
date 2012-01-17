@@ -240,7 +240,7 @@ String getFullRegistryPDServiceDir(SOABEModel model) :
 	fullCSIRegistryConfigDir(model)+"/pd";
 
 String getRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
-	"defpd_"+removeSeparator(sd.codServizio)+"_"+decodeTipoInter(bind, tp)+".xml";
+	"defpd_"+removeSeparator(sd.codServizio)+"_"+replaceMinus(decodeTipoInter(bind, tp))+".xml";
 
 String getFullRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
     getFullRegistryPDServiceDir(model)+"/"+getRegistryPDFileName(sd, bind, tp, model);
@@ -260,6 +260,15 @@ String decodeServiceType(ServiceDef sd) :
 
 String normalizeVersionNumber(String versione) : JAVA
 	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.normalizeRegistryVersionNumber(java.lang.String);
+
+String replaceMinus(String orig) :
+	orig.replaceAll("-", "_");
+
+String getWsfadRegistryUrl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWsfadServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString(), model)+"/services/"+model.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
+
+String getWsfadRegistryWsdl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWsfadRegistryUrl(sd, codBinding, serviceType, model)+"?wsdl";
 
 
 // [DM] diag
@@ -597,7 +606,15 @@ String getCsiAuthCredentialsVar(ServiceDef sd) :
 
 String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
 	"@"+getCsiAuthCredentialsVar(sd)+"@";
-	
+
+String getWsfadVarsPrefix(ServiceDef sd) :
+	removeSeparator(sd.codProdotto)+"."+removeSeparator(sd.codComponente)+"."+removeSeparator(sd.codServizio);
+
+String getWsfadServerPrefixVar(ServiceDef sd) :
+	getWsfadVarsPrefix(sd)+".wsfad.server.prefix";
+
+String getWsfadServerPrefixPlaceHolder(ServiceDef sd) :
+	"@"+getWsfadServerPrefixVar(sd)+"@";
 
 ///// target platform del servizio acceduto
 TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :

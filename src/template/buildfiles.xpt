@@ -693,8 +693,7 @@ AS sharedLibsPath»
 			«IF currBind.metaType==EJBPABinding-»
 			<replacefilter token="«getPAURLPlaceHolder(currSD)»" value="${«getPAURLVar(currSD)»}"/>
 			«ELSEIF currBind.metaType==WSFADBinding-»
-			<replacefilter token="@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix@" value="${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix}"/>
-			<replacefilter token="@service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl@" value="${service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl}"/>
+			<replacefilter token="«getWsfadServerPrefixPlaceHolder(currSD)»" value="${«getWsfadServerPrefixVar(currSD)»}"/>
 			«ENDIF-»
 			«ENDFOREACH-»
 			«ENDLET-»
@@ -1047,8 +1046,7 @@ componente.descrizione=
 «IF currBind.metaType==EJBPABinding-»
 «getPAURLVar(currSD)»=
 «ELSEIF currBind.metaType==WSFADBinding-»
-service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».server.prefix=
-service.«removeSeparator(currSD.codServizio)».«currBind.codBinding».wsdl=
+«getWsfadServerPrefixVar(currSD)»=
 «ENDIF-»
 «ENDFOREACH-»
 «ENDLET-»
