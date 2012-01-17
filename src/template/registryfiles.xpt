@@ -87,11 +87,11 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 				</csi-endpoint>
 			«ELSEIF currBind.metaType == SOAPPABRBinding-»
 				<csi-endpoint pd-file="«getRegistryPDFileName(currSD, currBind, tp, this)»">
-					<override-url>«getPAURLPlaceHolder(currSD)»/«pabrWebContext(currSD.codServizio, currBind.codBinding, currSD.serviceType.toString(), this)»/servlet/rpcrouter</override-url>
+					<override-url>«getPABRServerPrefixPlaceHolder(currSD)»/«pabrWebContext(currSD.codServizio, currBind.codBinding, currSD.serviceType.toString(), this)»/servlet/rpcrouter</override-url>
 				</csi-endpoint>
 			«ELSEIF currBind.metaType == WSFADBinding-»
-				<ws-endpoint wsdl="«getWsfadRegistryWsdl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»">
-					<url>«getWsfadRegistryUrl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»</url>
+				<ws-endpoint wsdl="«getWSFADWsdl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»">
+					<url>«getWSFADUrl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»</url>
 				</ws-endpoint>
 			«ENDIF-»
 			</endpoint>
@@ -135,10 +135,10 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 			              url-qm="«fullQMGRJndiName(sd)»">
 				<properties>
 					<property name="java.naming.provider.url" value="«getPAURLPlaceHolder(sd)»"/>
-					«IF (tp != null && tp==TargetPlatformCodes::WLS92) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
+					«IF (tp != null && tp.code==TargetPlatformCodes::WLS92) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::WLS92)-»
 					<!-- initial contxt factory per WLS92 -->
 					<property name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />
-					«ELSEIF (tp != null && tp==TargetPlatformCodes::JBoss43) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
+					«ELSEIF (tp != null && tp.code==TargetPlatformCodes::JBoss43) || (tp == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
 					<!-- initial context factory per JBoss43 -->
 					<property name="java.naming.factory.initial" value="org.jnp.interfaces.NamingContextFactory" />
 					<property name="jnp.disableDiscovery" value="true" />
@@ -164,9 +164,11 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
 			<pluggable-pd name="«removeSeparator(sd.codServizio)»"
 			              class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-			              url-pa="«getPAURLPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(), model)»/servlet/rpcrouter"
+			              url-pa="«getPABRServerPrefixPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(), model)»/servlet/rpcrouter"
 			              url-qm="">
 				<properties>
+					<!-- dummy property (elemento obbligatorio) -->
+					<property name="dummy" value="dummy"/>
 				</properties>
 			</pluggable-pd>
 		</pluggable-pd-list>

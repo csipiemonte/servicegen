@@ -264,12 +264,6 @@ String normalizeVersionNumber(String versione) : JAVA
 String replaceMinus(String orig) :
 	orig.replaceAll("-", "_");
 
-String getWsfadRegistryUrl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
-	getWsfadServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString(), model)+"/services/"+model.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
-
-String getWsfadRegistryWsdl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
-	getWsfadRegistryUrl(sd, codBinding, serviceType, model)+"?wsdl";
-
 
 // [DM] diag
 String fullDiagConfigDir(SOABEModel model) :
@@ -601,20 +595,32 @@ String getPAURLVar(ServiceDef sd) :
 String getPAURLPlaceHolder(ServiceDef sd) :
 	"@"+getPAURLVar(sd)+"@";
 
+String getPABRServerPrefixVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".pabr.server.prefix";
+
+String getPABRServerPrefixPlaceHolder(ServiceDef sd) :
+	"@"+getPABRServerPrefixVar(sd)+"@";
+
+String getWSFADServerPrefixVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".wsfad.server.prefix";
+
+String getWSFADServerPrefixPlaceHolder(ServiceDef sd) :
+	"@"+getWSFADServerPrefixVar(sd)+"@";
+
+String getWSFADUrl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWSFADServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString(), model)+"/services/"+model.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
+
+String getWSFADWsdl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWSFADUrl(sd, codBinding, serviceType, model)+"?wsdl";
+
+
 String getCsiAuthCredentialsVar(ServiceDef sd) :
 	getPAVarsPrefix(sd)+".credentials";
 
 String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
 	"@"+getCsiAuthCredentialsVar(sd)+"@";
 
-String getWsfadVarsPrefix(ServiceDef sd) :
-	removeSeparator(sd.codProdotto)+"."+removeSeparator(sd.codComponente)+"."+removeSeparator(sd.codServizio);
 
-String getWsfadServerPrefixVar(ServiceDef sd) :
-	getWsfadVarsPrefix(sd)+".wsfad.server.prefix";
-
-String getWsfadServerPrefixPlaceHolder(ServiceDef sd) :
-	"@"+getWsfadServerPrefixVar(sd)+"@";
 
 ///// target platform del servizio acceduto
 TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
