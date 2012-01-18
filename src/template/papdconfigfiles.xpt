@@ -85,10 +85,9 @@ e le limitazioni secondo i termini della Licenza.
 «ENDDEFINE»
 
 «DEFINE pdSelectorFile(ServiceDef context, SOABEModel model, String fullFileName) FOR PDPAServiceConnector»
-«FILE fullFileName»
-### Selettore del servizio «this.serviceDef.codServizio», binding «binding.codBinding»
+«FILE fullFileName»### Selettore del servizio «this.serviceDef.codServizio», binding «binding.codBinding»
 id.servizio=«selector.codProd»|«selector.codEnte»|«selector.codServ»|«selector.verServ»|«selector.istanza»|«selector.codBinding»
-ambiente=PROD
+ambiente=«selector.ambiente»
 purpose=RUNTIME
 staging=FALSE
 «ENDFILE»

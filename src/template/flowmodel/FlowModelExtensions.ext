@@ -191,6 +191,19 @@ String excRaisedConditionFile(SOABEModel model) :
 //  getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
 
 
+////
+String httpPDProxyLoaderClassName() :
+	"HttpPDProxyLoader";
+	
+String httpPDProxyLoaderFQN(SOABEModel model) :
+	baseHandlersPkg(model)+"."+httpPDProxyLoaderClassName();
+
+String httpPDProxyLoaderFile(SOABEModel model) :
+	fullBaseHandlersClassesDir(model)+"/"+httpPDProxyLoaderClassName()+".java";
+
+
+
+
 String getDataSlotAttrName(DataSlot ds):
 	"SLOT_"+ds.name;
     
