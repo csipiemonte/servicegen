@@ -1,34 +1,17 @@
 <?xml version="1.0"?>
 <workflow>
-	
-	<component class="org.eclipse.mwe.emf.Reader">
-		<!-- usare se modalita' a plugin -->
-		<uri value="platform:/resource/${inModel}" />
-	
-		<modelSlot value="model" />
-	</component>
 
-	<component class="org.eclipse.mwe.emf.Reader">
-		<!-- usare se modalita' a plugin -->
-		<uri value="platform:/resource/${basicTypesModel}" />
-	
-		<modelSlot value="basicTypesModel" />
-	</component>
-	
-	<!-- check model -->
-	<component class="it.csi.mddtools.servicedef.workflow.component.ServiceDefInferrer">
-		<modelSlot value="model"/>
-		<outModelSlot value="inferredModel"/>
-		<basicTypesModelSlot value="basicTypesModel"/>
-		<interfaceClass value="${interfaceClass}" />
-	</component>
-	
-	<component id="write" class="org.eclipse.mwe.emf.Writer">
-		<useSingleGlobalResourceSet value="true"/>
-		<modelSlot value="inferredModel"/>
-		<uri value="platform:/resource/${outModel}"/>
-		<cloneSlotContents value="true"/>
-	</component>
-	
+	<!-- ***************************************************
+         ALIAS per ServiceDefInferrer.mwe
+         Lasciata per retrocompatibilita', si limita a invocare la nuova cartuccia MWE
+         passando i parametri ricevuti
+	-->
+
+	<cartridge file="it/csi/mddtools/servicedef/workflow/ServiceDefInferrer.mwe"
+		inModel="${inModel}"
+		outModel="${outModel}"
+		basicTypesModel="${basicTypesModel}"
+		interfaceClass="${interfaceClass}"
+	/>
 
 </workflow>

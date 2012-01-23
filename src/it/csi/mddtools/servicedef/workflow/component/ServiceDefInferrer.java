@@ -3,12 +3,11 @@ package it.csi.mddtools.servicedef.workflow.component;
 import it.csi.mddtools.servicedef.ServiceDef;
 import it.csi.mddtools.servicedef.tools.ServiceDefInferTool;
 
-import org.apache.tools.ant.taskdefs.optional.depend.constantpool.InterfaceMethodRefCPInfo;
 import org.eclipse.emf.ecore.EObject;
-import org.openarchitectureware.workflow.WorkflowContext;
-import org.openarchitectureware.workflow.issues.Issues;
-import org.openarchitectureware.workflow.lib.WorkflowComponentWithModelSlot;
-import org.openarchitectureware.workflow.monitor.ProgressMonitor;
+import org.eclipse.emf.mwe.core.WorkflowContext;
+import org.eclipse.emf.mwe.core.issues.Issues;
+import org.eclipse.emf.mwe.core.lib.WorkflowComponentWithModelSlot;
+import org.eclipse.emf.mwe.core.monitor.ProgressMonitor;
 
 /**
  * Componente di workflow oaw che permette la ricostruzione dell documento servicedef a 
@@ -44,7 +43,7 @@ public class ServiceDefInferrer extends WorkflowComponentWithModelSlot{
 		basicTypesModelSlot=sl;
 	}
 	
-	public void invoke(WorkflowContext ctx, ProgressMonitor monitor,
+	public void invokeInternal(WorkflowContext ctx, ProgressMonitor monitor,
 			Issues issues) {
 		EObject model = (EObject)ctx.get(this.getModelSlot());
 		EObject basicTypesModel = (EObject)ctx.get(this.getBasicTypesModelSlot());

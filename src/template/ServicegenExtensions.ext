@@ -689,7 +689,7 @@ String formatConstraint(servicedef::ParamValidator pv) : JAVA
   it.csi.mddtools.servicegen.genutils.EditUtils.formatConstraint(it.csi.mddtools.servicedef.ParamValidator);
   
 String getProperty(String name) : JAVA
-  org.openarchitectureware.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
+  org.eclipse.xtend.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
   
 List[ServiceDef] getProvidedServices(servicegen::SOABEModel model) : JAVA
 	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.getProvidedServices(it.csi.mddtools.servicegen.SOABEModel);

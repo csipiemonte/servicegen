@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<workflow>
+
+	<component class="org.eclipse.emf.mwe.utils.Reader">
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${inModel}" />
+
+		<modelSlot value="model" />
+	</component>
+
+	<component class="org.eclipse.emf.mwe.utils.Reader">
+		<!-- usare se modalita' a plugin -->
+		<uri value="platform:/resource/${basicTypesModel}" />
+
+		<modelSlot value="basicTypesModel" />
+	</component>
+
+	<!-- check model -->
+	<component class="it.csi.mddtools.servicedef.workflow.component.ServiceDefInferrer">
+		<modelSlot value="model"/>
+		<outModelSlot value="inferredModel"/>
+		<basicTypesModelSlot value="basicTypesModel"/>
+		<interfaceClass value="${interfaceClass}" />
+	</component>
+
+	<component id="write" class="org.eclipse.emf.mwe.utils.Writer">
+		<useSingleGlobalResourceSet value="true"/>
+		<modelSlot value="inferredModel"/>
+		<uri value="platform:/resource/${outModel}"/>
+		<cloneSlotContents value="true"/>
+	</component>
+
+</workflow>

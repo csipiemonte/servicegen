@@ -1,33 +1,14 @@
 <?xml version="1.0"?>
 <workflow>
-	<!--<component class="oaw.util.stdlib.PropertiesReader">
-  		<propertiesFile value="src/workflow/workflow.properties"/>
-	</component>-->
 
-	<property name="model" value="${modelfile}" />-->
-	
-	
-	
-	
-	
-	<component class="org.eclipse.mwe.emf.Reader">
-		<!-- usare se modalita' a plugin -->
-		<uri value="platform:/resource/${model}" />
-		
-		<!-- usare se modalita' standalone -->
-		<!--<uri value="${modelfile}" />-->
-		
-		<!-- invariante rispetto alla modalita'-->
-		<modelSlot value="model" />
-	</component>
+	<!-- ***************************************************
+         ALIAS per checkAppresources.mwe
+         Lasciata per retrocompatibilita', si limita a invocare la nuova cartuccia MWE
+         passando i parametri ricevuti
+	-->
 
-	<!-- check model -->
-	<component class="oaw.check.CheckComponent">
-		<metaModel id="mm"
-			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
-		<checkFile value="metamodel::ServicegenChecks" />
-		<emfAllChildrenSlot value="model" />
-	</component>
-	
+	<cartridge file="it/csi/mddtools/servicegen/workflow/checkAppresources.mwe"
+		model="${model}"
+	/>
 
 </workflow>

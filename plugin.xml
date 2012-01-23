@@ -49,7 +49,7 @@
       </package>
    </extension>
    <extension
-         point="org.openarchitectureware.adapter.emf.check.checks">
+         point="org.eclipse.xtend.typesystem.emf.checks">
       <metaModel
             nsURI="http://www.csi.it/mddtools/servicegen"
             override="false">
