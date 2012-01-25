@@ -26,29 +26,28 @@ import servicegen;
 import typedef;
 import dot;
 
-extension dotlib;
+extension template::dotlib;
 
-create dot::graphvizmodel toGraphvizModel(svcorch::Orchestration orch) :
-addGraph(orchestrationGraph(orch))->
-this;
+create dot::GraphvizModel toGraphvizModel(svcorch::Orchestration orch) :
+	addGraph(orchestrationGraph(orch))->
+	this;
 
-create dot::graph orchestrationGraph(svcorch::Orchestration orch) :
-	
+create dot::MainGraph orchestrationGraph(svcorch::Orchestration orch) :
 	orch.mapToGraph()->
 	this.setName("orch_"+orch.operation.name)->
 	this.addStatement(orch.orchestrationSubgraph())->
-	this.setType(dot::graphtype::digraph)->
+	this.setType(dot::GraphType::digraph)->
 	this
 ;
 
-create dot::node_stmt toNode(svcorch::Node node) :
+create dot::NodeStmt toNode(svcorch::Node node) :
  this.setShape("box")->
  this.setLabel(node.name)->
  this.setName(node.name)->
  this
 ;
 
-create dot::node_stmt toNode(svcorch::ForEach node) :
+create dot::NodeStmt toNode(svcorch::ForEach node) :
  this.setShape("doubleoctagon")->
  this.setLabel(node.name+" foreach "+node.collection.name)->
  this.setName(node.name)->
@@ -56,7 +55,7 @@ create dot::node_stmt toNode(svcorch::ForEach node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::CheckCondition node) :
+create dot::NodeStmt toNode(svcorch::CheckCondition node) :
  this.setShape("diamond")->
  this.setLabel(node.name)->
  this.setName(node.name)->
@@ -64,7 +63,7 @@ create dot::node_stmt toNode(svcorch::CheckCondition node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::SrvCall node) :
+create dot::NodeStmt toNode(svcorch::SrvCall node) :
  this.setShape("parallelogram")->
  this.setLabel(node.name)->
  this.setName(node.name)->
@@ -72,7 +71,7 @@ create dot::node_stmt toNode(svcorch::SrvCall node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::Transformation node) :
+create dot::NodeStmt toNode(svcorch::Transformation node) :
  this.setShape("invhouse")->
  this.setLabel(node.name)->
  this.setName(node.name)->
@@ -80,7 +79,7 @@ create dot::node_stmt toNode(svcorch::Transformation node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::StartNode node) :
+create dot::NodeStmt toNode(svcorch::StartNode node) :
  this.setShape("circle")->
  this.setLabel(node.name)->
  this.setName(node.name)->
@@ -88,7 +87,7 @@ create dot::node_stmt toNode(svcorch::StartNode node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::StopNode node) :
+create dot::NodeStmt toNode(svcorch::StopNode node) :
  this.setShape("doublecircle")->
  this.setLabel(node.name)->
  this.setName(node.name)->
@@ -96,7 +95,7 @@ create dot::node_stmt toNode(svcorch::StopNode node) :
  this
 ;
 
-create dot::node_stmt toNode(svcorch::EndLoop node) :
+create dot::NodeStmt toNode(svcorch::EndLoop node) :
  this.setShape("doubleoctagon")->
  this.setLabel("(next...)")->
  this.setName(node.name)->
@@ -192,7 +191,7 @@ cached toEdge(svcorch::FlowNode node) :
 
 
 ///////
-create dot::node_stmt toNode(svcorch::DataSlot slot) :
+create dot::NodeStmt toNode(svcorch::DataSlot slot) :
  this.setShape("rectangle")->
  this.setLabel(slot.name)->
  this.setName(slot.name)->
@@ -200,7 +199,7 @@ create dot::node_stmt toNode(svcorch::DataSlot slot) :
  this
 ;
 
-create dot::subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
+create dot::Subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
 	orch.mapToSubgraph()->
 	this.setName("orchsub_"+orch.operation.name)->
 	this.setLabel("Orchestrazione "+orch.service.codServizio+"."+orch.operation.name)->
