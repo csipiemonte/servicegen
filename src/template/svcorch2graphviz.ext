@@ -26,7 +26,7 @@ import servicegen;
 import typedef;
 import dot;
 
-extension template::dotlib;
+extension dottools::dotlib;
 
 create dot::GraphvizModel toGraphvizModel(svcorch::Orchestration orch) :
 	addGraph(orchestrationGraph(orch))->
@@ -35,7 +35,7 @@ create dot::GraphvizModel toGraphvizModel(svcorch::Orchestration orch) :
 create dot::MainGraph orchestrationGraph(svcorch::Orchestration orch) :
 	orch.mapToGraph()->
 	this.setName("orch_"+orch.operation.name)->
-	this.addStatement(orch.orchestrationSubgraph())->
+	this.addStatements(orch.orchestrationSubgraph().stmts)->
 	this.setType(dot::GraphType::digraph)->
 	this
 ;

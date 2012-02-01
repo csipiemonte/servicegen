@@ -10,10 +10,14 @@
     />
     
     <cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.oaw" 
-	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"  
+	model="servicegen/src/testmodel/visanag_visuraPerComune.svcorch"
+	targetDir="src-gen"
+	graphvizBin="C:/graphtools/Graphviz-2.28/bin/"  
     />
     
-    <cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.oaw" 
+    <!--<cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.oaw" 
 	model="servicegen/src/testmodel/visanag_visuraPerComuneECognome.svcorch"  
-    />
+	targetDir="src-gen"
+	graphvizBin="c:/dpdpdpdpd"
+    />-->
 </workflow>

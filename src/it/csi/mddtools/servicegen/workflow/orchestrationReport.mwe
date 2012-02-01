@@ -20,7 +20,7 @@ ATTENZIONE: DOPO LA MIGRAZIONE DA OAW A EMF QUASTA CARTUCCIA NON FUNZIONA PIU'
 	</component>
 
 	<!--  generate code using OAW -->
-	<cartridge file="model2dotfile.oaw"
+	<cartridge file="dottools/model2dotfile.oaw"
 		targetDir="${targetDir}"
 		topFunctionCallExpression="template::svcorch2graphviz::toGraphvizModel(model)"
 		pathToDotExe="${graphvizBin}"
