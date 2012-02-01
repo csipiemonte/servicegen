@@ -17,12 +17,12 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.xtend;visibility:=reexport,
  org.eclipse.xtend.util.stdlib;visibility:=reexport,
  org.eclipse.xtend.typesystem.emf;visibility:=reexport,
- mddtools;bundle-version="1.2.0";visibility:=reexport,
  org.antlr.runtime;visibility:=reexport,
  org.apache.ant;visibility:=reexport,
  org.apache.commons.httpclient;bundle-version="3.1.0";visibility:=reexport,
  org.apache.commons.codec;bundle-version="1.3.0";visibility:=reexport,
- org.apache.commons.logging;bundle-version="1.1.1";visibility:=reexport
+ org.apache.commons.logging;bundle-version="1.1.1";visibility:=reexport,
+ mddtools;bundle-version="1.2.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: it.csi.mddtools.appresources,
  it.csi.mddtools.appresources.impl,
