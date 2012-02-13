@@ -270,13 +270,22 @@ public interface ServicedefPackage extends EPackage {
 	int SERVICE_BINDING__COD_BINDING = 0;
 
 	/**
+	 * The feature id for the '<em><b>Channel Security Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_BINDING__CHANNEL_SECURITY_LEVEL = 1;
+
+	/**
 	 * The number of structural features of the '<em>Service Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_BINDING_FEATURE_COUNT = 1;
+	int SERVICE_BINDING_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.EJBPABindingImpl <em>EJBPA Binding</em>}' class.
@@ -296,6 +305,15 @@ public interface ServicedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int EJBPA_BINDING__COD_BINDING = SERVICE_BINDING__COD_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>Channel Security Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EJBPA_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
 
 	/**
 	 * The number of structural features of the '<em>EJBPA Binding</em>' class.
@@ -326,6 +344,15 @@ public interface ServicedefPackage extends EPackage {
 	int SOAPPABR_BINDING__COD_BINDING = SERVICE_BINDING__COD_BINDING;
 
 	/**
+	 * The feature id for the '<em><b>Channel Security Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SOAPPABR_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
+
+	/**
 	 * The number of structural features of the '<em>SOAPPABR Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -354,6 +381,15 @@ public interface ServicedefPackage extends EPackage {
 	int WSFAD_BINDING__COD_BINDING = SERVICE_BINDING__COD_BINDING;
 
 	/**
+	 * The feature id for the '<em><b>Channel Security Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSFAD_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
+
+	/**
 	 * The number of structural features of the '<em>WSFAD Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -380,6 +416,15 @@ public interface ServicedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int WS_BINDING__COD_BINDING = SERVICE_BINDING__COD_BINDING;
+
+	/**
+	 * The feature id for the '<em><b>Channel Security Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
 
 	/**
 	 * The number of structural features of the '<em>WS Binding</em>' class.
@@ -1378,6 +1423,16 @@ public interface ServicedefPackage extends EPackage {
 	int SD_ANNOTATION_DETAIL_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.ChannelSecurityLevelEnum
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getChannelSecurityLevelEnum()
+	 * @generated
+	 */
+	int CHANNEL_SECURITY_LEVEL_ENUM = 40;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1385,7 +1440,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 40;
+	int OP_TYPE_ENUM = 41;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1395,7 +1450,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 41;
+	int TX_TYPE_ENUM = 42;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1405,7 +1460,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 42;
+	int SRV_TYPE_ENUM = 43;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1415,7 +1470,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 43;
+	int AUTH_LEVEL_ENUM = 44;
 
 
 	/**
@@ -1623,6 +1678,17 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getServiceBinding_CodBinding();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.ServiceBinding#getChannelSecurityLevel <em>Channel Security Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Channel Security Level</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceBinding#getChannelSecurityLevel()
+	 * @see #getServiceBinding()
+	 * @generated
+	 */
+	EAttribute getServiceBinding_ChannelSecurityLevel();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.EJBPABinding <em>EJBPA Binding</em>}'.
@@ -2369,6 +2435,16 @@ public interface ServicedefPackage extends EPackage {
 	EAttribute getSDAnnotationDetail_Value();
 
 	/**
+	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Channel Security Level Enum</em>'.
+	 * @see it.csi.mddtools.servicedef.ChannelSecurityLevelEnum
+	 * @generated
+	 */
+	EEnum getChannelSecurityLevelEnum();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2587,6 +2663,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SERVICE_BINDING__COD_BINDING = eINSTANCE.getServiceBinding_CodBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Channel Security Level</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_BINDING__CHANNEL_SECURITY_LEVEL = eINSTANCE.getServiceBinding_ChannelSecurityLevel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.EJBPABindingImpl <em>EJBPA Binding</em>}' class.
@@ -3229,6 +3313,16 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SD_ANNOTATION_DETAIL__VALUE = eINSTANCE.getSDAnnotationDetail_Value();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.ChannelSecurityLevelEnum
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getChannelSecurityLevelEnum()
+		 * @generated
+		 */
+		EEnum CHANNEL_SECURITY_LEVEL_ENUM = eINSTANCE.getChannelSecurityLevelEnum();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.

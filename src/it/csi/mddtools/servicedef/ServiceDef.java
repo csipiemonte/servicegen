@@ -67,7 +67,10 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Codice del servizio. pu&ograve; assumere un valore alfanumerico ed &egrave;
+	 * ammesso il separatore &quot;_&quot;.  
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cod Servizio</em>' attribute.
 	 * @see #setCodServizio(String)
@@ -97,7 +100,11 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Elenco dei binding (canali) su cui &egrave; esposto il servizio.
+	 * A seconda delle cartucce di generazione saranno o meno disponibili solo alcune
+	 * tipologie di binding. 
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Bindings</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Bindings()
@@ -115,7 +122,10 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Se valorizzato a <i>true</i> il servizio &egrave; predisposto per il monotoraggio.
+	 * La funzione pu&ograve; non essere prevista per tutte le cartucce.
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Monitorable</em>' attribute.
 	 * @see #setMonitorable(boolean)
@@ -144,7 +154,11 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Se valorizzato a <i>true</i> il servizio &egrave; predisposto per le funzioni di 
+	 * diagnostica.
+	 * La funzione pu&ograve; non essere prevista per tutte le cartucce.
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Diag Enabled</em>' attribute.
 	 * @see #setDiagEnabled(boolean)
@@ -174,7 +188,7 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>Elenco delle operazioni esposte dal servizio</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Operations</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Operations()
@@ -192,7 +206,7 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>Versione dell'interfaccia di sevizio.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Versione</em>' attribute.
 	 * @see #setVersione(String)
@@ -221,7 +235,7 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>Elenco dei tipi (<b>Entity</b> ed <b>Exception</b>) definiti per il servizio</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Types</em>' containment reference.
 	 * @see #setTypes(Types)
@@ -250,7 +264,10 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Se valorizzato a <i>true</i> il servizio &egrave; predisposto per il tracing delle chiamate.
+	 * La funzione pu&ograve; non essere prevista per tutte le cartucce.
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Trace Enabled</em>' attribute.
 	 * @see #setTraceEnabled(boolean)
@@ -281,7 +298,15 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Tipologia di servizio.
+	 * Un servizio pu&ograve; essere:
+	 * <ul>
+	 * <li>applicativo</li>
+	 * <li>di orchestrazione</li>
+	 * <li>(infrastrutturale)</li>
+	 * </ul>
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Type</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.SrvTypeEnum
@@ -314,7 +339,17 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * <p>
+	 * Livello di autenticazione/autorizzazione richiesta dal servizio. 
+	 * Pu&ograve; valere:
+	 * <ul>
+	 * <li>A0: servizio pubblico anonimo</li>
+	 * <li>A1: il sistema fruitore del servizio si deve autenticare e vi&egrave; una 
+	 *        autorizzazione Role-Based all'utilizzo dei singoli metodi</li>
+	 * <li>A2: come A1, ma con in aggiunta la possibilit&agrave; di tracciare l'utente
+	 *       fisico che sta utilizzando il sistema fruitore.</li>
+	 * </ul>
+	 * </p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Auth Level</em>' attribute.
 	 * @see it.csi.mddtools.servicedef.AuthLevelEnum
@@ -346,7 +381,7 @@ public interface ServiceDef extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * [[ TODO - add documentation here ]]
+	 * I ruoli previsti per l'autorizzazione del servizio
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Roles</em>' containment reference list.
 	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDef_Roles()

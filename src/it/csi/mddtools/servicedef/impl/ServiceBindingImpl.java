@@ -20,6 +20,7 @@
  */
 package it.csi.mddtools.servicedef.impl;
 
+import it.csi.mddtools.servicedef.ChannelSecurityLevelEnum;
 import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl#getCodBinding <em>Cod Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl#getChannelSecurityLevel <em>Channel Security Level</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +65,26 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 	 * @ordered
 	 */
 	protected String codBinding = COD_BINDING_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getChannelSecurityLevel() <em>Channel Security Level</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChannelSecurityLevel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ChannelSecurityLevelEnum CHANNEL_SECURITY_LEVEL_EDEFAULT = ChannelSecurityLevelEnum.C0;
+
+	/**
+	 * The cached value of the '{@link #getChannelSecurityLevel() <em>Channel Security Level</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChannelSecurityLevel()
+	 * @generated
+	 * @ordered
+	 */
+	protected ChannelSecurityLevelEnum channelSecurityLevel = CHANNEL_SECURITY_LEVEL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -109,11 +131,34 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ChannelSecurityLevelEnum getChannelSecurityLevel() {
+		return channelSecurityLevel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setChannelSecurityLevel(ChannelSecurityLevelEnum newChannelSecurityLevel) {
+		ChannelSecurityLevelEnum oldChannelSecurityLevel = channelSecurityLevel;
+		channelSecurityLevel = newChannelSecurityLevel == null ? CHANNEL_SECURITY_LEVEL_EDEFAULT : newChannelSecurityLevel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL, oldChannelSecurityLevel, channelSecurityLevel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ServicedefPackage.SERVICE_BINDING__COD_BINDING:
 				return getCodBinding();
+			case ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL:
+				return getChannelSecurityLevel();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -128,6 +173,9 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 		switch (featureID) {
 			case ServicedefPackage.SERVICE_BINDING__COD_BINDING:
 				setCodBinding((String)newValue);
+				return;
+			case ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL:
+				setChannelSecurityLevel((ChannelSecurityLevelEnum)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -144,6 +192,9 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 			case ServicedefPackage.SERVICE_BINDING__COD_BINDING:
 				setCodBinding(COD_BINDING_EDEFAULT);
 				return;
+			case ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL:
+				setChannelSecurityLevel(CHANNEL_SECURITY_LEVEL_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -158,6 +209,8 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 		switch (featureID) {
 			case ServicedefPackage.SERVICE_BINDING__COD_BINDING:
 				return COD_BINDING_EDEFAULT == null ? codBinding != null : !COD_BINDING_EDEFAULT.equals(codBinding);
+			case ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL:
+				return channelSecurityLevel != CHANNEL_SECURITY_LEVEL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -174,6 +227,8 @@ public abstract class ServiceBindingImpl extends EObjectImpl implements ServiceB
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (codBinding: ");
 		result.append(codBinding);
+		result.append(", channelSecurityLevel: ");
+		result.append(channelSecurityLevel);
 		result.append(')');
 		return result.toString();
 	}

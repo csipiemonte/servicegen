@@ -79,6 +79,7 @@ public class ServiceBindingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCodBindingPropertyDescriptor(object);
+			addChannelSecurityLevelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -97,6 +98,28 @@ public class ServiceBindingItemProvider
 				 getString("_UI_ServiceBinding_codBinding_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceBinding_codBinding_feature", "_UI_ServiceBinding_type"),
 				 ServicedefPackage.Literals.SERVICE_BINDING__COD_BINDING,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Channel Security Level feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addChannelSecurityLevelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ServiceBinding_channelSecurityLevel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ServiceBinding_channelSecurityLevel_feature", "_UI_ServiceBinding_type"),
+				 ServicedefPackage.Literals.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL,
 				 true,
 				 false,
 				 false,
@@ -132,6 +155,7 @@ public class ServiceBindingItemProvider
 
 		switch (notification.getFeatureID(ServiceBinding.class)) {
 			case ServicedefPackage.SERVICE_BINDING__COD_BINDING:
+			case ServicedefPackage.SERVICE_BINDING__CHANNEL_SECURITY_LEVEL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

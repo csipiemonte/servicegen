@@ -23,63 +23,63 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codServizio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Codice del servizio. pu&amp;ograve; assumere un valore alfanumerico ed &amp;egrave;&#xD;&#xA;ammesso il separatore &amp;quot;_&amp;quot;.  &#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
         eType="#//ServiceBinding" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Elenco dei binding (canali) su cui &amp;egrave; esposto il servizio.&#xD;&#xA;A seconda delle cartucce di generazione saranno o meno disponibili solo alcune&#xD;&#xA;tipologie di binding. &#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="monitorable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per il monotoraggio.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per le funzioni di &#xD;&#xA;diagnostica.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
         eType="#//Operation" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>Elenco delle operazioni esposte dal servizio&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="versione" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>Versione dell'interfaccia di sevizio.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="types" eType="#//Types"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>Elenco dei tipi (&lt;b>Entity&lt;/b> ed &lt;b>Exception&lt;/b>) definiti per il servizio&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per il tracing delle chiamate.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceType" eType="#//SrvTypeEnum"
         defaultValueLiteral="appl">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Tipologia di servizio.&#xD;&#xA;Un servizio pu&amp;ograve; essere:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>applicativo&lt;/li>&#xD;&#xA;&lt;li>di orchestrazione&lt;/li>&#xD;&#xA;&lt;li>(infrastrutturale)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="authLevel" eType="#//AuthLevelEnum"
         defaultValueLiteral="A0">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Livello di autenticazione/autorizzazione richiesta dal servizio. &#xD;&#xA;Pu&amp;ograve; valere:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>A0: servizio pubblico anonimo&lt;/li>&#xD;&#xA;&lt;li>A1: il sistema fruitore del servizio si deve autenticare e vi&amp;egrave; una &#xD;&#xA;       autorizzazione Role-Based all'utilizzo dei singoli metodi&lt;/li>&#xD;&#xA;&lt;li>A2: come A1, ma con in aggiunta la possibilit&amp;agrave; di tracciare l'utente&#xD;&#xA;      fisico che sta utilizzando il sistema fruitore.&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
         eType="#//Role" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+        <details key="documentation" value="I ruoli previsti per l'autorizzazione del servizio"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -95,6 +95,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//ServiceDefAnnotation" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChannelSecurityLevelEnum">
+    <eLiterals name="C0"/>
+    <eLiterals name="C1"/>
+    <eLiterals name="C2"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceBinding" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[ TODO - add documentation here ]]"/>
@@ -102,6 +107,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="codBinding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="channelSecurityLevel" eType="#//ChannelSecurityLevelEnum"
+        defaultValueLiteral="A0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Livello di securizzazione di canale per il binding.&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>C0: il canale &amp;egrave; in chiaro&lt;/li>&#xD;&#xA;&lt;li>C1: il canale &amp;egrave; cifrato, senza client authentication&lt;/li>&#xD;&#xA;&lt;li>C2: il canale &amp;egrave; cifrato, con client authentication&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

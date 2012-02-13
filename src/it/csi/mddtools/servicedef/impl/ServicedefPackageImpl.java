@@ -25,6 +25,7 @@ import it.csi.mddtools.servicedef.ANDParamConstraint;
 import it.csi.mddtools.servicedef.ANDValueConstraint;
 import it.csi.mddtools.servicedef.AuthLevelEnum;
 import it.csi.mddtools.servicedef.BaseTypes;
+import it.csi.mddtools.servicedef.ChannelSecurityLevelEnum;
 import it.csi.mddtools.servicedef.CompositeFeatureConstraint;
 import it.csi.mddtools.servicedef.CompositeParamConstraint;
 import it.csi.mddtools.servicedef.CompositeValueConstraint;
@@ -369,6 +370,13 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum channelSecurityLevelEnumEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum opTypeEnumEEnum = null;
 
 	/**
@@ -625,6 +633,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 */
 	public EAttribute getServiceBinding_CodBinding() {
 		return (EAttribute)serviceBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getServiceBinding_ChannelSecurityLevel() {
+		return (EAttribute)serviceBindingEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1271,6 +1288,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getChannelSecurityLevelEnum() {
+		return channelSecurityLevelEnumEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOpTypeEnum() {
 		return opTypeEnumEEnum;
 	}
@@ -1351,6 +1377,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		serviceBindingEClass = createEClass(SERVICE_BINDING);
 		createEAttribute(serviceBindingEClass, SERVICE_BINDING__COD_BINDING);
+		createEAttribute(serviceBindingEClass, SERVICE_BINDING__CHANNEL_SECURITY_LEVEL);
 
 		ejbpaBindingEClass = createEClass(EJBPA_BINDING);
 
@@ -1461,6 +1488,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEAttribute(sdAnnotationDetailEClass, SD_ANNOTATION_DETAIL__VALUE);
 
 		// Create enums
+		channelSecurityLevelEnumEEnum = createEEnum(CHANNEL_SECURITY_LEVEL_ENUM);
 		opTypeEnumEEnum = createEEnum(OP_TYPE_ENUM);
 		txTypeEnumEEnum = createEEnum(TX_TYPE_ENUM);
 		srvTypeEnumEEnum = createEEnum(SRV_TYPE_ENUM);
@@ -1547,6 +1575,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		initEClass(serviceBindingEClass, ServiceBinding.class, "ServiceBinding", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceBinding_CodBinding(), ecorePackage.getEString(), "codBinding", null, 0, 1, ServiceBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getServiceBinding_ChannelSecurityLevel(), this.getChannelSecurityLevelEnum(), "channelSecurityLevel", "A0", 0, 1, ServiceBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ejbpaBindingEClass, EJBPABinding.class, "EJBPABinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1657,6 +1686,11 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEAttribute(getSDAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, SDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
+		initEEnum(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.class, "ChannelSecurityLevelEnum");
+		addEEnumLiteral(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.C0);
+		addEEnumLiteral(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.C1);
+		addEEnumLiteral(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.C2);
+
 		initEEnum(opTypeEnumEEnum, OpTypeEnum.class, "OpTypeEnum");
 		addEEnumLiteral(opTypeEnumEEnum, OpTypeEnum.SYNCH);
 		addEEnumLiteral(opTypeEnumEEnum, OpTypeEnum.ASYNCH);

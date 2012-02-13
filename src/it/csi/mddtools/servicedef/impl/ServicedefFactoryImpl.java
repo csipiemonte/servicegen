@@ -119,6 +119,8 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case ServicedefPackage.CHANNEL_SECURITY_LEVEL_ENUM:
+				return createChannelSecurityLevelEnumFromString(eDataType, initialValue);
 			case ServicedefPackage.OP_TYPE_ENUM:
 				return createOpTypeEnumFromString(eDataType, initialValue);
 			case ServicedefPackage.TX_TYPE_ENUM:
@@ -140,6 +142,8 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case ServicedefPackage.CHANNEL_SECURITY_LEVEL_ENUM:
+				return convertChannelSecurityLevelEnumToString(eDataType, instanceValue);
 			case ServicedefPackage.OP_TYPE_ENUM:
 				return convertOpTypeEnumToString(eDataType, instanceValue);
 			case ServicedefPackage.TX_TYPE_ENUM:
@@ -461,6 +465,26 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public SDAnnotationDetail createSDAnnotationDetail() {
 		SDAnnotationDetailImpl sdAnnotationDetail = new SDAnnotationDetailImpl();
 		return sdAnnotationDetail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ChannelSecurityLevelEnum createChannelSecurityLevelEnumFromString(EDataType eDataType, String initialValue) {
+		ChannelSecurityLevelEnum result = ChannelSecurityLevelEnum.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertChannelSecurityLevelEnumToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

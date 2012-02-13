@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceBinding#getCodBinding <em>Cod Binding</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.ServiceBinding#getChannelSecurityLevel <em>Channel Security Level</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,5 +72,41 @@ public interface ServiceBinding extends EObject {
 	 * @generated
 	 */
 	void setCodBinding(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Channel Security Level</b></em>' attribute.
+	 * The default value is <code>"A0"</code>.
+	 * The literals are from the enumeration {@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>
+	 * Livello di securizzazione di canale per il binding.
+	 * <ul>
+	 * <li>C0: il canale &egrave; in chiaro</li>
+	 * <li>C1: il canale &egrave; cifrato, senza client authentication</li>
+	 * <li>C2: il canale &egrave; cifrato, con client authentication</li>
+	 * </ul>
+	 * </p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Channel Security Level</em>' attribute.
+	 * @see it.csi.mddtools.servicedef.ChannelSecurityLevelEnum
+	 * @see #setChannelSecurityLevel(ChannelSecurityLevelEnum)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceBinding_ChannelSecurityLevel()
+	 * @model default="A0"
+	 * @generated
+	 */
+	ChannelSecurityLevelEnum getChannelSecurityLevel();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.ServiceBinding#getChannelSecurityLevel <em>Channel Security Level</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Channel Security Level</em>' attribute.
+	 * @see it.csi.mddtools.servicedef.ChannelSecurityLevelEnum
+	 * @see #getChannelSecurityLevel()
+	 * @generated
+	 */
+	void setChannelSecurityLevel(ChannelSecurityLevelEnum value);
 
 } // ServiceBinding
