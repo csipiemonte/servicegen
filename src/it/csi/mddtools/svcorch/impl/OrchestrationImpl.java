@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getInputParamBindings <em>Input Param Bindings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getReturnSlot <em>Return Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getExceptionMappings <em>Exception Mappings</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getPrincipalNameSlot <em>Principal Name Slot</em>}</li>
  * </ul>
  * </p>
  *
@@ -129,6 +130,16 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * @ordered
 	 */
 	protected ExceptionMappings exceptionMappings;
+
+	/**
+	 * The cached value of the '{@link #getPrincipalNameSlot() <em>Principal Name Slot</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrincipalNameSlot()
+	 * @generated
+	 * @ordered
+	 */
+	protected DataSlot principalNameSlot;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -440,6 +451,44 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DataSlot getPrincipalNameSlot() {
+		if (principalNameSlot != null && principalNameSlot.eIsProxy()) {
+			InternalEObject oldPrincipalNameSlot = (InternalEObject)principalNameSlot;
+			principalNameSlot = (DataSlot)eResolveProxy(oldPrincipalNameSlot);
+			if (principalNameSlot != oldPrincipalNameSlot) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT, oldPrincipalNameSlot, principalNameSlot));
+			}
+		}
+		return principalNameSlot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSlot basicGetPrincipalNameSlot() {
+		return principalNameSlot;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPrincipalNameSlot(DataSlot newPrincipalNameSlot) {
+		DataSlot oldPrincipalNameSlot = principalNameSlot;
+		principalNameSlot = newPrincipalNameSlot;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT, oldPrincipalNameSlot, principalNameSlot));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -480,6 +529,9 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return basicGetReturnSlot();
 			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
 				return getExceptionMappings();
+			case SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT:
+				if (resolve) return getPrincipalNameSlot();
+				return basicGetPrincipalNameSlot();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -512,6 +564,9 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return;
 			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
 				setExceptionMappings((ExceptionMappings)newValue);
+				return;
+			case SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT:
+				setPrincipalNameSlot((DataSlot)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -546,6 +601,9 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
 				setExceptionMappings((ExceptionMappings)null);
 				return;
+			case SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT:
+				setPrincipalNameSlot((DataSlot)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -572,6 +630,8 @@ public class OrchestrationImpl extends EObjectImpl implements Orchestration {
 				return returnSlot != null;
 			case SvcorchPackage.ORCHESTRATION__EXCEPTION_MAPPINGS:
 				return exceptionMappings != null;
+			case SvcorchPackage.ORCHESTRATION__PRINCIPAL_NAME_SLOT:
+				return principalNameSlot != null;
 		}
 		return super.eIsSet(featureID);
 	}

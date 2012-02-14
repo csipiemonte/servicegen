@@ -376,6 +376,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getOrchestration_PrincipalNameSlot() {
+		return (EReference)orchestrationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNode() {
 		return nodeEClass;
 	}
@@ -911,6 +920,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		createEReference(orchestrationEClass, ORCHESTRATION__INPUT_PARAM_BINDINGS);
 		createEReference(orchestrationEClass, ORCHESTRATION__RETURN_SLOT);
 		createEReference(orchestrationEClass, ORCHESTRATION__EXCEPTION_MAPPINGS);
+		createEReference(orchestrationEClass, ORCHESTRATION__PRINCIPAL_NAME_SLOT);
 
 		nodeEClass = createEClass(NODE);
 		createEAttribute(nodeEClass, NODE__NAME);
@@ -1049,6 +1059,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		initEReference(getOrchestration_InputParamBindings(), this.getInputParamBindings(), null, "inputParamBindings", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrchestration_ReturnSlot(), this.getDataSlot(), null, "returnSlot", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrchestration_ExceptionMappings(), this.getExceptionMappings(), null, "exceptionMappings", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrchestration_PrincipalNameSlot(), this.getDataSlot(), null, "principalNameSlot", null, 0, 1, Orchestration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nodeEClass, Node.class, "Node", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNode_Name(), ecorePackage.getEString(), "name", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

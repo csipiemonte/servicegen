@@ -90,6 +90,7 @@ public class OrchestrationItemProvider
 			addServicePropertyDescriptor(object);
 			addOperationPropertyDescriptor(object);
 			addReturnSlotPropertyDescriptor(object);
+			addPrincipalNameSlotPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -204,6 +205,28 @@ public class OrchestrationItemProvider
 				 getString("_UI_Orchestration_returnSlot_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_returnSlot_feature", "_UI_Orchestration_type"),
 				 SvcorchPackage.Literals.ORCHESTRATION__RETURN_SLOT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Principal Name Slot feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPrincipalNameSlotPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Orchestration_principalNameSlot_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Orchestration_principalNameSlot_feature", "_UI_Orchestration_type"),
+				 SvcorchPackage.Literals.ORCHESTRATION__PRINCIPAL_NAME_SLOT,
 				 true,
 				 false,
 				 true,

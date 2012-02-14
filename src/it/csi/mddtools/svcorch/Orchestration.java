@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getInputParamBindings <em>Input Param Bindings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getReturnSlot <em>Return Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getExceptionMappings <em>Exception Mappings</em>}</li>
+ *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getPrincipalNameSlot <em>Principal Name Slot</em>}</li>
  * </ul>
  * </p>
  *
@@ -229,5 +230,31 @@ public interface Orchestration extends EObject {
 	 * @generated
 	 */
 	void setExceptionMappings(ExceptionMappings value);
+
+	/**
+	 * Returns the value of the '<em><b>Principal Name Slot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Principal Name Slot</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Principal Name Slot</em>' reference.
+	 * @see #setPrincipalNameSlot(DataSlot)
+	 * @see it.csi.mddtools.svcorch.SvcorchPackage#getOrchestration_PrincipalNameSlot()
+	 * @model
+	 * @generated
+	 */
+	DataSlot getPrincipalNameSlot();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.svcorch.Orchestration#getPrincipalNameSlot <em>Principal Name Slot</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Principal Name Slot</em>' reference.
+	 * @see #getPrincipalNameSlot()
+	 * @generated
+	 */
+	void setPrincipalNameSlot(DataSlot value);
 
 } // Orchestration

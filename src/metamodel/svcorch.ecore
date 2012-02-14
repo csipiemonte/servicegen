@@ -15,6 +15,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="returnSlot" eType="#//DataSlot"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exceptionMappings" eType="#//ExceptionMappings"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="principalNameSlot" eType="#//DataSlot"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

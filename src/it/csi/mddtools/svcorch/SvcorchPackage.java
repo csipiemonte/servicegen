@@ -147,13 +147,22 @@ public interface SvcorchPackage extends EPackage {
 	int ORCHESTRATION__EXCEPTION_MAPPINGS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Principal Name Slot</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORCHESTRATION__PRINCIPAL_NAME_SLOT = 7;
+
+	/**
 	 * The number of structural features of the '<em>Orchestration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ORCHESTRATION_FEATURE_COUNT = 7;
+	int ORCHESTRATION_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.svcorch.impl.NodeImpl <em>Node</em>}' class.
@@ -1440,6 +1449,17 @@ public interface SvcorchPackage extends EPackage {
 	EReference getOrchestration_ExceptionMappings();
 
 	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.svcorch.Orchestration#getPrincipalNameSlot <em>Principal Name Slot</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Principal Name Slot</em>'.
+	 * @see it.csi.mddtools.svcorch.Orchestration#getPrincipalNameSlot()
+	 * @see #getOrchestration()
+	 * @generated
+	 */
+	EReference getOrchestration_PrincipalNameSlot();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.svcorch.Node <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2119,6 +2139,14 @@ public interface SvcorchPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ORCHESTRATION__EXCEPTION_MAPPINGS = eINSTANCE.getOrchestration_ExceptionMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Principal Name Slot</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORCHESTRATION__PRINCIPAL_NAME_SLOT = eINSTANCE.getOrchestration_PrincipalNameSlot();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.svcorch.impl.NodeImpl <em>Node</em>}' class.
