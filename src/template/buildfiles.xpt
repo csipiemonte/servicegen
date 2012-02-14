@@ -664,19 +664,23 @@ AS sharedLibsPath»
 			</zipfileset>
 		</zip>
 
+		«IF isAtLeastOneServiceDiagEnabled(this)-»
 		<!-- DIAG -->
 		<zip destfile="${build}/archives/${target}/diag-${project}-${version}.zip">
 			<zipfileset dir="${temp}/diag">
 				<include name="**/*.properties"/>
 			</zipfileset>
 		</zip>
+		«ENDIF-»
 
+		«IF isAtLeastOneServiceMonitorable(this)-»
 		<!-- MONIT -->
 		<zip destfile="${build}/archives/${target}/monit-${project}-${version}.zip">
 			<zipfileset dir="${temp}/monit">
 				<include name="**/*.properties"/>
 			</zipfileset>
 		</zip>
+		«ENDIF-»
 	</target>
 
 	<target name="_replace-registry-vars">
