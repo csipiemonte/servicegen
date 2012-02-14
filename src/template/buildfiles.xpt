@@ -1,18 +1,18 @@
 «REM»
-C) Copyright 2011 CSI-PIEMONTE;                                             
-                                                                            
-Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
-Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
-E' possibile ottenere una copia della Licenza al seguente indirizzo:        
-                                                                            
-http://www.eupl.it/opensource/eupl-1-1                                      
-                                                                            
-Salvo diversamente indicato dalla legge applicabile o concordato per        
-iscritto, il software distribuito secondo i termini della Licenza e'        
-distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
-esplicite o implicite.                                                      
-Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
-e le limitazioni secondo i termini della Licenza.                           
+C) Copyright 2011 CSI-PIEMONTE;
+
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+E' possibile ottenere una copia della Licenza al seguente indirizzo:
+
+http://www.eupl.it/opensource/eupl-1-1
+
+Salvo diversamente indicato dalla legge applicabile o concordato per
+iscritto, il software distribuito secondo i termini della Licenza e'
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+esplicite o implicite.
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+e le limitazioni secondo i termini della Licenza.
 «ENDREM»
 
 «IMPORT servicegen»
@@ -44,7 +44,7 @@ creazione del build.xml per ANT
 	<echo message="Loading build properties..." />
 	<property file="buildfiles/build.properties"/>
 	<property file="buildfiles/build.locale.properties"  />
-	<property file="buildfiles/${target}.properties"/>	
+	<property file="buildfiles/${target}.properties"/>
 
 	<path id="library.ref">
 		<fileset dir="${lib}">
@@ -58,7 +58,7 @@ creazione del build.xml per ANT
 	</path>
 
 
-	<target name="default" description="Eseguire il build per 
+	<target name="default" description="Eseguire il build per
 		l'environment specificato a linea di comando con -Dtarget=${target}
 		o per tutti gli environment (se non specificato).">
 
@@ -124,7 +124,7 @@ creazione del build.xml per ANT
 	</target>
 
 
-    
+
 	<target name="resolve-dependencies" description="carica le librerie dal repository remoto">
 		<ivy:configure file="buildfiles/ivyconf.xml" />
 		<ivy:resolve file="buildfiles/ivy.xml" />
@@ -146,12 +146,12 @@ creazione del build.xml per ANT
 	<target name="compile-all" description="Compila tutti i sorgenti."
 		depends="init, load-dependencies" >
 
-		<echo message="===> Target: ${target}" />		
-		
+		<echo message="===> Target: ${target}" />
+
 		<!-- compilazione dei sorgenti delle interfacce (target 1.3)-->
-		<javac srcdir="${src}/java" 
-			destdir="${build}/classes" 
-			optimize="on" 
+		<javac srcdir="${src}/java"
+			destdir="${build}/classes"
+			optimize="on"
 			deprecation="on"
 			compiler="modern"
 			target="1.3"
@@ -160,11 +160,11 @@ creazione del build.xml per ANT
 			>
 			<classpath refid="library.ref"/>
 		</javac>
-		
+
 		<!-- compilazione degli altri sorgenti -->
-		<javac srcdir="${src}/java" 
-			destdir="${build}/classes" 
-			optimize="on" 
+		<javac srcdir="${src}/java"
+			destdir="${build}/classes"
+			optimize="on"
 			deprecation="on"
 			compiler="modern"
 			debug="on" debuglevel="lines,vars,source"
@@ -174,20 +174,20 @@ creazione del build.xml per ANT
 		</javac>
 
 		<!-- compilazione delle classi di test -->
-		<javac srcdir="${test}/java" 
-			destdir="${build}/classes" 
-			optimize="on" 
+		<javac srcdir="${test}/java"
+			destdir="${build}/classes"
+			optimize="on"
 			deprecation="on"
 			compiler="modern"
 			debug="on" debuglevel="lines,vars,source"
 			>
 			<classpath refid="library.ref"/>
 		</javac>
-		
+
 		<copy todir="${build}/classes">
 			<fileset dir="${src}/java" excludes="**/*.java*,**/*.jbx*"/>
 		</copy>
-		
+
 		<copy todir="${build}/classes">
    			<fileset dir="${test}/java" excludes="**/*.java*,**/*.jbx*"/>
 		</copy>
@@ -204,8 +204,8 @@ creazione del build.xml per ANT
 			«ENDFOREACH-»
 		</jar>
     </target>
-    
-    <target name="_package-csiclientlibs-jar" depends="compile-all" 
+
+    <target name="_package-csiclientlibs-jar" depends="compile-all"
     description="costruisce tutti i jar delle librerie client di CSI per ogni servizio"
     >
        «FOREACH getProvidedServices() AS sd»
@@ -216,7 +216,7 @@ creazione del build.xml per ANT
        </antcall>
        «ENDFOREACH»
     </target>
-    
+
     <target name="_csiclientlib-jar" description="genera le librerie client di ciascun servizio">
     	<!-- prende come parametro il codice servizio service.name e la versione service.ver (deve essere a 2 cifre!!!) -->
     	<jar destfile="${build}/archives/${target}/«codComponente.toLowerCase()»-${service.name}-client-${service.ver}.0.jar"
@@ -226,27 +226,27 @@ creazione del build.xml per ANT
 			          «getOrganizationNamePathPrefix()»/«codProdotto.toLowerCase()»/«codComponente.toLowerCase()»/interfacecsi/${service.name}/**">
 		</jar>
     </target>
-	
+
 
 	<target name="environment-config" description="Predispone le configurazioni dipendenti dall'ambiente.">
 		<copy todir="build/temp" overwrite="true">
 			<fileset file="${conf}/ear/*.xml" />
 		</copy>
-		
+
 		<copy todir="build/temp" overwrite="true">
 			<fileset file="${conf}/**" />
 		</copy>
-		
+
 		«EXPAND varSubstForRC FOREACH getAllResourceConnectors()»
-		
+
 		«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
 			«EXPAND varSubstForJBossClustering FOR this»
 		«ENDIF»
-		
+
 	</target>
 
-	
-    
+
+
     <target name="_package-all-soappabr-wars">
     «FOREACH serviceimplementations AS currSrvImpl»
     	«LET currSrvImpl.provides.bindings.typeSelect(SOAPPABRBinding).first() AS pabr»
@@ -262,13 +262,13 @@ creazione del build.xml per ANT
     	«ENDLET»
     «ENDFOREACH»
     </target>
-    
+
     <target name="_package-soappabr-war" >
       <!-- prende in input i parametri component.name service.name binding.code -->
       <mkdir dir="${temp}/${binding.code}/${service.name}/WEB-INF" />
-        «REM»see: getPABRWarName() - non posso usare le extensions qui«ENDREM» 
+        «REM»see: getPABRWarName() - non posso usare le extensions qui«ENDREM»
 		<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
-             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml" 
+             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
 			 roundup= "false">
 			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/deploysoapejb*.xml" />
 			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/jboss-web.xml" />
@@ -292,39 +292,39 @@ creazione del build.xml per ANT
     	«ENDLET»
     «ENDFOREACH»
     </target>
-    
+
     <target name="_package-wsfad-war" >
       <!-- prende in input i parametri component.name service.name binding.code -->
       <mkdir dir="${temp}/${binding.code}/${service.name}/WEB-INF" />
-        «REM»see: getWSFADWarName() - non posso usare le extensions qui«ENDREM» 
+        «REM»see: getWSFADWarName() - non posso usare le extensions qui«ENDREM»
 		<war destfile="${build}/archives/${target}/${service.type}-${service.name}-${binding.code}.war"
-             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml" 
+             webxml="${conf}/web/${binding.code}/${service.name}/WEB-INF/web.xml"
 			 roundup= "false">
 			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/server-config.wsdd" />
 			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/jboss-web.xml" />
 			 <webinf file="${conf}/web/${binding.code}/${service.name}/WEB-INF/weblogic.xml" />
-			 <classes dir="${src}/web/${binding.code}/${service.name}" 
+			 <classes dir="${src}/web/${binding.code}/${service.name}"
 				includes="defpdelegata_embedded*.xml" />
 			<lib dir="${lib}" includes="${wsfad.libs}" />
-			<fileset dir="${src}/web/${binding.code}/${service.name}" includes="**">			
+			<fileset dir="${src}/web/${binding.code}/${service.name}" includes="**">
 			</fileset>
 		</war>
     </target>
-    
-    
+
+
     <!-- costruisce tutti gli ejb jar relativi alle PA ejb (1 per servizio esposto)-->
     <target name="_ejbpa-ejb-jars" depends="compile-all">
-    	«EXPAND ejbpa_calls FOREACH this.serviceimplementations»	
+    	«EXPAND ejbpa_calls FOREACH this.serviceimplementations»
     </target>
-	
-	
+
+
 	<target name="_ejbpa-ejb-jar" description="Genera il jar per la PA ejb di servizi APPL o INFR" >
 	    <!-- prende come parametro il codice del servizio e del binding -->
 	    <!-- service.name -->
 	    <!-- service.version (serve per il rif. al client jar)-->
 	    <!-- service.type ("orch", "other-than-orch") -->
 	    <!-- binding.name -->
-		
+
         «REM»non posso usare le extension qui, quindi occorre mantenere amnualmente allineati gli standard«ENDREM»
         <if>
  			<equals arg1="${service.type}" arg2="orch" />
@@ -333,30 +333,30 @@ creazione del build.xml per ANT
 				<fileset dir="${build}/classes">
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/business/${service.name}/**"/>
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/integration/${service.name}/**"/>
-				</fileset>						
+				</fileset>
 
 				<fileset dir="${conf}/ejb/${service.name}">
 					<include name="defpa*"/>
 					<include name="checked_resources*.xml"/>
 					<include name="defqmgr_*" />
 				</fileset>
-			
+
 				<!-- config. svcflow -->
 				<fileset dir="${conf}/orchestrator/descriptor/${service.name}">
 					<include name="*.xml"/>
 				</fileset>
-			
+
 				<!-- risorse soggette a sostituzione -->
 				<fileset dir="${build}/temp/ejb/${service.name}">
 					<include name="*.xml"/>
 					<include name="*.properties"/>
-				</fileset>		
-								
+				</fileset>
+
 			    <metainf dir="${build}/temp/ejb/${service.name}/META-INF" >
 					<patternset id="all-xml" >
 						<include name="**/*.xml"/>
 					</patternset>
-				</metainf>	
+				</metainf>
 			</jar>
 		</then>
 		<else>
@@ -364,26 +364,26 @@ creazione del build.xml per ANT
 				<fileset dir="${build}/classes">
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/business/${service.name}/**"/>
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/integration/${service.name}/**"/>
-				</fileset>						
+				</fileset>
 
 				<fileset dir="${conf}/ejb/${service.name}">
 					<include name="defpa*"/>
 					<include name="checked_resources*.xml"/>
 					<include name="defqmgr_*" />
 				</fileset>
-			
+
 				<!-- risorse soggette a sostituzione -->
 				<fileset dir="${build}/temp/ejb/${service.name}">
 					<include name="*.xml"/>
 					<include name="*.properties"/>
 				</fileset>
-				
+
 				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
 					<patternset id="all-xml" >
 						<include name="**/*.xml"/>
 					</patternset>
 				</metainf>
-			</jar>		
+			</jar>
 		</else>
 		</if>
 	</target>
@@ -394,25 +394,25 @@ creazione del build.xml per ANT
 	    <!-- service.name -->
 	    <!-- service.version (serve per il rif. al client jar)-->
 	    <!-- binding.name -->
-		
+
         «REM»non posso usare le extension qui, quindi occorre mantenere amnualmente allineati gli standard«ENDREM»
 		<jar jarfile="${build}/archives/${target}/orch-${service.name}${binding.name}ejb.jar" >
 			<fileset dir="${build}/classes">
 				<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/business/${service.name}/**"/>
 				<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/integration/${service.name}/**"/>
-			</fileset>						
+			</fileset>
 
 			<fileset dir="${conf}/ejb/${service.name}">
 				<include name="defpa*"/>
 				<include name="checked_resources*.xml"/>
 				<include name="defqmgr_*" />
 			</fileset>
-			
+
 			<!-- config. svcflow -->
 			<fileset dir="${conf}/orchestrator/descriptor/${service.name}">
 				<include name="*.xml"/>
 			</fileset>
-			
+
 			<metainf dir="${conf}/ejb/${service.name}/META-INF" >
 				<patternset id="all-xml" >
 					<include name="**/*.xml"/>
@@ -425,12 +425,12 @@ creazione del build.xml per ANT
 
 		<copy todir="${build}/classes/«getOrganizationNamePathPrefix()»/${project}/integration/services/iride" file="${conf}/pd/iride/defPDIrideEJB.xml" />
 		<replace file="${build}/classes/«getOrganizationNamePathPrefix()»/${project}/integration/services/iride/defPDIrideEJB.xml" token="@IRIDE_URL@" value="${iride.url.t3}" />
-			
+
 		<jar jarfile="${build}/archives/${target}/integration.jar">
 			<fileset dir="${build}/classes">
 				<include name="«getOrganizationNamePathPrefix()»/${project}/integration/**"/>
 			</fileset>
-			
+
 			<manifest>
 					<attribute name="Class-Path" value="commons.jar lib/util-perf-1.0.0.jar"/>
 			</manifest>
@@ -445,15 +445,15 @@ creazione del build.xml per ANT
 			basedir="${build}/classes"
 	    	includes="«fullServiceEJBClassesDir(impl.provides.codServizio, this)+"/spring/startup/**"»">
 	    	<fileset dir="${conf}/sar/«impl.provides.codServizio.toLowerCase()»">
-	    		<include name="**"/>	    							
+	    		<include name="**"/>
 	    	</fileset>
 		</jar>
 	</target>
-    
+
     «ENDFOREACH-»
     «ENDIF-»
-	
-	<target name="package-ear"  description="costruisce l&apos;ear"  
+
+	<target name="package-ear"  description="costruisce l&apos;ear"
 		depends="compile-all, environment-config, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars">
 «LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${temp}/${target}/APP-INF/lib" :
      (this.targetPlatform.code==TargetPlatformCodes::JBoss43 ? "${temp}/${target}/lib" : "${temp}/${target}/APP-INF/lib"))
@@ -489,7 +489,7 @@ AS sharedLibsPath»
 	</target>
 
 
-	<target name="distribution" description="Costruisce il tar per la distribuzione." 
+	<target name="distribution" description="Costruisce il tar per la distribuzione."
 		depends="package-all">
 
 		<echo>====== Creating distribution for ${target} ...</echo>
@@ -503,7 +503,7 @@ AS sharedLibsPath»
 		<antcall target="_configure-registry"/>
 
 		<!-- creazione pacchetto distribution -->
-		<tar tarfile="${dist}/${target}/${project}-${version}.tar" 
+		<tar tarfile="${dist}/${target}/${project}-${version}.tar"
 	         basedir="${build}/archives/${target}"
 	         includes="*.ear,*.zip" >
 			<tarfileset dir="buildfiles">
@@ -521,9 +521,9 @@ AS sharedLibsPath»
 	</target>
 
 
-	
+
 	<!-- clean targets -->
-	
+
 	<target name="clean-all"
 	    	description="Rimuove tutte le cartelle temporanee."
     	depends="clean-archives, clean-cache, clean-classes, clean-dist, clean-javadoc, clean-temp"/>
@@ -576,7 +576,7 @@ AS sharedLibsPath»
 	</target>
 
 
-	
+
 
 	<target name="_clean-web-inf"
 			description="Rimuove il contenuto di lib e classes della web application (per run locali).">
@@ -656,27 +656,31 @@ AS sharedLibsPath»
 	<target name="_configure-registry">
 		<!-- sostituisce le variabili -->
 		<antcall target="_replace-registry-vars" />
-		
-		<!-- REGISTRY -->		
+
+		<!-- REGISTRY -->
 		<zip destfile="${build}/archives/${target}/${project}-reg-${version}.zip">
 			<zipfileset dir="${temp}/registry">
 				<include name="*/**"/>
 			</zipfileset>
 		</zip>
 
+		«IF isAtLeastOneServiceDiagEnabled(this)-»
 		<!-- DIAG -->
 		<zip destfile="${build}/archives/${target}/diag-${project}-${version}.zip">
 			<zipfileset dir="${temp}/diag">
 				<include name="**/*.properties"/>
 			</zipfileset>
 		</zip>
+		«ENDIF-»
 
+		«IF isAtLeastOneServiceMonitorable(this)-»
 		<!-- MONIT -->
 		<zip destfile="${build}/archives/${target}/monit-${project}-${version}.zip">
 			<zipfileset dir="${temp}/monit">
 				<include name="**/*.properties"/>
 			</zipfileset>
 		</zip>
+		«ENDIF-»
 	</target>
 
 	<target name="_replace-registry-vars">
@@ -700,7 +704,7 @@ AS sharedLibsPath»
 			«ENDFOREACH-»
 			«ENDLET-»
 			«ENDFOREACH-»
-		</replace>	
+		</replace>
 
 		«IF isAtLeastOneServiceDiagEnabled(this)-»
 		<!-- DIAG -->
@@ -736,7 +740,7 @@ AS sharedLibsPath»
 
     <target name="javadoc">
 
-    	<javadoc sourcepath="${src}/java"                 
+    	<javadoc sourcepath="${src}/java"
                  packagenames="«getOrganizationNamePkgPrefix()».*"
                  destdir="${docs}/api"
                  access="${javadoc.access}"
@@ -765,7 +769,7 @@ AS sharedLibsPath»
 	<echo message="Loading build properties..." />
 	<property file="./build.properties"/>
 	<property file="./build.locale.properties"  />
-	<property file="./${target}.properties"/>	
+	<property file="./${target}.properties"/>
 
 	<path id="library.ref">
 		<fileset dir="../${lib}">
@@ -781,7 +785,7 @@ AS sharedLibsPath»
 	<taskdef name="axis-wsdl2java" classname="org.apache.axis.tools.ant.wsdl.Wsdl2javaAntTask">
         <classpath refid="library.ref" />
    	</taskdef>
-   
+
    <target name="init" description="Inizializza lo script Ant.">
 		<tstamp />
 		<condition property="target" value="dev">
@@ -804,7 +808,7 @@ AS sharedLibsPath»
 		<!-- stampa dei valori recuperati -->
 		<echo message="${env.JAVA_HOME_SERVER}"/>
 		<echo message="${env.JAVA_HOME_CLIENT}"/>
-		
+
 	</target>
    	<!-- creazione di tutti gli stub axis per i wsfad -->
 	<target name="genallstubs-fad" depends="init" description="geenra tutti gli stub dei wsfad per test">
@@ -820,8 +824,8 @@ AS sharedLibsPath»
 	«ENDLET»
 	«ENDFOREACH»
 	</target>
-   
-    <!-- creazione delig stub axis per i servizi esposti tramite front-adapter 
+
+    <!-- creazione delig stub axis per i servizi esposti tramite front-adapter
          riceve in input component.name, service.name, binding.code, testfad.services.prefix -->
 	<target name="genstubs-fad" depends="init" description="generazione stub wsfad per test">
 	    <axis-wsdl2java
@@ -831,7 +835,7 @@ AS sharedLibsPath»
 	    all="true"
 	    skeletondeploy="false"
 	    serverside="false"
-	    url="${testfad.services.prefix}/${component.name}${service.type}${service.name}${binding.code}/services/${component.name}${service.name}?wsdl" 
+	    url="${testfad.services.prefix}/${component.name}${service.type}${service.name}${binding.code}/services/${component.name}${service.name}?wsdl"
 	    >
 	    <mapping
 	      namespace="${testfad.services.prefix}/${component.name}${service.type}${service.name}${binding.code}/services/${component.name}${service.name}"
@@ -841,7 +845,7 @@ AS sharedLibsPath»
 	      package="test.${service.name}.stubs" />
 	    <mapping
 	      namespace="http://api.coopdiag.csi.it"
-	      package="test.${service.name}.stubs" />  
+	      package="test.${service.name}.stubs" />
     </axis-wsdl2java>
     </target>
   </project>
@@ -867,14 +871,14 @@ AS sharedLibsPath»
  	<then>
 	    <replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="&lt;clustered&gt;True&lt;/clustered&gt;">
 		    <include name="**/jboss.xml"/>
-  		</replace>	
-  	</then>	
+  		</replace>
+  	</then>
   	<else>
   		<replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="">
 		    <include name="**/jboss.xml"/>
   		</replace>
   	</else>
-  	</if>	
+  	</if>
 «ENDDEFINE»
 
 «DEFINE ejbpa_calls FOR ServiceImpl»
@@ -985,7 +989,7 @@ spring-jdbc-2.0.7.jar \
 «IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
 weblogic-client-3.0.0.jar \
 «ENDIF-»
-coop-trace-1.2.0.jar 
+coop-trace-1.2.0.jar
 
 wsfad.libs = wsadp-2.0.2.jar
 
@@ -995,7 +999,7 @@ osworkflow-2.8.0.jar \
 propertyset-1.4.jar
 
 cooptrace.libs = coop-trace-1.2.0.jar
- 
+
 
 «PROTECT CSTART '##' CEND '##' ID getRegionUID("extralibs"+codComponente)»
 # inserire qui le librerie extra da aggiungere nel build
@@ -1119,10 +1123,10 @@ creazione del file di configurazione IVY
 
 	<dependencies>
 
-		<!-- librerie per il logging applicativo e la misurazione 
+		<!-- librerie per il logging applicativo e la misurazione
 		     delle performance. Nota: la piattaforma jboss impone l'utilizzo della
-		     versione 1.2.14. 
-		     -->		
+		     versione 1.2.14.
+		     -->
 		<dependency org="apache" name="log4j" rev="1.2.14">
 			<artifact name="log4j-1.2.14" type="jar" />
 		</dependency>
@@ -1135,7 +1139,7 @@ creazione del file di configurazione IVY
 		<dependency org="csipiemonte" name="coop-diag" rev="1.2.1">
 			<artifact name="coop-diag-1.2.1" type="jar" />
 		</dependency>
-		
+
 		<!-- librerie per la realizzazioen dei test unitari -->
 		<dependency org="others" name="junit" rev="3.8.1">
 			<artifact name="junit-3.8.1" type="jar" />
@@ -1151,35 +1155,35 @@ creazione del file di configurazione IVY
 			<artifact name="csi-stadapter-1.4.5" type="jar" />
 			<artifact name="csi-tools-1.4.5" type="jar" />
 		</dependency>
-	    
+
 	    <!-- librerie necessarie pe ri binding WSFAD -->
 	    <dependency org="csipiemonte" name="wsadp" rev="2.0.2">
-	    	<artifact name="wsadp-2.0.2" type="jar" /> 
+	    	<artifact name="wsadp-2.0.2" type="jar" />
 	    </dependency>
-	    
+
 	    <!-- librerie necessarie se si attiva il supporto coop trace
-	         (specifiche per la target platform «this.targetPlatform.code». 
+	         (specifiche per la target platform «this.targetPlatform.code».
 	    -->
-	    
+
 	    <dependency org="csipiemonte" name="coop-trace" rev="1.2.0">
 	    	<artifact name="coop-trace-1.2.0" type="jar" />
 	    </dependency>
-	    
+
 	    <!-- dipendenze per svcflow 1.2.1 -->
 	    <dependency org="csipiemonte" name="svcflow" rev="1.2.1">
 	    	<artifact name="svcflow-1.2.1" type="jar" />
 	    </dependency>
-	    
+
 	    «LET getAllResourceConnectors(this) AS allResConn-»
 	    «FOREACH allResConn.select(rc|rc.metaType==PDPAServiceConnector) AS currPDPARC-»
 	    «EXPAND pdpaIvyDependency FOR (PDPAServiceConnector)currPDPARC»
 	    «ENDFOREACH-»
 	    «ENDLET-»
-	    
+
 	    «IF this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo  ).size>0-»
 	    «EXPAND springIvyDependencies FOR this-»
 	    «ENDIF-»
-	    
+
 	    «IF this.targetPlatform.code==TargetPlatformCodes::WLS92»
         <!-- librerie specifiche della target platform WLS92 -->
 		<dependency org="bea" name="weblogic" rev="9.2.2.0">
@@ -1189,26 +1193,26 @@ creazione del file di configurazione IVY
         <!-- librerie specifiche della target platform JBoss43 -->
 		<dependency org="others" name="jboss" rev="4.3.0">
 			<artifact name="jboss-j2ee-4.3.0" type="jar" />
-			<artifact name="jboss-servlet-api-4.3.0" type="jar" /> 
+			<artifact name="jboss-servlet-api-4.3.0" type="jar" />
 		</dependency>
-		
+
 		<!-- librerie necessarie per la connessione a servizi su WLS92 -->
 		<dependency org="csipiemonte" name="weblogic-client" rev="3.0.0">
-			<artifact name="weblogic-client-3.0.0" type="jar" /> 
+			<artifact name="weblogic-client-3.0.0" type="jar" />
 		</dependency>
 		«ENDIF»
-	    
+
 	    <!-- dipendenze necessarie per la compilazione o per i test -->
 	    <dependency org="apache" name="axis" rev="1.4">
 			<artifact name="axis-jaxrpc-1.4" type="jar" />
 		</dependency>
-		
+
 		<dependency org="apache" name="axis-ant" rev="1.4">
 			<artifact name="axis-ant-1.4" type="jar" />
 		</dependency>
-	    
+
 	    «PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("ivy.extralibs"+codComponente)»
-	    <!-- inserire QUI le direttive di download di eventuali librerie extra 
+	    <!-- inserire QUI le direttive di download di eventuali librerie extra
 	         ricordarsi di referenziare i jar nel file build.properties nella
 	         variabile extra.app.libs
 	    -->
@@ -1240,15 +1244,15 @@ creazione del file di configurazione IVY
 «DEFINE springIvyDependencies FOR SOABEModel»
 		<!-- librerie necessarie per l'implementazione spring -->
 		<dependency org="others" name="spring" rev="2.0.7">
-  			<artifact name="aopalliance-1.0" type="jar" /> 
-  			<artifact name="spring-aop-2.0.7" type="jar" /> 
-  			<artifact name="spring-beans-2.0.7" type="jar" /> 
-  			<artifact name="spring-context-2.0.7" type="jar" /> 
-  			<artifact name="spring-core-2.0.7" type="jar" /> 
-  			<artifact name="spring-remoting-2.0.7" type="jar" /> 
-  			<artifact name="spring-web-2.0.7" type="jar" /> 
-  			<artifact name="spring-dao-2.0.7" type="jar" /> 
-  			<artifact name="spring-jdbc-2.0.7" type="jar" /> 
+  			<artifact name="aopalliance-1.0" type="jar" />
+  			<artifact name="spring-aop-2.0.7" type="jar" />
+  			<artifact name="spring-beans-2.0.7" type="jar" />
+  			<artifact name="spring-context-2.0.7" type="jar" />
+  			<artifact name="spring-core-2.0.7" type="jar" />
+  			<artifact name="spring-remoting-2.0.7" type="jar" />
+  			<artifact name="spring-web-2.0.7" type="jar" />
+  			<artifact name="spring-dao-2.0.7" type="jar" />
+  			<artifact name="spring-jdbc-2.0.7" type="jar" />
   		</dependency>
 «ENDDEFINE»
 
@@ -1269,7 +1273,7 @@ creazione del file di configurazione IVY
 		«ENDLET-»
 		«ENDFOREACH-»
 		«ENDLET-»
-	    
+
 «ENDDEFINE»
 
 «REM»
@@ -1295,7 +1299,7 @@ TARGET PUBBLICI
  about: visualizza tutti i target pubblici.
  about-custom: visualizza tutti i target interni.
  show-wars: visualizza tutte le proprieta' di ambiente (chiave/valore).
- 
+
  clean-archives: rimuove la cartella build/archives ed il suo contenuto.
  clean-cache: rimuove la cartella cache di ivy e la lib.
  clean-classes: rimuove tutti i file .class da build/classes.
@@ -1303,11 +1307,11 @@ TARGET PUBBLICI
  clean-temp: rimuove tutti i file dalla build/temp.
  clean-all: cleans all but destination dir for previus builds.
 
- 
+
  **********************************************************************
  ARCHIVI
  **********************************************************************
- 
+
  EJB TIER
  package-ear: crea l'archivio J2EE dell'applicazione (.ear) nella build/archives.
 
@@ -1323,7 +1327,7 @@ TARGET PUBBLICI
  **********************************************************************
 
  compile-all: esegue la compilazione di tutti i sorgenti.
- 
+
 «ENDFILE»
 
 «FILE "buildfiles/aboutCustom.txt"»
