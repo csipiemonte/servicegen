@@ -807,7 +807,7 @@ OS WORKFLOW FILES
 «DEFINE svcflowFiles(SOABEModel model, String source) FOR ServiceDef»
 	«EXPAND svcflowConfigFiles(model) FOR this»
 	«FOREACH operations AS op»
-		«EXPAND svcflowDefinitionFile(this, model) FOR op»
+		«EXPAND svcflowDefinitionFile(this, model, source) FOR op»
 		«EXPAND svcflowHandlerFiles(this, model, source) FOR op»
 	«ENDFOREACH»
 «ENDDEFINE»
@@ -848,15 +848,15 @@ Genera i files per la configurazione di OsWorkflow, ovvero:
 
 
 «REM»Genera il file xml di definizione di un singolo Workflow«ENDREM»
-«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model, String source) FOR Operation»
 	«LET getServiceImpl(sd,model) AS impl-»
 		«IF impl !=null-»
 			«LET impl.serviceComponent AS sc»
 				«LET impl.implCartridge AS crt»
 					«IF crt==null || crt.metaType==ManualImplCartridge»
-						«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd,model) FOR this»
+						«EXPAND template::manualimpl::javafiles::svcflowDefinitionFile(sd, model) FOR this»
 					«ELSEIF crt!=null && crt.metaType==FlowModelImplCartridge»
-						«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd,model) FOR this»
+						«EXPAND template::flowmodel::workflow::svcflowDefinitionFile(sd, model, source) FOR this»
 					«ELSE»
 						«ERROR "tipo di cartridge non gestita per implementazione "+impl»
 					«ENDIF»

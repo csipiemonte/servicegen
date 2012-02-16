@@ -21,8 +21,6 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT svcorch»
 «IMPORT appresources»
 
-«IMPORT template::javavalidator»
-
 «EXTENSION template::ServicegenExtensions»
 «EXTENSION template::flowmodel::FlowModelExtensions»
 
@@ -32,7 +30,7 @@ e le limitazioni secondo i termini della Licenza.
 Costruisce il file di configurazione dell'orchestrazione che verra' dato in pasto a OsWorkflow
 ****************************************
 «ENDREM»
-«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model) FOR Operation»
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model, String source) FOR Operation»
 «FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
 <!-- definizione di workflow generata a partire dal modello dell'orchestrazione -->
@@ -59,7 +57,7 @@ Costruisce il file di configurazione dell'orchestrazione che verra' dato in past
 		</step>
 		«LET findOrchestrationForOperation(sd, model) AS currOrch-»
 			«IF currOrch!=null-»
-				«EXPAND steps(sd, model) FOR currOrch-»
+				«EXPAND steps(sd, model, source) FOR currOrch-»
 			«ELSE-»
 				«ERROR "Modello inconsistente: impossibile trovare l'orchestrazioen per "+sd.codServizio+"."+this.name»
 			«ENDIF-»
@@ -74,29 +72,34 @@ Costruisce il file di configurazione dell'orchestrazione che verra' dato in past
 «REM»
 Inizia la creazione nel descrittore dei vari step.
 «ENDREM»
-«DEFINE steps(ServiceDef sd, SOABEModel model) FOR Orchestration-»
-	«EXPAND step(this, sd, model) FOREACH nodes.nodes-»
+«DEFINE steps(ServiceDef sd, SOABEModel model, String source) FOR Orchestration-»
+	«EXPAND step(this, sd, model, source) FOREACH nodes.nodes-»
 «ENDDEFINE»
 
 
 «REM»Step non gestito: ERRORE«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR Node»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR Node»
 «ERROR "tipo di nodo "+this+"non gestito"»
 «ENDDEFINE»
 
 
 «REM»StartNode«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StartNode»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StartNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
 				<pre-functions>
 				    <function type="class">
-						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>
 						«LET (Orchestration)(((Nodes)(this.eContainer)).eContainer) AS enclosingOrch-»
 						«FOREACH enclosingOrch.inputParamBindings.inputParams AS currBinding-»
 						<arg name="input.binding.«enclosingOrch.inputParamBindings.inputParams.indexOf(currBinding)»">«currBinding.param.name»=«getDataSlotAttrName(currBinding.slot)»</arg>
 						«ENDFOREACH-»
+						«IF source=="cxf"-»
+						«IF enclosingOrch.principalNameSlot!=null-»
+						<arg name="caller.principal.name.slot">«getDataSlotAttrName(enclosingOrch.principalNameSlot)»</arg>
+						«ENDIF-»
+						«ENDIF-»
 						«ENDLET-»
 					</function>
 				</pre-functions>
@@ -112,7 +115,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»StopNode«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StopNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -145,7 +148,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»PAPDCall«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR PAPDCall»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR PAPDCall»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -182,7 +185,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»WSCall«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR WSCall»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR WSCall»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -215,7 +218,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»CheckCondition«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CheckCondition»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CheckCondition»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -246,7 +249,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»ForEach«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR ForEach»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR ForEach»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -289,7 +292,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»CustomTransformation«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR CustomTransformation»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CustomTransformation»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -332,7 +335,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»DeclarativeTransformation«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR DeclarativeTransformation»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR DeclarativeTransformation»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -356,7 +359,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»EndLoop«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR EndLoop»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR EndLoop»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">
@@ -385,7 +388,7 @@ Inizia la creazione nel descrittore dei vari step.
 
 
 «REM»UserDefinedOpNode«ENDREM»
-«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model) FOR UserDefinedOpNode»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR UserDefinedOpNode»
 	<step name="«toCamel(name)»" id="«nodeID(orch)»">
 		<actions>
 			<action name="next" id="«"1"+(nodeID(orch))»">

@@ -37,7 +37,7 @@ Main method for Workflow Base Handlers
 	«EXPAND dataSlotHelper FOR this»
  
  	«REM»Classi base degli Handles per i vari tipi di nodo«ENDREM»
-	«EXPAND startNodeBaseHandler FOR this»
+	«EXPAND startNodeBaseHandler(source) FOR this»
 	«EXPAND stopNodeBaseHandler(source) FOR this»
 	«EXPAND papdCallBaseHandler FOR this»
 	«EXPAND wsCallBaseHandler FOR this»
@@ -179,7 +179,7 @@ CLASSI HANDLER BASE
 «ENDREM»
 
 «REM»Base Handler per il nodo START dell'orchestrazione«ENDREM»
-«DEFINE startNodeBaseHandler FOR SOABEModel»
+«DEFINE startNodeBaseHandler(String source) FOR SOABEModel»
 «FILE startNodeBaseHandlerFile()»package «baseHandlersPkg()»;
 
 import java.util.*;
@@ -221,6 +221,18 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
  	 */
 	protected Map<String, String> _inputNameBindings;
 
+	«IF source=="cxf"-»
+	/**
+ 	 * @generated
+ 	 */
+	public final static String CALLER_PRINCIPAL_NAME_SLOT_PARAM = "caller.principal.name.slot";
+
+	/**
+ 	 * @generated
+ 	 */
+	protected String _callerPrincipalNameSlot;
+	«ENDIF-»
+
 	/**
  	 * @generated
  	 */
@@ -260,6 +272,13 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 				«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","parametro:\"+currInput+\"->slot:\"+currDS+\"")»
 			}
 		}
+		
+		«IF source=="cxf"-»
+		if (args.get(CALLER_PRINCIPAL_NAME_SLOT_PARAM) != null) {
+			_callerPrincipalNameSlot = (String)args.get(CALLER_PRINCIPAL_NAME_SLOT_PARAM);
+		}
+		«ENDIF-»
+		
 		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","END")»
 	}
 
@@ -291,6 +310,13 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 					.getDataSlotValue("input.parameter."
 							+ currParamName, ps), ps);
 		}
+		
+		«IF source=="cxf"-»
+		if (_callerPrincipalNameSlot != null) {
+			DataSlotHelper.setDataSlotValue(_callerPrincipalNameSlot, DataSlotHelper.getDataSlotValue(CALLER_PRINCIPAL_NAME_SLOT_PARAM, ps), ps);
+		}
+		«ENDIF-»
+		
 		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
 	}
 
