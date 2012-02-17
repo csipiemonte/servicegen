@@ -367,3 +367,8 @@ context SOAPPABRBinding ERROR "Il parametro CodBinding deve valere pabr nel caso
 	
 context ServiceBinding ERROR "Il parametro codBinding deve essere valorizzato : "+loc()	:
 	this.codBinding != null && this.codBinding.length>0;
+	
+// [DM] servizi di orchestrazione securizzati A1+: propagazione principal name nel contesto di orchestrazione
+context Orchestration if principalNameSlot != null ERROR "Il principalNameSlot deve essere di tipo CSIString" :
+	this.principalNameSlot.type.metaType == CSIDatatype &&
+	((CSIDatatype)this.principalNameSlot.type).code == CSIDatatypeCodes::CSIString;

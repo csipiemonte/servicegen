@@ -95,10 +95,8 @@ Inizia la creazione nel descrittore dei vari step.
 						«FOREACH enclosingOrch.inputParamBindings.inputParams AS currBinding-»
 						<arg name="input.binding.«enclosingOrch.inputParamBindings.inputParams.indexOf(currBinding)»">«currBinding.param.name»=«getDataSlotAttrName(currBinding.slot)»</arg>
 						«ENDFOREACH-»
-						«IF source=="cxf"-»
-						«IF enclosingOrch.principalNameSlot!=null-»
+						«IF sd.authLevel!=null && sd.authLevel!=AuthLevelEnum::A0 && enclosingOrch.principalNameSlot!=null-»
 						<arg name="caller.principal.name.slot">«getDataSlotAttrName(enclosingOrch.principalNameSlot)»</arg>
-						«ENDIF-»
 						«ENDIF-»
 						«ENDLET-»
 					</function>

@@ -204,7 +204,7 @@ In caso di livello di sicurezza > A0 viene aggiunto un parametro
 che conterrà il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
-«DEFINE javaServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
 	«FILE fullServiceEJBClassesDir(codServizio,model)+"/"+serviceImplClassName()+".java"»
 package «getFullServiceEJBPkg(codServizio, model)»;
 
@@ -364,9 +364,11 @@ public class «serviceImplClassName()» {
 ***************************************************************
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
+In caso di livello di sicurezza > A0 viene aggiunto un parametro
+che conterrà il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
-«DEFINE javaOrchServiceDelegateClassFile (SOABEModel model)FOR ServiceDef»
+«DEFINE javaOrchServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
 	«FILE fullServiceEJBClassesDir(codServizio, model)+"/"+serviceImplClassName()+".java"»
 package «getFullServiceEJBPkg(codServizio, model)»;
 
@@ -395,7 +397,7 @@ import org.apache.log4j.*;
 /**
  * @generated
  */
-public class «serviceImplClassName()» implements «serviceInterfaceName()»{
+public class «serviceImplClassName()» {
     
     /**
 	 * @generated
@@ -409,7 +411,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	
 	/// Implementazione operazioni esposte dal servizio
 	
-	«EXPAND operationOrchImplementation (model, codServizio,serviceImplClassName(this), this)FOREACH this.operations»
+	«EXPAND operationOrchImplementation(model, codServizio,serviceImplClassName(this), this) FOREACH this.operations»
 	«IF this.monitorable || this.diagEnabled»
 	/// dichiarazione del self checker (utilizzato in monitoraggio e diagnostica)
 	/**
@@ -507,7 +509,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	// non verra' sovrascritto da successive rigenerazioni
 	«ENDPROTECT»
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -529,8 +531,8 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 «ENDDEFINE»
 
 
-
-«DEFINE operationImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+«REM»Implementazione di un metodo (caso di cartuccia ManualImpl => DEPRECATO)«ENDREM»
+«DEFINE operationImplementation(SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
   /**
    * @generated
    */
@@ -590,7 +592,8 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
   }
 «ENDDEFINE»
 
-«DEFINE operationOrchImplementation (SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
+«REM»Implementazione di un metodo dell'orchestrazione (caso di cartuccia FlowModelImpl => UNICA IMPL ACCETTATA)«ENDREM»
+«DEFINE operationOrchImplementation(SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
   /**
    * @generated
    */
@@ -603,7 +606,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
     		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-   «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
+  	«IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
     «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»java.security.Principal principal«ENDIF»
   )
   throws
@@ -618,7 +621,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	 watcher.start();
 	 
 	 
-	 String remoteUser = "<???>";
+	 String remoteUser = «getCSIOrchestrationRemoteUser(sd)»;
 	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
 	 java.util.HashMap persistentParams = new java.util.HashMap();
 	 try {
@@ -627,6 +630,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	 	persistentParams.put("input.parameter.«currPar.name»",«currPar.name»);
 	 	«ENDFOREACH»
 	 	«IF this.opType != OpTypeEnum::synch»persistentParams.put("input.parameter.datiMsg",datiMsg);«ENDIF»
+	 	«EXPAND principalNameParameter(sd) FOR this-»
      
 		 // inizializzazione e richiamo del flusso
 		 try{
@@ -667,4 +671,12 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	   logger.debug("[«implClassName»::«name»] - END");
      }
   }
+«ENDDEFINE»
+
+«REM»Inserimento nel context del principal in caso di autenticazione«ENDREM»
+«DEFINE principalNameParameter(ServiceDef def) FOR Operation»
+«IF def.authLevel != null && def.authLevel!=AuthLevelEnum::A0»
+// inserimento nel context del principal name
+persistentParams.put("caller.principal.name.slot", remoteUser);
+«ENDIF»
 «ENDDEFINE»

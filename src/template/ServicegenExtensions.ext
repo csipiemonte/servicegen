@@ -669,6 +669,13 @@ String getIvyRepositoryHost() :
 	"repart.csi.it":
 	getProperty("servicegen.ivyRepositoryHost");		
 
+// [DM] recupero e propagazione dell'utente remoto nell'orchestrazione
+String getCSIOrchestrationRemoteUser(ServiceDef sd) :
+	if sd.authLevel != null && sd.authLevel!=AuthLevelEnum::A0 then
+		"principal.getName()"
+	else
+		"\"<???>\"";
+
 String getPluginVersion() : JAVA
 	it.csi.mddtools.servicegen.genutils.MiscUtils.getPluginVersion();
 	
