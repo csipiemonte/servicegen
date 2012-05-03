@@ -246,6 +246,22 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createSDAnnotationDetailAdapter();
 			}
 			@Override
+			public Adapter caseWSEndpoint(WSEndpoint object) {
+				return createWSEndpointAdapter();
+			}
+			@Override
+			public Adapter caseWSSecuritySpec(WSSecuritySpec object) {
+				return createWSSecuritySpecAdapter();
+			}
+			@Override
+			public Adapter caseWSUsernamePasswordAuth(WSUsernamePasswordAuth object) {
+				return createWSUsernamePasswordAuthAdapter();
+			}
+			@Override
+			public Adapter caseWSSignature(WSSignature object) {
+				return createWSSignatureAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -822,6 +838,62 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSDAnnotationDetailAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSEndpoint <em>WS Endpoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSEndpoint
+	 * @generated
+	 */
+	public Adapter createWSEndpointAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSSecuritySpec <em>WS Security Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSSecuritySpec
+	 * @generated
+	 */
+	public Adapter createWSSecuritySpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth <em>WS Username Password Auth</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSUsernamePasswordAuth
+	 * @generated
+	 */
+	public Adapter createWSUsernamePasswordAuthAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSSignature <em>WS Signature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSSignature
+	 * @generated
+	 */
+	public Adapter createWSSignatureAdapter() {
 		return null;
 	}
 

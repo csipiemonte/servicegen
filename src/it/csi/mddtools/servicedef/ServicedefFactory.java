@@ -319,6 +319,33 @@ public interface ServicedefFactory extends EFactory {
 	SDAnnotationDetail createSDAnnotationDetail();
 
 	/**
+	 * Returns a new object of class '<em>WS Endpoint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Endpoint</em>'.
+	 * @generated
+	 */
+	WSEndpoint createWSEndpoint();
+
+	/**
+	 * Returns a new object of class '<em>WS Username Password Auth</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Username Password Auth</em>'.
+	 * @generated
+	 */
+	WSUsernamePasswordAuth createWSUsernamePasswordAuth();
+
+	/**
+	 * Returns a new object of class '<em>WS Signature</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Signature</em>'.
+	 * @generated
+	 */
+	WSSignature createWSSignature();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

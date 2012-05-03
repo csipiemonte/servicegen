@@ -106,6 +106,9 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.NOT_FEATURE_CONSTRAINT: return createNOTFeatureConstraint();
 			case ServicedefPackage.SERVICE_DEF_ANNOTATION: return createServiceDefAnnotation();
 			case ServicedefPackage.SD_ANNOTATION_DETAIL: return createSDAnnotationDetail();
+			case ServicedefPackage.WS_ENDPOINT: return createWSEndpoint();
+			case ServicedefPackage.WS_USERNAME_PASSWORD_AUTH: return createWSUsernamePasswordAuth();
+			case ServicedefPackage.WS_SIGNATURE: return createWSSignature();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -465,6 +468,36 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public SDAnnotationDetail createSDAnnotationDetail() {
 		SDAnnotationDetailImpl sdAnnotationDetail = new SDAnnotationDetailImpl();
 		return sdAnnotationDetail;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSEndpoint createWSEndpoint() {
+		WSEndpointImpl wsEndpoint = new WSEndpointImpl();
+		return wsEndpoint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSUsernamePasswordAuth createWSUsernamePasswordAuth() {
+		WSUsernamePasswordAuthImpl wsUsernamePasswordAuth = new WSUsernamePasswordAuthImpl();
+		return wsUsernamePasswordAuth;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSSignature createWSSignature() {
+		WSSignatureImpl wsSignature = new WSSignatureImpl();
+		return wsSignature;
 	}
 
 	/**

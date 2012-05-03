@@ -803,6 +803,75 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSEndpoint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSEndpointItemProvider wsEndpointItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSEndpoint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSEndpointAdapter() {
+		if (wsEndpointItemProvider == null) {
+			wsEndpointItemProvider = new WSEndpointItemProvider(this);
+		}
+
+		return wsEndpointItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSUsernamePasswordAuthItemProvider wsUsernamePasswordAuthItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSUsernamePasswordAuthAdapter() {
+		if (wsUsernamePasswordAuthItemProvider == null) {
+			wsUsernamePasswordAuthItemProvider = new WSUsernamePasswordAuthItemProvider(this);
+		}
+
+		return wsUsernamePasswordAuthItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSSignature} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSSignatureItemProvider wsSignatureItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSSignature}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSSignatureAdapter() {
+		if (wsSignatureItemProvider == null) {
+			wsSignatureItemProvider = new WSSignatureItemProvider(this);
+		}
+
+		return wsSignatureItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -932,6 +1001,9 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (notFeatureConstraintItemProvider != null) notFeatureConstraintItemProvider.dispose();
 		if (serviceDefAnnotationItemProvider != null) serviceDefAnnotationItemProvider.dispose();
 		if (sdAnnotationDetailItemProvider != null) sdAnnotationDetailItemProvider.dispose();
+		if (wsEndpointItemProvider != null) wsEndpointItemProvider.dispose();
+		if (wsUsernamePasswordAuthItemProvider != null) wsUsernamePasswordAuthItemProvider.dispose();
+		if (wsSignatureItemProvider != null) wsSignatureItemProvider.dispose();
 	}
 
 }
