@@ -54,7 +54,7 @@ public interface Feature extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * nome menmonico del tipo. Dovrebbe seguire le specifiche di naming delle
-	 * proprietà javabean
+	 * proprieta' javabean
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
@@ -83,7 +83,7 @@ public interface Feature extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Tipo del campo. Può essere valorizzato con:
+	 * Tipo del campo. PuÃ² essere valorizzato con:
 	 * <ul>
 	 * <li>un tipo semplice
 	 * <li>un tipo complesso

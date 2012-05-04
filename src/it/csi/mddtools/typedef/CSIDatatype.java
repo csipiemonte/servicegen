@@ -28,9 +28,9 @@ package it.csi.mddtools.typedef;
  *
  * <!-- begin-model-doc -->
  * Tipo base previsto dall'infrastruttura di cooperazione CSI.
- * Normalmente un insieme di tipi predefiniti è incluso come risorsa nei vari
+ * Normalmente un insieme di tipi predefiniti Ã¨ incluso come risorsa nei vari
  * modelli (definizione servizi, orchestrazioni, ...) e dunque in ogni insieme
- * di risorse (modelli) interconnesse è opportuno che vi sia una sola istanza
+ * di risorse (modelli) interconnesse e' opportuno che vi sia una sola istanza
  * di <b>CSIDatatype</b> per ogni tipo semplice previsto.
  * <!-- end-model-doc -->
  *
@@ -91,7 +91,7 @@ public interface CSIDatatype extends Type {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Qualificatore di tipo che defiisce se il tipo è un tipo che può assumere valore
+	 * Qualificatore di tipo che defiisce se il tipo Ã¨ un tipo che puÃ² assumere valore
 	 * nullo oppure no.
 	 * Es: 
 	 * <ul>

@@ -139,7 +139,7 @@ public interface ServiceConnector extends ResourceConnector {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * indica se il servizio è indirizzato tramite registry o con configurazione
+	 * indica se il servizio e' indirizzato tramite registry o con configurazione
 	 * locale al fruitore
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Registry</em>' attribute.
