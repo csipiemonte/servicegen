@@ -9,6 +9,7 @@ package it.csi.mddtools.servicedef.provider;
 
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
+import it.csi.mddtools.servicedef.WSEndpoint;
 import it.csi.mddtools.servicedef.WSEndpointChannel;
 
 import java.util.Collection;
@@ -114,11 +115,20 @@ public class WSEndpointChannelItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_WSEndpointChannel_type");
+		WSEndpointChannel chn = (WSEndpointChannel)object;
+		String label = "";
+		EStructuralFeature endpoint = chn.eContainingFeature();
+		if (endpoint.getName().startsWith("in")) {
+			label += "==> IN ";
+		} 
+		else {
+			label += "<==  OUT ";
+		}
+		return label + getString("_UI_WSEndpointChannel_type");
 	}
 
 	/**
