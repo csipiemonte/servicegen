@@ -826,26 +826,26 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth} instances.
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSUsernameTokenAuth} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected WSUsernamePasswordAuthItemProvider wsUsernamePasswordAuthItemProvider;
+	protected WSUsernameTokenAuthItemProvider wsUsernameTokenAuthItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth}.
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSUsernameTokenAuth}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createWSUsernamePasswordAuthAdapter() {
-		if (wsUsernamePasswordAuthItemProvider == null) {
-			wsUsernamePasswordAuthItemProvider = new WSUsernamePasswordAuthItemProvider(this);
+	public Adapter createWSUsernameTokenAuthAdapter() {
+		if (wsUsernameTokenAuthItemProvider == null) {
+			wsUsernameTokenAuthItemProvider = new WSUsernameTokenAuthItemProvider(this);
 		}
 
-		return wsUsernamePasswordAuthItemProvider;
+		return wsUsernameTokenAuthItemProvider;
 	}
 
 	/**
@@ -869,6 +869,75 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		}
 
 		return wsSignatureItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSTimestamp} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSTimestampItemProvider wsTimestampItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSTimestamp}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSTimestampAdapter() {
+		if (wsTimestampItemProvider == null) {
+			wsTimestampItemProvider = new WSTimestampItemProvider(this);
+		}
+
+		return wsTimestampItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSEncrypt} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSEncryptItemProvider wsEncryptItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSEncrypt}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSEncryptAdapter() {
+		if (wsEncryptItemProvider == null) {
+			wsEncryptItemProvider = new WSEncryptItemProvider(this);
+		}
+
+		return wsEncryptItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.WSEndpointChannel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected WSEndpointChannelItemProvider wsEndpointChannelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.WSEndpointChannel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createWSEndpointChannelAdapter() {
+		if (wsEndpointChannelItemProvider == null) {
+			wsEndpointChannelItemProvider = new WSEndpointChannelItemProvider(this);
+		}
+
+		return wsEndpointChannelItemProvider;
 	}
 
 	/**
@@ -1002,8 +1071,11 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (serviceDefAnnotationItemProvider != null) serviceDefAnnotationItemProvider.dispose();
 		if (sdAnnotationDetailItemProvider != null) sdAnnotationDetailItemProvider.dispose();
 		if (wsEndpointItemProvider != null) wsEndpointItemProvider.dispose();
-		if (wsUsernamePasswordAuthItemProvider != null) wsUsernamePasswordAuthItemProvider.dispose();
+		if (wsUsernameTokenAuthItemProvider != null) wsUsernameTokenAuthItemProvider.dispose();
 		if (wsSignatureItemProvider != null) wsSignatureItemProvider.dispose();
+		if (wsTimestampItemProvider != null) wsTimestampItemProvider.dispose();
+		if (wsEncryptItemProvider != null) wsEncryptItemProvider.dispose();
+		if (wsEndpointChannelItemProvider != null) wsEndpointChannelItemProvider.dispose();
 	}
 
 }

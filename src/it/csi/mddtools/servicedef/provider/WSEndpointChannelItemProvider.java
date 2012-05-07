@@ -9,7 +9,7 @@ package it.csi.mddtools.servicedef.provider;
 
 import it.csi.mddtools.servicedef.ServicedefFactory;
 import it.csi.mddtools.servicedef.ServicedefPackage;
-import it.csi.mddtools.servicedef.WSBinding;
+import it.csi.mddtools.servicedef.WSEndpointChannel;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,23 +17,27 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSBinding} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSEndpointChannel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WSBindingItemProvider
-	extends ServiceBindingItemProvider
+public class WSEndpointChannelItemProvider
+	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -46,7 +50,7 @@ public class WSBindingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WSBindingItemProvider(AdapterFactory adapterFactory) {
+	public WSEndpointChannelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -77,7 +81,7 @@ public class WSBindingItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ServicedefPackage.Literals.WS_BINDING__ENDPOINTS);
+			childrenFeatures.add(ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL__WS_SECURITY);
 		}
 		return childrenFeatures;
 	}
@@ -96,14 +100,14 @@ public class WSBindingItemProvider
 	}
 
 	/**
-	 * This returns WSBinding.gif.
+	 * This returns WSEndpointChannel.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSBinding"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSEndpointChannel"));
 	}
 
 	/**
@@ -114,10 +118,7 @@ public class WSBindingItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WSBinding)object).getCodBinding();
-		return label == null || label.length() == 0 ?
-			getString("_UI_WSBinding_type") :
-			getString("_UI_WSBinding_type") + " " + label;
+		return getString("_UI_WSEndpointChannel_type");
 	}
 
 	/**
@@ -131,8 +132,8 @@ public class WSBindingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(WSBinding.class)) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
+		switch (notification.getFeatureID(WSEndpointChannel.class)) {
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -152,8 +153,34 @@ public class WSBindingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ServicedefPackage.Literals.WS_BINDING__ENDPOINTS,
-				 ServicedefFactory.eINSTANCE.createWSEndpoint()));
+				(ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL__WS_SECURITY,
+				 ServicedefFactory.eINSTANCE.createWSUsernameTokenAuth()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL__WS_SECURITY,
+				 ServicedefFactory.eINSTANCE.createWSSignature()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL__WS_SECURITY,
+				 ServicedefFactory.eINSTANCE.createWSTimestamp()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL__WS_SECURITY,
+				 ServicedefFactory.eINSTANCE.createWSEncrypt()));
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return Servicedef_metamodelEditPlugin.INSTANCE;
 	}
 
 }

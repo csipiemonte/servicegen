@@ -386,10 +386,10 @@ public class ServicedefSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ServicedefPackage.WS_USERNAME_PASSWORD_AUTH: {
-				WSUsernamePasswordAuth wsUsernamePasswordAuth = (WSUsernamePasswordAuth)theEObject;
-				T result = caseWSUsernamePasswordAuth(wsUsernamePasswordAuth);
-				if (result == null) result = caseWSSecuritySpec(wsUsernamePasswordAuth);
+			case ServicedefPackage.WS_USERNAME_TOKEN_AUTH: {
+				WSUsernameTokenAuth wsUsernameTokenAuth = (WSUsernameTokenAuth)theEObject;
+				T result = caseWSUsernameTokenAuth(wsUsernameTokenAuth);
+				if (result == null) result = caseWSSecuritySpec(wsUsernameTokenAuth);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -397,6 +397,26 @@ public class ServicedefSwitch<T> extends Switch<T> {
 				WSSignature wsSignature = (WSSignature)theEObject;
 				T result = caseWSSignature(wsSignature);
 				if (result == null) result = caseWSSecuritySpec(wsSignature);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.WS_TIMESTAMP: {
+				WSTimestamp wsTimestamp = (WSTimestamp)theEObject;
+				T result = caseWSTimestamp(wsTimestamp);
+				if (result == null) result = caseWSSecuritySpec(wsTimestamp);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.WS_ENCRYPT: {
+				WSEncrypt wsEncrypt = (WSEncrypt)theEObject;
+				T result = caseWSEncrypt(wsEncrypt);
+				if (result == null) result = caseWSSecuritySpec(wsEncrypt);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL: {
+				WSEndpointChannel wsEndpointChannel = (WSEndpointChannel)theEObject;
+				T result = caseWSEndpointChannel(wsEndpointChannel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1035,17 +1055,17 @@ public class ServicedefSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>WS Username Password Auth</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>WS Username Token Auth</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>WS Username Password Auth</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>WS Username Token Auth</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseWSUsernamePasswordAuth(WSUsernamePasswordAuth object) {
+	public T caseWSUsernameTokenAuth(WSUsernameTokenAuth object) {
 		return null;
 	}
 
@@ -1061,6 +1081,51 @@ public class ServicedefSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseWSSignature(WSSignature object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>WS Timestamp</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>WS Timestamp</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWSTimestamp(WSTimestamp object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>WS Encrypt</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>WS Encrypt</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWSEncrypt(WSEncrypt object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>WS Endpoint Channel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>WS Endpoint Channel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWSEndpointChannel(WSEndpointChannel object) {
 		return null;
 	}
 

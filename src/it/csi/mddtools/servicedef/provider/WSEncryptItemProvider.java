@@ -7,33 +7,27 @@
 package it.csi.mddtools.servicedef.provider;
 
 
-import it.csi.mddtools.servicedef.ServicedefFactory;
-import it.csi.mddtools.servicedef.ServicedefPackage;
-import it.csi.mddtools.servicedef.WSBinding;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSBinding} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSEncrypt} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WSBindingItemProvider
-	extends ServiceBindingItemProvider
+public class WSEncryptItemProvider
+	extends WSSecuritySpecItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -46,7 +40,7 @@ public class WSBindingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WSBindingItemProvider(AdapterFactory adapterFactory) {
+	public WSEncryptItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -66,44 +60,14 @@ public class WSBindingItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(ServicedefPackage.Literals.WS_BINDING__ENDPOINTS);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns WSBinding.gif.
+	 * This returns WSEncrypt.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSBinding"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSEncrypt"));
 	}
 
 	/**
@@ -114,10 +78,7 @@ public class WSBindingItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WSBinding)object).getCodBinding();
-		return label == null || label.length() == 0 ?
-			getString("_UI_WSBinding_type") :
-			getString("_UI_WSBinding_type") + " " + label;
+		return getString("_UI_WSEncrypt_type");
 	}
 
 	/**
@@ -130,12 +91,6 @@ public class WSBindingItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(WSBinding.class)) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -149,11 +104,6 @@ public class WSBindingItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(ServicedefPackage.Literals.WS_BINDING__ENDPOINTS,
-				 ServicedefFactory.eINSTANCE.createWSEndpoint()));
 	}
 
 }

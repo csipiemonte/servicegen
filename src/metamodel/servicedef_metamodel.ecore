@@ -131,7 +131,10 @@
       <details key="documentation" value="[[ TODO - add documentation here ]]"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WSBinding" eSuperTypes="#//ServiceBinding"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSBinding" eSuperTypes="#//ServiceBinding">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endpoints" upperBound="-1"
+        eType="#//WSEndpoint" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Operation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[ TODO - add documentation here ]]"/>
@@ -551,14 +554,19 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WSEndpoint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="wsSecurity" eType="#//WSSecuritySpec"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inChannel" eType="#//WSEndpointChannel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outChannel" eType="#//WSEndpointChannel"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WSSecuritySpec" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WSUsernamePasswordAuth" eSuperTypes="#//WSSecuritySpec"/>
-  <eClassifiers xsi:type="ecore:EClass" name="WSSignature" eSuperTypes="#//WSSecuritySpec">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="inputMustBeSigned" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="signOutput" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSUsernameTokenAuth" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSSignature" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSTimestamp" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSEncrypt" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSEndpointChannel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wsSecurity" upperBound="-1"
+        eType="#//WSSecuritySpec" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

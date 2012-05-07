@@ -106,7 +106,8 @@ public class WSEndpointItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(ServicedefPackage.Literals.WS_ENDPOINT__WS_SECURITY);
+			childrenFeatures.add(ServicedefPackage.Literals.WS_ENDPOINT__IN_CHANNEL);
+			childrenFeatures.add(ServicedefPackage.Literals.WS_ENDPOINT__OUT_CHANNEL);
 		}
 		return childrenFeatures;
 	}
@@ -164,7 +165,8 @@ public class WSEndpointItemProvider
 			case ServicedefPackage.WS_ENDPOINT__CODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case ServicedefPackage.WS_ENDPOINT__WS_SECURITY:
+			case ServicedefPackage.WS_ENDPOINT__IN_CHANNEL:
+			case ServicedefPackage.WS_ENDPOINT__OUT_CHANNEL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -184,13 +186,36 @@ public class WSEndpointItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ServicedefPackage.Literals.WS_ENDPOINT__WS_SECURITY,
-				 ServicedefFactory.eINSTANCE.createWSUsernamePasswordAuth()));
+				(ServicedefPackage.Literals.WS_ENDPOINT__IN_CHANNEL,
+				 ServicedefFactory.eINSTANCE.createWSEndpointChannel()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(ServicedefPackage.Literals.WS_ENDPOINT__WS_SECURITY,
-				 ServicedefFactory.eINSTANCE.createWSSignature()));
+				(ServicedefPackage.Literals.WS_ENDPOINT__OUT_CHANNEL,
+				 ServicedefFactory.eINSTANCE.createWSEndpointChannel()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == ServicedefPackage.Literals.WS_ENDPOINT__IN_CHANNEL ||
+			childFeature == ServicedefPackage.Literals.WS_ENDPOINT__OUT_CHANNEL;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

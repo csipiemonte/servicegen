@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Selettore del servizio cosi' come previsto dalle specifiche del servizio
+ * Selettore del servizio così come previsto dalle specifiche del servizio
  * di naming CSIRegistry
  * <!-- end-model-doc -->
  *

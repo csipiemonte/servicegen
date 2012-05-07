@@ -107,8 +107,11 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.SERVICE_DEF_ANNOTATION: return createServiceDefAnnotation();
 			case ServicedefPackage.SD_ANNOTATION_DETAIL: return createSDAnnotationDetail();
 			case ServicedefPackage.WS_ENDPOINT: return createWSEndpoint();
-			case ServicedefPackage.WS_USERNAME_PASSWORD_AUTH: return createWSUsernamePasswordAuth();
+			case ServicedefPackage.WS_USERNAME_TOKEN_AUTH: return createWSUsernameTokenAuth();
 			case ServicedefPackage.WS_SIGNATURE: return createWSSignature();
+			case ServicedefPackage.WS_TIMESTAMP: return createWSTimestamp();
+			case ServicedefPackage.WS_ENCRYPT: return createWSEncrypt();
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL: return createWSEndpointChannel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -485,9 +488,9 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WSUsernamePasswordAuth createWSUsernamePasswordAuth() {
-		WSUsernamePasswordAuthImpl wsUsernamePasswordAuth = new WSUsernamePasswordAuthImpl();
-		return wsUsernamePasswordAuth;
+	public WSUsernameTokenAuth createWSUsernameTokenAuth() {
+		WSUsernameTokenAuthImpl wsUsernameTokenAuth = new WSUsernameTokenAuthImpl();
+		return wsUsernameTokenAuth;
 	}
 
 	/**
@@ -498,6 +501,36 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public WSSignature createWSSignature() {
 		WSSignatureImpl wsSignature = new WSSignatureImpl();
 		return wsSignature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSTimestamp createWSTimestamp() {
+		WSTimestampImpl wsTimestamp = new WSTimestampImpl();
+		return wsTimestamp;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSEncrypt createWSEncrypt() {
+		WSEncryptImpl wsEncrypt = new WSEncryptImpl();
+		return wsEncrypt;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public WSEndpointChannel createWSEndpointChannel() {
+		WSEndpointChannelImpl wsEndpointChannel = new WSEndpointChannelImpl();
+		return wsEndpointChannel;
 	}
 
 	/**

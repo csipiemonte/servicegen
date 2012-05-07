@@ -328,13 +328,13 @@ public interface ServicedefFactory extends EFactory {
 	WSEndpoint createWSEndpoint();
 
 	/**
-	 * Returns a new object of class '<em>WS Username Password Auth</em>'.
+	 * Returns a new object of class '<em>WS Username Token Auth</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>WS Username Password Auth</em>'.
+	 * @return a new object of class '<em>WS Username Token Auth</em>'.
 	 * @generated
 	 */
-	WSUsernamePasswordAuth createWSUsernamePasswordAuth();
+	WSUsernameTokenAuth createWSUsernameTokenAuth();
 
 	/**
 	 * Returns a new object of class '<em>WS Signature</em>'.
@@ -344,6 +344,33 @@ public interface ServicedefFactory extends EFactory {
 	 * @generated
 	 */
 	WSSignature createWSSignature();
+
+	/**
+	 * Returns a new object of class '<em>WS Timestamp</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Timestamp</em>'.
+	 * @generated
+	 */
+	WSTimestamp createWSTimestamp();
+
+	/**
+	 * Returns a new object of class '<em>WS Encrypt</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Encrypt</em>'.
+	 * @generated
+	 */
+	WSEncrypt createWSEncrypt();
+
+	/**
+	 * Returns a new object of class '<em>WS Endpoint Channel</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>WS Endpoint Channel</em>'.
+	 * @generated
+	 */
+	WSEndpointChannel createWSEndpointChannel();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -21,12 +21,12 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.servicedef.WSUsernameTokenAuth} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WSUsernamePasswordAuthItemProvider
+public class WSUsernameTokenAuthItemProvider
 	extends WSSecuritySpecItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -40,7 +40,7 @@ public class WSUsernamePasswordAuthItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WSUsernamePasswordAuthItemProvider(AdapterFactory adapterFactory) {
+	public WSUsernameTokenAuthItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,14 +60,14 @@ public class WSUsernamePasswordAuthItemProvider
 	}
 
 	/**
-	 * This returns WSUsernamePasswordAuth.gif.
+	 * This returns WSUsernameTokenAuth.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSUsernamePasswordAuth"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/WSUsernameTokenAuth"));
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class WSUsernamePasswordAuthItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_WSUsernamePasswordAuth_type");
+		return getString("_UI_WSUsernameTokenAuth_type");
 	}
 
 	/**

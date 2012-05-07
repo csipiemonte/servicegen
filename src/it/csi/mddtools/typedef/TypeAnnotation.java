@@ -57,7 +57,7 @@ public interface TypeAnnotation extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Serve per discriminare la fonte dell'annotazione.
-	 * Attualmente e' prevista la source "typedef".
+	 * Attualmente è prevista la source "typedef".
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(String)

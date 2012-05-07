@@ -30,7 +30,7 @@ package it.csi.mddtools.typedef;
  * Tipo base previsto dall'infrastruttura di cooperazione CSI.
  * Normalmente un insieme di tipi predefiniti è incluso come risorsa nei vari
  * modelli (definizione servizi, orchestrazioni, ...) e dunque in ogni insieme
- * di risorse (modelli) interconnesse e' opportuno che vi sia una sola istanza
+ * di risorse (modelli) interconnesse è opportuno che vi sia una sola istanza
  * di <b>CSIDatatype</b> per ogni tipo semplice previsto.
  * <!-- end-model-doc -->
  *

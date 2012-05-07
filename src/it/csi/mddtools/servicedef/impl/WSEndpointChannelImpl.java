@@ -7,49 +7,54 @@
 package it.csi.mddtools.servicedef.impl;
 
 import it.csi.mddtools.servicedef.ServicedefPackage;
-import it.csi.mddtools.servicedef.WSBinding;
+import it.csi.mddtools.servicedef.WSEndpointChannel;
+import it.csi.mddtools.servicedef.WSSecuritySpec;
 
-import it.csi.mddtools.servicedef.WSEndpoint;
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>WS Binding</b></em>'.
+ * An implementation of the model object '<em><b>WS Endpoint Channel</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link it.csi.mddtools.servicedef.impl.WSBindingImpl#getEndpoints <em>Endpoints</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.WSEndpointChannelImpl#getWsSecurity <em>Ws Security</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
+public class WSEndpointChannelImpl extends EObjectImpl implements WSEndpointChannel {
 	/**
-	 * The cached value of the '{@link #getEndpoints() <em>Endpoints</em>}' containment reference list.
+	 * The cached value of the '{@link #getWsSecurity() <em>Ws Security</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEndpoints()
+	 * @see #getWsSecurity()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<WSEndpoint> endpoints;
+	protected EList<WSSecuritySpec> wsSecurity;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected WSBindingImpl() {
+	protected WSEndpointChannelImpl() {
 		super();
-		this.setCodBinding("ws");
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServicedefPackage.Literals.WS_BINDING;
+		return ServicedefPackage.Literals.WS_ENDPOINT_CHANNEL;
 	}
 
 	/**
@@ -67,11 +72,11 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<WSEndpoint> getEndpoints() {
-		if (endpoints == null) {
-			endpoints = new EObjectContainmentEList<WSEndpoint>(WSEndpoint.class, this, ServicedefPackage.WS_BINDING__ENDPOINTS);
+	public EList<WSSecuritySpec> getWsSecurity() {
+		if (wsSecurity == null) {
+			wsSecurity = new EObjectContainmentEList<WSSecuritySpec>(WSSecuritySpec.class, this, ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY);
 		}
-		return endpoints;
+		return wsSecurity;
 	}
 
 	/**
@@ -82,8 +87,8 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				return ((InternalEList<?>)getEndpoints()).basicRemove(otherEnd, msgs);
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
+				return ((InternalEList<?>)getWsSecurity()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +101,8 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				return getEndpoints();
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
+				return getWsSecurity();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +116,9 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				getEndpoints().clear();
-				getEndpoints().addAll((Collection<? extends WSEndpoint>)newValue);
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
+				getWsSecurity().clear();
+				getWsSecurity().addAll((Collection<? extends WSSecuritySpec>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +132,8 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				getEndpoints().clear();
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
+				getWsSecurity().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -142,10 +147,10 @@ public class WSBindingImpl extends ServiceBindingImpl implements WSBinding {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case ServicedefPackage.WS_BINDING__ENDPOINTS:
-				return endpoints != null && !endpoints.isEmpty();
+			case ServicedefPackage.WS_ENDPOINT_CHANNEL__WS_SECURITY:
+				return wsSecurity != null && !wsSecurity.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //WSBindingImpl
+} //WSEndpointChannelImpl

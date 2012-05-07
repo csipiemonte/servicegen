@@ -56,7 +56,7 @@ public interface RCAnnotation extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Serve per discriminare la fonte dell'annotazione.
-	 * Attualmente e' prevista la source "appresources".
+	 * Attualmente è prevista la source "appresources".
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(String)

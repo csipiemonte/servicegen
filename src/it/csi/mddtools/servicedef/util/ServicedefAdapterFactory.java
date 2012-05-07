@@ -254,12 +254,24 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createWSSecuritySpecAdapter();
 			}
 			@Override
-			public Adapter caseWSUsernamePasswordAuth(WSUsernamePasswordAuth object) {
-				return createWSUsernamePasswordAuthAdapter();
+			public Adapter caseWSUsernameTokenAuth(WSUsernameTokenAuth object) {
+				return createWSUsernameTokenAuthAdapter();
 			}
 			@Override
 			public Adapter caseWSSignature(WSSignature object) {
 				return createWSSignatureAdapter();
+			}
+			@Override
+			public Adapter caseWSTimestamp(WSTimestamp object) {
+				return createWSTimestampAdapter();
+			}
+			@Override
+			public Adapter caseWSEncrypt(WSEncrypt object) {
+				return createWSEncryptAdapter();
+			}
+			@Override
+			public Adapter caseWSEndpointChannel(WSEndpointChannel object) {
+				return createWSEndpointChannelAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -870,16 +882,16 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth <em>WS Username Password Auth</em>}'.
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSUsernameTokenAuth <em>WS Username Token Auth</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see it.csi.mddtools.servicedef.WSUsernamePasswordAuth
+	 * @see it.csi.mddtools.servicedef.WSUsernameTokenAuth
 	 * @generated
 	 */
-	public Adapter createWSUsernamePasswordAuthAdapter() {
+	public Adapter createWSUsernameTokenAuthAdapter() {
 		return null;
 	}
 
@@ -894,6 +906,48 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWSSignatureAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSTimestamp <em>WS Timestamp</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSTimestamp
+	 * @generated
+	 */
+	public Adapter createWSTimestampAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSEncrypt <em>WS Encrypt</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSEncrypt
+	 * @generated
+	 */
+	public Adapter createWSEncryptAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.WSEndpointChannel <em>WS Endpoint Channel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.WSEndpointChannel
+	 * @generated
+	 */
+	public Adapter createWSEndpointChannelAdapter() {
 		return null;
 	}
 

@@ -27,7 +27,7 @@ package it.csi.mddtools.typedef;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Array tipato. Puo' essere un array di tipi semplici (CSIDatatype) o di tipi 
+ * Array tipato. Può essere un array di tipi semplici (CSIDatatype) o di tipi 
  * user defined (Entity). Normalmente gli array di tipi semplici sono forniti in
  * un file da includere come risorsa e referenziare negli altri modelli che
  * ne hanno bisogno, mentre gli array di tipi user defined devono essere

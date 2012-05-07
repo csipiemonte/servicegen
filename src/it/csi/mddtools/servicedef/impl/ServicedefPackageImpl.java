@@ -66,12 +66,15 @@ import it.csi.mddtools.servicedef.ValueConstraint;
 import it.csi.mddtools.servicedef.ValueRangeConstraint;
 import it.csi.mddtools.servicedef.ValueValorizationConstraint;
 import it.csi.mddtools.servicedef.WSBinding;
+import it.csi.mddtools.servicedef.WSEncrypt;
 import it.csi.mddtools.servicedef.WSEndpoint;
+import it.csi.mddtools.servicedef.WSEndpointChannel;
 import it.csi.mddtools.servicedef.WSFADBinding;
 
 import it.csi.mddtools.servicedef.WSSecuritySpec;
 import it.csi.mddtools.servicedef.WSSignature;
-import it.csi.mddtools.servicedef.WSUsernamePasswordAuth;
+import it.csi.mddtools.servicedef.WSTimestamp;
+import it.csi.mddtools.servicedef.WSUsernameTokenAuth;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -388,7 +391,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass wsUsernamePasswordAuthEClass = null;
+	private EClass wsUsernameTokenAuthEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -396,6 +399,27 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * @generated
 	 */
 	private EClass wsSignatureEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wsTimestampEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wsEncryptEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass wsEndpointChannelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -710,6 +734,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 */
 	public EClass getWSBinding() {
 		return wsBindingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWSBinding_Endpoints() {
+		return (EReference)wsBindingEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1329,8 +1362,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWSEndpoint_WsSecurity() {
-		return (EReference)wsEndpointEClass.getEStructuralFeatures().get(0);
+	public EAttribute getWSEndpoint_Code() {
+		return (EAttribute)wsEndpointEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1338,8 +1371,17 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWSEndpoint_Code() {
-		return (EAttribute)wsEndpointEClass.getEStructuralFeatures().get(1);
+	public EReference getWSEndpoint_InChannel() {
+		return (EReference)wsEndpointEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWSEndpoint_OutChannel() {
+		return (EReference)wsEndpointEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1356,8 +1398,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getWSUsernamePasswordAuth() {
-		return wsUsernamePasswordAuthEClass;
+	public EClass getWSUsernameTokenAuth() {
+		return wsUsernameTokenAuthEClass;
 	}
 
 	/**
@@ -1374,8 +1416,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWSSignature_InputMustBeSigned() {
-		return (EAttribute)wsSignatureEClass.getEStructuralFeatures().get(0);
+	public EClass getWSTimestamp() {
+		return wsTimestampEClass;
 	}
 
 	/**
@@ -1383,8 +1425,26 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWSSignature_SignOutput() {
-		return (EAttribute)wsSignatureEClass.getEStructuralFeatures().get(1);
+	public EClass getWSEncrypt() {
+		return wsEncryptEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWSEndpointChannel() {
+		return wsEndpointChannelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWSEndpointChannel_WsSecurity() {
+		return (EReference)wsEndpointChannelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1490,6 +1550,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		wsfadBindingEClass = createEClass(WSFAD_BINDING);
 
 		wsBindingEClass = createEClass(WS_BINDING);
+		createEReference(wsBindingEClass, WS_BINDING__ENDPOINTS);
 
 		operationEClass = createEClass(OPERATION);
 		createEAttribute(operationEClass, OPERATION__NAME);
@@ -1592,16 +1653,22 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEAttribute(sdAnnotationDetailEClass, SD_ANNOTATION_DETAIL__VALUE);
 
 		wsEndpointEClass = createEClass(WS_ENDPOINT);
-		createEReference(wsEndpointEClass, WS_ENDPOINT__WS_SECURITY);
 		createEAttribute(wsEndpointEClass, WS_ENDPOINT__CODE);
+		createEReference(wsEndpointEClass, WS_ENDPOINT__IN_CHANNEL);
+		createEReference(wsEndpointEClass, WS_ENDPOINT__OUT_CHANNEL);
 
 		wsSecuritySpecEClass = createEClass(WS_SECURITY_SPEC);
 
-		wsUsernamePasswordAuthEClass = createEClass(WS_USERNAME_PASSWORD_AUTH);
+		wsUsernameTokenAuthEClass = createEClass(WS_USERNAME_TOKEN_AUTH);
 
 		wsSignatureEClass = createEClass(WS_SIGNATURE);
-		createEAttribute(wsSignatureEClass, WS_SIGNATURE__INPUT_MUST_BE_SIGNED);
-		createEAttribute(wsSignatureEClass, WS_SIGNATURE__SIGN_OUTPUT);
+
+		wsTimestampEClass = createEClass(WS_TIMESTAMP);
+
+		wsEncryptEClass = createEClass(WS_ENCRYPT);
+
+		wsEndpointChannelEClass = createEClass(WS_ENDPOINT_CHANNEL);
+		createEReference(wsEndpointChannelEClass, WS_ENDPOINT_CHANNEL__WS_SECURITY);
 
 		// Create enums
 		channelSecurityLevelEnumEEnum = createEEnum(CHANNEL_SECURITY_LEVEL_ENUM);
@@ -1668,8 +1735,10 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		andFeatureConstraintEClass.getESuperTypes().add(this.getCompositeFeatureConstraint());
 		orFeatureConstraintEClass.getESuperTypes().add(this.getCompositeFeatureConstraint());
 		notFeatureConstraintEClass.getESuperTypes().add(this.getCompositeFeatureConstraint());
-		wsUsernamePasswordAuthEClass.getESuperTypes().add(this.getWSSecuritySpec());
+		wsUsernameTokenAuthEClass.getESuperTypes().add(this.getWSSecuritySpec());
 		wsSignatureEClass.getESuperTypes().add(this.getWSSecuritySpec());
+		wsTimestampEClass.getESuperTypes().add(this.getWSSecuritySpec());
+		wsEncryptEClass.getESuperTypes().add(this.getWSSecuritySpec());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1702,6 +1771,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEClass(wsfadBindingEClass, WSFADBinding.class, "WSFADBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wsBindingEClass, WSBinding.class, "WSBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWSBinding_Endpoints(), this.getWSEndpoint(), null, "endpoints", null, 0, -1, WSBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(operationEClass, Operation.class, "Operation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOperation_Name(), ecorePackage.getEString(), "name", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1804,16 +1874,22 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEAttribute(getSDAnnotationDetail_Value(), ecorePackage.getEString(), "value", null, 0, 1, SDAnnotationDetail.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wsEndpointEClass, WSEndpoint.class, "WSEndpoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getWSEndpoint_WsSecurity(), this.getWSSecuritySpec(), null, "wsSecurity", null, 0, 1, WSEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWSEndpoint_Code(), ecorePackage.getEString(), "code", null, 0, 1, WSEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWSEndpoint_InChannel(), this.getWSEndpointChannel(), null, "inChannel", null, 0, 1, WSEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWSEndpoint_OutChannel(), this.getWSEndpointChannel(), null, "outChannel", null, 0, 1, WSEndpoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wsSecuritySpecEClass, WSSecuritySpec.class, "WSSecuritySpec", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(wsUsernamePasswordAuthEClass, WSUsernamePasswordAuth.class, "WSUsernamePasswordAuth", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(wsUsernameTokenAuthEClass, WSUsernameTokenAuth.class, "WSUsernameTokenAuth", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wsSignatureEClass, WSSignature.class, "WSSignature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getWSSignature_InputMustBeSigned(), ecorePackage.getEBoolean(), "inputMustBeSigned", null, 0, 1, WSSignature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getWSSignature_SignOutput(), ecorePackage.getEBoolean(), "signOutput", null, 0, 1, WSSignature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(wsTimestampEClass, WSTimestamp.class, "WSTimestamp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(wsEncryptEClass, WSEncrypt.class, "WSEncrypt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(wsEndpointChannelEClass, WSEndpointChannel.class, "WSEndpointChannel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWSEndpointChannel_WsSecurity(), this.getWSSecuritySpec(), null, "wsSecurity", null, 0, -1, WSEndpointChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.class, "ChannelSecurityLevelEnum");

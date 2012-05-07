@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Tipo complesso costituito da 1 o piu' <b>feature</b> (campi).
+ * Tipo complesso costituito da 1 o più <b>feature</b> (campi).
  * Non è prevista la possibilità di definire gerarchie.
  * 
  * <!-- end-model-doc -->

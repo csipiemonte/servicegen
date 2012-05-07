@@ -61,54 +61,8 @@ public class WSSignatureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addInputMustBeSignedPropertyDescriptor(object);
-			addSignOutputPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Input Must Be Signed feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInputMustBeSignedPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_WSSignature_inputMustBeSigned_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_WSSignature_inputMustBeSigned_feature", "_UI_WSSignature_type"),
-				 ServicedefPackage.Literals.WS_SIGNATURE__INPUT_MUST_BE_SIGNED,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Sign Output feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSignOutputPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_WSSignature_signOutput_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_WSSignature_signOutput_feature", "_UI_WSSignature_type"),
-				 ServicedefPackage.Literals.WS_SIGNATURE__SIGN_OUTPUT,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -130,8 +84,7 @@ public class WSSignatureItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		WSSignature wsSignature = (WSSignature)object;
-		return getString("_UI_WSSignature_type") + " " + wsSignature.isInputMustBeSigned();
+		return getString("_UI_WSSignature_type");
 	}
 
 	/**
@@ -144,13 +97,6 @@ public class WSSignatureItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(WSSignature.class)) {
-			case ServicedefPackage.WS_SIGNATURE__INPUT_MUST_BE_SIGNED:
-			case ServicedefPackage.WS_SIGNATURE__SIGN_OUTPUT:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

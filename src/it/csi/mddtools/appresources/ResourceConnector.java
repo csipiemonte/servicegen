@@ -54,7 +54,7 @@ public interface ResourceConnector extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * codice mnemonico del connettore cosi' come visto dall'applicativo
+	 * codice mnemonico del connettore così come visto dall'applicativo
 	 * che fa uso della risorsa associata
 	 * 
 	 * <!-- end-model-doc -->

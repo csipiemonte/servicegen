@@ -7,30 +7,26 @@
 package it.csi.mddtools.servicedef.impl;
 
 import it.csi.mddtools.servicedef.ServicedefPackage;
-import it.csi.mddtools.servicedef.WSSignature;
-
-import org.eclipse.emf.common.notify.Notification;
+import it.csi.mddtools.servicedef.WSEncrypt;
 
 import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>WS Signature</b></em>'.
+ * An implementation of the model object '<em><b>WS Encrypt</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class WSSignatureImpl extends WSSecuritySpecImpl implements WSSignature {
+public class WSEncryptImpl extends WSSecuritySpecImpl implements WSEncrypt {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected WSSignatureImpl() {
+	protected WSEncryptImpl() {
 		super();
 	}
 
@@ -41,7 +37,7 @@ public class WSSignatureImpl extends WSSecuritySpecImpl implements WSSignature {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServicedefPackage.Literals.WS_SIGNATURE;
+		return ServicedefPackage.Literals.WS_ENCRYPT;
 	}
 
-} //WSSignatureImpl
+} //WSEncryptImpl

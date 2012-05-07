@@ -427,13 +427,22 @@ public interface ServicedefPackage extends EPackage {
 	int WS_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
 
 	/**
+	 * The feature id for the '<em><b>Endpoints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_BINDING__ENDPOINTS = SERVICE_BINDING_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>WS Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WS_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 0;
+	int WS_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.OperationImpl <em>Operation</em>}' class.
@@ -1433,22 +1442,31 @@ public interface ServicedefPackage extends EPackage {
 	int WS_ENDPOINT = 40;
 
 	/**
-	 * The feature id for the '<em><b>Ws Security</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WS_ENDPOINT__WS_SECURITY = 0;
-
-	/**
 	 * The feature id for the '<em><b>Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WS_ENDPOINT__CODE = 1;
+	int WS_ENDPOINT__CODE = 0;
+
+	/**
+	 * The feature id for the '<em><b>In Channel</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_ENDPOINT__IN_CHANNEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Out Channel</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_ENDPOINT__OUT_CHANNEL = 2;
 
 	/**
 	 * The number of structural features of the '<em>WS Endpoint</em>' class.
@@ -1457,7 +1475,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WS_ENDPOINT_FEATURE_COUNT = 2;
+	int WS_ENDPOINT_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSSecuritySpecImpl <em>WS Security Spec</em>}' class.
@@ -1479,23 +1497,23 @@ public interface ServicedefPackage extends EPackage {
 	int WS_SECURITY_SPEC_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSUsernamePasswordAuthImpl <em>WS Username Password Auth</em>}' class.
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSUsernameTokenAuthImpl <em>WS Username Token Auth</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see it.csi.mddtools.servicedef.impl.WSUsernamePasswordAuthImpl
-	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSUsernamePasswordAuth()
+	 * @see it.csi.mddtools.servicedef.impl.WSUsernameTokenAuthImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSUsernameTokenAuth()
 	 * @generated
 	 */
-	int WS_USERNAME_PASSWORD_AUTH = 42;
+	int WS_USERNAME_TOKEN_AUTH = 42;
 
 	/**
-	 * The number of structural features of the '<em>WS Username Password Auth</em>' class.
+	 * The number of structural features of the '<em>WS Username Token Auth</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WS_USERNAME_PASSWORD_AUTH_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
+	int WS_USERNAME_TOKEN_AUTH_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSSignatureImpl <em>WS Signature</em>}' class.
@@ -1508,31 +1526,79 @@ public interface ServicedefPackage extends EPackage {
 	int WS_SIGNATURE = 43;
 
 	/**
-	 * The feature id for the '<em><b>Input Must Be Signed</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WS_SIGNATURE__INPUT_MUST_BE_SIGNED = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Sign Output</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WS_SIGNATURE__SIGN_OUTPUT = WS_SECURITY_SPEC_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>WS Signature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WS_SIGNATURE_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 2;
+	int WS_SIGNATURE_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSTimestampImpl <em>WS Timestamp</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.WSTimestampImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSTimestamp()
+	 * @generated
+	 */
+	int WS_TIMESTAMP = 44;
+
+	/**
+	 * The number of structural features of the '<em>WS Timestamp</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_TIMESTAMP_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSEncryptImpl <em>WS Encrypt</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.WSEncryptImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSEncrypt()
+	 * @generated
+	 */
+	int WS_ENCRYPT = 45;
+
+	/**
+	 * The number of structural features of the '<em>WS Encrypt</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_ENCRYPT_FEATURE_COUNT = WS_SECURITY_SPEC_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSEndpointChannelImpl <em>WS Endpoint Channel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.WSEndpointChannelImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSEndpointChannel()
+	 * @generated
+	 */
+	int WS_ENDPOINT_CHANNEL = 46;
+
+	/**
+	 * The feature id for the '<em><b>Ws Security</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_ENDPOINT_CHANNEL__WS_SECURITY = 0;
+
+	/**
+	 * The number of structural features of the '<em>WS Endpoint Channel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WS_ENDPOINT_CHANNEL_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.
@@ -1542,7 +1608,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getChannelSecurityLevelEnum()
 	 * @generated
 	 */
-	int CHANNEL_SECURITY_LEVEL_ENUM = 44;
+	int CHANNEL_SECURITY_LEVEL_ENUM = 47;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.
@@ -1552,7 +1618,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 45;
+	int OP_TYPE_ENUM = 48;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1562,7 +1628,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 46;
+	int TX_TYPE_ENUM = 49;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1572,7 +1638,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 47;
+	int SRV_TYPE_ENUM = 50;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1582,7 +1648,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 48;
+	int AUTH_LEVEL_ENUM = 51;
 
 
 	/**
@@ -1841,6 +1907,17 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getWSBinding();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.WSBinding#getEndpoints <em>Endpoints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Endpoints</em>'.
+	 * @see it.csi.mddtools.servicedef.WSBinding#getEndpoints()
+	 * @see #getWSBinding()
+	 * @generated
+	 */
+	EReference getWSBinding_Endpoints();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Operation <em>Operation</em>}'.
@@ -2557,17 +2634,6 @@ public interface ServicedefPackage extends EPackage {
 	EClass getWSEndpoint();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.WSEndpoint#getWsSecurity <em>Ws Security</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Ws Security</em>'.
-	 * @see it.csi.mddtools.servicedef.WSEndpoint#getWsSecurity()
-	 * @see #getWSEndpoint()
-	 * @generated
-	 */
-	EReference getWSEndpoint_WsSecurity();
-
-	/**
 	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSEndpoint#getCode <em>Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2577,6 +2643,28 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getWSEndpoint_Code();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.WSEndpoint#getInChannel <em>In Channel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>In Channel</em>'.
+	 * @see it.csi.mddtools.servicedef.WSEndpoint#getInChannel()
+	 * @see #getWSEndpoint()
+	 * @generated
+	 */
+	EReference getWSEndpoint_InChannel();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.WSEndpoint#getOutChannel <em>Out Channel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Out Channel</em>'.
+	 * @see it.csi.mddtools.servicedef.WSEndpoint#getOutChannel()
+	 * @see #getWSEndpoint()
+	 * @generated
+	 */
+	EReference getWSEndpoint_OutChannel();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSSecuritySpec <em>WS Security Spec</em>}'.
@@ -2589,14 +2677,14 @@ public interface ServicedefPackage extends EPackage {
 	EClass getWSSecuritySpec();
 
 	/**
-	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSUsernamePasswordAuth <em>WS Username Password Auth</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSUsernameTokenAuth <em>WS Username Token Auth</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>WS Username Password Auth</em>'.
-	 * @see it.csi.mddtools.servicedef.WSUsernamePasswordAuth
+	 * @return the meta object for class '<em>WS Username Token Auth</em>'.
+	 * @see it.csi.mddtools.servicedef.WSUsernameTokenAuth
 	 * @generated
 	 */
-	EClass getWSUsernamePasswordAuth();
+	EClass getWSUsernameTokenAuth();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSSignature <em>WS Signature</em>}'.
@@ -2609,26 +2697,45 @@ public interface ServicedefPackage extends EPackage {
 	EClass getWSSignature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSSignature#isInputMustBeSigned <em>Input Must Be Signed</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSTimestamp <em>WS Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Input Must Be Signed</em>'.
-	 * @see it.csi.mddtools.servicedef.WSSignature#isInputMustBeSigned()
-	 * @see #getWSSignature()
+	 * @return the meta object for class '<em>WS Timestamp</em>'.
+	 * @see it.csi.mddtools.servicedef.WSTimestamp
 	 * @generated
 	 */
-	EAttribute getWSSignature_InputMustBeSigned();
+	EClass getWSTimestamp();
 
 	/**
-	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSSignature#isSignOutput <em>Sign Output</em>}'.
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSEncrypt <em>WS Encrypt</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Sign Output</em>'.
-	 * @see it.csi.mddtools.servicedef.WSSignature#isSignOutput()
-	 * @see #getWSSignature()
+	 * @return the meta object for class '<em>WS Encrypt</em>'.
+	 * @see it.csi.mddtools.servicedef.WSEncrypt
 	 * @generated
 	 */
-	EAttribute getWSSignature_SignOutput();
+	EClass getWSEncrypt();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSEndpointChannel <em>WS Endpoint Channel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>WS Endpoint Channel</em>'.
+	 * @see it.csi.mddtools.servicedef.WSEndpointChannel
+	 * @generated
+	 */
+	EClass getWSEndpointChannel();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.servicedef.WSEndpointChannel#getWsSecurity <em>Ws Security</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ws Security</em>'.
+	 * @see it.csi.mddtools.servicedef.WSEndpointChannel#getWsSecurity()
+	 * @see #getWSEndpointChannel()
+	 * @generated
+	 */
+	EReference getWSEndpointChannel_WsSecurity();
 
 	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}'.
@@ -2907,6 +3014,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EClass WS_BINDING = eINSTANCE.getWSBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Endpoints</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WS_BINDING__ENDPOINTS = eINSTANCE.getWSBinding_Endpoints();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.OperationImpl <em>Operation</em>}' class.
@@ -3521,20 +3636,28 @@ public interface ServicedefPackage extends EPackage {
 		EClass WS_ENDPOINT = eINSTANCE.getWSEndpoint();
 
 		/**
-		 * The meta object literal for the '<em><b>Ws Security</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference WS_ENDPOINT__WS_SECURITY = eINSTANCE.getWSEndpoint_WsSecurity();
-
-		/**
 		 * The meta object literal for the '<em><b>Code</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute WS_ENDPOINT__CODE = eINSTANCE.getWSEndpoint_Code();
+
+		/**
+		 * The meta object literal for the '<em><b>In Channel</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WS_ENDPOINT__IN_CHANNEL = eINSTANCE.getWSEndpoint_InChannel();
+
+		/**
+		 * The meta object literal for the '<em><b>Out Channel</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WS_ENDPOINT__OUT_CHANNEL = eINSTANCE.getWSEndpoint_OutChannel();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSSecuritySpecImpl <em>WS Security Spec</em>}' class.
@@ -3547,14 +3670,14 @@ public interface ServicedefPackage extends EPackage {
 		EClass WS_SECURITY_SPEC = eINSTANCE.getWSSecuritySpec();
 
 		/**
-		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSUsernamePasswordAuthImpl <em>WS Username Password Auth</em>}' class.
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSUsernameTokenAuthImpl <em>WS Username Token Auth</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see it.csi.mddtools.servicedef.impl.WSUsernamePasswordAuthImpl
-		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSUsernamePasswordAuth()
+		 * @see it.csi.mddtools.servicedef.impl.WSUsernameTokenAuthImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSUsernameTokenAuth()
 		 * @generated
 		 */
-		EClass WS_USERNAME_PASSWORD_AUTH = eINSTANCE.getWSUsernamePasswordAuth();
+		EClass WS_USERNAME_TOKEN_AUTH = eINSTANCE.getWSUsernameTokenAuth();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSSignatureImpl <em>WS Signature</em>}' class.
@@ -3567,20 +3690,42 @@ public interface ServicedefPackage extends EPackage {
 		EClass WS_SIGNATURE = eINSTANCE.getWSSignature();
 
 		/**
-		 * The meta object literal for the '<em><b>Input Must Be Signed</b></em>' attribute feature.
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSTimestampImpl <em>WS Timestamp</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.WSTimestampImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSTimestamp()
 		 * @generated
 		 */
-		EAttribute WS_SIGNATURE__INPUT_MUST_BE_SIGNED = eINSTANCE.getWSSignature_InputMustBeSigned();
+		EClass WS_TIMESTAMP = eINSTANCE.getWSTimestamp();
 
 		/**
-		 * The meta object literal for the '<em><b>Sign Output</b></em>' attribute feature.
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSEncryptImpl <em>WS Encrypt</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.WSEncryptImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSEncrypt()
+		 * @generated
+		 */
+		EClass WS_ENCRYPT = eINSTANCE.getWSEncrypt();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSEndpointChannelImpl <em>WS Endpoint Channel</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.WSEndpointChannelImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getWSEndpointChannel()
+		 * @generated
+		 */
+		EClass WS_ENDPOINT_CHANNEL = eINSTANCE.getWSEndpointChannel();
+
+		/**
+		 * The meta object literal for the '<em><b>Ws Security</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute WS_SIGNATURE__SIGN_OUTPUT = eINSTANCE.getWSSignature_SignOutput();
+		EReference WS_ENDPOINT_CHANNEL__WS_SECURITY = eINSTANCE.getWSEndpointChannel_WsSecurity();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.

@@ -7,26 +7,26 @@
 package it.csi.mddtools.servicedef.impl;
 
 import it.csi.mddtools.servicedef.ServicedefPackage;
-import it.csi.mddtools.servicedef.WSUsernamePasswordAuth;
+import it.csi.mddtools.servicedef.WSUsernameTokenAuth;
 
 import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>WS Username Password Auth</b></em>'.
+ * An implementation of the model object '<em><b>WS Username Token Auth</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * </p>
  *
  * @generated
  */
-public class WSUsernamePasswordAuthImpl extends WSSecuritySpecImpl implements WSUsernamePasswordAuth {
+public class WSUsernameTokenAuthImpl extends WSSecuritySpecImpl implements WSUsernameTokenAuth {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected WSUsernamePasswordAuthImpl() {
+	protected WSUsernameTokenAuthImpl() {
 		super();
 	}
 
@@ -37,7 +37,7 @@ public class WSUsernamePasswordAuthImpl extends WSSecuritySpecImpl implements WS
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return ServicedefPackage.Literals.WS_USERNAME_PASSWORD_AUTH;
+		return ServicedefPackage.Literals.WS_USERNAME_TOKEN_AUTH;
 	}
 
-} //WSUsernamePasswordAuthImpl
+} //WSUsernameTokenAuthImpl
