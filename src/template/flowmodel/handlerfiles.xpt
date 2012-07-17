@@ -2076,6 +2076,9 @@ public class «httpPDProxyLoaderClassName()»
                         }
                         catch (Exception ex)
                         {
+                          _log.error(
+									"[HttpPDProxyLoader::configure] - "
+											+ "Errore durante la configurazione dell'HttpPDProxyLoader nella close dello stream di lettura del file di bypass-list", ex);
                         }
                     }
                 }
