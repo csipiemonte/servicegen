@@ -403,6 +403,8 @@ public class «serviceImplClassName()» {
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final Logger logger = Logger
+			.getLogger(LOGGER_PREFIX);
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
 	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
@@ -410,6 +412,65 @@ public class «serviceImplClassName()» {
 	«ENDPROTECT»
 	
 	/// Implementazione operazioni esposte dal servizio
+	
+	«REM»Implementazione del metodo eseguiWorkFlow dell'orchestrazione (caso di cartuccia FlowModelImpl => UNICA IMPL ACCETTATA)«ENDREM»
+	
+	/**
+   * @generated
+   */
+  public Object eseguiWorkFlow(String workflowDescriptor, java.util.HashMap persistentParams, String methodName, String remoteUser) 
+  throws
+  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
+  {
+     //Logger logger = getLogger(null);
+	 logger.debug("[«serviceImplClassName(this)»::methodName] - START");
+	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
+	 // inizio misurazione
+	 watcher.start();
+	 
+	 try {
+     
+		 // inizializzazione e richiamo del flusso
+		 try{
+		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,Integer.valueOf(0),persistentParams);
+		 }
+		 catch(WorkflowException wfe){
+		 	logger.error("[«serviceImplClassName(this)»::methodName] - errore non gestito nell'esecuzione del flusso",wfe);
+		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
+		 	throw ue;
+		 }
+	 
+	 	Object retVal = persistentParams.get("result");
+     	// se il valore di ritorno e'un'eccezione occorre rilanciarla (anche se metodo void)
+      	if (retVal != null && retVal instanceof Throwable) {
+      	    logger.error("[«serviceImplClassName(this)»::methodName] - Errore occorso nell'esecuzione del flusso\"+retVal+\"",(Throwable)retVal);
+     		throw (Throwable)retVal;
+     	}
+     
+     	else{
+     		return persistentParams.get("result");
+     	}
+  
+     	}
+     catch(Throwable ex){
+        if (CSIException.class.isAssignableFrom(ex.getClass())){
+        	logger.error("[«serviceImplClassName(this)»::methodName] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
+     		throw (CSIException)ex;
+        }
+        else{
+			logger.error("[«serviceImplClassName(this)»::methodName] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
+			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
+		}        
+     }
+     finally{
+       // fine misurazione
+       watcher.stop();
+	   watcher.dumpElapsed("«serviceImplClassName(this)»", "methodName()", "invocazione servizio [«removeSeparator(codServizio)»]::[methodName]", "(valore input omesso)");
+	   logger.debug("[«serviceImplClassName(this)»::methodName] - END");
+     }
+  }
+  
+  «REM»Implementazione del metodo eseguiWorkFlow dell'orchestrazione (caso di cartuccia FlowModelImpl => UNICA IMPL ACCETTATA)«ENDREM»
 	
 	«EXPAND operationOrchImplementation(model, codServizio,serviceImplClassName(this), this) FOREACH this.operations»
 	«IF this.monitorable || this.diagEnabled»
@@ -592,6 +653,8 @@ public class «serviceImplClassName()» {
   }
 «ENDDEFINE»
 
+
+
 «REM»Implementazione di un metodo dell'orchestrazione (caso di cartuccia FlowModelImpl => UNICA IMPL ACCETTATA)«ENDREM»
 «DEFINE operationOrchImplementation(SOABEModel model, String codServ, String implClassName, ServiceDef sd) FOR Operation»
   /**
@@ -613,7 +676,7 @@ public class «serviceImplClassName()» {
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
-     Logger logger = getLogger(null);
+     //Logger logger = getLogger(null);
 	 logger.debug("[«implClassName»::«name»] - START");
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
 	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
@@ -624,7 +687,7 @@ public class «serviceImplClassName()» {
 	 String remoteUser = «getCSIOrchestrationRemoteUser(sd)»;
 	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
 	 java.util.HashMap persistentParams = new java.util.HashMap();
-	 try {
+	
 	 	// inserimento nel context dei parametri del metodo (senza trasformazioni)
 	 	«FOREACH params AS currPar»
 	 	persistentParams.put("input.parameter.«currPar.name»",«currPar.name»);
@@ -633,43 +696,24 @@ public class «serviceImplClassName()» {
 	 	«EXPAND principalNameParameter(sd) FOR this-»
      
 		 // inizializzazione e richiamo del flusso
-		 try{
-		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,new Integer(0),persistentParams);
-		 }
-		 catch(WorkflowException wfe){
-		 	logger.error("[«implClassName»::«name»] - errore non gestito nell'esecuzione del flusso",wfe);
-		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
-		 	throw ue;
-		 }
-	 
-	 	Object retVal = persistentParams.get("result");
-     	// se il valore di ritorno e'un'eccezione occorre rilanciarla (anche se metodo void)
-      	if (retVal != null && retVal instanceof Throwable) {
-     		«errorLog(implClassName,this.name,"Errore occorso nell'esecuzione del flusso\"+retVal+\"","(Throwable)retVal" )»
-     		throw (Throwable)retVal;
-     	}
-     «IF returnType!=null»
-     	else{
-     		return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
-     	}
-     «ENDIF»
-     	}
-     catch(Throwable ex){
-        if (CSIException.class.isAssignableFrom(ex.getClass())){
-        	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
-     		throw (CSIException)ex;
-        }
-        else{
-			logger.error("[«implClassName»::«name»] - Errore imprevisto occorso durante l'esecuzione del metodo:"+ex, ex);
-			throw new UnrecoverableException("Errore imprevisto occorso durante l'esecuzione del metodo:"+ex,ex);
-		}        
-     }
-     finally{
-       // fine misurazione
+		 
+		 	
+		eseguiWorkFlow(workflowDescriptor, persistentParams, "«name»", remoteUser);
+		
+		// fine misurazione
        watcher.stop();
 	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
 	   logger.debug("[«implClassName»::«name»] - END");
-     }
+	 
+	 	
+     «IF returnType!=null»
+     	
+     	return («map2javaType(returnType,codServ, model)»)persistentParams.get("result");
+     	
+     «ENDIF»
+     	
+       
+     
   }
 «ENDDEFINE»
 
