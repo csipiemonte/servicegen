@@ -20,6 +20,8 @@
  */
 package it.csi.mddtools.appresources;
 
+import it.csi.mddtools.servicedef.WSEndpoint;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -30,11 +32,42 @@ package it.csi.mddtools.appresources;
  * Connettore per web-service di tipo RPC
  * <!-- end-model-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link it.csi.mddtools.appresources.RPCWebServiceConnector#getEndpoint <em>Endpoint</em>}</li>
+ * </ul>
+ * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getRPCWebServiceConnector()
  * @model
  * @generated
  */
 public interface RPCWebServiceConnector extends ServiceConnector {
+
+	/**
+	 * Returns the value of the '<em><b>Endpoint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * L'eventuale endpoint del servizio associato al connettore
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Endpoint</em>' reference.
+	 * @see #setEndpoint(WSEndpoint)
+	 * @see it.csi.mddtools.appresources.AppresourcesPackage#getRPCWebServiceConnector_Endpoint()
+	 * @model
+	 * @generated
+	 */
+	WSEndpoint getEndpoint();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.appresources.RPCWebServiceConnector#getEndpoint <em>Endpoint</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Endpoint</em>' reference.
+	 * @see #getEndpoint()
+	 * @generated
+	 */
+	void setEndpoint(WSEndpoint value);
 
 } // RPCWebServiceConnector

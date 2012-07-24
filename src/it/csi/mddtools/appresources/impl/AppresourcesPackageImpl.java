@@ -267,6 +267,15 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRPCWebServiceConnector_Endpoint() {
+		return (EReference)rpcWebServiceConnectorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getServiceSelector() {
 		return serviceSelectorEClass;
 	}
@@ -492,6 +501,7 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		ldapJndiConnectorEClass = createEClass(LDAP_JNDI_CONNECTOR);
 
 		rpcWebServiceConnectorEClass = createEClass(RPC_WEB_SERVICE_CONNECTOR);
+		createEReference(rpcWebServiceConnectorEClass, RPC_WEB_SERVICE_CONNECTOR__ENDPOINT);
 
 		serviceSelectorEClass = createEClass(SERVICE_SELECTOR);
 		createEAttribute(serviceSelectorEClass, SERVICE_SELECTOR__COD_PROD);
@@ -572,6 +582,7 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		initEClass(ldapJndiConnectorEClass, LdapJndiConnector.class, "LdapJndiConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(rpcWebServiceConnectorEClass, RPCWebServiceConnector.class, "RPCWebServiceConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRPCWebServiceConnector_Endpoint(), theServicedefPackage.getWSEndpoint(), null, "endpoint", null, 0, 1, RPCWebServiceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceSelectorEClass, ServiceSelector.class, "ServiceSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceSelector_CodProd(), ecorePackage.getEString(), "codProd", null, 0, 1, ServiceSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

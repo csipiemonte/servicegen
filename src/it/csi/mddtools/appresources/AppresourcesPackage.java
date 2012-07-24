@@ -436,13 +436,22 @@ public interface AppresourcesPackage extends EPackage {
 	int RPC_WEB_SERVICE_CONNECTOR__USE_REGISTRY = SERVICE_CONNECTOR__USE_REGISTRY;
 
 	/**
+	 * The feature id for the '<em><b>Endpoint</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RPC_WEB_SERVICE_CONNECTOR__ENDPOINT = SERVICE_CONNECTOR_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>RPC Web Service Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RPC_WEB_SERVICE_CONNECTOR_FEATURE_COUNT = SERVICE_CONNECTOR_FEATURE_COUNT + 0;
+	int RPC_WEB_SERVICE_CONNECTOR_FEATURE_COUNT = SERVICE_CONNECTOR_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl <em>Service Selector</em>}' class.
@@ -711,6 +720,17 @@ public interface AppresourcesPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getRPCWebServiceConnector();
+
+	/**
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.appresources.RPCWebServiceConnector#getEndpoint <em>Endpoint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Endpoint</em>'.
+	 * @see it.csi.mddtools.appresources.RPCWebServiceConnector#getEndpoint()
+	 * @see #getRPCWebServiceConnector()
+	 * @generated
+	 */
+	EReference getRPCWebServiceConnector_Endpoint();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.appresources.ServiceSelector <em>Service Selector</em>}'.
@@ -1035,6 +1055,14 @@ public interface AppresourcesPackage extends EPackage {
 		 * @generated
 		 */
 		EClass RPC_WEB_SERVICE_CONNECTOR = eINSTANCE.getRPCWebServiceConnector();
+
+		/**
+		 * The meta object literal for the '<em><b>Endpoint</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RPC_WEB_SERVICE_CONNECTOR__ENDPOINT = eINSTANCE.getRPCWebServiceConnector_Endpoint();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl <em>Service Selector</em>}' class.
