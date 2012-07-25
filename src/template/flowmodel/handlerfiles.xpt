@@ -3146,6 +3146,9 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.csi.wrapper.*;
 
 import «baseHandlersPkg(model)».*;
+«IF !this.serviceConnector.useRegistry-»
+import «getFullServiceLocatorPkg(model)».*;
+«ENDIF»
 
 /**
  * @generated
@@ -3156,16 +3159,9 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final Logger logger = Logger.getLogger(LOGGER_PREFIX);
 	
-	/**
-	 * @generated
-	 */
-	protected Logger getLogger(String subsystem){
-	  if (subsystem!=null)
-	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
-	  else
-	    return Logger.getLogger(LOGGER_PREFIX);
-	}
+	
 	
 	/**
  	 * @generated
@@ -3173,13 +3169,21 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 	@Override
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
-		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		
+		logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-START ");
 		try {
-			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
-				getPD();
+		
+			«IF !this.serviceConnector.useRegistry-»
+			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
+			   («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)ServiceLocator.getInstance().getPD(localPDRes);		 
+			«ELSE»
+			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
+				getPD();                                                                                   
+			«ENDIF»
 			
 			/// valore degli input slot
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","binding parametri")»
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-binding parametri ");
 		«FOREACH this.paramBindings AS currPB-»
 		«LET currPB.slot AS currIn-»
 			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
@@ -3189,81 +3193,66 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 		«ENDFOREACH-»
 			
 			// binding dei parametri e richiamo del servizio 
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
 			«IF this.operation.returnType!=null-»
 			«map2JavaTypeSDRelative(this.operation.returnType)» result = pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
+			
 			/// inserimento risultato nello slot apposito
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","inserimento del risultato nello slot "+getDataSlotAttrName(this.outputSlot))»
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-inserimento del risultato nello slot   "+"«getDataSlotAttrName(this.outputSlot)»");
 			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
 			«ELSE-»
 			// binding dei parametri e richiamo del servizio 
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
 			pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
 			«ENDIF-»
 			
 		} catch (Exception e) {
 			DataSlotHelper.setLastError(e, ps);
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
-			«errorLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot","e")»
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			
+			logger.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			
 		}
 	}
 	
-	«IF !this.serviceConnector.useRegistry-»
-	private static «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»
-		cachedPD = null;
-	«ENDIF-»
+	«IF this.serviceConnector.useRegistry-»
 	
 	/**
  	 * @generated
  	 */
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
-		«debugLog(specificHandlerClassName(),"getPD","START")»
-	«IF this.serviceConnector.useRegistry-»
-		«debugLog(specificHandlerClassName(),"getPD","reperimento PD da registry")»
-		«debugLog(specificHandlerClassName(),"getPD","-selector:\"+selectorRes+\"")»
-		«debugLog(specificHandlerClassName(),"getPD","-localPD:\"+localPDRes+\"")»
+		logger.debug("[«specificHandlerClassName()»::getPD]-START  ");
+			
+		logger.debug("[«specificHandlerClassName()»::getPD]-reperimento PD da registry  ");
+		
+		logger.debug("[«specificHandlerClassName()»::getPD]--selector:\"+selectorRes+\"");
+		
+		logger.debug("[«specificHandlerClassName()»::getPD]--localPD:\"+localPDRes+\"");
 		java.util.Properties selectorProps = new java.util.Properties();
 		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
 			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
 				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
-		«debugLog(specificHandlerClassName(),"getPD","END")»
-		return tempPd;
-	«ELSE-»
-		«debugLog(specificHandlerClassName(),"getPD","reperimento PD da risorsa locale:\"+localPDRes+\"")»
-		if (cachedPD != null){
-			«debugLog(specificHandlerClassName(),"getPD","PD gia' presente in cache")»
-			«debugLog(specificHandlerClassName(),"getPD","END")»
-			return cachedPD;
-		}
-		else{
-			«debugLog(specificHandlerClassName(),"getPD","PD non presente in cache")»
-			java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		
-			it.csi.csi.porte.InfoPortaDelegata infoPD;
-			«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd=null;
-			try {
-				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
-				tempPd = («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)») it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
-				cachedPD = tempPd;
-			} catch (Exception e) {
-				throw new ConfigException("Errore nella lettura della configurazione da "+localPDRes,e);
-			}
-			«debugLog(specificHandlerClassName(),"getPD","END")»
-			return tempPd;
-		}
-	«ENDIF-»
+		logger.debug("[«specificHandlerClassName()»::getPD]-END ");
+		return tempPd;
 	}
+	«ENDIF-»
 }
 «ENDFILE»
 «ENDDEFINE»

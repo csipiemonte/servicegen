@@ -32,7 +32,10 @@ String baseHandlersPkg(SOABEModel model) :
 	getFullEJBStdPkg(model)+".handlers";
 	
 String fullBaseHandlersClassesDir(SOABEModel model) :
-	fullEjbStdClassesDir(model)+"/handlers";	
+	fullEjbStdClassesDir(model)+"/handlers";
+	
+String fullBusinessIntegrationClassesDir(SOABEModel model) :
+	fullEjbStdClassesDir(model)+"/integration";		
 
 String specificHandlersPkg(Operation op, SOABEModel model) :
 	let sd = (ServiceDef)(op.eContainer) :
@@ -54,6 +57,9 @@ String papdCallBaseHandlerFQN(SOABEModel model) :
 
 String papdCallBaseHandlerFile(SOABEModel model) :
 	fullBaseHandlersClassesDir(model)+"/"+papdCallBaseHandlerClassName()+".java";
+	
+String serviceLocatorFile(SOABEModel model) :
+	fullBusinessIntegrationClassesDir(model)+"/ServiceLocator.java";
 	
 	
 ////
