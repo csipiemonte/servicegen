@@ -26,13 +26,13 @@ import appresources;
 
 
 /// standard generici J2EE Csi piemonte
-/// N.B: prevista la possibilità di modificare il nome della organization, 
+/// N.B: prevista la possibilitï¿½ di modificare il nome della organization, 
 /// nel rispetto del resto degli standard, per permettere la gestione di situazioni
 /// tipo il progetto doqui
-/// il prefisso di packaging e directory di default sarà it.csi e it/csi, ma può essere 
+/// il prefisso di packaging e directory di default sarï¿½ it.csi e it/csi, ma puï¿½ essere 
 /// sovrascritto inserendo le properties:
 /// - javapackage-organization-name    (es. organization-name=it.doqui)
-/// verrà automaticamente trasformato nel formato con '/' in tutti i punti in cui serve un
+/// verrï¿½ automaticamente trasformato nel formato con '/' in tutti i punti in cui serve un
 /// path e non un nome di package 
 
 String getOrganizationNamePkgPrefix() :
@@ -132,6 +132,9 @@ String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
 
 String getFullServiceEJBPkg(String codServ, SOABEModel model) :
 	getFullEJBStdPkg(model)+"."+removeSeparator(codServ);
+	
+String getFullServiceLocatorPkg(SOABEModel model) :
+	getFullEJBStdPkg(model)+".integration";	
 
 
 String getFullServiceTestPkg(String codServ, SOABEModel model) :
@@ -223,6 +226,9 @@ String fullServiceExceptionsDir(String codServ, SOABEModel model) :
 
 String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
     fullEjbStdClassesDir(model)+"/"+removeSeparator(codServ);
+    
+String fullServiceLocatorClassDir(SOABEModel model) :
+    fullEjbStdClassesDir(model)+"/integration";
 
 String fullServiceTestClassesDir(String codServ, SOABEModel model) :
     getTestJavaDir(model)+"/test"+"/"+removeSeparator(codServ);
@@ -319,7 +325,7 @@ String paSymName(EJBPABinding ejbpa, ServiceDef sd, SOABEModel model):
 String paConfigDir(ServiceDef sd, SOABEModel model) :
 	getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio), model);
 
-// è necessario differenziare con il codServ per evitare sovrapposizioni nel classloading
+// ï¿½ necessario differenziare con il codServ per evitare sovrapposizioni nel classloading
 String paDefFileName(EJBPABinding pa, ServiceDef sd) :
     "defpa_"+removeSeparator(sd.codServizio)+".xml";
 
@@ -338,7 +344,7 @@ String pdSelectorFileName(PDPAServiceConnector sc) :
 String registryPDFileName(ServiceDef sd, ServiceBinding binding) :
 	"defpd_"+removeSeparator(sd.codServizio)+"_"+binding.codBinding.toLowerCase()+".xml";
 	
-// da 6.1.4 linee guida soa: nome dell'ejb del serivizo è nome del metodo. Per semplicità 
+// da 6.1.4 linee guida soa: nome dell'ejb del serivizo ï¿½ nome del metodo. Per semplicitï¿½ 
 // invece del nome dell'ejb metto il codice servizio (da sottomettere la richiesta di variazione standard)
 String svcflowDefinitionFileName(Operation op, String codServizio) :
 	removeSeparator(codServizio)+op.name.toFirstUpper()+".xml";
@@ -357,7 +363,7 @@ String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
 String fullQMGRJndiName(ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
     
-/// in realtà non dovrebbe servire...
+/// in realtï¿½ non dovrebbe servire...
 String fullLTRJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
 
@@ -372,35 +378,35 @@ String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
 
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// § 3.4.1
+// ï¿½ 3.4.1
 String queueConnectionFactoryJndiName() :
 	"jms/QueueConnectionFactory";
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// § 3.4.1
+// ï¿½ 3.4.1
 String topicConnectionFactoryJndiName() :
 	"jms/TopicConnectionFactory";
 		
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// § 3.4.2.2
-// nota: uso '.' invece che '/' perchè le librerie lo cercano col punto...
+// ï¿½ 3.4.2.2
+// nota: uso '.' invece che '/' perchï¿½ le librerie lo cercano col punto...
 String  paQueueJndiName(ServiceDef sd, String codBinding, SOABEModel model) :
 	model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
 	
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// § 3.4.3
+// ï¿½ 3.4.3
 String  paTopicJndiName(ServiceDef sd, SOABEModel model) :
 	model.codComponente.toLowerCase()+"/jms/"+toCamel(sd.codServizio)+"Topic";
 
 String counterDSJndiName(ServiceDef sd, SOABEModel model) :
 	model.codComponente.toLowerCase()+"/jdbc/Counter"+toCamel(sd.codServizio)+"TxDS";
 	 	
-// tolto dal context l'ulteriore suffisso pabrsoap perchè appesantiva il context
-// senza dare valore aggiunto (il cod binding dovrebbe già discriminare)
+// tolto dal context l'ulteriore suffisso pabrsoap perchï¿½ appesantiva il context
+// senza dare valore aggiunto (il cod binding dovrebbe giï¿½ discriminare)
 String pabrWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
 	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
 
-// tolto dal context l'ulteriore suffisso wsfad perchè appesantiva il context
-// senza dare valore aggiunto (il cod binding dovrebbe già discriminare)
+// tolto dal context l'ulteriore suffisso wsfad perchï¿½ appesantiva il context
+// senza dare valore aggiunto (il cod binding dovrebbe giï¿½ discriminare)
 String wsfadWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
 	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
     
@@ -578,7 +584,7 @@ String defaultSimpleInitVal(Type type) :
   	
 /// restituisce la service impl data una service def.
 /// serve come soluzione temporanea per la gestioen di impl-cartridge e service-component
-/// senza modificare drasticamente il meccanismo di generazione che è basato sul loop
+/// senza modificare drasticamente il meccanismo di generazione che ï¿½ basato sul loop
 /// sulle service def e non sulla service impl 
 ServiceImpl getServiceImpl(ServiceDef sd, SOABEModel model) :
 	model.serviceimplementations.select(si|si.provides==sd).first();
