@@ -85,9 +85,14 @@ String getSpecificWarResourcesRootDir(String codBinding, String codWar, SOABEMod
   
 String fullEjbStdClassesDir(SOABEModel model) :
     getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/business";
+    
+String integrationClassesDir(SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/integration";    
 
 String getFullEJBStdPkg(SOABEModel model) :
 	    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".business";
+String getIntegrationPkg(SOABEModel model) :
+	    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".integration";
 	        
 String getSQLSrcDir(SOABEModel model) :
 	"src/sql";
@@ -130,12 +135,17 @@ String fullQualifiedServiceExceptionsPkgSDRelative(Exception type) :
 String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
     getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
 
+String getFullServiceEJBPkg(String codServ, SOABEModel model, boolean client) :
+if(!client) then
+getFullServiceEJBPkg(codServ, model)
+else
+getIntegrationPkg(model)+"."+removeSeparator(codServ);
+
 String getFullServiceEJBPkg(String codServ, SOABEModel model) :
 	getFullEJBStdPkg(model)+"."+removeSeparator(codServ);
 	
 String getFullServiceLocatorPkg(SOABEModel model) :
 	getFullEJBStdPkg(model)+".integration";	
-
 
 String getFullServiceTestPkg(String codServ, SOABEModel model) :
 	"test"+"."+removeSeparator(codServ);
@@ -230,6 +240,13 @@ String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
 String fullServiceLocatorClassDir(SOABEModel model) :
     fullEjbStdClassesDir(model)+"/integration";
 
+String fullServiceEJBClassesDir(String codServ, SOABEModel model, Boolean client) :
+	if(!client) then
+   fullServiceEJBClassesDir( codServ,  model)
+   else
+   integrationClassesDir(model)+"/"+removeSeparator(codServ);
+	
+	
 String fullServiceTestClassesDir(String codServ, SOABEModel model) :
     getTestJavaDir(model)+"/test"+"/"+removeSeparator(codServ);
 
@@ -737,5 +754,8 @@ String fullQualifiedWebServiceInterfaceName(ServiceDef sd) :
     else
     	fullQualifiedWebServiceInterfacePkg(sd)+"."+serviceInterfaceName(sd);
 
-String wsCallClientName(ServiceDef sd) :
-	toCamel(sd.codServizio).toFirstLower()+"Client";
+String getCodeEndpoint(WSEndpoint endpoint) : 
+	endpoint.code!=null ? endpoint.code : "";
+
+String wsCallClientName(ServiceDef sd, WSEndpoint endpoint) :
+	toCamel(sd.codServizio).toFirstLower()+getCodeEndpoint(endpoint).toFirstUpper()+"Client";
