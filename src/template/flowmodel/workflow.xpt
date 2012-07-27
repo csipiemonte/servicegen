@@ -190,7 +190,7 @@ Inizia la creazione nel descrittore dei vari step.
 				<pre-functions>
 				    <function type="class">
 						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
-						<arg name="wscall.client">«wsCallClientName(((RPCWebServiceConnector)this.serviceConnector).serviceDef)»</arg>
+						<arg name="wscall.client">«wsCallClientName(((RPCWebServiceConnector)this.serviceConnector).serviceDef, ((RPCWebServiceConnector)this.serviceConnector).endpoint)»</arg>
 					</function>
 				</pre-functions>
 				<results>
