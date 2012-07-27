@@ -23,8 +23,14 @@ package it.csi.mddtools.appresources.provider;
 
 import it.csi.mddtools.appresources.AppresourcesPackage;
 import it.csi.mddtools.appresources.RPCWebServiceConnector;
+import it.csi.mddtools.appresources.ServiceConnector;
+import it.csi.mddtools.servicedef.ServiceBinding;
+import it.csi.mddtools.servicedef.WSBinding;
+import it.csi.mddtools.servicedef.WSEndpoint;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -37,6 +43,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 
 /**
  * This is the item provider adapter for a {@link it.csi.mddtools.appresources.RPCWebServiceConnector} object.
@@ -82,22 +89,54 @@ public class RPCWebServiceConnectorItemProvider
 	 * This adds a property descriptor for the Endpoint feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addEndpointPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_RPCWebServiceConnector_endpoint_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_RPCWebServiceConnector_endpoint_feature", "_UI_RPCWebServiceConnector_type"),
-				 AppresourcesPackage.Literals.RPC_WEB_SERVICE_CONNECTOR__ENDPOINT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_RPCWebServiceConnector_endpoint_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_RPCWebServiceConnector_endpoint_feature", "_UI_RPCWebServiceConnector_type"),
+//				 AppresourcesPackage.Literals.RPC_WEB_SERVICE_CONNECTOR__ENDPOINT,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_RPCWebServiceConnector_endpoint_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_RPCWebServiceConnector_endpoint_feature",
+						"_UI_RPCWebServiceConnector_type"),
+				//GuigenPackage.eINSTANCE.getCommandOnWidgets_TargetWidgets(),
+				AppresourcesPackage.eINSTANCE.getRPCWebServiceConnector_Endpoint(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				RPCWebServiceConnector sconn = (RPCWebServiceConnector)object;
+				
+				ArrayList<WSEndpoint> result = new ArrayList<WSEndpoint>();
+				if (sconn.getBinding()!=null){
+					// rendi selezionabili solo i binding del serviizo selezionato
+					ServiceBinding srvbind= sconn.getBinding();
+				    if(srvbind instanceof WSBinding){
+				    	WSBinding wsbind = (WSBinding) srvbind;
+						Iterator<WSEndpoint> it_sb = wsbind.getEndpoints().iterator();
+						while(it_sb.hasNext()){
+							WSEndpoint currSB = it_sb.next();
+								result.add((WSEndpoint)currSB);
+						}
+				    	
+				    }
+				
+				}	
+				return result;
+			}
+		});
 	}
 
 	/**
