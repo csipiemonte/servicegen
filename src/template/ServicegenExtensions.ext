@@ -198,6 +198,9 @@ String fullQualifiedServiceLocalHomeInterfaceName(EJBPABinding sb, ServiceDef sd
  
 String serviceBeanClassName(ServiceDef sd) :
 	toCamel(sd.codServizio)+"Bean";
+	
+String serviceBeanClassName(String codServizio) :
+	toCamel(codServizio)+"Bean";	
 
 String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
     getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
