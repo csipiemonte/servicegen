@@ -64,6 +64,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
+	public static final Logger logger = Logger.getLogger(LOGGER_PREFIX);
 	
 	/// Operazioni esposte dal servizio
 	
@@ -781,13 +782,8 @@ public class «serviceImplClassName()» {
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
-     //Logger logger = getLogger(null);
-	 logger.debug("[«implClassName»::«name»] - START");
+     
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
-	 it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
-	 // inizio misurazione
-	 watcher.start();
-	 
 	 
 	 String remoteUser = «getCSIOrchestrationRemoteUser(sd)»;
 	 String workflowDescriptor="«removeSeparator(codServ)+name.toFirstUpper()»";
@@ -805,10 +801,7 @@ public class «serviceImplClassName()» {
 		 	
 		eseguiWorkFlow(workflowDescriptor, persistentParams, "«name»", remoteUser);
 		
-		// fine misurazione
-       watcher.stop();
-	   watcher.dumpElapsed("«implClassName»", "«name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
-	   logger.debug("[«implClassName»::«name»] - END");
+		
 	 
 	 	
      «IF returnType!=null»
