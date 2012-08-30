@@ -102,6 +102,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
+	public static final Logger logger = Logger.getLogger(LOGGER_PREFIX);
 	
 	/// Operazioni esposte dal servizio
 	
