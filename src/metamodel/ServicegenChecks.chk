@@ -31,15 +31,15 @@ context SOABEModel ERROR "E' necessario scegliere la Target Platform" :
 ////////////////////////////////////////////////////////
 
 // Disabilito il WSBinding (ammesssi )
-context WSBinding ERROR "Il WSBinding non è ammesso per la cartuccia basata su framework C.S.I" :
+context WSBinding ERROR "Il WSBinding non ï¿½ ammesso per la cartuccia basata su framework C.S.I" :
 	false;
 
 // Disabilito i PrimitiveType (ammessi solo CSIDatatype)
-context PrimitiveType ERROR "Il tipo 'PrimitiveType' non è ammesso per la cartuccia basata su framework C.S.I" :
+context PrimitiveType ERROR "Il tipo 'PrimitiveType' non ï¿½ ammesso per la cartuccia basata su framework C.S.I" :
 	false;
 
 // Disabilito il WSCall
-context WSCall ERROR "Il nodo WSCall non è al momento implementato per la cartuccia basata su framework C.S.I" :
+context WSCall ERROR "Il nodo WSCall non ï¿½ al momento implementato per la cartuccia basata su framework C.S.I" :
 	false;
 
 
@@ -74,8 +74,8 @@ context Types ERROR "TD6: i tipi definiti nel contesto di un servizio possono so
 	this.types.select(e|e.metaType==CSIDatatype).size==0 &&
 	this.types.select(e|e.metaType==TypedArray && ((TypedArray)e).componentType.metaType==CSIDatatype).size==0;
 	
-// TD7(ERROR): un typed array non può contenere classi eccezione nè tipi array
-context TypedArray ERROR "TD7: un array tipato non può contenere eccezioni o tipi array annidati" :
+// TD7(ERROR): un typed array non puï¿½ contenere classi eccezione nï¿½ tipi array
+context TypedArray ERROR "TD7: un array tipato non puï¿½ contenere eccezioni o tipi array annidati" :
     this.componentType.metaType!=Exception &&
     this.componentType.metaType!=TypedArray;
 
@@ -95,7 +95,7 @@ context ServiceDef ERROR "Deve essere definito almeno un binding " :
     this.bindings != null && bindings.size>0;
 
 // SD3: codifica corretta del codice servizio: minuscola con underscore
-context ServiceDef ERROR "Il codice servizio deve essere alfanumerico minuscolo e l'unico separatore ammesso è l'underscore" : 
+context ServiceDef ERROR "Il codice servizio deve essere alfanumerico minuscolo e l'unico separatore ammesso ï¿½ l'underscore" : 
      validateCodServ(this.codServizio);
      
 // SD4: il tipo di ritorno deve essere CSIString in caso di operazione asincrona o pubsub (TODO!!)
@@ -104,8 +104,8 @@ context Operation ERROR "Un operazione asincrona (p2p o pubsub) deve avere tipo 
 	(opType==OpTypeEnum::asynch || opType==OpTypeEnum::notify) && 
 		(this.returnType.metaType==CSIDatatype && ((CSIDatatype)returnType).code==CSIDatatypeCodes::CSIString);
 
-// SD5: un servizio pubblico non può avere ruoli associati
-context ServiceDef ERROR "Un servizio con livello di securizzazione A0 non può avere Ruoli definiti" :
+// SD5: un servizio pubblico non puï¿½ avere ruoli associati
+context ServiceDef ERROR "Un servizio con livello di securizzazione A0 non puï¿½ avere Ruoli definiti" :
 	(this.authLevel==AuthLevelEnum::A0 && this.roles.size==0) || authLevel != AuthLevelEnum::A0; 
 
 // SD6: in un servizio non pubblico tutte le operazioni devono avere almeno un ruolo associato
@@ -117,25 +117,32 @@ context Operation ERROR "Un operazione appartenente ad un servizio con security 
 context ServiceDef ERROR "Il servizio (con security non 'A0') deve definire almeno un ruolo" :
     (this.authLevel!=AuthLevelEnum::A0 && this.roles.size!=0) || authLevel == AuthLevelEnum::A0;
     
-context ServiceDef ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)"+loc() :
-	codProdotto!=null && codProdotto.length<=10;
+context ServiceDef if (getSDAnnDetail("servicedef", "java-fqn")==null) ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)"+loc() :
+	codProdotto!=null && codProdotto!="" && codProdotto.length<=10;
 
-context ServiceDef ERROR "E'necessario specificare il codice componente (max 20 caratteri)"+loc() :
-	codComponente!=null && codComponente.length<=20;
+context ServiceDef if(getSDAnnDetail("servicedef", "java-fqn")==null) ERROR "E'necessario specificare il codice componente (max 20 caratteri)"+loc() :
+	codComponente!=null && codComponente!="" && codComponente.length<=20;
+	
+context PDPAServiceConnector if (getSDAnnDetail(this.serviceDef, "servicedef", "java-fqn")==null) ERROR "E'necessario specificare il codice prodotto (max 10 caratteri)"+loc() :
+	this.serviceDef.codProdotto!=null && this.serviceDef.codProdotto!="" && this.serviceDef.codProdotto.length<=10;
+
+context PDPAServiceConnector if (getSDAnnDetail(this.serviceDef,"servicedef", "java-fqn")==null) ERROR "E'necessario specificare il codice componente (max 20 caratteri)"+loc() :
+	this.serviceDef.codComponente!=null && this.serviceDef.codComponente!="" && this.serviceDef.codComponente.length<=20;
+	
 
 ////////////////////////////////////////////////////
 /// cartridge e service component
 ////////////////////////////////////////////////////
 
 context ServiceImpl WARNING 
-	"Non è stata specificata la cartuccia di implementazione e/o il tipo di service "+
+	"Non ï¿½ stata specificata la cartuccia di implementazione e/o il tipo di service "+
 	"component: viene assunta la cartuccia ManualImplCartridge, mentre il tipo di service component"+
-	" non è utilizzato "+loc()+", "+this.provides :
+	" non ï¿½ utilizzato "+loc()+", "+this.provides :
 this.implCartridge!=null && this.serviceComponent!=null;
 
 context ServiceImpl 
 	if serviceComponent.metaType==OrchestrationFlowCompositeSC && implCartridge==ManualImplCartridge 
-	ERROR "Non è possibile specificare il modello delle orchestrazioni in presenza di cartuccia 'manuale'"+loc() :
+	ERROR "Non ï¿½ possibile specificare il modello delle orchestrazioni in presenza di cartuccia 'manuale'"+loc() :
 	((OrchestrationFlowCompositeSC)serviceComponent).orchestrations.size==0;	
 
 context ServiceImpl 
@@ -161,7 +168,7 @@ context Operation WARNING "Tipo di ritorno non specificato per operazione "+name
 ////////////////////////////////////////////////////////////////////////////////////
 /// APPRESOURCES checks /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////
-context PDPAServiceConnector if useRegistry ERROR "Per utilizzar e il registry è necessario specificare un ServiceSelector:"+loc() :
+context PDPAServiceConnector if useRegistry ERROR "Per utilizzar e il registry ï¿½ necessario specificare un ServiceSelector:"+loc() :
 	selector!=null;
 
 context ServiceSelector ERROR "E' necessario specificare l'ambiente del servizio acceduto:"+loc() :
@@ -191,7 +198,7 @@ context ServiceSelector ERROR "E' necessario specificare l'istanza infrastruttur
 context svcorch::Node ERROR "E'necessario specificare il nome per ogni nodo" :
 	this.name != null && this.name.length>0;
 
-context svcorch::Node ERROR "Il nome del nodo ["+name+"] non è ben formato."+loc() :
+context svcorch::Node ERROR "Il nome del nodo ["+name+"] non ï¿½ ben formato."+loc() :
 	isWellFormedName(name);
 	
 context svcorch::Node WARNING "E'consigliato specificare una breve descrizione testuale per ogni nodo" :
@@ -226,23 +233,23 @@ context svcorch::ParamBinding ERROR
 	this.slot != null;
 		
 context svcorch::ParamBinding if eContainer.metaType==InputParamBindings ERROR
-	"il binding del parametro di input " + param +" è collegato ad uno slot già utilizzato per un'altro parametro "+loc() :
+	"il binding del parametro di input " + param +" ï¿½ collegato ad uno slot giï¿½ utilizzato per un'altro parametro "+loc() :
 	let bindings = ((InputParamBindings)eContainer):
 	bindings.inputParams.select(ip|ip.slot==this.slot).size==1;
 	
 context svcorch::ParamBinding if eContainer.metaType==InputParamBindings ERROR
-	"esiste più di un binding per il parametro di input "+ param :
+	"esiste piï¿½ di un binding per il parametro di input "+ param :
 	let bindings = ((InputParamBindings)eContainer):
 	bindings.inputParams.select(ip|ip.param==param).size==1;
 	
 context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
-	"il binding del parametro del servizio invocato " + param +" è collegato ad uno slot già utilizzato per un'altro parametro "+loc() :
+	"il binding del parametro del servizio invocato " + param +" ï¿½ collegato ad uno slot giï¿½ utilizzato per un'altro parametro "+loc() :
 	let bindings = ((SrvCall)eContainer):
 	bindings.paramBindings.select(ip|ip.slot==this.slot).size==1;
 	
 
 /// OpNode
-context OpNode if next!=null ERROR "un nodo non può essere successor edi se stesso:"+loc() :
+context OpNode if next!=null ERROR "un nodo non puï¿½ essere successor edi se stesso:"+loc() :
 	next!=this;
 	
 /// SrvCall
@@ -264,23 +271,23 @@ context svcorch::SrvCall ERROR
 	this.paramBindings.size==this.operation.params.size;
 
 context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
-	"esiste più di un binding per il parametro di chiamata di servizio "+ param :
+	"esiste piï¿½ di un binding per il parametro di chiamata di servizio "+ param :
 	let bindings = ((SrvCall)eContainer):
 	bindings.paramBindings.select(ip|ip.param==param).size==1;
 
 context svcorch::ParamBinding if eContainer.metaType==SrvCall ERROR
-	"il binding del parametro del servizio invocato non è un parametro dell'operazione "+
+	"il binding del parametro del servizio invocato non ï¿½ un parametro dell'operazione "+
 	"specificata nell'oggetto SrvCall" :
 	let srvCall = ((SrvCall)eContainer) :
 	srvCall.operation.params.contains(this.param);
 	
 context svcorch::SrvCall ERROR 
-	"è necessario specificare il data-slot del risultato dell'invocazione del servizio: "+loc() :
+	"ï¿½ necessario specificare il data-slot del risultato dell'invocazione del servizio: "+loc() :
 	this.operation.returnType==null ||
 	this.outputSlot != null;
 
 context svcorch::SrvCall if operation!=null ERROR 
-	"è necessario specificare un Exception Handler per ogni eccezione resituita dall'operazione oggetto "+
+	"ï¿½ necessario specificare un Exception Handler per ogni eccezione resituita dall'operazione oggetto "+
 	"di invocazione "+loc():
 	this.onException.handledException.size==operation.throws.size;
 
@@ -314,24 +321,24 @@ context ForEach ERROR "E' necessario specificare lo slot che contiene la collect
 context ForEach if collection !=null && collection.type!=null ERROR "Lo slot della collection su cui iterare deve essere un TypedArray:"+loc() :
 	collection.type.metaType==TypedArray;
 	
-context ForEach ERROR "E' necessario specificare lo slot che conterrà l'elemento corrente per ogni iterazione:"+loc() :
+context ForEach ERROR "E' necessario specificare lo slot che conterrï¿½ l'elemento corrente per ogni iterazione:"+loc() :
 	item!=null;	 
 
 context ForEach if item!=null && item.type!=null && collection!=null && collection.type!=null 
-	ERROR "Lo slot che conterrà l'elemento corrente deve essere di un tipo corrispondente "+
+	ERROR "Lo slot che conterrï¿½ l'elemento corrente deve essere di un tipo corrispondente "+
 		  "al tipo degli elementi dello slot 'collection':"+loc() :
 	item.type==((TypedArray)(collection.type)).componentType;
 		
 context ForEach ERROR "E'necessario specificare il nodo di inizio loop:"+loc() :
 	firstLoopNode != null;
 
-context ForEach if firstLoopNode!=null ERROR "il primo nodo del loop non può essere il nodo for each stesso:"+loc() :
+context ForEach if firstLoopNode!=null ERROR "il primo nodo del loop non puï¿½ essere il nodo for each stesso:"+loc() :
 	firstLoopNode!=this;
 	
 context ForEach ERROR "E'necessario specificare il nodo a cui saltare dopo la fine dell'ultima iterazione del loop:"+loc() :
 	afterLoopNode != null;
 
-context ForEach if afterLoopNode!=null ERROR "il nodo da eseguire al termine del loop non può essere il nodo for each stesso:"+loc() :
+context ForEach if afterLoopNode!=null ERROR "il nodo da eseguire al termine del loop non puï¿½ essere il nodo for each stesso:"+loc() :
 	afterLoopNode!=this;
 
 /// EndLoop
@@ -345,13 +352,13 @@ context EndLoop if loopHeadNode!=null ERROR "Il nodo specificato in 'loopHeadNod
 context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'then':"+loc() :
 	thenNode!=null;
 
-context CheckCondition if thenNode!=null ERROR "il nodo 'then' non può essere il nodo CheckCondition stesso:"+loc() :
+context CheckCondition if thenNode!=null ERROR "il nodo 'then' non puï¿½ essere il nodo CheckCondition stesso:"+loc() :
 	thenNode!=this;
 
 context CheckCondition ERROR "E'necessario specificare il nodo corrispondente al ramo 'else':"+loc() :
 	elseNode!=null;
 
-context CheckCondition if elseNode!=null ERROR "il nodo 'else' non può essere il nodo CheckCondition stesso:"+loc() :
+context CheckCondition if elseNode!=null ERROR "il nodo 'else' non puï¿½ essere il nodo CheckCondition stesso:"+loc() :
 	elseNode!=this;
 
 
