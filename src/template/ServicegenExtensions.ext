@@ -114,6 +114,9 @@ String errorLog(String class, String method, String msg, String exceptionVar) :
 
 // full qualified name dell'interfaccia pubblica del servizio (java)
 String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, SOABEModel model) :
+if( (sd.codComponente!=null && sd.codComponente != "") && (sd.codProdotto!=null && sd.codProdotto != "")) then
+	getOrganizationNamePkgPrefix()+"."+sd.codProdotto.toLowerCase()+"."+sd.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio)
+else
     getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
 
 String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, String codProd, String codComp) :
