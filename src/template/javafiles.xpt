@@ -369,9 +369,15 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
      try{
-     	«IF this.returnType != null»return
-     	«ENDIF»
-     	delegate.«this.name»(
+     	
+     	logger.debug("[«serviceBeanClassName(codServ)»::«this.name»()] - START");
+     	it.csi.util.performance.StopWatch watcher= new it.csi.util.performance.StopWatch("«model.codComponente»");
+	 // inizio misurazione
+	    watcher.start();
+	    
+	    «IF this.returnType != null»
+	    «map2javaType(this.returnType,codServ,model)» valueObjRet = 
+	    delegate.«this.name»(
      		«IF params.size != 0»
      			«IF params.size==1»
     				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())»
@@ -383,6 +389,34 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
     		«IF this.opType != OpTypeEnum::synch», datiMsg«ENDIF»
     		«IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»ctx.getCallerPrincipal()«ENDIF»
     	);
+    	
+    	«ELSE»
+    	delegate.«this.name»(
+     		«IF params.size != 0»
+     			«IF params.size==1»
+    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.first())»
+    			«ELSE»
+	    			«EXPAND paramPassSameName(true) FOREACH params.select(e|e!=params.last())»
+    				«EXPAND paramPassSameName(false) FOREACH params.select(e|e==params.last())»
+    			«ENDIF»
+    		«ENDIF»
+    		«IF this.opType != OpTypeEnum::synch», datiMsg«ENDIF»
+    		«IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»ctx.getCallerPrincipal()«ENDIF»
+    	);
+    	
+    	«ENDIF»
+    	
+    	// fine misurazione
+       watcher.stop();
+	   watcher.dumpElapsed("«serviceBeanClassName(codServ)»","«this.name»()", "invocazione servizio [«removeSeparator(codServ)»]::[«name»]", "(valore input omesso)");
+	   logger.debug("[«serviceBeanClassName(codServ)»::«this.name»()] - END");
+	    
+     	«IF this.returnType != null»
+     	  return valueObjRet;
+     	«ENDIF»
+     	
+    	
+    	
     }
     catch(CSIException e){
     	«IF this.txType!=TXTypeEnum::noTX»
