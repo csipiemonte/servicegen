@@ -182,7 +182,11 @@ public class «serviceBeanClassName()» implements SessionBean{
 		«ELSE-»
 		delegate = new «serviceImplClassName()»();
 		«ENDIF-»
-			delegate.init(initOptions);
+		delegate.init(initOptions);
+		«IF this.operations.select(e|e.txType==servicedef::TXTypeEnum::newLocalTX).size>0-»
+		delegate.setSessionContext(ctx);	
+		«ENDIF-»
+		
 		}
 		
 		catch(Exception ie){
@@ -266,6 +270,7 @@ import «fullQualifiedServiceExceptionPkg(codServizio, model)».*;
 import it.csi.coopdiag.api.*;
 import it.csi.coopdiag.engine.utils.*;
 «ENDIF»
+import javax.ejb.SessionContext;
 import javax.sql.DataSource;
 import org.apache.log4j.*;
 
@@ -282,6 +287,17 @@ public class «serviceImplClassName()» {
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	«IF this.operations.select(e|e.txType==servicedef::TXTypeEnum::newLocalTX).size>0-»
+	private SessionContext sessionContext;
+	
+	public SessionContext getSessionContext() {
+		return sessionContext;
+	}
+
+	public void setSessionContext(SessionContext sessionContext) {
+		this.sessionContext = sessionContext;
+	}
+	«ENDIF-»
 	
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implLocalVars"+codServizio)»
 	// inserire qui la definizione di varibili locale o costanti dell'implementazione.
@@ -613,7 +629,17 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
      «ENDIF»
      «ENDPROTECT»
      }
-     
+     «IF this.txType==servicedef::TXTypeEnum::newLocalTX -»
+     catch (RuntimeException ex) {
+			sessionContext.setRollbackOnly();
+			logger.error(
+					"[SrvbibliotecaImpl::leggiBiblioteca] - Errore imprevisto occorso durante l'esecuzione del metodo:"
+							+ ex+"Forzata RollBack Transazione", ex);
+			throw new UnrecoverableException(
+					"Errore imprevisto occorso durante l'esecuzione del metodo:"
+							+ ex+"Forzata RollBack Transazione", ex);
+	}
+	«ENDIF-»
      catch(Throwable ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
         	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
