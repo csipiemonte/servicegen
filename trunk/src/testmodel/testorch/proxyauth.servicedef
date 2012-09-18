@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="proxy_auth" monitorable="true" diagEnabled="true" versione="1.0" serviceType="orch" codProdotto="testorch" codComponente="testorchsrv">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+  <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+  <operations name="identificaUserPwd" throws="//@types/@types.1">
+    <params name="username">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <operations name="elencoVie" throws="//@types/@types.1">
+    <params name="userName">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <returnType xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.20"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="Dummy"/>
+    <types xsi:type="typedef:Exception" name="AuthException"/>
+  </types>
+</servicedef:ServiceDef>

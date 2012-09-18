@@ -1,0 +1,29 @@
+<!-- 
+parametri:
+	- model: il percorso del modello di cui fare il report
+	- graphvizBin: il percorso della directory "bin" di graphviz (con indicatore di drive iniziale e slash finale)
+	- targetDir: la directory in cui devono essere generati i files
+
+ATTENZIONE: DOPO LA MIGRAZIONE DA OAW A EMF QUASTA CARTUCCIA NON FUNZIONA PIU'
+
+-->
+<workflow>
+
+	<!-- call setup cartridge -->
+	<cartridge file="it/csi/mddtools/servicegen/workflow/setup.mwe" />
+
+	<!-- load model and store it in slot 'model' -->
+	<component class="org.eclipse.emf.mwe.utils.Reader">
+		<useSingleGlobalResourceSet value="true"/>
+		<uri value="platform:/resource/${model}" />
+		<modelSlot value="model" />
+	</component>
+
+	<!--  generate code using OAW -->
+	<cartridge file="dottools/model2dotfile.oaw"
+		targetDir="${targetDir}"
+		topFunctionCallExpression="template::svcorch2graphviz::toGraphvizModel(model)"
+		pathToDotExe="${graphvizBin}"
+		inheritAll="true"/>
+
+</workflow>

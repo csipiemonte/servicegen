@@ -1,0 +1,767 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import servicegen;
+import typedef;
+import servicedef;
+import appresources;
+
+
+/// standard generici J2EE Csi piemonte
+/// N.B: prevista la possibilit� di modificare il nome della organization, 
+/// nel rispetto del resto degli standard, per permettere la gestione di situazioni
+/// tipo il progetto doqui
+/// il prefisso di packaging e directory di default sar� it.csi e it/csi, ma pu� essere 
+/// sovrascritto inserendo le properties:
+/// - javapackage-organization-name    (es. organization-name=it.doqui)
+/// verr� automaticamente trasformato nel formato con '/' in tutti i punti in cui serve un
+/// path e non un nome di package 
+
+String getOrganizationNamePkgPrefix() :
+	getProperty("javapackage-organization-name")==null||getProperty("javapackage-organization-name").length==0?
+	"it.csi":
+	getProperty("javapackage-organization-name");
+
+String getOrganizationNamePathPrefix() :	
+	getProperty("javapackage-organization-name")==null||getProperty("javapackage-organization-name").length==0?
+	"it/csi":
+	getProperty("javapackage-organization-name").replaceAll("\\p{Punct}","/");
+	
+String getGeneratedJavaSrcDir(SOABEModel model) :
+	"src/java";
+
+String getConfigRootDir(SOABEModel model) :
+  "conf";
+
+String getDocsRootDir(SOABEModel model) :
+  "docs";
+
+String getTestDir(SOABEModel model) :
+  "test";
+  
+String getTestJavaDir(SOABEModel model) :
+  "test/java";
+ 
+String getEjbConfigRootDir(SOABEModel model) :
+  getConfigRootDir(model)+"/ejb";
+  
+String getTestXmlFilesDir(String codServizio, SOABEModel model) :
+	getTestDir(model)+"/java/test/"+removeSeparator(codServizio);
+  
+String getSpecificEjbConfigRootDir(String codEjb, SOABEModel model) :
+  getEjbConfigRootDir(model)+"/"+removeSeparator(codEjb);
+  
+String getWarConfigRootDir(SOABEModel model) :
+  getConfigRootDir(model)+"/web";
+  
+// conf/<tipobinding>/<codwar>
+String getSpecificWarConfigRootDir(String codBinding, String codWar, SOABEModel model) :
+  getWarConfigRootDir(model)+"/"+codBinding+"/"+codWar;
+
+String getWarResourcesRootDir(SOABEModel model) :
+  "src/web";
+  
+String getSpecificWarResourcesRootDir(String codBinding, String codWar, SOABEModel model) :
+  getWarResourcesRootDir(model)+"/"+codBinding+"/"+codWar;
+  
+  
+String fullEjbStdClassesDir(SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/business";
+    
+String integrationClassesDir(SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/integration";    
+
+String getFullEJBStdPkg(SOABEModel model) :
+	    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".business";
+String getIntegrationPkg(SOABEModel model) :
+	    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".integration";
+	        
+String getSQLSrcDir(SOABEModel model) :
+	"src/sql";
+	    
+// STD: DSP_STD_0000_GUI_081007_V02_Logging.pdf#4.2
+String getLoggerPrefixForComponent(String codProd, String codComponent) :
+	codComponent.toLowerCase();
+
+String debugLog(String class, String method, String msg) :
+	"getLogger(null).debug(\"["+class+"::"+method+"]-"+msg+" \");";
+
+String errorLog(String class, String method, String msg, String exceptionVar) :
+	"getLogger(null).error(\"["+class+"::"+method+"]-"+msg+" \","+exceptionVar+");";
+	
+/// standard specifici per CSI
+
+
+///// NAMING PACKAGE JAVA
+
+// full qualified name dell'interfaccia pubblica del servizio (java)
+String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, SOABEModel model) :
+if( (sd.codComponente!=null && sd.codComponente != "") && (sd.codProdotto!=null && sd.codProdotto != "")) then
+	getOrganizationNamePkgPrefix()+"."+sd.codProdotto.toLowerCase()+"."+sd.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio)
+else
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
+
+String fullQualifiedServiceInterfacePkg(servicedef::ServiceDef sd, String codProd, String codComp) :
+    getOrganizationNamePkgPrefix()+"."+codProd.toLowerCase()+"."+codComp.toLowerCase()+".interfacecsi."+removeSeparator(sd.codServizio);
+
+
+String fullQualifiedEntitiesPkg(String codServ, SOABEModel model) :
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".dto."+removeSeparator(codServ);
+
+/// usa service def e non SOABEModel
+String fullQualifiedEntitiesPkgSDRelative(Entity type) :
+	let ownerSD = (ServiceDef)(((Types)(type.eContainer)).eContainer) :
+    	getOrganizationNamePkgPrefix()+"."+ownerSD.codProdotto.toLowerCase()+"."+ownerSD.codComponente.toLowerCase()+".dto."+removeSeparator(ownerSD.codServizio);
+
+String fullQualifiedServiceExceptionsPkgSDRelative(Exception type) :
+	let ownerSD = (ServiceDef)(((Types)(type.eContainer)).eContainer) :
+    	getOrganizationNamePkgPrefix()+"."+ownerSD.codProdotto.toLowerCase()+"."+ownerSD.codComponente.toLowerCase()+".exception."+removeSeparator(ownerSD.codServizio);
+
+String fullQualifiedServiceExceptionPkg(String codServ, SOABEModel model) :
+    getOrganizationNamePkgPrefix()+"."+model.codProdotto.toLowerCase()+"."+model.codComponente.toLowerCase()+".exception."+removeSeparator(codServ);
+
+String getFullServiceEJBPkg(String codServ, SOABEModel model, boolean client) :
+if(!client) then
+getFullServiceEJBPkg(codServ, model)
+else
+getIntegrationPkg(model)+"."+removeSeparator(codServ);
+
+String getFullServiceEJBPkg(String codServ, SOABEModel model) :
+	getFullEJBStdPkg(model)+"."+removeSeparator(codServ);
+	
+String getFullServiceLocatorPkg(SOABEModel model) :
+	getFullEJBStdPkg(model)+".integration";	
+
+String getFullServiceTestPkg(String codServ, SOABEModel model) :
+	"test"+"."+removeSeparator(codServ);
+	
+//// NAMING CLASSI
+		
+String serviceInterfaceName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Srv";
+
+SDAnnotationDetail getSDAnnDetail(ServiceDef sd, String source, String key) :
+	let sdann = sd.annotations.select(a|a.source==source).first() :
+	if sdann != null then
+		sdann.details.select(ad|ad.key==key).first()
+	else
+		null
+	;
+
+String fullQualifiedServiceInterfaceName(ServiceDef sd, SOABEModel model) :
+	let sdann_dtl = getSDAnnDetail(sd, "servicedef", "java-fqn") :
+    if sdann_dtl != null then
+    	sdann_dtl.value	
+    else
+    	fullQualifiedServiceInterfacePkg(sd,model)+"."+serviceInterfaceName(sd)
+    ;
+
+String serviceRemoteInterfaceName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Remote";
+
+String serviceLocalInterfaceName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Local";
+
+
+String fullQualifiedServiceRemoteInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceRemoteInterfaceName(sd);    
+    
+String fullQualifiedServiceLocalInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceLocalInterfaceName(sd);
+        
+String serviceHomeInterfaceName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Home";
+
+String serviceLocalHomeInterfaceName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"LocalHome";
+	
+String fullQualifiedServiceHomeInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio.toLowerCase(), model)+"."+serviceHomeInterfaceName(sd);
+
+String fullQualifiedServiceLocalHomeInterfaceName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio.toLowerCase(), model)+"."+serviceLocalHomeInterfaceName(sd);
+ 
+String serviceBeanClassName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Bean";
+	
+String serviceBeanClassName(String codServizio) :
+	toCamel(codServizio)+"Bean";	
+
+String fullQualifiedServiceBeanClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceBeanClassName(sd);  
+
+String serviceImplClassName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"Impl";
+
+String serviceImplBeanId(ServiceDef sd) :
+	toCamel(sd.codServizio).toFirstLower()+"Impl";	
+	
+String serviceValidatorClassName(ServiceDef sd) :
+	toCamel(sd.codServizio)+"ValidatorFH";
+	
+String serviceTestClassName(ServiceDef sd) :
+	"Test"+toCamel(sd.codServizio);	
+
+String fullQualifiedServiceImplClassName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceImplClassName(sd);  
+
+String fullQualifiedServiceValidatorClassName(ServiceDef sd, SOABEModel model) :
+    getFullServiceEJBPkg(sd.codServizio, model)+"."+serviceValidatorClassName(sd);
+    
+String fullQualifiedServiceTestClassName(EJBPABinding sb,ServiceDef sd, SOABEModel model) :
+    getFullServiceTestPkg(sd.codServizio, model)+"."+serviceTestClassName(sd);  
+
+
+//// NAMING DIRECTORY
+String fullServiceInterfaceDir(ServiceDef sd, String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/interfacecsi/"+removeSeparator(codServ);
+    
+String fullEntitiesDir(String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/dto/"+removeSeparator(codServ);
+
+String fullServiceExceptionsDir(String codServ, SOABEModel model) :
+    getGeneratedJavaSrcDir(model)+"/"+getOrganizationNamePathPrefix()+"/"+model.codProdotto.toLowerCase()+"/"+model.codComponente.toLowerCase()+"/exception/"+removeSeparator(codServ);
+
+String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
+    fullEjbStdClassesDir(model)+"/"+removeSeparator(codServ);
+    
+String fullServiceLocatorClassDir(SOABEModel model) :
+    fullEjbStdClassesDir(model)+"/integration";
+
+String fullServiceEJBClassesDir(String codServ, SOABEModel model, Boolean client) :
+	if(!client) then
+   fullServiceEJBClassesDir( codServ,  model)
+   else
+   integrationClassesDir(model)+"/"+removeSeparator(codServ);
+	
+	
+String fullServiceTestClassesDir(String codServ, SOABEModel model) :
+    getTestJavaDir(model)+"/test"+"/"+removeSeparator(codServ);
+
+
+// da par. 3.7 linee guida gestione oggetti SOA        
+String fullCSIRegistryConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/registry";
+
+// da Dev. guide CSI
+String getfullRegistryDDFileName(SOABEModel model) :
+    fullCSIRegistryConfigDir(model)+"/deploy-descriptor.xml";
+    
+String getFullRegistryPDServiceDir(SOABEModel model) :
+	fullCSIRegistryConfigDir(model)+"/pd";
+
+String getRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
+	"defpd_"+removeSeparator(sd.codServizio)+"_"+replaceMinus(decodeTipoInter(bind, tp))+".xml";
+
+String getFullRegistryPDFileName(ServiceDef sd, ServiceBinding bind, TargetPlatform tp, SOABEModel model) :
+    getFullRegistryPDServiceDir(model)+"/"+getRegistryPDFileName(sd, bind, tp, model);
+
+String decodeTipoInter(ServiceBinding sd, TargetPlatform tp) :
+	(sd.metaType==EJBPABinding ? 
+      (tp.code==TargetPlatformCodes::WLS92 ? "CSI-java-t3" : "CSI-java-jnp")
+    : 
+      ( sd.metaType==WSFADBinding ? "WS-SOAP" : "CSI-http")
+    );
+
+String decodeBinding(TargetPlatform tp) :
+	tp.code==TargetPlatformCodes::WLS92 ? "CSI-java-t3" : "CSI-java-jnp";
+
+String decodeServiceType(ServiceDef sd) :
+	sd.serviceType==SrvTypeEnum::infr ? "I" : (sd.serviceType==SrvTypeEnum::orch ? "O" : "A");
+
+String normalizeVersionNumber(String versione) : JAVA
+	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.normalizeRegistryVersionNumber(java.lang.String);
+
+String replaceMinus(String orig) :
+	orig.replaceAll("-", "_");
+
+
+// [DM] diag
+String fullDiagConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/diag";
+
+String getDiagPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	removeSeparator(sd.codServizio)+".properties";
+
+String getFullDiagPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	fullDiagConfigDir(model)+"/"+removeSeparator(sd.codServizio)+"/"+getDiagPropertiesFileName(sd, model);
+
+boolean isAtLeastOneServiceDiagEnabled(SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides.diagEnabled==true).size > 0;
+
+
+// [DM] monit
+String fullMonitConfigDir(SOABEModel model) :
+	getConfigRootDir(model)+"/monit";
+
+String getMonitPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	removeSeparator(sd.codServizio)+".properties";
+
+String getFullMonitPropertiesFileName(ServiceDef sd, SOABEModel model) :
+	fullMonitConfigDir(model)+"/"+removeSeparator(sd.codServizio)+"/"+getMonitPropertiesFileName(sd, model);
+	
+boolean isAtLeastOneServiceMonitorable(SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides.monitorable==true).size > 0;
+
+    
+// metto anche i files di config svcflow divisi per modulo
+String svcflowConfDirForService(String codServizio, SOABEModel model) :
+	"conf/orchestrator/descriptor/"+removeSeparator(codServizio);	
+	
+//// NAMING per J2EE DESCRIPTORS e CONFIG PAPD
+    
+String getServiceBeanName(EJBPABinding pa, ServiceDef sd) :
+	toCamel(sd.codServizio)+"Bean";
+	
+String getPABeanName(EJBPABinding pa, ServiceDef sd) :
+	toCamel(sd.codServizio)+"PA";
+
+String getQMGRBeanName(EJBPABinding pa, ServiceDef sd) :
+	toCamel(sd.codServizio)+"QMGR";
+	
+String getAsyncLtrBeanName(EJBPABinding pa, ServiceDef sd) :
+	toCamel(sd.codServizio)+"LTR";
+		
+// nome simbolico della PA
+String paSymName(EJBPABinding ejbpa, ServiceDef sd, SOABEModel model):
+    model.codComponente+"."+toCamel(sd.codServizio)+"PA";
+
+// posizione nel project svn delle configurazioni della singola PA
+String paConfigDir(ServiceDef sd, SOABEModel model) :
+	getSpecificEjbConfigRootDir(removeSeparator(sd.codServizio), model);
+
+// � necessario differenziare con il codServ per evitare sovrapposizioni nel classloading
+String paDefFileName(EJBPABinding pa, ServiceDef sd) :
+    "defpa_"+removeSeparator(sd.codServizio)+".xml";
+
+String qmgrDefFileName(ServiceDef sd) :
+    "defqmgr_"+removeSeparator(sd.codServizio)+".xml";
+
+String pdEJBDefFileName(EJBPABinding pa, ServiceDef sd) :
+	"defpd_"+removeSeparator(sd.codServizio)+".xml";
+
+String pdSOAPDefFileName(SOAPPABRBinding pa, ServiceDef sd) :
+	"defpd_"+removeSeparator(sd.codServizio)+"soap.xml";
+	
+String pdSelectorFileName(PDPAServiceConnector sc) :
+	"selector_"+sc.serviceDef.codServizio+"_"+sc.binding.codBinding+".properties";
+	
+String registryPDFileName(ServiceDef sd, ServiceBinding binding) :
+	"defpd_"+removeSeparator(sd.codServizio)+"_"+binding.codBinding.toLowerCase()+".xml";
+	
+// da 6.1.4 linee guida soa: nome dell'ejb del serivizo � nome del metodo. Per semplicit� 
+// invece del nome dell'ejb metto il codice servizio (da sottomettere la richiesta di variazione standard)
+String svcflowDefinitionFileName(Operation op, String codServizio) :
+	removeSeparator(codServizio)+op.name.toFirstUpper()+".xml";
+	
+///// NAMING JNDI e WEB
+String fullPAJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
+
+// versioen che prende i codici prod e comp dalla ServiceDef
+String fullPAJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
+
+String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
+    
+String fullQMGRJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
+    
+/// in realt� non dovrebbe servire...
+String fullLTRJndiName(ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
+
+String fullLTRJndiName(ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
+
+    
+String fullServiceJndiName(EJBPABinding sb, ServiceDef sd, SOABEModel model) :
+    model.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
+
+String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
+    sd.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
+
+// da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
+// � 3.4.1
+String queueConnectionFactoryJndiName() :
+	"jms/QueueConnectionFactory";
+// da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
+// � 3.4.1
+String topicConnectionFactoryJndiName() :
+	"jms/TopicConnectionFactory";
+		
+// da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
+// � 3.4.2.2
+// nota: uso '.' invece che '/' perch� le librerie lo cercano col punto...
+String  paQueueJndiName(ServiceDef sd, String codBinding, SOABEModel model) :
+	model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
+	
+// da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
+// � 3.4.3
+String  paTopicJndiName(ServiceDef sd, SOABEModel model) :
+	model.codComponente.toLowerCase()+"/jms/"+toCamel(sd.codServizio)+"Topic";
+
+String counterDSJndiName(ServiceDef sd, SOABEModel model) :
+	model.codComponente.toLowerCase()+"/jdbc/Counter"+toCamel(sd.codServizio)+"TxDS";
+	 	
+// tolto dal context l'ulteriore suffisso pabrsoap perch� appesantiva il context
+// senza dare valore aggiunto (il cod binding dovrebbe gi� discriminare)
+String pabrWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
+	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+
+// tolto dal context l'ulteriore suffisso wsfad perch� appesantiva il context
+// senza dare valore aggiunto (il cod binding dovrebbe gi� discriminare)
+String wsfadWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
+	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+    
+String asynchCounterTableName(ServiceDef sd) :
+	removeSeparator(sd.codServizio).toUpperCase()+"_COUNTER";    
+
+/// NAMING PACCHETTI
+String getEJBPAJarName(String codServ, String codBinding, String srvType, SOABEModel model) :
+	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".jar";
+
+String getPABRWarName(String codServ, String codBinding, String srvType, SOABEModel model) :
+	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".war";
+
+String getWSFADWarName(String codServ, String codBinding, String srvType, SOABEModel model) :
+	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".war";
+
+
+///// ALTRI STANDARD
+
+// tipo operazione csi
+String opTypeConst(OpTypeEnum optype) :
+  if (optype == servicedef::OpTypeEnum::synch)then
+    "synch-call"
+  else if(optype == servicedef::OpTypeEnum::asynch)then
+    "asynch-call"
+  else if(optype == servicedef::OpTypeEnum::notify)then
+    "notify";
+
+/// mapping di tipi model -> java
+String map2javaSimpleType(Type type) :
+	let code = ((CSIDatatype)type).code :
+	let nillable =  ((CSIDatatype)type).nillable :
+	if (code == typedef::CSIDatatypeCodes::CSIInteger) then
+  		(nillable ? "java.lang.Integer" : "int")
+	else if (code == typedef::CSIDatatypeCodes::CSIString) then
+  		(nillable ? "java.lang.String" : "java.lang.String")
+	else if (code == typedef::CSIDatatypeCodes::CSIFloat) then
+  		(nillable ? "java.lang.Float" : "float")
+  	else if (code == typedef::CSIDatatypeCodes::CSILong) then
+  		(nillable ? "java.lang.Long" : "long")
+	else if (code == typedef::CSIDatatypeCodes::CSIDouble) then
+  		(nillable ? "java.lang.Double" : "double")
+	else if (code == typedef::CSIDatatypeCodes::CSIBoolean) then
+  		(nillable ? "java.lang.Boolean" : "boolean")
+	else if (code == typedef::CSIDatatypeCodes::CSIDate) then
+  		(nillable ? "java.util.Date" : "java.util.Date")
+	else if (code == typedef::CSIDatatypeCodes::CSIByte) then
+  		(nillable ? "byte" : "byte")
+	else 
+  		"???";
+
+
+String map2javaType(Type type, String codServ, SOABEModel model) :
+	if (type==null) then
+		"void"
+	else if (type.metaType==CSIDatatype) then
+		map2javaSimpleType(type)
+	else if (type.metaType==Entity) then
+		//fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
+		map2JavaTypeSDRelative((Entity)type)
+	else 
+		//map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
+		map2JavaTypeSDRelative((TypedArray)type);
+
+
+boolean isTypedefAnnotated(Type t) :
+	let tdann = t.annotations.select(a|a.source=="typedef").first() :
+	tdann != null; 
+
+
+/// mappa il tipo java contestualizzandolo nel servicedef contenitore
+/// (sfrutta codProdotto e codservizio di ServiceDef invece che quelli di SOABEModel)
+String map2JavaTypeSDRelative(Type type) :
+	if (type==null) then
+		"void"
+	else if (type.metaType==CSIDatatype) then
+		map2javaSimpleType(type)
+	else if (type.metaType==Entity) then
+		map2JavaTypeSDRelative((Entity)type)
+	else if (type.metaType==Exception) then
+		map2JavaTypeSDRelative((Exception)type) 
+	else if (type.metaType==TypedArray) then
+		map2JavaTypeSDRelative((TypedArray)type) // [DM] aggiunto per orchestrazione
+	else if (type.metaType==PrimitiveType) then
+		map2JavaTypeSDRelative((PrimitiveType)type); // [DM] aggiunto per orchestrazione con CXF
+	//else 
+	//	map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
+
+String map2JavaTypeSDRelative(Entity e) :
+	let tdann = e.annotations.select(a|a.source=="typedef").first() :
+	let javafqn = (tdann!=null? (tdann.details.selectFirst(ad|ad.key=="java-fqn").value): null) :
+	(javafqn != null ? 
+		javafqn :
+		fullQualifiedEntitiesPkgSDRelative((Entity)e)+"."+e.name.toFirstUpper()  
+	); 
+
+String map2JavaTypeSDRelative(Exception e) :
+	let tdann = e.annotations.select(a|a.source=="typedef").first() :
+	let javafqn = (tdann!=null? (tdann.details.selectFirst(ad|ad.key=="java-fqn").value): null) :
+	(javafqn != null ? 
+		javafqn :
+		fullQualifiedServiceExceptionsPkgSDRelative((Exception)e)+"."+e.name.toFirstUpper()  
+		
+	); 
+
+// [DM] Orchestrazione: diversificare gestione di CSIDatatype e PrimitiveType
+// Per gli array di Entity supponiamo che se un entity contiene CSIDatatype vada gestito come i TypedArray di CSIDatatype,
+// mentre se contiene PrimitiveType allora vada gestito come un TypedArray di PrimitiveType.
+String map2JavaTypeSDRelative(TypedArray e) :
+	if (e.componentType.metaType == CSIDatatype) then
+		map2JavaTypeSDRelative(e.componentType)+"[]"
+	else if (e.componentType.metaType == PrimitiveType) then
+		"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+	else if (e.componentType.metaType == Entity) then
+		(isCSITypeSet((Entity)e.componentType) ? 
+			map2JavaTypeSDRelative(e.componentType)+"[]" : 
+			"java.util.List<" + map2JavaTypeSDRelative(e.componentType)+">"
+		);
+
+// [DM] verifica che il typeset sia CSI
+boolean isCSITypeSet(Entity t) :
+	let types = (Types)t.eContainer:
+	let sd = (ServiceDef)types.eContainer:
+	sd.bindings.typeSelect(WSBinding).size == 0;
+
+// [DM] Orchestrazione: data slot di tipo PrimitiveType
+String map2JavaTypeSDRelative(PrimitiveType e) :
+	let binding = e.languageBindings.select(a|a.lang=="java").first() :
+	let ns = (binding.langSpecificNS != null ? binding.langSpecificNS : "") :
+	ns + binding.langSpecificType;
+
+// [DM] utility per sostituire nei files XML alcuni caratteri speciali con le relative entities
+String replaceJavaTypeSpecialChars(String s) :
+	s.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+
+
+String map2JavaTypeSDRelative(ServiceDef sd) :
+	let sdann = sd.annotations.select(a|a.source=="servicedef").first() :
+	let javafqn = (sdann!=null? (sdann.details.selectFirst(ad|ad.key=="java-fqn").value): null) :
+	(javafqn != null ? 
+		javafqn :
+		fullQualifiedServiceInterfacePkg(sd, sd.codProdotto, sd.codComponente)  
+		
+	);
+
+String defaultInitVal(Type type) :
+	if(type==null) then
+		"null"
+	else if (type.metaType==CSIDatatype) then
+		defaultSimpleInitVal(type)
+	else
+		"null";
+
+String defaultSimpleInitVal(Type type) :
+	let code = ((CSIDatatype)type).code :
+	let nillable =  ((CSIDatatype)type).nillable :
+	if (code == typedef::CSIDatatypeCodes::CSIInteger) then
+  		(nillable ? "null" : "0")
+	else if (code == typedef::CSIDatatypeCodes::CSIString) then
+  		(nillable ? "null" : "null")
+	else if (code == typedef::CSIDatatypeCodes::CSIFloat) then
+  		(nillable ? "null" : "0")
+  	else if (code == typedef::CSIDatatypeCodes::CSILong) then
+  		(nillable ? "null" : "0")
+	else if (code == typedef::CSIDatatypeCodes::CSIDouble) then
+  		(nillable ? "null" : "0")
+	else if (code == typedef::CSIDatatypeCodes::CSIBoolean) then
+  		(nillable ? "null" : "true")
+	else if (code == typedef::CSIDatatypeCodes::CSIDate) then
+  		(nillable ? "null" : "null")
+	else if (code == typedef::CSIDatatypeCodes::CSIByte) then
+  		(nillable ? "0" : "0")
+	else 
+  		"???";
+  	
+/// restituisce la service impl data una service def.
+/// serve come soluzione temporanea per la gestioen di impl-cartridge e service-component
+/// senza modificare drasticamente il meccanismo di generazione che � basato sul loop
+/// sulle service def e non sulla service impl 
+ServiceImpl getServiceImpl(ServiceDef sd, SOABEModel model) :
+	model.serviceimplementations.select(si|si.provides==sd).first();
+
+
+//// variabili di build
+String getPAVarsPrefix(ServiceDef sd) :
+removeSeparator(sd.codProdotto)+"."+removeSeparator(sd.codComponente)+"."+
+	removeSeparator(sd.codServizio);
+	
+String getPAURLVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".pa.url";
+
+String getPAURLPlaceHolder(ServiceDef sd) :
+	"@"+getPAURLVar(sd)+"@";
+
+String getPABRServerPrefixVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".pabr.server.prefix";
+
+String getPABRServerPrefixPlaceHolder(ServiceDef sd) :
+	"@"+getPABRServerPrefixVar(sd)+"@";
+
+String getWSFADServerPrefixVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".wsfad.server.prefix";
+
+String getWSFADServerPrefixPlaceHolder(ServiceDef sd) :
+	"@"+getWSFADServerPrefixVar(sd)+"@";
+
+String getWSFADUrl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWSFADServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString(), model)+"/services/"+model.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
+
+String getWSFADWsdl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
+	getWSFADUrl(sd, codBinding, serviceType, model)+"?wsdl";
+
+
+String getCsiAuthCredentialsVar(ServiceDef sd) :
+	getPAVarsPrefix(sd)+".credentials";
+
+String getCsiAuthCredentialsPlaceHolder(ServiceDef sd) :
+	"@"+getCsiAuthCredentialsVar(sd)+"@";
+
+
+
+///// target platform del servizio acceduto
+TargetPlatformCodes getServiceTargetPlatform(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
+	let paplatfLiteral = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pa-platform").value): null) :
+	if (paplatfLiteral=="WLS92") then
+		TargetPlatformCodes::WLS92
+	else if (paplatfLiteral=="JBoss43") then
+		TargetPlatformCodes::JBoss43
+	else
+		null;  
+
+///// classe del plugin ejb
+String pdEjbPluginFQN(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
+	let ejbver = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-pd-plugin").value): "it.csi.csi.porte.ejb20.PortaDelegataEJB") :
+	if ejbver=="ejb-1" then 
+		"it.csi.csi.porte.ejb.PortaDelegataEJB"
+	else if ejbver=="ejb-2" then 
+		"it.csi.csi.porte.ejb20.PortaDelegataEJB"
+	else
+		"it.csi.csi.porte.ejb20.PortaDelegataEJB";
+
+///// target platform del servizio acceduto
+String getCustomEJBPAJndiName(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
+	let paplatf = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-ejbpa-jndiname").value): fullPAJndiName(pdpa.serviceDef)) :
+	paplatf; 
+
+String getCustomSoapPAEndpoint(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
+	let soapEndpoint = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-endpoint").value): null) :
+	soapEndpoint;
+
+String getCustomSoapPAUri(PDPAServiceConnector pdpa) :
+	let rcann = pdpa.annotations.selectFirst(a|a.source=="appresources") :
+	let soapUri = (rcann!=null? (rcann.details.selectFirst(ad|ad.key=="csi-soappabr-uri").value): null) :
+	soapUri;
+
+
+//// altre utility
+
+///// risoluzione hostname del repository artefatti
+String getIvyRepositoryHost() :
+	getProperty("servicegen.ivyRepositoryHost")==null||getProperty("servicegen.ivyRepositoryHost").length==0?
+	"repart.csi.it":
+	getProperty("servicegen.ivyRepositoryHost");		
+
+// [DM] recupero e propagazione dell'utente remoto nell'orchestrazione
+String getCSIOrchestrationRemoteUser(ServiceDef sd) :
+	if sd.authLevel != null && sd.authLevel!=AuthLevelEnum::A0 then
+		"principal.getName()"
+	else
+		"\"<???>\"";
+
+String getPluginVersion() : JAVA
+	it.csi.mddtools.servicegen.genutils.MiscUtils.getPluginVersion();
+	
+
+String getRegionUID(String src) : JAVA
+  it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.getRegionUID(java.lang.String);
+  
+String removeSeparator(String src) : JAVA
+  it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.removeSeparator(java.lang.String);
+
+String toCamel(String src) : JAVA
+  it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.toCamel(java.lang.String);
+
+boolean validateCodServ(String src) : JAVA
+  it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.validateCodServ(java.lang.String);    
+  
+String formatConstraint(servicedef::ParamValidator pv) : JAVA
+  it.csi.mddtools.servicegen.genutils.EditUtils.formatConstraint(it.csi.mddtools.servicedef.ParamValidator);
+  
+String getProperty(String name) : JAVA
+  org.eclipse.xtend.util.stdlib.PropertiesExtension.getProperty(java.lang.String);
+  
+List[ServiceDef] getProvidedServices(servicegen::SOABEModel model) : JAVA
+	it.csi.mddtools.servicegen.genutils.CodeGenerationUtils.getProvidedServices(it.csi.mddtools.servicegen.SOABEModel);
+	
+List[appresources::ResourceConnector] getAllResourceConnectors(servicegen::SOABEModel model) : JAVA
+	it.csi.mddtools.appresources.genutils.GenUtils.getAllResourceConnectors(it.csi.mddtools.servicegen.SOABEModel);
+
+List[appresources::ResourceConnector] getAllResourceConnectors(servicegen::ServiceImpl model) : JAVA
+	it.csi.mddtools.appresources.genutils.GenUtils.getAllResourceConnectors(it.csi.mddtools.servicegen.ServiceImpl);
+
+String getRepartOrganization(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartOrganization(java.lang.String);
+   
+String getRepartName(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartName(java.lang.String);
+   
+String getRepartVer(String fullLoc) : JAVA
+   it.csi.mddtools.appresources.genutils.GenUtils.getRepartVer(java.lang.String);
+   
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//// Metodi aggiunti qui perche' comuni a CXF e CSI
+
+// full qualified name dell'interfaccia del servizio (SEI) -> caso WSCALL
+String fullQualifiedWebServiceInterfacePkg(ServiceDef sd) :
+    getOrganizationNamePkgPrefix()+"."+sd.codProdotto.toLowerCase()+"."+sd.codComponente.toLowerCase()+".interfacews."+removeSeparator(sd.codServizio);
+
+String fullQualifiedWebServiceInterfaceName(ServiceDef sd) :
+	let sdann_dtl = getSDAnnDetail(sd, "servicedef", "java-fqn") :
+    if sdann_dtl != null then
+    	sdann_dtl.value	
+    else
+    	fullQualifiedWebServiceInterfacePkg(sd)+"."+serviceInterfaceName(sd);
+
+String getCodeEndpoint(WSEndpoint endpoint) : 
+	endpoint.code!=null ? endpoint.code : "";
+
+String wsCallClientName(ServiceDef sd, WSEndpoint endpoint) :
+	toCamel(sd.codServizio).toFirstLower()+getCodeEndpoint(endpoint).toFirstUpper()+"Client";

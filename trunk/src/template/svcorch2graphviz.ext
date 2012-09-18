@@ -1,0 +1,217 @@
+/**
+ * <copyright>
+ * (C) Copyright 2011 CSI-PIEMONTE;
+
+ * Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;
+ * Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.
+ * E' possibile ottenere una copia della Licenza al seguente indirizzo:
+ *
+ * http://www.eupl.it/opensource/eupl-1-1
+ *
+ * Salvo diversamente indicato dalla legge applicabile o concordato per 
+ * iscritto, il software distribuito secondo i termini della Licenza e' 
+ * distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,
+ * esplicite o implicite.
+ * Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni
+ * e le limitazioni secondo i termini della Licenza.
+ * </copyright>
+ *
+ * $Id$
+ */
+
+import svcorch;
+import appresources;
+import servicedef;
+import servicegen;
+import typedef;
+import dot;
+
+extension dottools::dotlib;
+
+create dot::GraphvizModel toGraphvizModel(svcorch::Orchestration orch) :
+	addGraph(orchestrationGraph(orch))->
+	this;
+
+create dot::MainGraph orchestrationGraph(svcorch::Orchestration orch) :
+	orch.mapToGraph()->
+	this.setName("orch_"+orch.operation.name)->
+	this.addStatements(orch.orchestrationSubgraph().stmts)->
+	this.setType(dot::GraphType::digraph)->
+	this
+;
+
+create dot::NodeStmt toNode(svcorch::Node node) :
+ this.setShape("box")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::ForEach node) :
+ this.setShape("doubleoctagon")->
+ this.setLabel(node.name+" foreach "+node.collection.name)->
+ this.setName(node.name)->
+ this.setFillColor("green")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::CheckCondition node) :
+ this.setShape("diamond")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("orange")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::SrvCall node) :
+ this.setShape("parallelogram")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("cyan")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::Transformation node) :
+ this.setShape("invhouse")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("yellow")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::StartNode node) :
+ this.setShape("circle")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("green")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::StopNode node) :
+ this.setShape("doublecircle")->
+ this.setLabel(node.name)->
+ this.setName(node.name)->
+ this.setFillColor("red")->
+ this
+;
+
+create dot::NodeStmt toNode(svcorch::EndLoop node) :
+ this.setShape("doubleoctagon")->
+ this.setLabel("(next...)")->
+ this.setName(node.name)->
+ this.setFillColor("orange")->
+ this
+;
+
+///////////
+
+//create dot::stmt toEdge(svcorch::Node node) :
+//	mapToDirectedEdge(node,node.name+"_"+node.name)->
+//	this;
+
+cached toEdge(svcorch::OpNode node) :
+let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
+cached toEHEdge(svcorch::SrvCall node) :
+let ehEdges = toEHEdges(node) :	
+	//edge.setColor("red")->
+	ehEdges;
+
+cached toEHEdges(SrvCall call) :
+	let ehs = call.onException :
+	ehs.toEHEdges(call)
+;
+
+cached toEHEdges(ExceptionHandler eh, SrvCall callNode) :
+	let edge = mapToDirectedEdge(callNode.toNode(), eh.firstRecoveryNode.toNode(), "exception") :
+	edge.setLabel("exception")->
+	edge.setColor("red")->
+	edge
+;
+
+cached toEdge(svcorch::StartNode node) :
+let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
+	
+cached toEdge(svcorch::ForEach node) :
+let edge1 = mapToDirectedEdge(node.toNode(),node.firstLoopNode.toNode(),node.name+"_"+node.firstLoopNode.name) :	
+let edge2 = mapToDirectedEdge(node.toNode(),node.afterLoopNode.toNode(),node.name+"_"+node.afterLoopNode.name) :
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge1.setLabel("loop")->
+	edge2.setLabel("after")->
+	{edge1,edge2};
+
+cached toEdge(svcorch::EndLoop node) :
+let edge = mapToDirectedEdge(node.toNode(),node.loopHeadNode.toNode(),node.name+"_"+node.loopHeadNode.name) :	
+	edge.setLabel("")->
+	//edge.setColor("red")->
+	edge;
+
+cached toEdge(svcorch::CheckCondition node) :
+let edge1 = mapToDirectedEdge(node.toNode(),node.thenNode.toNode(),node.name+"_"+node.thenNode.name) :	
+let edge2 = mapToDirectedEdge(node.toNode(),node.elseNode.toNode(),node.name+"_"+node.elseNode.name) :
+	//mapToDirectedEdge(node,node.next,node.name+"_"+node.next.name)->
+	edge1.setLabel("then")->
+	edge2.setLabel("else")->
+	{edge1,edge2};
+
+// aggiunge gli edge per ogni slot referenziato in in o out
+cached toEdge(svcorch::Transformation node) :
+	let edge = mapToDirectedEdge(node.toNode(),node.next.toNode(),node.name+"_"+node.next.name) :	
+	//let outSlotEdge = mapToDirectedEdge(node.toNode(), node.output.toNode(), "out") :
+	//let inSlotsEdges = (node.input.size>0 ? node.input.toEdge2(node) : null) :
+	edge.setLabel("")->
+	//outSlotEdge.setLabel("out")->
+	//(node.input.size>0 ? inSlotsEdges.setLabel("in") : null)->
+	//node.input.size>0 ? {edge,outSlotEdge, inSlotsEdges} : {edge, outSlotEdge}
+	edge
+;
+
+cached toEdge2(DataSlot in, svcorch::Transformation transf) :
+	let edge = mapToDirectedEdge(transf.toNode(), in.toNode(), "in") :
+	edge.setLabel("in")->
+	edge.setStyle("dot")->
+	edge;
+
+cached toEdge(svcorch::FlowNode node) :
+	if node.metaType==svcorch::ForEach then
+		toEdge((svcorch::ForEach)node)
+	else if node.metaType==svcorch::CheckCondition then
+		toEdge((svcorch::CheckCondition)node)
+	else
+	 null;
+
+
+
+///////
+create dot::NodeStmt toNode(svcorch::DataSlot slot) :
+ this.setShape("rectangle")->
+ this.setLabel(slot.name)->
+ this.setName(slot.name)->
+ this.setFillColor("gray")->
+ this
+;
+
+create dot::Subgraph orchestrationSubgraph(svcorch::Orchestration orch) :
+	orch.mapToSubgraph()->
+	this.setName("orchsub_"+orch.operation.name)->
+	this.setLabel("Orchestrazione "+orch.service.codServizio+"."+orch.operation.name)->
+	//this.addStatements(orch.globalSlots.slots.toNode())->
+	this.addStatements(orch.nodes.nodes.toNode())->
+	this.addStatements(orch.nodes.nodes.typeSelect(OpNode).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(StartNode).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(ForEach).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(EndLoop).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(CheckCondition).toEdge())->
+	this.addStatements(orch.nodes.nodes.typeSelect(SrvCall).toEHEdges())->
+	this
+;
+
+

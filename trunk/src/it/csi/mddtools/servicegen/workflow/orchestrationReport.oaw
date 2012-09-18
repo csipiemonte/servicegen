@@ -1,0 +1,24 @@
+<!-- 
+parametri:
+	- model: il percorso del modello di cui fare il report
+	- graphvizBin: il percorso della directory "bin" di graphviz (con indicatore di drive iniziale e slash finale)
+	- targetDir: la directory in cui devono essere generati i files
+	
+ATTENZIONE: DOPO LA MIGRAZIONE DA OAW A EMF QUASTA CARTUCCIA NON FUNZIONA PIU'
+
+-->
+<workflow>
+
+	<!-- ***************************************************
+         ALIAS per csi14.mwe
+         Lasciata per retrocompatibilita', si limita a invocare la nuova cartuccia MWE
+         passando i parametri ricevuti
+	-->
+
+	<cartridge file="it/csi/mddtools/servicegen/workflow/orchestrationReport.mwe"
+		model="${model}"
+		graphvizBin="${graphvizBin}"
+		targetDir="${targetDir}"
+	/>
+
+</workflow>

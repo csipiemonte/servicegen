@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
+    editDirectory="/servicegen/src" modelPluginID="servicegen" modelName="Servicedef_metamodel"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="typedef_metamodel.genmodel#//typedef">
+  <foreignModel>servicedef_metamodel.ecore</foreignModel>
+  <genPackages prefix="Servicedef" basePackage="it.csi.mddtools" disposableProviderFactory="true"
+      ecorePackage="servicedef_metamodel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//OpTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//OpTypeEnum/synch"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//OpTypeEnum/asynch"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//OpTypeEnum/notify"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//TXTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//TXTypeEnum/noTX"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//TXTypeEnum/newLocalTX"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//SrvTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//SrvTypeEnum/infr"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//SrvTypeEnum/appl"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//SrvTypeEnum/orch"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//AuthLevelEnum">
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//AuthLevelEnum/A0"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//AuthLevelEnum/A1"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//AuthLevelEnum/A2"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//AuthLevelEnum/A3"/>
+    </genEnums>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//DocumentRoot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//DocumentRoot/service"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ServiceDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/codServizio"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/bindings"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/monitorable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/diagEnabled"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/operations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/versione"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/types"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/traceEnabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/serviceType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/authLevel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/roles"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//ServiceBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceBinding/codBinding"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//EJBPABinding"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//SOAPPABRBinding"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSFADBinding"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/params"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/opType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/returnType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/throws"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/txType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/since"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/authorizedRoles"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/validator"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//Param">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Param/name"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/validator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/constraint"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//Types">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Types/types"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//BaseTypes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//BaseTypes/baseTypes"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//Role">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Role/name"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//InputValidator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//InputValidator/constraint"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ParamValidator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ParamValidator/constraint"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//ValueRangeConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ValueValorizationConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ValueValorizationConstraint/mustNotBeNull"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//CustomConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//CustomConstraint/checkMethodName"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//RelativeConstraint"/>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//ValueConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//SimpleParamCoinstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//SimpleParamCoinstraint/param"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//SimpleParamCoinstraint/constraint"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//CompositeParamConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//CompositeParamConstraint/component"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ANDParamConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ORParamConstraint"/>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//ParamConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//NOTParamConstraint"/>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//CompositeValueConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//CompositeValueConstraint/component"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ANDValueConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ORValueConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//NOTValueConstraint"/>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//SimpleValueConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ContinuousRangeConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ContinuousRangeConstraint/lowerbound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ContinuousRangeConstraint/upperbound"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//DiscreteRangeConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//DiscreteRangeConstraint/literals"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//FeatureConstraint"/>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//CompositeFeatureConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//SimpleFeatureConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//SimpleFeatureConstraint/constraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//SimpleFeatureConstraint/entity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//SimpleFeatureConstraint/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ANDFeatureConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ORFeatureConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//NOTFeatureConstraint"/>
+  </genPackages>
+</genmodel:GenModel>

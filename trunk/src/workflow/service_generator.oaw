@@ -1,0 +1,7 @@
+<?xml version="1.0"?> 
+<workflow> 
+    <cartridge file="it/csi/mddtools/servicegen/workflow/csi14.oaw" 
+	model="servicegen/src/model/prova1.xmi" 
+	targetProjectName="ProvaSrv" 
+    /> 
+</workflow>

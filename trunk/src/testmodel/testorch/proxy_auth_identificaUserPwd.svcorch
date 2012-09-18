@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appresources="http://www.csi.it/mddtools/appresources" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef" returnSlot="//@globalSlots/@slots.2">
+  <nodes>
+    <nodes xsi:type="svcorch:StartNode" name="Start" description="" next="//@nodes/@nodes.1"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="VerificaUserPasswd" next="//@nodes/@nodes.2" outputSlot="//@globalSlots/@slots.3">
+      <operation href="iridepep.servicedef#//@operations.0"/>
+      <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="testorch.appresources#//@resources.0"/>
+      <paramBindings slot="//@globalSlots/@slots.0">
+        <param href="iridepep.servicedef#//@operations.0/@params.0"/>
+      </paramBindings>
+      <paramBindings slot="//@globalSlots/@slots.1">
+        <param href="iridepep.servicedef#//@operations.0/@params.1"/>
+      </paramBindings>
+      <onException firstRecoveryNode="//@nodes/@nodes.3">
+        <handledException href="iridepep.servicedef#//@types/@types.8"/>
+        <handledException href="iridepep.servicedef#//@types/@types.15"/>
+        <handledException href="iridepep.servicedef#//@types/@types.17"/>
+        <handledException href="iridepep.servicedef#//@types/@types.9"/>
+      </onException>
+    </nodes>
+    <nodes xsi:type="svcorch:CustomTransformation" name="UnwrapBoolean" next="//@nodes/@nodes.3" input="//@globalSlots/@slots.3" output="//@globalSlots/@slots.2"/>
+    <nodes xsi:type="svcorch:StopNode" name="Stop"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="ReturnFalse" next="//@nodes/@nodes.3" output="//@globalSlots/@slots.2"/>
+  </nodes>
+  <globalSlots>
+    <slots name="username">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="result">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+    </slots>
+    <slots name="userOk">
+      <type xsi:type="typedef:Entity" href="iridepep.servicedef#//@types/@types.2"/>
+    </slots>
+  </globalSlots>
+  <service href="proxyauth.servicedef#/"/>
+  <operation href="proxyauth.servicedef#//@operations.0"/>
+  <inputParamBindings>
+    <inputParams slot="//@globalSlots/@slots.0">
+      <param href="proxyauth.servicedef#//@operations.0/@params.0"/>
+    </inputParams>
+    <inputParams slot="//@globalSlots/@slots.1">
+      <param href="proxyauth.servicedef#//@operations.0/@params.1"/>
+    </inputParams>
+  </inputParamBindings>
+  <exceptionMappings>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.8"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.15"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.17"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.9"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+  </exceptionMappings>
+</svcorch:Orchestration>

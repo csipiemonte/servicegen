@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appresources="http://www.csi.it/mddtools/appresources" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef" returnSlot="//@globalSlots/@slots.2">
+  <nodes>
+    <nodes xsi:type="svcorch:StartNode" name="Start" description="" next="//@nodes/@nodes.1"/>
+    <nodes xsi:type="svcorch:UserDefinedOpNode" name="MyStep" next="//@nodes/@nodes.2"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="VerificaUserPasswd" next="//@nodes/@nodes.3" outputSlot="//@globalSlots/@slots.3">
+      <operation href="iridepep.servicedef#//@operations.0"/>
+      <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="testorch.appresources#//@resources.0"/>
+      <paramBindings slot="//@globalSlots/@slots.0">
+        <param href="iridepep.servicedef#//@operations.0/@params.0"/>
+      </paramBindings>
+      <paramBindings slot="//@globalSlots/@slots.1">
+        <param href="iridepep.servicedef#//@operations.0/@params.1"/>
+      </paramBindings>
+      <onException firstRecoveryNode="//@nodes/@nodes.7">
+        <handledException href="iridepep.servicedef#//@types/@types.8"/>
+        <handledException href="iridepep.servicedef#//@types/@types.15"/>
+        <handledException href="iridepep.servicedef#//@types/@types.17"/>
+        <handledException href="iridepep.servicedef#//@types/@types.9"/>
+      </onException>
+    </nodes>
+    <nodes xsi:type="svcorch:PAPDCall" name="ElencoVie" next="//@nodes/@nodes.4" outputSlot="//@globalSlots/@slots.4">
+      <operation href="ctserv_topon.servicedef#//@operations.12"/>
+      <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="testorch.appresources#//@resources.1"/>
+      <paramBindings slot="//@globalSlots/@slots.3">
+        <param href="ctserv_topon.servicedef#//@operations.12/@params.0"/>
+      </paramBindings>
+      <onException firstRecoveryNode="//@nodes/@nodes.7">
+        <handledException href="ctserv_topon.servicedef#//@types/@types.42"/>
+      </onException>
+    </nodes>
+    <nodes xsi:type="svcorch:CustomTransformation" name="PreparaResult" next="//@nodes/@nodes.5" input="//@globalSlots/@slots.4" output="//@globalSlots/@slots.2"/>
+    <nodes xsi:type="svcorch:CheckCondition" name="RandomCondition" description="randomicamente ritorna null anche se ctserv ha dato risultati" thenNode="//@nodes/@nodes.6" elseNode="//@nodes/@nodes.7"/>
+    <nodes xsi:type="svcorch:StopNode" name="Stop"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="ReturnNull" next="//@nodes/@nodes.6" output="//@globalSlots/@slots.2"/>
+  </nodes>
+  <globalSlots>
+    <slots name="username">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="result">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.20"/>
+    </slots>
+    <slots name="userOk">
+      <type xsi:type="typedef:Entity" href="iridepep.servicedef#//@types/@types.2"/>
+    </slots>
+    <slots name="elencoVie">
+      <type xsi:type="typedef:TypedArray" href="ctserv_topon.servicedef#//@types/@types.36"/>
+    </slots>
+  </globalSlots>
+  <service href="proxyauth.servicedef#/"/>
+  <operation href="proxyauth.servicedef#//@operations.1"/>
+  <inputParamBindings>
+    <inputParams slot="//@globalSlots/@slots.0">
+      <param href="proxyauth.servicedef#//@operations.1/@params.0"/>
+    </inputParams>
+    <inputParams slot="//@globalSlots/@slots.1">
+      <param href="proxyauth.servicedef#//@operations.1/@params.1"/>
+    </inputParams>
+  </inputParamBindings>
+  <exceptionMappings>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.17"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.8"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.15"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="iridepep.servicedef#//@types/@types.9"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+    <mapping msg="Errore">
+      <from href="ctserv_topon.servicedef#//@types/@types.42"/>
+      <to href="proxyauth.servicedef#//@types/@types.1"/>
+    </mapping>
+  </exceptionMappings>
+</svcorch:Orchestration>

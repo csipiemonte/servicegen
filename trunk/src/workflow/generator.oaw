@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<workflow>
+	<component class="oaw.util.stdlib.PropertiesReader">
+  		<propertiesFile value="src/workflow/workflow.properties"/>
+	</component>
+
+	<!--<property name="modelfile" value="src/model/test_csi_app.xmi" />-->
+	<property name="modelfile" value="src/model/prova1.xmi" />
+	<property name="model" value="${modelfile}" />
+	
+	
+	<property name="src-gen" value="../provasrv" />
+	
+	
+	<!-- set up EMF for standalone execution -->
+	<bean class="org.eclipse.mwe.emf.StandaloneSetup" >
+		<!--<platformUri value=".."/>-->
+		<registerGeneratedEPackage value="it.csi.mddtools.servicegen.ServicegenPackage"/>
+		<registerGeneratedEPackage value="it.csi.mddtools.servicedef.ServicedefPackage"/>
+		<registerGeneratedEPackage value="it.csi.mddtools.typedef.TypedefPackage"/>
+	</bean>
+
+	<!-- load model and store it in slot 'model' -->
+	<component class="org.eclipse.mwe.emf.Reader">
+		<!-- <uri value="platform:/resource/${model}" />-->
+		<uri value="${modelfile}" />
+		<modelSlot value="model" />
+	</component>
+
+	<!-- check model -->
+	<component class="oaw.check.CheckComponent">
+		<metaModel id="mm"
+			class="org.eclipse.m2t.type.emf.EmfRegistryMetaModel"/>
+		<checkFile value="metamodel::ServicegenChecks" />
+		<emfAllChildrenSlot value="model" />
+	</component>
+	
+	<!--  generate code -->
+	<component class="org.openarchitectureware.xpand2.Generator">
+		<metaModel idRef="mm"/>
+		<expand
+			value="template::Main::main FOR model" />
+		<!-- protected regions configurator -->
+		<prSrcPaths value="${src-gen}" />
+		<prDefaultExcludes value="true"/>
+		<prExcludes value="*.jar, *.svn-base, .metadata"/>
+		<outlet path="${src-gen}" >
+			 <postprocessor class="org.openarchitectureware.xpand2.output.JavaBeautifier"/>
+		</outlet>
+		
+	</component>
+</workflow>

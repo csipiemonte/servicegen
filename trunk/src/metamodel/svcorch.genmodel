@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
+    editDirectory="/servicegen/src" modelPluginID="servicegen" modelName="Svcorch"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="resources_metamodel.genmodel#//appresources servicedef_metamodel.genmodel#//servicedef typedef_metamodel.genmodel#//typedef">
+  <foreignModel>svcorch.ecore</foreignModel>
+  <genPackages prefix="Svcorch" basePackage="it.csi.mddtools" disposableProviderFactory="true"
+      ecorePackage="svcorch.ecore#/">
+    <genClasses ecoreClass="svcorch.ecore#//Orchestration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/globalSlots"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/service"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/inputParamBindings"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/returnSlot"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//Orchestration/exceptionMappings"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="svcorch.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//Node/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//Node/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="svcorch.ecore#//OpNode">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//OpNode/next"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="svcorch.ecore#//FlowNode"/>
+    <genClasses ecoreClass="svcorch.ecore#//StartNode">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//StartNode/next"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//StopNode"/>
+    <genClasses image="false" ecoreClass="svcorch.ecore#//SrvCall">
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//SrvCall/operation"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//SrvCall/serviceConnector"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//SrvCall/paramBindings"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//SrvCall/outputSlot"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//SrvCall/onException"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//PAPDCall"/>
+    <genClasses ecoreClass="svcorch.ecore#//WSCall"/>
+    <genClasses image="false" ecoreClass="svcorch.ecore#//Transformation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Transformation/input"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//Transformation/output"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//Transformation/initOutSlot"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//CustomTransformation"/>
+    <genClasses ecoreClass="svcorch.ecore#//DeclarativeTransformation"/>
+    <genClasses ecoreClass="svcorch.ecore#//CheckCondition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//CheckCondition/thenNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//CheckCondition/elseNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//CheckCondition/input"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//ForEach">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/collection"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/item"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/firstLoopNode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ForEach/afterLoopNode"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//DataSlot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//DataSlot/name"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//DataSlot/type"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//Nodes">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//Nodes/nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//DataSlots">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//DataSlots/slots"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//ParamBinding">
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ParamBinding/slot"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ParamBinding/param"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//ExceptionHandler">
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ExceptionHandler/handledException"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ExceptionHandler/firstRecoveryNode"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//InputParamBindings">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//InputParamBindings/inputParams"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//EndLoop">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//EndLoop/loopHeadNode"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//UserDefinedOpNode"/>
+    <genClasses ecoreClass="svcorch.ecore#//ExceptionMappings">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svcorch.ecore#//ExceptionMappings/mapping"/>
+    </genClasses>
+    <genClasses ecoreClass="svcorch.ecore#//ExceptionMapping">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute svcorch.ecore#//ExceptionMapping/msg"/>
+      <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svcorch.ecore#//ExceptionMapping/from"/>
+      <genFeatures createChild="false" propertyDescription="" propertySortChoices="true"
+          ecoreFeature="ecore:EReference svcorch.ecore#//ExceptionMapping/to"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

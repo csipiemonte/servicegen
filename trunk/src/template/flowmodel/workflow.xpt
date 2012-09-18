@@ -1,0 +1,414 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT svcorch»
+«IMPORT appresources»
+
+«EXTENSION template::ServicegenExtensions»
+«EXTENSION template::flowmodel::FlowModelExtensions»
+
+
+«REM»
+****************************************
+Costruisce il file di configurazione dell'orchestrazione che verra' dato in pasto a OsWorkflow
+****************************************
+«ENDREM»
+«DEFINE svcflowDefinitionFile(ServiceDef sd, SOABEModel model, String source) FOR Operation»
+«FILE svcflowConfDirForService(sd.codServizio, model)+"/"+svcflowDefinitionFileName(this,sd.codServizio)»<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE workflow PUBLIC "-//OpenSymphony Group//DTD OSWorkflow 2.8//EN" "http://www.opensymphony.com/osworkflow/workflow_2_8.dtd">
+<!-- definizione di workflow generata a partire dal modello dell'orchestrazione -->
+<workflow>
+	<initial-actions>
+		<action id="0" name="Start Workflow">
+			<results>
+				<unconditional-result id="5" old-status="Finished"
+					status="Queued" step="1" />
+			</results>
+		</action>
+	</initial-actions>
+	<steps>
+		<step name="Inizio" id="1">
+		<actions>
+			<action name="vaiInFondo" id="100">
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="100">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+		</step>
+		«LET findOrchestrationForOperation(sd, model) AS currOrch-»
+			«IF currOrch!=null-»
+				«EXPAND steps(sd, model, source) FOR currOrch-»
+			«ELSE-»
+				«ERROR "Modello inconsistente: impossibile trovare l'orchestrazioen per "+sd.codServizio+"."+this.name»
+			«ENDIF-»
+		«ENDLET-»
+		<step name="Fine" id="9999"></step>
+	</steps>
+</workflow>
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+Inizia la creazione nel descrittore dei vari step.
+«ENDREM»
+«DEFINE steps(ServiceDef sd, SOABEModel model, String source) FOR Orchestration-»
+	«EXPAND step(this, sd, model, source) FOREACH nodes.nodes-»
+«ENDDEFINE»
+
+
+«REM»Step non gestito: ERRORE«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR Node»
+«ERROR "tipo di nodo "+this+"non gestito"»
+«ENDDEFINE»
+
+
+«REM»StartNode«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StartNode»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>
+						«LET (Orchestration)(((Nodes)(this.eContainer)).eContainer) AS enclosingOrch-»
+						«FOREACH enclosingOrch.inputParamBindings.inputParams AS currBinding-»
+						<arg name="input.binding.«enclosingOrch.inputParamBindings.inputParams.indexOf(currBinding)»">«currBinding.param.name»=«getDataSlotAttrName(currBinding.slot)»</arg>
+						«ENDFOREACH-»
+						«IF sd.authLevel!=null && sd.authLevel!=AuthLevelEnum::A0 && enclosingOrch.principalNameSlot!=null-»
+						<arg name="caller.principal.name.slot">«getDataSlotAttrName(enclosingOrch.principalNameSlot)»</arg>
+						«ENDIF-»
+						«ENDLET-»
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»StopNode«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StopNode»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+				    	<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>
+						«LET (Orchestration)(((Nodes)(this.eContainer)).eContainer) AS enclosingOrch-»
+						«IF enclosingOrch.returnSlot!=null-»
+						<arg name="output.binding">«getDataSlotAttrName(enclosingOrch.returnSlot)»</arg>
+						«ENDIF-»
+						«ENDLET-»
+						«IF orch.exceptionMappings!=null»
+						«FOREACH orch.exceptionMappings.mapping AS currExcMap-»
+						<arg name="exception.mapping.from.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.from))»</arg>
+						<arg name="exception.mapping.to.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.to))»</arg>
+						<arg name="exception.mapping.msg.«orch.exceptionMappings.mapping.indexOf(currExcMap)»">«currExcMap.msg»</arg>
+						«ENDFOREACH-»
+						«ENDIF»
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="9999">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»PAPDCall«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR PAPDCall»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	 	
+						<arg name="selectorPD">«pdSelectorFileName((PDPAServiceConnector)(this.serviceConnector))»</arg>
+						
+						«LET this.serviceConnector.binding.metaType == EJBPABinding ? pdEJBDefFileName((EJBPABinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef) : pdSOAPDefFileName((SOAPPABRBinding)(this.serviceConnector.binding),this.serviceConnector.serviceDef) AS pdFilename-»		
+						<arg name="servicePD">«pdFilename»</arg>
+						«ENDLET-»
+					</function>
+				</pre-functions>
+				<results>
+					«FOREACH onException AS currExcHnd-»
+					<result old-status="Queued"
+						status="Finished" step="«currExcHnd.firstRecoveryNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«excRaisedConditionFQN(model)»</arg>
+  								<arg name="handled.exceptions">«FOREACH currExcHnd.handledException AS currExc SEPARATOR ","»«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExc))»«ENDFOREACH»</arg> 
+  							</condition>
+  						</conditions>
+					</result>
+					«ENDFOREACH-»
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>	
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»WSCall«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR WSCall»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
+						<arg name="wscall.client">«wsCallClientName(((RPCWebServiceConnector)this.serviceConnector).serviceDef, ((RPCWebServiceConnector)this.serviceConnector).endpoint)»</arg>
+					</function>
+				</pre-functions>
+				<results>
+					«FOREACH onException AS currExcHnd-»
+					<result old-status="Queued"
+						status="Finished" step="«currExcHnd.firstRecoveryNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«excRaisedConditionFQN(model)»</arg>
+  								<arg name="handled.exceptions">«FOREACH currExcHnd.handledException AS currExc SEPARATOR ","»«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExc))»«ENDFOREACH»</arg> 
+  							</condition>
+  						</conditions>
+					</result>
+					«ENDFOREACH-»
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»CheckCondition«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CheckCondition»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
+					</function>
+				</pre-functions>
+				<results>
+					<!-- se la condizione e' soddisfatta -->
+					<result old-status="Queued"
+						status="Finished" step="«this.thenNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«lastConditionSatisfiedFQN(model)»</arg>
+  							</condition>
+  						</conditions>
+					</result>
+					<!-- se la condizione non e' soddisfatta -->
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.elseNode.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»ForEach«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR ForEach»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">«specificHandlerFQN(orch.operation, model)»</arg>	
+						<arg name="collection.slot.name">«getDataSlotAttrName(collection)»</arg>
+						<arg name="item.slot.name">«getDataSlotAttrName(item)»</arg>
+					</function>
+				</pre-functions>
+				<results>
+					<result old-status="Queued"
+						status="Finished" step="«this.firstLoopNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«forEachConditionFQN(model)»</arg>
+  								<arg name="collection.slot.name">«getDataSlotAttrName(collection)»</arg>
+  								<arg name="for.each.branch">stay</arg> 
+  							</condition>
+  						</conditions>
+					</result>
+					<result old-status="Queued"
+						status="Finished" step="«this.afterLoopNode.nodeID(orch)»">
+						<conditions>
+							<condition type="class">
+  								<arg name="class.name">«forEachConditionFQN(model)»</arg>
+  								<arg name="collection.slot.name">«getDataSlotAttrName(collection)»</arg>
+  								<arg name="for.each.branch">exit</arg> 
+  							</condition>
+  						</conditions>
+					</result>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.afterLoopNode.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»CustomTransformation«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CustomTransformation»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						«EXPAND txSlotDecl FOR this»
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+«REM»Tranformation: configurazione degli slot di input e output«ENDREM»
+«DEFINE txSlotDecl FOR Transformation»
+						<!-- configurazione degli input slot -->
+						«IF input.size>0-»
+						«FOREACH input AS currIn-»
+						<arg name="input.slot.name.«input.indexOf(currIn)»">«getDataSlotAttrName(currIn)»</arg>
+						<arg name="input.slot.class.«input.indexOf(currIn)»">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currIn.type))»</arg>
+						«ENDFOREACH-»
+						«ENDIF-»
+						«IF output!=null-»
+						<!-- configurazione dell'output slot -->
+						<arg name="output.slot.name">«getDataSlotAttrName(output)»</arg>
+						<arg name="output.slot.class">«replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(output.type))»</arg>
+						«IF initOutSlot-»
+						<arg name="output.slot.init">true</arg>
+						«ENDIF-»
+						«ENDIF-»
+«ENDDEFINE»
+
+
+«REM»DeclarativeTransformation«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR DeclarativeTransformation»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						«EXPAND txSlotDecl FOR this»
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»EndLoop«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR EndLoop»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						<!--  	
+						<arg name="selectorPD">gestionecittadini.properties</arg>
+								
+						<arg name="servicePD">defpd_gestionecittadini</arg>
+					    <arg name="handleException">CittadinoNonTrovatoException</arg>
+					    -->
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.loopHeadNode.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»
+
+
+«REM»UserDefinedOpNode«ENDREM»
+«DEFINE step(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR UserDefinedOpNode»
+	<step name="«toCamel(name)»" id="«nodeID(orch)»">
+		<actions>
+			<action name="next" id="«"1"+(nodeID(orch))»">
+				<pre-functions>
+				    <function type="class">
+						<arg name="class.name">
+							«specificHandlerFQN(orch.operation, model)»
+						</arg>	
+						<!--  	
+						<arg name="selectorPD">gestionecittadini.properties</arg>
+								
+						<arg name="servicePD">defpd_gestionecittadini</arg>
+					    <arg name="handleException">CittadinoNonTrovatoException</arg>
+					    -->
+					</function>
+				</pre-functions>
+				<results>
+					<unconditional-result old-status="Queued"
+						status="Finished" step="«this.next.nodeID(orch)»">
+					</unconditional-result>
+				</results>
+			</action>
+		</actions>
+	</step>
+«ENDDEFINE»

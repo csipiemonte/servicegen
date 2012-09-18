@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="visura_cittadini" monitorable="true" diagEnabled="true" versione="1.0" serviceType="orch" codProdotto="visureol" codComponente="visanag">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+  <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+  <operations name="visuraPerComune" returnType="//@types/@types.1" throws="//@types/@types.2">
+    <params name="codComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="visuraPerComuneECognome" returnType="//@types/@types.1" throws="//@types/@types.2">
+    <params name="codComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="inizialiCognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="visuraPerNomeCognome" returnType="//@types/@types.1" throws="//@types/@types.2" since="">
+    <params name="nome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="cognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+  </operations>
+  <operations name="identificaUserPwd" throws="//@types/@types.3">
+    <params name="username">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="passwd">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="DatiCittadino">
+      <features name="nome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cognome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="indirizzoEsteso">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="maggiorenne">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.1"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="DatiCittadino []" componentType="//@types/@types.0"/>
+    <types xsi:type="typedef:Exception" name="VisuraVuotaException"/>
+    <types xsi:type="typedef:Exception" name="AuthException"/>
+  </types>
+</servicedef:ServiceDef>

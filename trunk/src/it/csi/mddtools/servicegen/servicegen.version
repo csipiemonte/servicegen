@@ -1,0 +1,5 @@
+# informazioni utilizzate a runtime in tutti i punti in cui
+# serva sapere qual'e' la versione del plugin
+
+plugin.name=servicegen
+plugin.version=2.2.0.003

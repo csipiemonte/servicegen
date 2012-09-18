@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicedef:DocumentRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" xsi:schemaLocation="http://www.csi.it/mddtools/servicedef ../metamodel/servicedef_metamodel.ecore http://www.csi.it/mddtools/typedef ../metamodel/typedef_metamodel.ecore">
+  <service codServizio="provaservice" monitorable="true" diagEnabled="true" versione="1.0.0">
+    <bindings xsi:type="servicedef:EJBPABinding" codBinding="pa"/>
+    <bindings xsi:type="servicedef:SOAPPABRBinding" codBinding="pabr"/>
+    <bindings xsi:type="servicedef:WSFADBinding" codBinding="wsfad"/>
+    <operations name="cercaPersonaByCF" since="1.0">
+      <params name="p1">
+        <type xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
+      </params>
+      <returnType xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
+    </operations>
+    <types>
+      <types xsi:type="typedef:Entity" name="DummyEntity">
+        <features name="fieldA">
+          <type xsi:type="typedef:CSIDatatype" href="BaseTypes.xmi#//@baseTypes.0"/>
+        </features>
+      </types>
+      <types xsi:type="typedef:Exception" name="AppException"/>
+    </types>
+  </service>
+</servicedef:DocumentRoot>

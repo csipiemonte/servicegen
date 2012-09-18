@@ -1,0 +1,1400 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" codServizio="ctserv_topon" versione="2.3" codProdotto="ctserv" codComponente="ctserv">
+  <bindings xsi:type="servicedef:EJBPABinding" codBinding="ejbpa"/>
+  <operations name="cercaCivici" returnType="//@types/@types.32" throws="//@types/@types.41 //@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciDiUnaVia" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.13"/>
+    <params name="p4" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciDiUnaVia" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciDiUnaVia" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.13"/>
+    <params name="p4" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciDiUnaVia" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p3" type="//@types/@types.16"/>
+    <params name="p4" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivico" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoDaVecchiaChiave" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoDaVecchiaChiave" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaIdCivicoDaVecchiaChiave" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+  </operations>
+  <operations name="cercaIdCivicoDaVecchiaChiave" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+  </operations>
+  <operations name="cercaCivicoConAzzonamenti" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.16"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaElencoIdVie" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+  </operations>
+  <operations name="cercaElencoVie" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaElencoVie" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaElencoVie" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+    </params>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciInUnAzzonamento" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.25"/>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaVieConCiviciInUnAzzonamento" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.25"/>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaSedime" returnType="//@types/@types.26" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaSedimi" returnType="//@types/@types.39" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaConCiviciPerCodice" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaConCiviciPerDenomCompatta" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaConCiviciPerId" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaConCivico" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.12"/>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaPerCivico" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaPerCodice" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaPerDenomCompatta" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViaPerId" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViePerCodice" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.20"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViePerDenCompatta" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.20"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViePerDescrizione" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p3" type="//@types/@types.12"/>
+    <params name="p4">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p5" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViePerId" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaViePerSedime" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaVieConCivicoDaUiuId" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.12"/>
+    <params name="p2" type="//@types/@types.16"/>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciDaUiuId" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.16"/>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="getAllRelatedDataVia" returnType="//@types/@types.29" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoAttuale" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoLight" returnType="//@types/@types.21" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoLight" returnType="//@types/@types.21" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoDaIndirizzo" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="normalizzaIndirizzo" returnType="//@types/@types.2" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaVieConCivici" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCivicoAllaData" returnType="//@types/@types.18" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="decodificaCiviciGeo" returnType="//@types/@types.33" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaStoricoVia" returnType="//@types/@types.30" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaStoricoVariazioniCivico" returnType="//@types/@types.40" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaStoricoSostituzioniCivico" returnType="//@types/@types.31" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaMovimentazioneVie" returnType="//@types/@types.30" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaMovimentazioneCivici" returnType="//@types/@types.40" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaVieInUnAzzonamento" returnType="//@types/@types.36" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.25"/>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaSingoloAzzonamentoPerIdVia" returnType="//@types/@types.29" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaAzzonamentiPerIdVia" returnType="//@types/@types.6" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaSingoloAzzonamentoPerIdCivico" returnType="//@types/@types.23" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaIndirizzoRidotto" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <operations name="cercaIndirizzoRidotto" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+  </operations>
+  <operations name="cercaIndirizzoRidottoConConvenzionale" returnType="//@types/@types.1" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1" type="//@types/@types.13"/>
+    <params name="p2">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p3" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaIndirizzoRidottoConConvenzionale" returnType="//@types/@types.1" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+  </operations>
+  <operations name="ordinaCiviciPerDenominazioneVia" throws="//@types/@types.42">
+    <params name="p0">
+      <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+    </params>
+    <params name="p1">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+    </params>
+    <params name="p2" type="//@types/@types.9"/>
+    <returnType xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+  </operations>
+  <operations name="cercaIdCiviciVia" returnType="//@types/@types.34" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.0"/>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <operations name="cercaCiviciPerRange" returnType="//@types/@types.32" throws="//@types/@types.42">
+    <params name="p0" type="//@types/@types.4"/>
+    <params name="p1" type="//@types/@types.9"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="ParamCivVia">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.ParamCivVia"/>
+      </annotations>
+      <features name="abitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoCiv">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="IndirizzoRidotto">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.IndirizzoRidotto"/>
+      </annotations>
+      <features name="convenzionale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="indirizzo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Via">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.Via"/>
+      </annotations>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="civici" type="//@types/@types.32"/>
+      <features name="codiceVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="convenzionale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="dataDelibera">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="denominazioneAlfabetica1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneAlfabetica2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneBreve">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneCompatta">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneCorrente">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazionePrincipale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneSecondaria">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="info" type="//@types/@types.8"/>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sedime" type="//@types/@types.26"/>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="VariazioneCivico">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.VariazioneCivico"/>
+      </annotations>
+      <features name="abitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="campoNomadi">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="carraio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="cit">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="codAbitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="dataModifica">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="descrizioneOperazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneTipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="fronteVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="note">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimentoAttoAmministrativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="storico" type="//@types/@types.19"/>
+      <features name="tipoOperazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="uiuCompletate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ParamCivRange">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.ParamCivRange"/>
+      </annotations>
+      <features name="abitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="numeroCiviciMassimo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="numeroRadiceFine">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="numeroRadiceInizio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoCiv">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneDellaCitta">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneDinamiche">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneElettorali">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="DettaglioConTesto">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.DettaglioConTesto"/>
+      </annotations>
+      <features name="descrizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idDettaglio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="testo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ElencoZoneDellaCitta">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.ElencoZoneDellaCitta"/>
+      </annotations>
+      <features name="asl" type="//@types/@types.29"/>
+      <features name="cimitero" type="//@types/@types.29"/>
+      <features name="circoscrizione" type="//@types/@types.29"/>
+      <features name="collegioCamerale" type="//@types/@types.29"/>
+      <features name="collegioProvinciale" type="//@types/@types.29"/>
+      <features name="collegioSenatoriale" type="//@types/@types.29"/>
+      <features name="distrettoAssistenza" type="//@types/@types.29"/>
+      <features name="localitaIstat" type="//@types/@types.29"/>
+      <features name="parrocchia" type="//@types/@types.29"/>
+      <features name="quartiere" type="//@types/@types.29"/>
+      <features name="raggruppamentoStatistico" type="//@types/@types.29"/>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sezioneCensimento" type="//@types/@types.29"/>
+      <features name="sezioneElettorale" type="//@types/@types.29"/>
+      <features name="vigili" type="//@types/@types.29"/>
+      <features name="zonaStatistica" type="//@types/@types.29"/>
+      <features name="ztl" type="//@types/@types.29"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Uiu">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.Uiu"/>
+      </annotations>
+      <features name="atc">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="codCausaNascita">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codCessazioneValidita">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceCessazioneProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceNascitaProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="dataCessazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="dataDecorrenza">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="descrizioneCausaNascita">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneCessazioneProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneNascitaProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizionePiano">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneProvenienzaInfo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idUiu">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="motivoCessazioneValidita">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="nui">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="piano">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipiUiu" type="//@types/@types.28"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="InfoVia">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.InfoVia"/>
+      </annotations>
+      <features name="apertura" type="//@types/@types.23"/>
+      <features name="informazioni" type="//@types/@types.38"/>
+      <features name="larghezza">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="lunghezza">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="numRadMax">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="numRadMin">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="superficie">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia" type="//@types/@types.23"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Identita">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.iride2.policy.entity.Identita"/>
+      </annotations>
+      <features name="codFiscale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="cognome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idProvider">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="livelloAutenticazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="mac">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="nome">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="rappresentazioneInterna">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="timestamp">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="RadiceCivici">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.RadiceCivici"/>
+      </annotations>
+      <features name="idCivico">
+        <type xsi:type="typedef:TypedArray" href="basetypes.servicegen#//@baseTypes.21"/>
+      </features>
+      <features name="numeroRadice">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ZoneElettorali">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.ZoneElettorali"/>
+      </annotations>
+      <features name="collegioCamerale" type="//@types/@types.25"/>
+      <features name="collegioProvinciale" type="//@types/@types.25"/>
+      <features name="collegioSenatoriale" type="//@types/@types.25"/>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sezioneElettorale" type="//@types/@types.25"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="ParamVia">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.ParamVia"/>
+      </annotations>
+      <features name="infoSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="infoVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="statoVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipoSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="tipoVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="validitaSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="validitaVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="KeyOldCivico">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.KeyOldCivico"/>
+      </annotations>
+      <features name="bisInterno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisInterno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="intBisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="interno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="interno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="radice">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="scala">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="secondario">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ZonaDinamica">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.ZonaDinamica"/>
+      </annotations>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sottozona" type="//@types/@types.23"/>
+      <features name="zona" type="//@types/@types.23"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="VariazioneVia">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.VariazioneVia"/>
+      </annotations>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="codiceVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="convenzionale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="dataDelibera">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="dataModifica">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="denominazioneAlfabetica1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneBreve">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneCompatta">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneCorrente">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazionePrincipale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneSecondaria">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneOperazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="info" type="//@types/@types.8"/>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sedime" type="//@types/@types.26"/>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="storico" type="//@types/@types.24"/>
+      <features name="tipoOperazione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ParamCiv">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.ParamCiv"/>
+      </annotations>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoCiv">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="statoSelected">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneDellaCitta">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneDinamiche">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="zoneElettorali">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="CivicoGeo">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.CivicoGeo"/>
+      </annotations>
+      <features name="abitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisInterno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisInterno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="campoNomadi">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="carraio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="cit">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="codiceAbitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="coordinataX">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="coordinataY">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.10"/>
+      </features>
+      <features name="descrizioneStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneTipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="fronteVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="interno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="interno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="numerazioneSecondaria">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="numeroRadice">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="scala">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="uiu" type="//@types/@types.37"/>
+      <features name="uiuCompletate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="via" type="//@types/@types.22"/>
+      <features name="zoneDellaCitta" type="//@types/@types.20"/>
+      <features name="zoneDinamiche" type="//@types/@types.35"/>
+      <features name="zoneElettorali" type="//@types/@types.11"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Civico">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.Civico"/>
+      </annotations>
+      <features name="abitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisInterno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisInterno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="bisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="campoNomadi">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="cap">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="carraio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.9"/>
+      </features>
+      <features name="cit">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="codiceAbitativo">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="descrizioneStato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneTipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="fronteVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="intBisTer2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="interno1">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="interno2">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="numerazioneSecondaria">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="numeroRadice">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="scala">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="uiu" type="//@types/@types.37"/>
+      <features name="uiuCompletate">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="zoneDellaCitta" type="//@types/@types.20"/>
+      <features name="zoneDinamiche" type="//@types/@types.35"/>
+      <features name="zoneElettorali" type="//@types/@types.11"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="StoricoCivico">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.StoricoCivico"/>
+      </annotations>
+      <features name="citNew">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="citOld">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="dataModifica">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="note">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ZoneDellaCitta">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.ZoneDellaCitta"/>
+      </annotations>
+      <features name="asl" type="//@types/@types.23"/>
+      <features name="cimitero" type="//@types/@types.23"/>
+      <features name="circoscrizione" type="//@types/@types.23"/>
+      <features name="dettDistrettoAssistenza" type="//@types/@types.23"/>
+      <features name="dettLocIstat" type="//@types/@types.23"/>
+      <features name="dettParrocchia" type="//@types/@types.23"/>
+      <features name="dettTipoSezioneCensimento" type="//@types/@types.23"/>
+      <features name="dettVigiliUrbani" type="//@types/@types.23"/>
+      <features name="dettZtl" type="//@types/@types.23"/>
+      <features name="distrettoAssistenza" type="//@types/@types.23"/>
+      <features name="localitaIstat" type="//@types/@types.23"/>
+      <features name="parrocchia" type="//@types/@types.23"/>
+      <features name="quartiere" type="//@types/@types.23"/>
+      <features name="raggruppamentoStatistico" type="//@types/@types.23"/>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sezioneCensimento" type="//@types/@types.23"/>
+      <features name="tipoSezioneCensimento" type="//@types/@types.23"/>
+      <features name="vigiliUrbani" type="//@types/@types.23"/>
+      <features name="zonaStatistica" type="//@types/@types.23"/>
+      <features name="ztl" type="//@types/@types.23"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="CivicoLight">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.CivicoLight"/>
+      </annotations>
+      <features name="cit">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="descrizioneTipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="shortCivico">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="stato">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="ViaLight">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.ViaLight"/>
+      </annotations>
+      <features name="codiceVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazioneCorrente">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="denominazionePrincipale">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idVia">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="sedime" type="//@types/@types.26"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Dettaglio">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.Dettaglio"/>
+      </annotations>
+      <features name="descrizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idDettaglio">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="StoricoVia">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.StoricoVia"/>
+      </annotations>
+      <features name="codiceViaNew">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="codiceViaOld">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="dataModifica">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="descTipoSostituzione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idViaNew">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="idViaOld">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="note">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipoSostituzione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Sezione">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.Sezione"/>
+      </annotations>
+      <features name="descrizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idSezione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipoSezione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:Entity" name="Sedime">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.toponomastica.Sedime"/>
+      </annotations>
+      <features name="descrizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="descrizioneBreve">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="idSedime">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="preposizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+      <features name="tipologia" type="//@types/@types.23"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="TipoUiu">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.dto.azzonamenti.TipoUiu"/>
+      </annotations>
+      <features name="codiceTipoUiu">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="dataDecorrenzaTipoUiu">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.3"/>
+      </features>
+      <features name="descrizione">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+      </features>
+      <features name="riferimento">
+        <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.8"/>
+      </features>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="Array of TipoUiu" componentType="//@types/@types.27"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Dettaglio" componentType="//@types/@types.23"/>
+    <types xsi:type="typedef:TypedArray" name="Array of VariazioneVia" componentType="//@types/@types.15"/>
+    <types xsi:type="typedef:TypedArray" name="Array of StoricoCivico" componentType="//@types/@types.19"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Civico" componentType="//@types/@types.18"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CivicoGeo" componentType="//@types/@types.17"/>
+    <types xsi:type="typedef:TypedArray" name="Array of RadiceCivici" componentType="//@types/@types.10"/>
+    <types xsi:type="typedef:TypedArray" name="Array of ZonaDinamica" componentType="//@types/@types.14"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Via" componentType="//@types/@types.2"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Uiu" componentType="//@types/@types.7"/>
+    <types xsi:type="typedef:TypedArray" name="Array of DettaglioConTesto" componentType="//@types/@types.5"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Sedime" componentType="//@types/@types.26"/>
+    <types xsi:type="typedef:TypedArray" name="Array of VariazioneCivico" componentType="//@types/@types.3"/>
+    <types xsi:type="typedef:Exception" name="CtservException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="it.csi.ctserv.exception.CtservException"/>
+      </annotations>
+    </types>
+    <types xsi:type="typedef:Exception" name="RemoteException">
+      <annotations source="typedef">
+        <details key="java-fqn" value="java.rmi.RemoteException"/>
+      </annotations>
+    </types>
+  </types>
+  <annotations source="servicedef">
+    <details key="java-fqn" value="it.csi.ctserv.interfaceCSI.toponomastica.ToponomasticaInterface"/>
+  </annotations>
+</servicedef:ServiceDef>

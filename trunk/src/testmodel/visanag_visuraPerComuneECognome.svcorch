@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef" returnSlot="//@globalSlots/@slots.2">
+  <nodes>
+    <nodes xsi:type="svcorch:StartNode" name="Start" next="//@nodes/@nodes.1"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="preparaFakeData" next="//@nodes/@nodes.2" input="//@globalSlots/@slots.0 //@globalSlots/@slots.1" output="//@globalSlots/@slots.4"/>
+    <nodes xsi:type="svcorch:ForEach" name="iteraCittadini" collection="//@globalSlots/@slots.4" item="//@globalSlots/@slots.5" firstLoopNode="//@nodes/@nodes.3" afterLoopNode="//@nodes/@nodes.4"/>
+    <nodes xsi:type="svcorch:UserDefinedOpNode" name="User1" next="//@nodes/@nodes.4"/>
+    <nodes xsi:type="svcorch:StopNode" name="Stop"/>
+  </nodes>
+  <globalSlots>
+    <slots name="inputCodComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="inputInizialiCognome">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="result">
+      <type xsi:type="typedef:TypedArray" href="visuracittadini.servicedef#//@types/@types.1"/>
+    </slots>
+    <slots name="mixParametri">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="cittadiniTrovati">
+      <type xsi:type="typedef:TypedArray" href="visuracittadini.servicedef#//@types/@types.1"/>
+    </slots>
+    <slots name="currCittadino">
+      <type xsi:type="typedef:Entity" href="visuracittadini.servicedef#//@types/@types.0"/>
+    </slots>
+  </globalSlots>
+  <service href="visuracittadini.servicedef#/"/>
+  <operation href="visuracittadini.servicedef#//@operations.1"/>
+  <inputParamBindings>
+    <inputParams slot="//@globalSlots/@slots.0">
+      <param href="visuracittadini.servicedef#//@operations.1/@params.0"/>
+    </inputParams>
+    <inputParams slot="//@globalSlots/@slots.1">
+      <param href="visuracittadini.servicedef#//@operations.1/@params.1"/>
+    </inputParams>
+  </inputParamBindings>
+</svcorch:Orchestration>

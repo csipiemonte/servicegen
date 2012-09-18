@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svcorch:Orchestration xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:appresources="http://www.csi.it/mddtools/appresources" xmlns:svcorch="http://www.csi.it/mddtools/svcorch" xmlns:typedef="http://www.csi.it/mddtools/typedef" returnSlot="//@globalSlots/@slots.7">
+  <nodes>
+    <nodes xsi:type="svcorch:StartNode" name="start" next="//@nodes/@nodes.1"/>
+    <nodes xsi:type="svcorch:CheckCondition" name="codComuneValorizzato" thenNode="//@nodes/@nodes.2" elseNode="//@nodes/@nodes.13"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="preparaExamplePerAnag" description="" next="//@nodes/@nodes.3" input="//@globalSlots/@slots.0" output="//@globalSlots/@slots.1" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:UserDefinedOpNode" name="userOp" next="//@nodes/@nodes.4"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="chiamaAnag" next="//@nodes/@nodes.5" outputSlot="//@globalSlots/@slots.2">
+      <operation href="anagrafe.servicedef#//@operations.1"/>
+      <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="visuracittadini.appresources#//@resources.0"/>
+      <paramBindings slot="//@globalSlots/@slots.1">
+        <param href="anagrafe.servicedef#//@operations.1/@params.0"/>
+      </paramBindings>
+      <onException firstRecoveryNode="//@nodes/@nodes.13">
+        <handledException href="anagrafe.servicedef#//@types/@types.3"/>
+      </onException>
+    </nodes>
+    <nodes xsi:type="svcorch:CustomTransformation" name="initResult" next="//@nodes/@nodes.6" output="//@globalSlots/@slots.7" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:ForEach" name="completaIndirizzi" collection="//@globalSlots/@slots.2" item="//@globalSlots/@slots.3" firstLoopNode="//@nodes/@nodes.7" afterLoopNode="//@nodes/@nodes.12"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="preparaCodComunePerTopon" next="//@nodes/@nodes.8" input="//@globalSlots/@slots.3" output="//@globalSlots/@slots.4"/>
+    <nodes xsi:type="svcorch:PAPDCall" name="risolviComune" next="//@nodes/@nodes.9" outputSlot="//@globalSlots/@slots.5">
+      <operation href="toponomastica.servicedef#//@operations.3"/>
+      <serviceConnector xsi:type="appresources:PDPAServiceConnector" href="visuracittadini.appresources#//@resources.1"/>
+      <paramBindings slot="//@globalSlots/@slots.4">
+        <param href="toponomastica.servicedef#//@operations.3/@params.0"/>
+      </paramBindings>
+      <onException firstRecoveryNode="//@nodes/@nodes.13">
+        <handledException href="toponomastica.servicedef#//@types/@types.3"/>
+      </onException>
+    </nodes>
+    <nodes xsi:type="svcorch:CustomTransformation" name="preapraDatiCurrCitt" next="//@nodes/@nodes.10" input="//@globalSlots/@slots.3 //@globalSlots/@slots.5" output="//@globalSlots/@slots.6" initOutSlot="true"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="aggiungiDatiCittadino" next="//@nodes/@nodes.11" input="//@globalSlots/@slots.6" output="//@globalSlots/@slots.7"/>
+    <nodes xsi:type="svcorch:EndLoop" name="completaComune" loopHeadNode="//@nodes/@nodes.6"/>
+    <nodes xsi:type="svcorch:StopNode" name="stop"/>
+    <nodes xsi:type="svcorch:CustomTransformation" name="preparaRisultatoErrore" description="" next="//@nodes/@nodes.12" output="//@globalSlots/@slots.7" initOutSlot="true"/>
+  </nodes>
+  <globalSlots>
+    <slots name="inputCodComune">
+      <type xsi:type="typedef:CSIDatatype" href="basetypes.servicegen#//@baseTypes.7"/>
+    </slots>
+    <slots name="exampleCittadino">
+      <type xsi:type="typedef:Entity" href="anagrafe.servicedef#//@types/@types.0"/>
+    </slots>
+    <slots name="cittadiniTrovati">
+      <type xsi:type="typedef:TypedArray" href="anagrafe.servicedef#//@types/@types.2"/>
+    </slots>
+    <slots name="currCittadino">
+      <type xsi:type="typedef:Entity" href="anagrafe.servicedef#//@types/@types.0"/>
+    </slots>
+    <slots name="currCodComuneCittadino">
+      <type xsi:type="typedef:Entity" href="anagrafe.servicedef#//@types/@types.0"/>
+    </slots>
+    <slots name="currComuneCittadino">
+      <type xsi:type="typedef:Entity" href="toponomastica.servicedef#//@types/@types.0"/>
+    </slots>
+    <slots name="currDatiCittadino">
+      <type xsi:type="typedef:Entity" href="visuracittadini.servicedef#//@types/@types.0"/>
+    </slots>
+    <slots name="result">
+      <type xsi:type="typedef:TypedArray" href="visuracittadini.servicedef#//@types/@types.1"/>
+    </slots>
+  </globalSlots>
+  <service href="visuracittadini.servicedef#/"/>
+  <operation href="visuracittadini.servicedef#//@operations.0"/>
+  <inputParamBindings>
+    <inputParams slot="//@globalSlots/@slots.0">
+      <param href="visuracittadini.servicedef#//@operations.0/@params.0"/>
+    </inputParams>
+  </inputParamBindings>
+</svcorch:Orchestration>

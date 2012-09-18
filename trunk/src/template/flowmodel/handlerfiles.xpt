@@ -1,0 +1,3671 @@
+«REM»
+C) Copyright 2011 CSI-PIEMONTE;                                             
+                                                                            
+Concesso in licenza a norma dell'EUPL, esclusivamente versione 1.1;         
+Non e' possibile utilizzare l'opera salvo nel rispetto della Licenza.       
+E' possibile ottenere una copia della Licenza al seguente indirizzo:        
+                                                                            
+http://www.eupl.it/opensource/eupl-1-1                                      
+                                                                            
+Salvo diversamente indicato dalla legge applicabile o concordato per        
+iscritto, il software distribuito secondo i termini della Licenza e'        
+distribuito "TAL QUALE", SENZA GARANZIE O CONDIZIONI DI ALCUN TIPO,         
+esplicite o implicite.                                                      
+Si veda la Licenza per la lingua specifica che disciplina le autorizzazioni 
+e le limitazioni secondo i termini della Licenza.                           
+«ENDREM»
+
+«IMPORT servicegen»
+«IMPORT servicedef»
+«IMPORT typedef»
+«IMPORT appresources»
+«IMPORT svcorch»
+
+«IMPORT template::javavalidator»
+
+«EXTENSION template::ServicegenExtensions»
+«EXTENSION template::flowmodel::FlowModelExtensions»
+
+
+«REM»
+****************************************
+Main method for Workflow Base Handlers
+****************************************
+«ENDREM»
+«DEFINE baseHandlers(String source) FOR SOABEModel»
+	«REM»Classe di utilita' per la gestione dei data-slot«ENDREM»
+	«EXPAND dataSlotHelper FOR this»
+ 
+ 	«REM»Classi base degli Handles per i vari tipi di nodo«ENDREM»
+	«EXPAND startNodeBaseHandler FOR this»
+	«EXPAND stopNodeBaseHandler(source) FOR this»
+	«EXPAND papdCallBaseHandler FOR this»
+	«EXPAND wsCallBaseHandler FOR this»
+	«EXPAND forEachBaseHandler FOR this»
+	«EXPAND endLoopBaseHandler FOR this»
+	«EXPAND checkCondBaseHandler FOR this»
+	«EXPAND customTransformBaseHandler FOR this»
+	«EXPAND declTransformBaseHandler FOR this»
+
+	«REM»Classi base delle Condition«ENDREM»
+	«EXPAND forEachConditionClass FOR this»
+	«EXPAND lastConditionSatisfiedClass FOR this»
+	«EXPAND exceptionRaisedConditionClass FOR this»
+	
+	«REM»[DM] STDMDD-853: classe HttpPDProxyLoader (sostituisce l'omonima classe di CSI«ENDREM»
+	«EXPAND httpPDProxyLoaderClass FOR this»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+UTILITA' PER LA GESTIONE DEI DATA SLOT
+==========================================================================================================================
+«ENDREM»
+
+«DEFINE dataSlotHelper FOR SOABEModel»
+«FILE dataSlotHelperFile()»package «baseHandlersPkg()»;
+
+import java.lang.reflect.Array;
+import com.opensymphony.module.propertyset.PropertySet;
+
+/**
+ * Classe di utilita' per la gestione dei data-slot all'interno del contesto di esecuzione 
+ * di osworkflow.
+ * @generated
+ */
+public class DataSlotHelper {
+
+/**
+ * Nome dello slot implicito utilizzato di default dagli handler per inserire l'ultima
+ * eccezione occorsa.
+ * @generated 
+ */
+public final static String LAST_ERROR_SLOT_NAME = "_lastError";
+
+/**
+ * Nome dello slot implicito utilizzato di default dagli handler per inserire l'ultima
+ * condizione valutata.
+ * @generated 
+ */
+public final static String LAST_CONDITION_VALUE_SLOT_NAME = "_lastConditionValue";
+
+/**
+ * @generated
+ */
+public static Exception getLastError(PropertySet ps){
+	return (Exception)(getDataSlotValue(LAST_ERROR_SLOT_NAME, ps));
+}
+
+/**
+ * @generated
+ */
+public static void setLastError(Exception exc, PropertySet ps){
+	DataSlotHelper.setDataSlotValue(LAST_ERROR_SLOT_NAME, exc, ps);
+}
+
+/**
+ * @generated
+ */
+public static Boolean getLastConditionValue(PropertySet ps){
+	return (Boolean)(getDataSlotValue(LAST_CONDITION_VALUE_SLOT_NAME, ps));
+}
+
+/**
+ * @generated
+ */
+public static void setLastConditionValue(Boolean condVal, PropertySet ps){
+	DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT_NAME, condVal, ps);
+}
+
+/**
+ * @generated
+ */
+public static Object getDataSlotValue(String name, PropertySet ps){
+	return ps.getObject(name);
+}
+
+/**
+ * @generated
+ */
+public static void setDataSlotValue(String name, Object val, PropertySet ps) {
+		if (val!=null){
+			ps.setObject(name, val);
+		}
+		else{
+			ps.remove(name);
+		}
+}
+
+/**
+ * @generated
+ */
+public static Object initDataSlotValue(Class type){
+	try {
+		Object ris = type.newInstance();
+		return ris;
+	} catch (InstantiationException e) {
+		throw new IllegalArgumentException("impossibile istanziare lo slot di tipo "+type+":"+e);
+	} catch (IllegalAccessException e) {
+		throw new IllegalArgumentException("impossibile istanziare lo slot di tipo "+type+":"+e);
+	}
+}
+
+/**
+ * @generated
+ */
+public static Class classForName(String clname) throws ClassNotFoundException{
+	if (clname.endsWith("[]")){
+		String compName = clname.substring(0,clname.length()-2);
+		Object dummyArr = Array.newInstance(classForName(compName), 0);
+		return dummyArr.getClass();
+	}
+	else{
+		return Class.forName(clname);
+	}
+}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+CLASSI HANDLER BASE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Base Handler per il nodo START dell'orchestrazione«ENDREM»
+«DEFINE startNodeBaseHandler FOR SOABEModel»
+«FILE startNodeBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.*;
+
+import org.apache.log4j.Logger;
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvider {
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String INPUT_BINDING_PARAM_PREFIX = "input.binding.";
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected Map<String, String> _inputNameBindings;
+
+	/**
+ 	 * @generated
+ 	 */
+	public final static String CALLER_PRINCIPAL_NAME_SLOT_PARAM = "caller.principal.name.slot";
+
+	/**
+ 	 * @generated
+ 	 */
+	protected String _callerPrincipalNameSlot;
+
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","START")»
+		_inputNameBindings = new HashMap<String, String>();
+		Iterator argnames_it = args.keySet().iterator();
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","binding dei parametri di input")»
+		while(argnames_it.hasNext()){
+			String currArgName =(String)argnames_it.next();
+			if (!currArgName.startsWith(INPUT_BINDING_PARAM_PREFIX))
+				continue;
+			
+			String currArgVal = (String)args.get(currArgName);
+			StringTokenizer stok = new StringTokenizer(currArgVal,"=");
+			if (stok.countTokens()!=2)
+				throw new WorkflowException("Errore nell'inizializzazione del workflow: il formato del parametro "+
+						currArgName+" deve essere <nomeparametro>=<nomedataslot>, invece è "+currArgVal);
+			else{
+				String currInput=stok.nextToken();
+				String currDS = stok.nextToken();
+				_inputNameBindings.put(currInput, currDS);
+				«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","parametro:\"+currInput+\"->slot:\"+currDS+\"")»
+			}
+		}
+
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","binding del Principal")»
+		if (args.get(CALLER_PRINCIPAL_NAME_SLOT_PARAM) != null) {
+			_callerPrincipalNameSlot = (String)args.get(CALLER_PRINCIPAL_NAME_SLOT_PARAM);
+		}
+		
+		«debugLog(startNodeBaseHandlerClassName(),"initFunctionHandler","END")»
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+	 * Copia i valori dei parametri di input nei rispettivi DataSlot, 
+	 * prendendo le informazioni di mapping da _inputNameBindings
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
+	 * @generated
+	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","inizializzazione slot di input")»
+		Iterator<String> paramNames_it = _inputNameBindings.keySet().iterator();
+		while (paramNames_it.hasNext()) {
+			String currParamName = paramNames_it.next();
+			String currDSName = _inputNameBindings.get(currParamName);
+			DataSlotHelper.setDataSlotValue(currDSName, DataSlotHelper
+					.getDataSlotValue("input.parameter."
+							+ currParamName, ps), ps);
+		}
+		
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","inizializzazione slot del Principal")»
+		if (_callerPrincipalNameSlot != null) {
+			DataSlotHelper.setDataSlotValue(_callerPrincipalNameSlot, DataSlotHelper
+					.getDataSlotValue(CALLER_PRINCIPAL_NAME_SLOT_PARAM, ps), ps);
+		}
+		
+		«debugLog(startNodeBaseHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+Base Handler per il nodo STOP dell'orchestrazione
+[DM] aggiunto parametro source per identificare il tipo di cartuccia (csi o cxf) nella gestione delle eccezioni
+«ENDREM»
+«DEFINE stopNodeBaseHandler(String source) FOR SOABEModel»
+«FILE stopNodeBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.csi.wrapper.*;
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String OUTPUT_BINDING_PARAM = "output.binding";
+	
+	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_FROM_PARAM_PREFIX = "exception.mapping.from.";
+	
+	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_TO_PARAM_PREFIX = "exception.mapping.to.";
+	
+	/**
+	 * @generated
+	 */
+	public final static String EXC_MAP_MSG_PARAM_PREFIX = "exception.mapping.msg.";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String RETURN_ATTRIBUTE_NAME = "result";
+
+	/**
+ 	 * @generated
+ 	 */
+	protected String _outputbindingName;
+
+	/**
+ 	 * @generated
+ 	 */
+	Map<Class,Class> excMap = null;
+	
+	/**
+ 	 * @generated
+ 	 */
+	Map<Class,String> excMapMsg = null;
+	
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		// se il parametro non e' valorizzato l'operazione viene considerata void
+		_outputbindingName = (String) args.get(OUTPUT_BINDING_PARAM);
+
+		// mapping eccezioni
+		excMap = new HashMap<Class, Class>();
+		excMapMsg = new HashMap<Class, String>();
+
+		// delego alla sottoclasse il popolamento delle mappe degli errori
+		try {
+			fillErrorMaps(args, excMap, excMapMsg);
+		} catch (Exception e) {
+			«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
+			throw new WorkflowException("Errore nell'inizializzazione dell'handler:" + e);
+		}		
+
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+	 * Ricopia il valore del dataSlot di output nell'attributo "result", che
+	 * sar&agrave; utilizzato nel metodo di orchestrazione come fonte del valore
+	 * di ritorno (se _outputbindingname==null => void)
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
+	 * @generated
+	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		// verifica se c'e' un errore pendente
+		if (DataSlotHelper.getLastError(ps)!=null){
+			Exception e = DataSlotHelper.getLastError(ps);
+			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","rilevato errore al termine dell'orchestrazione")»
+			Class srcExcCl = e.getClass();
+			Class trgExcCl = excMap.get(srcExcCl);
+			if (trgExcCl != null) {
+				/// mapping eccezione messaggio
+				String msg = "";
+				java.lang.reflect.Constructor exCtr;
+				try {
+					exCtr = trgExcCl.getConstructor(String.class, Throwable.class);
+					«IF source=="csi"-»CSI«ENDIF-»Exception eToThrow;
+					try {
+						eToThrow = («IF source=="csi"-»CSI«ENDIF-»Exception)exCtr.newInstance(msg, e);
+						DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
+								ps);
+					} catch (IllegalArgumentException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						throw e1;
+					} catch (InstantiationException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					} catch (IllegalAccessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					} catch (java.lang.reflect.InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						//throw e1;
+					}
+				
+					
+				} catch (SecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchMethodException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			else if(isCSIGenericException(e)){
+				// se l'eccezione e' una delle eccezioni base di CSI
+				// viene restituita as-is
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						e, ps);
+			}
+			else{
+				«IF source=="csi"-»
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						new it.csi.csi.wrapper.UnrecoverableException("internal error: "+e+ " not mapped"), ps);
+				«ELSEIF source=="cxf"-»
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME,
+						new javax.xml.ws.WebServiceException("internal error: "+e+ " not mapped"), ps);
+				«ENDIF-»
+			}
+		}
+		else if (_outputbindingName != null) {
+			«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","impostazione valore di ritorno dallo slot \"+_outputbindingName+\"")»
+			Object retVal = DataSlotHelper
+					.getDataSlotValue(_outputbindingName, ps);
+			if (retVal != null)
+				DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, retVal, ps);
+		}
+		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+
+	/**
+	 * verifica se l'eccezione e' una eccezione base di CSI.
+	 */
+	private boolean isCSIGenericException(Exception e){
+		return e.getClass().getPackage().getName().contains("it.csi.csi.wrapper");
+	}
+
+	/**
+	 * Determina la modalit&agrave; di popolamento delle mappe degli errori.
+	 * @param args mappa contenente la configurazione del workflow
+	 * @param excMap rimappa le eccezioni interne con quelle restituibili dal servizio orchestrato
+	 * @param excMapMsg rimappa i messaggi di errore
+	 * @throws Exception in caso di errore
+	 * @generated
+	 */
+	protected abstract void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception;
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo PAPDCall (chiamata ad un servizio CSI)«ENDREM»
+«DEFINE papdCallBaseHandler FOR SOABEModel»
+«FILE papdCallBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvider {
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected String selectorRes=null;
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected String localPDRes=null;
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String SELECTORPD_PARAM="selectorPD";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String SERVICEPD_PARAM="servicePD";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","START")»
+		selectorRes = (String)args.get(SELECTORPD_PARAM);
+		if (selectorRes==null || selectorRes.length()==0){
+			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
+					"occorre configurare il percorso del file del selettore tramite il "+
+					"parametro "+SELECTORPD_PARAM);
+		}
+		else
+			selectorRes="/"+selectorRes;
+			
+		localPDRes = (String)args.get(SERVICEPD_PARAM);
+		if (localPDRes==null || localPDRes.length()==0){
+			throw new WorkflowException("Errore nella inizializzazione dell' handler PDPACall: "+
+					"occorre configurare il percorso del file della PD Locale tramite il "+
+					"parametro "+SERVICEPD_PARAM);
+		}
+		else
+			localPDRes = "/"+localPDRes;
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","selector:\"+selectorRes+\"")»
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","localPD:\"+localPDRes+\"")»
+		// reset dello slot destinato a contenere un eventuale errore
+		DataSlotHelper.setLastError(null, ps);
+		«debugLog(papdCallBaseHandlerClassName(),"initFunctionHandler","END")»
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo WSCall (chiamata ad un Web Service)«ENDREM»
+«DEFINE wsCallBaseHandler FOR SOABEModel»
+«FILE wsCallBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider {
+
+    /**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+
+	/**
+	 * @generated
+	 */
+	public final static String WSCLIENT_PARAM = "wscall.client";
+
+	/**
+	 * @generated
+	 */
+	protected String wsClientName = null;
+
+
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+   
+	/**
+ 	 * @generated
+ 	 */
+    public void execute(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */	
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","START")»
+		wsClientName = (String) args.get(WSCLIENT_PARAM);
+		if (wsClientName == null || wsClientName.length() == 0) {
+			throw new WorkflowException(
+					"Errore nella inizializzazione dell'handler WSCall: "
+							+ "occorre configurare il client tramite il "
+							+ "parametro " + WSCLIENT_PARAM);
+		}		
+
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","wsClientName:\"+wsClientName+\"")»
+		// reset dello slot destinato a contenere un eventuale errore
+		DataSlotHelper.setLastError(null, ps);
+		«debugLog(wsCallBaseHandlerClassName(),"initFunctionHandler","END")»
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    /**
+ 	 * @generated
+ 	 */
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo ForEach (nodo di impostazione di un ciclo)«ENDREM»
+«DEFINE forEachBaseHandler FOR SOABEModel»
+«FILE forEachBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.*;
+import org.apache.log4j.Logger;
+import java.lang.reflect.Array;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public class «forEachBaseHandlerClassName()» implements FunctionProvider {
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String COLLECTION_SLOT_NAME_PARAM_NAME = "collection.slot.name";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String ITEM_SLOT_NAME_PARAM_NAME = "item.slot.name";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String ITERATOR_SLOT_NAME_SUFFIX = "_for_each_iterator";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String MORE_ELEMENTS_SLOT_NAME_SUFFIX = "_has_more_elements";
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected String _collectionSlotName;
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected String _itemSlotName;
+	
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","START")»
+		String collSN = (String)args.get(COLLECTION_SLOT_NAME_PARAM_NAME);
+		String itemSN = (String)args.get(ITEM_SLOT_NAME_PARAM_NAME);
+		if (collSN==null || collSN.length()==0)
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+COLLECTION_SLOT_NAME_PARAM_NAME);
+		if (itemSN==null || itemSN.length()==0)
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+ITEM_SLOT_NAME_PARAM_NAME);
+		//
+		_collectionSlotName=collSN.trim();
+		_itemSlotName=itemSN.trim();
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","collection slot:\"+_collectionSlotName+\"")»
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","item slot:\"+_itemSlotName+\"")»
+		«debugLog(forEachBaseHandlerClassName(),"initFunctionHandler","END")»
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException{
+		«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		// e' il primo giro?
+		Iterator iterator = (Iterator)DataSlotHelper.getDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, ps);
+		if (iterator==null){
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","primo giro")»
+			// inizializza il loop
+			Object collectionVal = DataSlotHelper.getDataSlotValue(_collectionSlotName, ps);
+			if(collectionVal == null)
+				throw new WorkflowException("Errore nel loop: collezione nulla");
+					
+			// la collection dovrebbe essere di tipo array (garantito da check) 
+			if (!collectionVal.getClass().isArray())
+				throw new WorkflowException("Errore durante iniziualizzazione ForEach: il tipo della collection "+_collectionSlotName+
+						" non è un typed array ma "+collectionVal.getClass());
+			else{
+				// ok vai
+				ArrayList coll = new ArrayList();
+				if (collectionVal!=null){
+					int sz =Array.getLength(collectionVal);
+					«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","la collezione contiene:\"+sz+\"elementi ")»
+					for (Object curr : (Object[])collectionVal) {
+						coll.add(curr);
+					}
+				}
+				iterator = coll.iterator();
+				DataSlotHelper.setDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, iterator, ps);
+			}
+		}
+		
+		// in ogni caso verifica se ci sono ancora elementi e carica il prossimo
+		if (iterator.hasNext()){
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","caricamento prossimo elemento nello slot \"+_itemSlotName+\"")»
+			Object next = iterator.next();
+			// rende disponibile il prossimo elemento nello slot item
+			DataSlotHelper.setDataSlotValue(_itemSlotName, next, ps);
+			// imposta al condizione di loop a true
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, Boolean.TRUE, ps);
+		}
+		else{
+			«debugLog(forEachBaseHandlerClassName(),"eseguiFunctionHandler","non ci sono piu' elementi su cui iterare")»
+			// rimuove dal property set l'attributo di iterazione
+			DataSlotHelper.setDataSlotValue(_itemSlotName, null, ps);
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+ITERATOR_SLOT_NAME_SUFFIX, null, ps);
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, null, ps);
+			// imposta la condizione di loop a false
+			DataSlotHelper.setDataSlotValue(_collectionSlotName+MORE_ELEMENTS_SLOT_NAME_SUFFIX, Boolean.FALSE, ps);
+		}
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo EndLoop (nodo di terminazione di un ciclo)«ENDREM»
+«DEFINE endLoopBaseHandler FOR SOABEModel»
+«FILE endLoopBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvider {
+
+   
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+    /**
+ 	 * @generated
+ 	 */
+	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo CheckCondition (verifica di una condizione)«ENDREM»
+«DEFINE checkCondBaseHandler FOR SOABEModel»
+«FILE checkCondBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvider {
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+   	public static final String LAST_CONDITION_VALUE_SLOT = "_lastConditionValue";
+
+    /**
+ 	 * @generated
+ 	 */
+    public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+	}
+    
+	
+	/**
+ 	 * @generated
+ 	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException{
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, null, ps);
+		Boolean condVal = evalCondition(ps);
+		DataSlotHelper.setDataSlotValue(LAST_CONDITION_VALUE_SLOT, condVal, ps);
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","valore condizione:\"+condVal+\"")»
+		«debugLog(checkCondBaseHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+
+	/**
+	 * Deve essere implementata a seconda della condizione da verificare
+	 * @generated
+	 */
+	public abstract boolean evalCondition(PropertySet ps) throws WorkflowException;
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per il nodo CustomTransformation (trasformazione custom di dati tra DataSlot)«ENDREM»
+«DEFINE customTransformBaseHandler FOR SOABEModel»
+«FILE customTransformBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.*;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * Classe base per la gestione delle trasformazioni custom (hand written).
+ * @generated 
+ */
+public abstract class «customTransformBaseHandlerClassName()» implements FunctionProvider {
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public static final String INPUT_SLOT_NAME_PARAM_PREFIX = "input.slot.name.";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public static final String INPUT_SLOT_CLASS_PARAM_PREFIX = "input.slot.class.";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public static final String OUTPUT_SLOT_NAME_PARAM = "output.slot.name";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public static final String OUTPUT_SLOT_CLASS_PARAM = "output.slot.class";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public static final String INIT_OUTPUT_PARAM = "output.slot.init";
+
+	/**
+ 	 * @generated
+ 	 */
+	protected ArrayList<String> _inputSlotNames;
+	
+		
+	/**
+ 	 * @generated
+ 	 */
+	protected String _outputSlotName;
+	
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected boolean _initOutSlot = false;
+
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+
+		this.initFunctionHandler(transientVars, args, ps);
+
+		this.eseguiFunctionHandler(transientVars, args, ps);
+
+		this.releaseFunctionHandler(transientVars, args, ps);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	protected void initFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","START")»
+		// input slots
+		_inputSlotNames = new ArrayList<String>();
+		
+		Iterator<String> argnames_it = args.keySet().iterator();
+		while(argnames_it.hasNext()){
+			String currArgname = argnames_it.next();
+			String currArgVal = null;
+			if (currArgname.startsWith(INPUT_SLOT_NAME_PARAM_PREFIX)){
+				currArgVal = (String)args.get(currArgname);
+				_inputSlotNames.add(currArgVal);
+				«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","input slot::\"+currArgVal+\"")»
+			}
+			else if (currArgname.startsWith(INPUT_SLOT_CLASS_PARAM_PREFIX)){
+				currArgVal = (String)args.get(currArgname);
+				
+			}
+		}
+		// out slot
+		String outSlotName = (String)args.get(OUTPUT_SLOT_NAME_PARAM);
+		if (outSlotName!=null){
+			_outputSlotName=outSlotName.trim();
+			«debugLog(customTransformBaseHandlerClassName(),"initFunctionHandler","output slot:\"+outSlotName+\"")»
+			String outClassName = (String)args.get(OUTPUT_SLOT_CLASS_PARAM);
+			
+		}
+		else 
+			throw new WorkflowException("Errore interno nell'inizializzazione dell'hanlder: output slot nullo");
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	protected void releaseFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","lettura degli input della trasformazione dagli slot")»
+		Map<String, Object> inputs = new HashMap<String, Object>();
+		
+		for (int i = 0; i < _inputSlotNames.size(); i++) {
+			String currInSlotName = _inputSlotNames.get(i);
+			«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","input:\"+currInSlotName+\"")»
+			Object currInSlotVal = ps.getObject(currInSlotName);
+			inputs.put(currInSlotName, currInSlotVal);
+		}
+		Object outVal = getTransformedObject(inputs);
+		DataSlotHelper.setDataSlotValue(_outputSlotName, outVal, ps);
+		«debugLog(customTransformBaseHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+
+	/**
+	 * Questo metodo deve essere ridefinito nelle sottoclassi specifiche con la logica 
+	 * di trasformazione vera e propria.
+	 *  
+	 * @param inValues mappa contenente i valori dei dataSlot di input. Per trasformazioni
+	 * incrementali anche il dataSlot di output può essere un dataSlot di input.
+	 * @return l'oggetto trasformato, che verrà rimpiazzato al valore eventualmente precedente
+	 * nel context.
+	 * @generated
+	 */
+	public abstract Object getTransformedObject(Map<String, Object> inValues);
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per la gestione di una trasformazione«ENDREM»
+«DEFINE declTransformBaseHandler FOR SOABEModel»
+«FILE declTransformBaseHandlerFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.FunctionProvider;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.svcflow.orchestrator.handler.*;
+
+/**
+ * @generated
+ */
+public abstract class «declTransformBaseHandlerClassName()» extends «customTransformBaseHandlerClassName()» {
+   
+   	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+   	
+	/**
+ 	 * @generated
+ 	 */
+	public abstract Object getTransformedObject(Map<String, Object> inputs);
+	
+}
+
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Handler per la verifica di una eccezione«ENDREM»
+«DEFINE exceptionRaisedConditionClass FOR SOABEModel»
+«FILE excRaisedConditionFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import java.util.StringTokenizer;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+
+/**
+ * @generated
+ */
+public class «excRaisedConditionClassName()» implements Condition {
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String HANDLED_EXCEPTIONS_PARAM_NAME = "handled.exceptions";
+
+	
+	/**
+ 	 * @generated
+ 	 */
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(excRaisedConditionClassName(),"passesCondition","START")»
+		String hndExcs = (String) args
+				.get(HANDLED_EXCEPTIONS_PARAM_NAME);
+		if (hndExcs == null)
+			throw new WorkflowException(
+					"errore nella configurazione della condizione di verifica eccezioni: occorre configurare "
+							+ "il parametro "
+							+ HANDLED_EXCEPTIONS_PARAM_NAME
+							+ " valorizzandolo con la lista dei f.q.n delle eccezioni gestite, separate da ','.");
+
+		
+		Exception lastError = DataSlotHelper.getLastError(ps);
+		if (lastError!=null){
+			StringTokenizer strtok = new StringTokenizer(hndExcs, ",");
+			while(strtok.hasMoreTokens()){
+				String currExc = strtok.nextToken();
+				if (currExc.equals(lastError.getClass().getName())){
+					«debugLog(excRaisedConditionClassName(),"passesCondition","rilevata eccezione gestita:\"+currExc+\"")»
+					«debugLog(excRaisedConditionClassName(),"passesCondition","END")»
+					return true;
+				}
+			}
+			// se arrivo qui non è stata trovata l'eccezione
+			«debugLog(excRaisedConditionClassName(),"passesCondition","END")»
+			return false;
+		}
+		else {
+			«debugLog(excRaisedConditionClassName(),"eseguiFunctionHandler","END")»
+			return false;
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+CLASSI CONDITION BASE
+==========================================================================================================================
+«ENDREM»
+
+«REM»Base Condition per il nodo ForEach (condizione per la continuazione del ciclo o uscita da esso))«ENDREM»
+«DEFINE forEachConditionClass FOR SOABEModel»
+«FILE forEachConditionFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+
+/**
+ * @generated
+ */
+public class «forEachConditionClassName()» implements Condition{
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String BRANCH_PARAM_NAME = "for.each.branch";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String STAY="stay";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public final static String EXIT="exit";
+	
+	/**
+ 	 * @generated
+ 	 */
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(forEachConditionClassName(),"passesCondition","START")»
+		String collSN = (String)args.get(ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME);
+		if (collSN==null)
+			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
+					"il parametro "+ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME+ 
+					" valorizzandolo coerentemente con il nodo for each corrispondente.");
+		
+		String branch = (String)args.get(BRANCH_PARAM_NAME);
+		«debugLog(forEachConditionClassName(),"passesCondition","branch:\"+branch+\"")»
+		if (branch == null || 
+			(!branch.equals(STAY)&&!branch.equals(EXIT))
+		){
+			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
+					"il parametro "+BRANCH_PARAM_NAME+ 
+					" valorizzandolo con '"+STAY+"' o '"+EXIT+"'");
+		}
+		Boolean continueFlag = (Boolean)DataSlotHelper.getDataSlotValue(collSN+ForEachBaseHandler.MORE_ELEMENTS_SLOT_NAME_SUFFIX, ps);
+		if (continueFlag==null)
+			continueFlag=Boolean.FALSE;
+		if (branch.equals(STAY)){
+			«debugLog(forEachConditionClassName(),"passesCondition","END")»
+			return continueFlag.booleanValue();
+		}
+		else {
+			«debugLog(forEachConditionClassName(),"passesCondition","END")»
+			return !continueFlag.booleanValue();
+		}
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»Base Condition per la verifica di una generica condizione«ENDREM»
+«DEFINE lastConditionSatisfiedClass FOR SOABEModel»
+«FILE lastConditionSatisfiedFile()»package «baseHandlersPkg()»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.Condition;
+import com.opensymphony.workflow.WorkflowException;
+
+
+/**
+ * @generated
+ */
+public class «lastConditionSatisfiedClassName()» implements Condition{
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
+			throws WorkflowException {
+		«debugLog(lastConditionSatisfiedClassName(),"passesCondition","START")»
+		Boolean satisfiedFlag = (Boolean)DataSlotHelper.getLastConditionValue(ps);
+		if (satisfiedFlag==null){
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","lastcondition flag non valorizzato: condizione non soddisfatta")»
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","END")»
+			return false;
+		}
+		else {
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","lastcondition flag:\"+satisfiedFlag+\"")»
+			«debugLog(lastConditionSatisfiedClassName(),"passesCondition","END")»
+			return satisfiedFlag.booleanValue();
+		}
+		
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+HttpPDProxyLoader Class
+Ridefinisce l'omonima classe di CSI per correggere alcuni problemini
+==========================================================================================================================
+«ENDREM»
+«DEFINE httpPDProxyLoaderClass FOR SOABEModel»
+«FILE httpPDProxyLoaderFile()»/* COOP_JAVA  -  Cooperative Systems Infrastructure
+ *
+ * Copyright (C) 2008 Regione Piemonte
+ * Copyright (C) 2008 Provincia di Torino
+ * Copyright (C) 2008 Comune di Torino
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2,
+ * or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+package «baseHandlersPkg()»;
+
+import it.csi.csi.porte.InfoPortaDelegata;
+import it.csi.csi.porte.NameFilePDFactory;
+import it.csi.csi.porte.PostLoadConfigHandler;
+import it.csi.csi.porte.proxy.PDProxy;
+import it.csi.csi.util.log.Categories;
+import it.csi.csi.util.xml.PDConfigReader;
+import it.csi.csi.wrapper.ConfigException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Proxy;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Properties;
+import java.util.StringTokenizer;
+
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.log4j.Category;
+
+/**
+ * Classe «httpPDProxyLoaderClassName()»
+ * 
+ * Questa classe viene configurata tramite blocco static-initializer , al primo
+ * richiamo della stessa all'interno del classloader in cui viene caricata , i
+ * metodi rilasciati sono tutti statici. Permette la creazione di proxy di porte
+ * delegate a partire da file di configurazione reperibili da un servizio di
+ * naming/registry realizzato tramite un servizio HTTP che cataloga le porte
+ * delegate in base alle seguenti chiavi:
+ * <ol>
+ * <li>codice ambiente di runtime (produzione, sviluppo, test, test-utente...),
+ * <li>codice dell'ente/cliente per cui è rilasciato il servizio
+ * <li>progressivo di installazione nello stesso ambiente (serve per gestire
+ * installazioni multiple dello stesso prodotto in un determinato
+ * ambiente/cliente
+ * <li>codice del prodotto su cui è basato il rilascio che implementa il
+ * servizio,
+ * <li>codice del servizio (interfaccia)
+ * <li>versione dell'interfaccia di servizio (&lt;maj&gt;.&lt;min&gt;),
+ * <li>codice binding (identifica, all'interno di una stessa interfaccia di
+ * servizio, modalità di fruizione differenti, ad es. per differenti tecnologie
+ * o utilizzando differenti canali di comunicazione.
+ * <li>finalità: (il servizio di naming potrebbe modificare l'interfaccia
+ * restituita per particolari finalità)
+ * <ul>
+ * <li>RUNTIME: servizio per operatività applicativa (è il valore utilizzato
+ * dai fruitori durante l'operatività)
+ * <li>MONITOR: servizio per monitoraggio (utilizzato dal test-agent)
+ * <li>DIAG: servizio per diagnostica (utilizzato dal framework coop-diag e
+ * dalla servlet centralizzata di diagnostica)
+ * </ul>
+ * <li>flag di staging: serve per permettere ad un test-agent di verificare i
+ * binding durante la fase di installazione (mentre il binding è in fase di
+ * "staging").
+ * </ol>
+ * L'utilizzo di questo loader permette ai fruitori di evitare di incorporare
+ * tra i file di configurazione distribuiti anche quello delle porte delegate
+ * dei servizi utilizzati, rendendo perciò del tutto trasparente, nella maggior
+ * parte dei casi, eventuali migrazioni del servizio. I fruitori con
+ * configurazioni personalizate in porta delegata possono inviare
+ * l'inforamazioni della stessa tramite inputStream che verrà integrato con
+ * l'informazioni restituite dal naming/registry. Vedere la documentazione del
+ * metodo <code>loadProxy</code> per i dettagli circa i parametri da
+ * utilizzare per creare il contesto di invocazione con il selettore di
+ * servizio. Per permettere una migrazione più graduale da un meccanismo basato
+ * su configurazioni locali al fruitore, la classe prevede la possibilità di
+ * elencare una serie di porte delegate per le quali la configurazione non sarà
+ * richiesta al servizio di naming ma verrà caricata in locale, con le regole
+ * della classe {@link it.csi.csi.porte.NameFilePDFactory}.
+ * 
+ * <h4>Modifiche a runtime della configurazione porta delegata lato fruitore</h4>
+ * 
+ * Poichè il file di configurazione è mantenuto in un repository comune per
+ * tutti i fruitori del servizio, alcune impostazioni che possono variare da
+ * fruitore a fruitore, o addirittura a runtime, devono essere inserite
+ * esplicitamente <b>dopo</b> aver ottenuto la configurazione di PD generica
+ * dal servizio di naming. Per fare ciò la factory mette a disposizione un
+ * meccanismo di pluggabilità apposito che si utilizza:
+ * <ol>
+ * <li> realizzando una classe che implementa l'interfaccia
+ * {@link it.csi.csi.porte.PostLoadConfigHandler} e che contiene le operazioni
+ * da effettuare a runtime
+ * <li> creando un'istanza di tale classe
+ * <li> impostando tale istanza nella factory prima di utilizzarla
+ * </ol>
+ * La configurazione della factory avviene tramite il metodo
+ * <code>configure</code> che verifica properties di sistema e nella , root
+ * principale dell'applicazione tramite CLASSLOADER , la presenza di un file di
+ * configurazione(opzionale) csinaming.properties personalizzato. Le proprietà
+ * supportate sono le seguenti: <table border="1">
+ * <tr>
+ * <td><b>nome</b></td>
+ * <td><b>significato</b></td>
+ * <td><b>note</b></td>
+ * </tr>
+ * <tr>
+ * <td>csinaming.provider.url</td>
+ * <td>url http del servizio di naming</td>
+ * <td>opzionale; se non è specificato nessun valore il valore viene desunto
+ * dall'environment di sistema (ad esempio potrebbe essere preimpostato negli
+ * ambienti di runtime server). Se impostato a livello di sistema può essere
+ * sovrascritto o meno a seconda del valore della property
+ * runtime.environment.policy (v.)</td>
+ * </tr>
+ * <tr>
+ * <td>csinaming.runtime.code</td>
+ * <td>ambiente di esecuzione implicito</td>
+ * <td>opzionale; nessun valore di default. Se specificato viene utilizzato a
+ * seconda del valore della property runtime.policy (v.)</td>
+ * </tr>
+ * <tr>
+ * <td>csinaming.runtime.policy</td>
+ * <td>policy di gestione delle impostazioni implicite e relativi controlli.
+ * Può valere:
+ * <ul>
+ * <li>implicit-only: i valori delle property csinaming.provider.url e
+ * csinaming.runtime.code devono essere presenti nel system environment e non
+ * possono essere sovrascritti. Inoltre il runtime code deve coincidere con
+ * quello dichiarato nei selettori (pena errore).
+ * <li>implicit-overwritable: i valori delle property csinaming.provider.url e
+ * csinaming.runtime.core sono utilizzate se sono definite nel system
+ * environment. Il provider.url può essere inoltre sovrascritto; il codice
+ * ambiente, se presente nel system environment, viene confrontato con quello
+ * richiesto nel selettore ed una discordanza produce un messaggio di WARN sui
+ * log applicativi.
+ * </ul>
+ * </td>
+ * <td>opzionale; default=implicit-overwritable, a meno che non sia impostato a
+ * livello di system environment (in questo caso non può essere sovrascritto).
+ * (v.)</td>
+ * </tr>
+ * <tr>
+ * <td>csinaming.global.timetolive</td>
+ * <td>tempo di permanenza in cache di uno stub valido</td>
+ * <td>opzionale; default=120 min; viene ignorato da impostazioni più
+ * specifiche gestite a runtime tramite header restituiti dal servizio di
+ * naming.</td>
+ * </tr>
+ * <tr>
+ * <td>csinaming.bypass.list</td>
+ * <td>risorsa o percorso del file di configurazione della
+ * NameFilePDProxyFactory che contiene l'elenco e il percorso dei file di
+ * configurazione PD che devono essere caricati da risorsa e non tramite
+ * richiesta al servizio di naming http.</td>
+ * <td>opzionale; nessun default: se assente tutte le PD saranno richieste al
+ * servizio di naming</td>
+ * </tr>
+ * </table>
+ * 
+ * @author DSP-SPG
+ * @version 1.0
+ */
+
+public class «httpPDProxyLoaderClassName()»
+{
+
+    private «httpPDProxyLoaderClassName()»()
+    {
+    }
+
+    /**
+     * L'url del provider di configurazioni (la servlet InfoPDProviderServlet
+     * {@link it.csi.csi.prodtools.InfoPDProviderServlet}).
+     */
+    private static URL providerURL = null;
+
+    private static int timeout = 0;
+    private final static int defaultTimeToCache = 120;
+
+    private static String defaultEnvironmentCode = null;
+
+    private static ProxyCache proxies = new ProxyCache();
+    //private static Selector selector = new Selector();
+    private static PostLoadConfigHandler plch = null;
+    private static boolean configSuccessful = false;
+
+    private static String _acn = null;
+
+    private static NameFilePDFactory bypassFactory = null;
+
+    private static String msgError = null;
+
+    static
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.CSI_INIT);
+
+        try
+        {
+            configure();
+        }
+        catch (ConfigException cfE)
+        {
+            msgError = cfE.getMessage();
+            _log.error("[HttpPDProxyLoader::static initializer] - Errore Configurazione " + cfE.getMessage());
+        }
+        catch (Exception e)
+        {
+            msgError = e.getMessage();
+            _log.error("[HttpPDProxyLoader::static initializer] - Errore Generico " + e.getMessage());
+        }
+    }
+
+    /**
+     * Proprietà di configurazione della classe
+     * 
+     */
+    
+    public static final String PREFIX_SYSTEM_VARIABLE = "coop_java";
+    
+    public static final String RUNTIME_POLICY_PROP = "csinaming.runtime.policy";
+    public static final String PROVIDER_URL_PROP = "csinaming.provider.url";
+    public static final String RUNTIME_CODE_PROP = "csinaming.runtime.code";
+    public static final String TIMETOLIVE_PROP = "csinaming.global.timetolive";
+    public static final String BYPASS_LIST_PROP = "csinaming.bypass.list";
+
+    /**
+     * ResonseHeader hint-based planned refresh cache
+     */
+    public static final String PLANNED_UPDATE_TIME = "csinaming.planned.update.time";
+
+    /**
+     * Valori ammessi proprietà csinaming.runtime.policy
+     */
+    public static final String IMPLICIT_ONLY_RUNTIME_POLICY = "implicit-only";
+    public static final String IMPLICIT_OVERWRITABLE_RUNTIME_POLICY = "implicit-overwritable";
+
+    /**
+     * Codifica proprietà csinaming.runtime.policy
+     */
+    protected static final int IMPLICIT_ONLY = 0;
+    protected static final int IMPLICIT_OVERWRITABLE = 1;
+
+    /**
+     * Variabile di classe environmentPolicy settaggio default.
+     */
+    private static int environmentPolicy = IMPLICIT_OVERWRITABLE;
+
+    /**
+     * Parametri del contesto di invocazione (properties)
+     */
+    public static final String ID_SERVIZIO_CALL = "id.servizio";
+    public static final String AMBIENTE_CALL = "ambiente";
+    public static final String PURPOSE_CALL = "purpose";
+    public static final String STAGING_CALL = "statging";
+    public static final String CODICE_PRODOTTO_FRUITORE_CALL = "codice.prodotto.fruitore";
+    public static final String VERSIONE_PRODOTTO_FRUITORE_CALL = "versione.prodotto.fruitore";
+    public static final String CODICE_COMPONENTE_FRUITORE_CALL = "codice.componente.fruitore";
+    public static final String CODICE_CLIENTE_FRUITORE_CALL = "codice.cliente.fruitore";
+    public static final String CODICE_PRODOTTO_FRUITORE_AS_CALL = "codice.prodotto.fruitore.as";
+    public static final String VERSIONE_PRODOTTO_FRUITORE_AS_CALL = "versione.prodotto.fruitore.as";
+    public static final String CODICE_COMPONENTE_FRUITORE_AS_CALL = "codice.componente.fruitore.as";
+    public static final String CODICE_CLIENTE_FRUITORE_AS_CALL = "codice.cliente.fruitore.as";
+
+    /**
+     * Parametri servlet del Naming in linea con l'oggetto Selector
+     */
+    private static final String AMBIENTE_HTTPPAR = "ambiente";
+    private static final String CLIENTE_HTTPPAR = "cliente";
+    private static final String ISTANZA_HTTPPAR = "istanza";
+    private static final String PRODOTTO_HTTPPAR = "prodotto";
+    private static final String SERVICE_HTTPPAR = "service";
+    private static final String SERVICEVER_HTTPPAR = "servicever";
+    private static final String BINDING_HTTPPAR = "binding";
+    private static final String PURPOSE_HTTPPAR = "purpose";
+    private static final String STAGING_HTTPPAR = "staging";
+    private static final String CODICE_PRODOTTO_FRUITORE_HTTPPAR = "codice_prodotto_fruitore";
+    private static final String VERSIONE_PRODOTTO_FRUITORE_HTTPPAR = "versione_prodotto_fruitore";
+    private static final String CODICE_COMPONENTE_FRUITORE_HTTPPAR = "codice_componente_fruitore";
+    private static final String CODICE_CLIENTE_FRUITORE_HTTPPAR = "codice_cliente_fruitore";
+    private static final String CODICE_PRODOTTO_FRUITORE_AS_HTTPPAR = "codice_prodotto_fruitore_as";
+    private static final String VERSIONE_PRODOTTO_FRUITORE_AS_HTTPPAR = "versione_prodotto_fruitore_as";
+    private static final String CODICE_COMPONENTE_FRUITORE_AS_HTTPPAR = "codice_componente_fruitore_as";
+    private static final String CODICE_CLIENTE_FRUITORE_AS_HTTPPAR = "codice_cliente_fruitore_as";
+
+    /**
+     * Valori parametro purpose
+     */
+    public static final String RUNTIME_VAL = "RUNTIME";
+    public static final String MONITOR_VAL = "MONITOR";
+    public static final String DIAG_VAL = "DIAG";
+
+    /**
+     * Valori parametro staging
+     */
+    public static final String TRUE_VAL = "TRUE";
+    public static final String FALSE_VAL = "FALSE";
+
+    /**
+     * Formattatore data/ora.
+     */
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+    public static void clearCache()
+    {
+        proxies.clear();
+    }
+
+    private static void init(String s_providerURL) throws ConfigException
+    {
+
+        if (s_providerURL != null && !s_providerURL.equals(""))
+        {
+            Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG).debug(
+                    "[HttpPDProxyLoader::init] - Inizializzazione Http Proxy Loader (URL=" + s_providerURL + ")");
+
+            try
+            {
+                providerURL = new URL(s_providerURL);
+                Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG).debug("[HttpPDProxyLoader::init] - Inizializzato Http Proxy Loader.");
+
+            }
+            catch (MalformedURLException ex)
+            {
+                Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG).error(
+                        "[HttpPDProxyLoader::init] -Impossibile inizializzare l'Http Proxy Loader: provider url [" + s_providerURL + "] non ben formato: "
+                                + ex.getMessage());
+                throw new ConfigException("Impossibile inizializzare l'Http Proxy Loader: provider url [" + s_providerURL + "] non ben formato: "
+                        + ex.getMessage());
+            }
+        }
+        else
+        {
+            Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG).error(
+                    "[HttpPDProxyLoader::init] - Impossibile inizializzare l'Http Proxy Loader: provider url mancante.");
+            throw new ConfigException("Impossibile inizializzare l'Http Proxy Loader: provider url mancante.");
+        }
+    }
+
+    private static boolean isNullOrEmpty(String s)
+    {
+        return (s == null || s.length() == 0);
+    }
+
+    /**
+     * Configura il loader con le property previste (vedere documentazione della
+     * classe).
+     * 
+     */
+
+    private static void configure() throws ConfigException
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG);
+        Properties props = new Properties();
+
+        try
+        {
+
+            _log.debug("[HttpPDProxyLoader::configure] - Verifica presenza file di configurazione personalizzato csinaming.properties...");
+
+            try
+            {
+                props.load(HttpPDProxyLoader.class.getClassLoader().getResourceAsStream("csinaming.properties"));
+            }
+            catch (Exception e)
+            {
+                _log.error("[HttpPDProxyLoader::configure] - File di configurazione csinaming.properties assente in root principale da CLASSLOADER.");
+            }
+
+            _log.debug("[HttpPDProxyLoader::configure] - Verifica policy di gestione runtime...");
+
+            String sEnvironmentPolicy = System.getProperty(PREFIX_SYSTEM_VARIABLE+"."+RUNTIME_POLICY_PROP);
+
+            if (isNullOrEmpty(sEnvironmentPolicy))
+            {
+
+                _log.debug("[HttpPDProxyLoader::configure] - Runtime Policy gestibile con configurazione locale : " + sEnvironmentPolicy);
+
+                sEnvironmentPolicy = props.getProperty(RUNTIME_POLICY_PROP);
+
+                if (isNullOrEmpty(sEnvironmentPolicy) || sEnvironmentPolicy.equals(IMPLICIT_OVERWRITABLE_RUNTIME_POLICY))
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - Runtime Policy definita in locale sovrascrivibile : " + sEnvironmentPolicy);
+                    environmentPolicy = IMPLICIT_OVERWRITABLE; // default
+                }
+                else if (sEnvironmentPolicy.equals(IMPLICIT_ONLY_RUNTIME_POLICY))
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - Runtime Policy definita in locale ma dichiarata NON sovrascrivibile : " + sEnvironmentPolicy);
+                    environmentPolicy = IMPLICIT_ONLY;
+                }
+                else
+                {
+                    _log.error("[HttpPDProxyLoader::configure] - Il valore della property runtime policy [" + sEnvironmentPolicy + "] non e' valido.");
+                    throw new ConfigException("Il valore della property runtime policy [" + sEnvironmentPolicy + "] non e' valido.");
+                }
+
+            }
+            else if (sEnvironmentPolicy.equals(IMPLICIT_OVERWRITABLE_RUNTIME_POLICY))
+            {
+                _log.debug("[HttpPDProxyLoader::configure] - Runtime Policy definita a livello di sistema sovrascrivibile : " + sEnvironmentPolicy);
+                environmentPolicy = IMPLICIT_OVERWRITABLE;
+
+            }
+            else if (sEnvironmentPolicy.equals(IMPLICIT_ONLY_RUNTIME_POLICY))
+            {
+                _log.debug("[HttpPDProxyLoader::configure] - Runtime Policy definita a livello di sistema NON sovrascrivibile : " + sEnvironmentPolicy);
+                environmentPolicy = IMPLICIT_ONLY;
+
+            }
+            else
+            {
+                _log.error("[HttpPDProxyLoader::configure] - Il valore della property runtime policy [" + sEnvironmentPolicy + "] non e' valido.");
+                throw new ConfigException("Il valore della property runtime policy [" + sEnvironmentPolicy + "] non e' valido.");
+            }
+
+            _log.debug("[HttpPDProxyLoader::configure] - verifica provider url in impostazioni di sistema...");
+            String sProvider = System.getProperty(PREFIX_SYSTEM_VARIABLE+"."+PROVIDER_URL_PROP);
+
+            if (!isNullOrEmpty(sProvider))
+            {
+                _log.debug("[HttpPDProxyLoader::configure] - provider del servizio di csinaming definito a livello di sistema:" + sProvider);
+            }
+            else
+            {
+                _log.debug("[HttpPDProxyLoader::configure] - provider del servizio csinaming NON definito a livello di sistema");
+            }
+
+            if (environmentPolicy != IMPLICIT_ONLY)
+            {
+                String sProvider_loc = props.getProperty(PROVIDER_URL_PROP);
+                if (!isNullOrEmpty(sProvider_loc))
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - provider del servizio di naming (ri)definito localmente:" + sProvider_loc);
+                    sProvider = sProvider_loc;
+                }
+            }
+
+            String sEnvironmentCode = System.getProperty(PREFIX_SYSTEM_VARIABLE+"."+RUNTIME_CODE_PROP);
+
+            if (environmentPolicy == IMPLICIT_ONLY)
+            {
+                if (isNullOrEmpty(sEnvironmentCode))
+                {
+                    _log
+                            .error("[HttpPDProxyLoader::configure] - impossibile inizializzare il loader: se la policy è 'implicit-only' e' necessario impostare a livello di sistema la property csinaming.runtime.code");
+                    throw new ConfigException(
+                            "impossibile inizializzare: se la policy è 'implicit-only' e' necessario impostare a livello di sistema la property "
+                                    + "csinaming.runtime.code");
+                }
+                else
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - environment di default=" + sEnvironmentCode + " (NON sovrascrivibile)");
+                }
+            }
+            else
+            { // IMPLICIT-OVERWRITABLE
+                if (isNullOrEmpty(sEnvironmentCode))
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - environment di default non impostato a livello di sistema");
+                }
+                else
+                {
+                    _log.debug("[HttpPDProxyLoader::configure] - environment di default impostato a livello di sistema:" + sEnvironmentCode);
+                }
+                if (!isNullOrEmpty(props.getProperty(RUNTIME_CODE_PROP)))
+                {
+                    sEnvironmentCode = props.getProperty(RUNTIME_CODE_PROP);
+                    _log.debug("[HttpPDProxyLoader::configure] - environment di default sovrascritto localmente:" + sEnvironmentCode);
+                }
+            }
+
+            defaultEnvironmentCode = sEnvironmentCode;
+
+            String sTime2live = props.getProperty(TIMETOLIVE_PROP);
+            String sBypassList = props.getProperty(BYPASS_LIST_PROP);
+
+            // lettura option provider.url (obbligatoria)
+            if (isNullOrEmpty(sProvider))
+            {
+                _log.error("[HttpPDProxyLoader::configure] - Errore durante la configurazione dell'HttpPDProxyLoader: provider.url non impostato.");
+                throw new ConfigException("Errore durante la configurazione dell'HttpPDProxyLoader: provider.url non impostato.");
+            }
+            else init(sProvider);
+
+            // lettura option timetolive (opzionale)
+            if (sTime2live != null && !"".equals(sTime2live))
+                try
+                {
+                    timeout = Integer.parseInt(sTime2live.trim());
+                    _log.debug("[HttpPDProxyLoader::configure] - impostazione time to live globale della cache:" + timeout + " minuti.");
+                }
+                catch (NumberFormatException ex)
+                {
+                    _log.error("[HttpPDProxyLoader::configure] - "
+                            + "Errore durante la configurazione dell'HttpPDProxyLoader: formato del timeout specificato (" + sTime2live + ") non corretto.");
+                    throw new ConfigException("Errore durante la configurazione dell'HttpPDProxyLoader: formato del timeout specificato (" + sTime2live
+                            + ") non corretto.");
+                }
+            else timeout = defaultTimeToCache;
+
+            // lettura option bypass list (opz.)
+            if (sBypassList != null && !"".equals(sBypassList))
+            {
+                InputStream is = null;
+                if (sBypassList.startsWith("file:") || sBypassList.startsWith("http:"))
+                {
+                    try
+                    {
+                        is = new URL(sBypassList).openStream();
+                        bypassFactory = new NameFilePDFactory(is);
+                        _log.debug("[HttpPDProxyLoader::configure] - " + "configurato loader per la bypass-list mediante il file:" + sBypassList);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.error("[HttpPDProxyLoader::configure] - "
+                                + "Errore durante la configurazione dell'HttpPDProxyLoader: errore nella lettura del file di bypass-list (" + sBypassList
+                                + ").", ex);
+                        throw new ConfigException("Errore durante la configurazione dell'HttpPDProxyLoader: errore nella lettura del file di bypass-list ("
+                                + sBypassList + ").", ex);
+                    }
+                    finally
+                    {
+                        try
+                        {
+                            is.close();
+                        }
+                        catch (Exception ex)
+                        {
+                          _log.error(
+									"[HttpPDProxyLoader::configure] - "
+											+ "Errore durante la configurazione dell'HttpPDProxyLoader nella close dello stream di lettura del file di bypass-list", ex);
+                        }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        bypassFactory = new NameFilePDFactory(HttpPDProxyLoader.class.getClassLoader().getResourceAsStream(sBypassList.trim()));
+                        _log.debug("[HttpPDProxyLoader::configure] - " + "configurato loader per la bypass-list mediante la risorsa:" + sBypassList);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.error("[HttpPDProxyLoader::configure] - "
+                                + "Errore durante la configurazione dell'HttpPDProxyLoader: errore nella lettura della risorsa bypass-list (" + sBypassList
+                                + ").", ex);
+                        throw new ConfigException("Errore durante la configurazione dell'HttpPDProxyLoader: errore nella lettura della risorsa bypass-list ("
+                                + sBypassList + ").", ex);
+                    }
+                }
+            }
+
+        }
+        finally
+        {
+            _log.debug("[HttpPDProxyLoader::configure] - END");
+        }
+
+        configSuccessful = true;
+
+    }
+
+    /**
+     * 
+     * 
+     * <h4>Formato del file di properties (contesto di invocazione)</h4>
+     * Il file conterrà nell'ordine:
+     * <ol>
+     * <li>id.servizio = Identificatore univoco servizio - serie di codici
+     * separati con pipe :
+     * CODICEPRODOTTO|CLIENTE|SERVIZIO|VERSIONE|ISTANZA|BINDING
+     * <ul>
+     * <li>CODICEPRODOTTO: codice del prodotto su cui è basato il rilascio che
+     * implementa il servizio.
+     * <li>CLIENTE: codice dell'ente/cliente per cui è rilasciato il servizio.
+     * <li>SERVIZIO: codice del servizio (interfaccia).
+     * <li>VERSIONE: versione dell'interfaccia di servizio (x.y.z).
+     * <li>ISTANZA: progressivo di installazione nello stesso ambiente (serve
+     * per gestire installazioni multiple dello stesso prodotto in un
+     * determinato ambiente/cliente.
+     * <li>BINDING: codice binding (identifica, all'interno di una stessa
+     * interfaccia di servizio, modalità di fruizione differenti, ad es. per
+     * differenti tecnologie o utilizzando differenti canali di comunicazione.
+     * </ul>
+     * <li>ambiente=codice ambiente di runtime (produzione, sviluppo, test,
+     * test-utente...).
+     * <li>purpose= (opzinale) scopo/finalità (il servizio di naming potrebbe
+     * modificare l'interfaccia restituita per particolari finalità).Default
+     * RUNTIME.
+     * <ul>
+     * <li>RUNTIME: esecuzione appplicativa (default).
+     * <li>MONITOR: operazioni di monitoraggio (testResources, ad utilizzo
+     * test-agent).
+     * <li>DIAG: operazioni di diagnostica (selfCheck, ad utilizzo
+     * diagnostica).
+     * </ul>
+     * <li>staging= (opzionale) flag (TURE/FALSE) utilizzata durante le
+     * operazioni di verifica installazione. L'utilizzo normale è FALSE.
+     * <li>codice.prodotto.fruitore= (opzionale) codice prodotto fruitore per
+     * verifica contratto.
+     * <li>versione.prodotto.fruitore= (opzionale) versione prodotto fruitore
+     * per verifica contratto.
+     * <li>codice.componente.fruitore= (opzionale) codice componente fruitore
+     * per verifica contratto.
+     * <li>codice.cliente.fruitore= (opzionale) codice cliente/ente fruitore
+     * per verifica contratto.
+     * <li>codice.prodotto.fruitore.as= (opzionale) codice prodotto fruitore
+     * per verifica accordo di servizio.
+     * <li>versione.prodotto.fruitore.as= (opzionale) versione prodotto
+     * fruitore per verifica accordo di servizio.
+     * <li>codice.componente.fruitore.as= (opzionale) codice componente
+     * fruitore per verifica accordo di servizio.
+     * <li>codice.cliente.fruitore.as= (opzionale) codice cliente/ente fruitore
+     * per verifica accordo di servizio.
+     * </ol>
+     * 
+     * <h4>Reperimento della PD </h4>
+     * A fronte della richiesta di una PD fornendo un determinato file di
+     * properties, il comportamento della classe loader è il seguente:
+     * <ol>
+     * <li>si verifica la correttezza formale della property id.servizio. La
+     * forma &egrave; corretta se:
+     * <ul>
+     * <li>&egrave; composto da 6 componenti separate da '|' ;
+     * <li>la quarta componente (versione servizio) è nel formato
+     * major.minor.patch;
+     * <li>l'ottava componente ("purpose"), se presente, ha uno dei valori
+     * previsti (|monitor|diag);
+     * <li>la nona componente, se presente, ha uno dei valori previsti
+     * (TRUE|FALSE).
+     * </ul>
+     * <li>si verifica la correttezza formale della property purpose se
+     * presente, ha uno dei valori previsti (RUNTIME|MONITOR|DIAG);
+     * <li>si verifica la correttezza formale della property statging se
+     * presente, ha uno dei valori previsti (TRUE|FALSE);
+     * <li>viene verificata la presenza in cache di una occorrenza ancora
+     * valida della PD selezionata.
+     * <ul>
+     * <li>se l'occorrenza è valida viene restituita per l'utilizzo del
+     * servizio
+     * <li>se l'occorrenza non è più valida:
+     * <ul>
+     * <li>viene rimossa dalla cache
+     * <li>viene invocato il servizio di csinaming
+     * <li>viene inserita la nuova istanza di PD in cache
+     * <li>viene restituita la nuova istanza di PD per l'utilizzo del servizio
+     * </ul>
+     * </ul>
+     * </ol>
+     * 
+     * <h4>Gestione della cache</h4>
+     * 
+     * Un'istanza di proxy per ciascun valore di selettore viene istanziato la
+     * prima volta e mantenuto in una cache. Le politiche di svecchiamento della
+     * cache sono governate da due meccansimi complementari:
+     * <ol>
+     * <li>un meccansimo basato su un time-to-live definto a livello globale
+     * (impostabile tramite apposita property di configurazione);
+     * <li>un meccansimo più complesso, associabile al singolo binding, che può
+     * essere comandato mediante direttive server-side
+     * </ol>
+     * <h5>time to live based cache expiry</h5>
+     * Il primo meccanismo prevede che una istanza di PD sia inserita in cache
+     * con associata l'informazione dell' istante in cui è stata inserita. Al
+     * momento della richiesta di quella PD, se <br>
+     * <code>[tempo-corrente]-[tempo-inserimento] &gt; [time-to-live-globale]</code>
+     * l'istanza viene dichiarata non valida. Il secondo meccanismo, più
+     * complesso, prevede la possibilità di controllare in modo più fine il
+     * ciclo di permanenza della PD in cache.
+     * <h5>hint-based cache expiry</h5>
+     * Il secondo meccanismo di expiry della cache è basato su un sistema di
+     * <em>hint</em> (suggerimenti) controllabili centralmente sul servizio di
+     * csinaming. Questo meccanismo prevede due tipi di <em>hint</em>:
+     * <ul>
+     * <li>PLANNED_UPDATE_DATE: utilizzato per istruire la factory circa
+     * l'approssimarsi di rilascio previsto del servizio. Se ad esempio è
+     * previsto un rilascio alle 17:00 del 20/02/2007, nelle ore precedenti
+     * all'installazione si può decidere di inviare il corrispondente hint ai
+     * client di quel binding. In questo modo la factory si prepara a invalidare
+     * la cache non appena si supera la data/ora prevista.
+     * </ul>
+     * Gli hint sono restituiti opzionalmente dal servizio di csinaming mediante
+     * appositi header HTTP associati alla risorsa (file di PD); li hint vengono
+     * associati al corrispondente binding nella cache.
+     * 
+     * @param propertiesPathName :
+     *            path del file di properties con le informazioni relative
+     *            all'invocazione del servizio.
+     * @return il proxy selezionato in base al selettore reperito dal parametro
+     *         passato
+     */
+    public static Proxy loadProxy(String propertiesPathName) throws ConfigException
+    {
+
+        return loadProxy(propertiesPathName, null);
+
+    }
+
+    /**
+     * @param propertiesPathName :
+     *            path del file di properties con le informazioni relative
+     *            all'invocazione del servizio.
+     * @param streamLocalPD:
+     *            steam dell'eventuale porta delefata locale.
+     * @return il proxy selezionato in base al selettore reperito dal parametro
+     *         passato
+     */
+    public static Proxy loadProxy(String propertiesPathName, InputStream streamLocalPD) throws ConfigException
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+        if (!configSuccessful)
+        {
+            _log.error("[HttpPDProxyLoader::loadProxy] Classe inizializzata non correttamente impossibile procedere con il metodo loadProxy().");
+            throw new ConfigException("[HttpPDProxyLoader::loadProxy] Classe inizializzata non correttamente : " + msgError);
+        }
+
+        Proxy currProxy = null;
+
+        // Verifica e caricamento contesto di invocazione tramite classloader
+        Selector selector = new Selector();
+        selector.makeSelector(propertiesPathName);
+
+        // innazitutto verifico se deve usare la bypass-list
+        if (bypassFactory != null)
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - BypassList istanziata");
+            currProxy = (Proxy) bypassFactory.getPDProxy(selector.keyToString());
+            if (currProxy != null)
+                return currProxy;
+        }
+
+        // non era nella bypass-list: a questo punto cerco nella cache http
+        _log.debug("[HttpPDProxyLoader::loadProxy] Elementi in ProxyCache :" + proxies.proxies.size());
+        currProxy = (Proxy) (proxies.get(selector, streamLocalPD));
+
+        if (currProxy != null)
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - Cache valorizzata");
+            return currProxy;
+        }
+        else
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - PDProxy ottenuto tramite Naming");
+            return getRemotely(streamLocalPD,selector);
+        }
+    }
+
+    /**
+     * @param targetInvocation :
+     *            Properties con le informazioni relative all'invocazione del
+     *            servizio.
+     * @return il proxy selezionato in base al selettore reperito dal parametro
+     *         passato
+     */
+    public static Proxy loadProxy(Properties targetInvocation) throws ConfigException
+    {
+        return loadProxy(targetInvocation, null);
+    }
+
+    /**
+     * @param targetInvocation :
+     *            Properties con le informazioni relative all'invocazione del
+     *            servizio.
+     * @param streamLocalPD:
+     *            steam dell'eventuale porta delegata locale.
+     * @return il proxy selezionato in base al selettore reperito dal parametro
+     *         passato
+     */
+    public static Proxy loadProxy(Properties targetInvocation, InputStream streamLocalPD) throws ConfigException
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+        if (!configSuccessful)
+        {
+            _log.error("[HttpPDProxyLoader::loadProxy] Classe inizializzata non correttamente impossibile procedere con il metodo loadProxy().");
+            throw new ConfigException("[HttpPDProxyLoader::loadProxy] Classe inizializzata non correttamente : " + msgError);
+        }
+
+        Proxy currProxy = null;
+
+        // Verifica e caricamento contesto di invocazione tramite classloader
+        Selector selector = new Selector();
+        selector.makeSelector2(targetInvocation);
+
+        // innazitutto verifico se deve usare la bypass-list
+        if (bypassFactory != null)
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - BypassList istanziata");
+            currProxy = (Proxy) bypassFactory.getPDProxy(selector.keyToString());
+            if (currProxy != null)
+                return currProxy;
+        }
+
+        // non era nella bypass-list: a questo punto cerco nella cache http
+        _log.debug("[HttpPDProxyLoader::loadProxy] Elementi in ProxyCache :" + proxies.proxies.size());
+        currProxy = (Proxy) (proxies.get(selector,streamLocalPD));
+
+        if (currProxy != null)
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - Cache valorizzata");
+            return currProxy;
+        }
+        else
+        {
+            _log.debug("[HttpPDProxyLoader::loadProxy] - PDProxy ottenuto tramite Naming");
+            return getRemotely(streamLocalPD,selector);
+        }
+    }
+
+    /**
+     * 
+     * @param sel
+     * @return la stringa dei parametri da passare al servizio
+     */
+    private static String composeQuery(Selector sel)
+    {
+        String s = "";
+
+        s += AMBIENTE_HTTPPAR + "=" + sel.ambiente + "&";
+        s += CLIENTE_HTTPPAR + "=" + sel.cliente + "&";
+        s += ISTANZA_HTTPPAR + "=" + sel.istanza + "&";
+        s += PRODOTTO_HTTPPAR + "=" + sel.prodotto + "&";
+        s += SERVICE_HTTPPAR + "=" + sel.service + "&";
+        s += SERVICEVER_HTTPPAR + "=" + sel.servicever + "&";
+        s += BINDING_HTTPPAR + "=" + sel.binding + "&";
+        s += PURPOSE_HTTPPAR + "=" + sel.purpose + "&";
+        s += STAGING_HTTPPAR + "=" + sel.staging;
+
+        if (sel.codice_prodotto_fruitore != null && sel.codice_prodotto_fruitore.trim().length()>0)
+        	s += "&" + CODICE_PRODOTTO_FRUITORE_HTTPPAR + "=" + sel.codice_prodotto_fruitore;
+        if (sel.versione_prodotto_fruitore != null && sel.versione_prodotto_fruitore.trim().length()>0)
+        	s += "&" + VERSIONE_PRODOTTO_FRUITORE_HTTPPAR + "=" + sel.versione_prodotto_fruitore;
+        if (sel.codice_componente_fruitore != null && sel.codice_componente_fruitore.trim().length()>0)
+        	s += "&" + CODICE_COMPONENTE_FRUITORE_HTTPPAR + "=" + sel.codice_componente_fruitore;
+        if (sel.codice_cliente_fruitore != null && sel.codice_cliente_fruitore.trim().length()>0)
+        	s += "&" + CODICE_CLIENTE_FRUITORE_HTTPPAR + "=" + sel.codice_cliente_fruitore;
+        if (sel.codice_prodotto_fruitore_as != null && sel.codice_prodotto_fruitore_as.trim().length()>0)
+        	s += "&" + CODICE_PRODOTTO_FRUITORE_AS_HTTPPAR + "=" + sel.codice_prodotto_fruitore_as;
+        if (sel.versione_prodotto_fruitore_as != null && sel.versione_prodotto_fruitore_as.trim().length()>0)
+        	s += "&" + VERSIONE_PRODOTTO_FRUITORE_AS_HTTPPAR + "=" + sel.versione_prodotto_fruitore_as;
+        if (sel.codice_componente_fruitore_as != null && sel.codice_componente_fruitore_as.trim().length()>0)
+        	s += "&" + CODICE_COMPONENTE_FRUITORE_AS_HTTPPAR + "=" + sel.codice_componente_fruitore_as;
+        if (sel.codice_cliente_fruitore_as != null && sel.codice_cliente_fruitore_as.trim().length()>0)
+        	s += "&" + CODICE_CLIENTE_FRUITORE_AS_HTTPPAR + "=" + sel.codice_cliente_fruitore_as;
+
+        return s;
+    }
+
+    /**
+     * 
+     * @param remotePD,localPD
+     * @return InfoPortaDelegata risultato dell'integrazione dei parametri di
+     *         input
+     */
+    private static InfoPortaDelegata integrationInfoPD(InfoPortaDelegata remotePD, InfoPortaDelegata localPD) throws Exception
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+        try
+        {
+
+            // Ricerca eventuali properties in pluggable-pd (pd_local) da
+            // settare in pd_remote
+            Properties localPr = localPD.getPlugins()[0].getProperties();
+            Enumeration en = localPr.propertyNames();
+            String propertiesKey = null;
+            while (en.hasMoreElements())
+            {
+                propertiesKey = (String) en.nextElement();
+
+                if (!remotePD.getPlugins()[0].getProperties().containsKey(propertiesKey))
+                {
+                    String propertyValue = localPr.getProperty(propertiesKey);
+                    remotePD.getPlugins()[0].getProperties().put(propertiesKey, propertyValue);
+                }
+
+            }
+            // Ricerca eventuali pre.post FH
+            if (localPD.getPreFH() != null)
+                remotePD.setPreFH(localPD.getPreFH());
+            if (localPD.getPostFH() != null)
+                remotePD.setPostFH(localPD.getPostFH());
+        }
+        catch (Exception e)
+        {
+            _log.error("[HttpPDProxyLoader::integrationInfoPD] Errore integrazione PD Local : " + e, e);
+            throw e;
+        }
+
+        return remotePD;
+    }
+
+    /**
+     * 
+     * @param Inputstream
+     *            streamLocalPD
+     * @return Proxy di porta delegata.
+     */
+    private static Proxy getRemotely(InputStream streamLocalPD,Selector selector) throws ConfigException
+    {
+        Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+        InfoPortaDelegata infoLocalPD = null;
+        _log.debug("[HttpPDProxyLoader::getRemotely] - Richiesta PD (" + selector + ") al servizio di naming...");
+
+        // verifico la policy (ambiente di default)
+        if (environmentPolicy == IMPLICIT_ONLY)
+        {
+            if (defaultEnvironmentCode == null || !defaultEnvironmentCode.equals(selector.ambiente))
+            {
+                _log.error("[HttpPDProxyLoader::getRemotely] - environment policy violata! l'ambiente di esecuzione richiesto [" + selector.ambiente
+                        + "] e' differente dall'ambiente di esecuzione di default [" + defaultEnvironmentCode + "]");
+                throw new ConfigException("environment policy violata! l'ambiente di esecuzione richiesto [" + selector.ambiente
+                        + "] e' differente dall'ambiente di esecuzione di default [" + defaultEnvironmentCode + "]");
+            }
+        }
+        else
+        {
+            if (defaultEnvironmentCode == null || !defaultEnvironmentCode.equals(selector.ambiente))
+            {
+                _log.warn("[HttpPDProxyLoader::getRemotely] - l'ambiente di esecuzione richiesto [" + selector.ambiente
+                        + "] e' differente dall'ambiente di esecuzione di default [" + defaultEnvironmentCode + "], ma la environment policy lo consente");
+            }
+        }
+
+        String actualURL = providerURL.toExternalForm() + "?action=get_pd&" + composeQuery(selector);
+
+        if (_log.isDebugEnabled())
+        {
+            _log.debug("[HttpPDProxyLoader::getRemotely] invio richiesta: " + actualURL);
+        }
+
+        PostMethod post = new PostMethod(actualURL);
+        post.setHttp11(true);
+        post.setRequestHeader("Content-type", "text/html; charset=ISO-8859-1");
+        HttpClient httpclient = new HttpClient();
+        httpclient.setConnectionTimeout(30000);
+        httpclient.setStrictMode(true);
+
+        int result = 0;
+        try
+        {
+            result = httpclient.executeMethod(post);
+        }
+        catch (IOException ex)
+        {
+            _log.error("[HttpPDProxyLoader::getRemotely] Errore nell'esecuzione della request POST verso il Naming : " + ex, ex);
+        }
+        // Display status code
+        _log.debug("[HttpPDProxyLoader::getRemotely] Response status code: " + result);
+
+        try
+        {
+            if (result == 0 || result == 401 || result == 404 || result == 505 || result == 500)
+            {
+                byte[] ris = post.getResponseBody();
+                post.releaseConnection();
+                _log.error("[HttpPDProxyLoader::getRemotely] Errore nell'invocazione del servizio di naming: HTTP response : " + ris);
+
+                if (streamLocalPD != null)
+                {
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verrà delegata alla creazione del Proxy ");
+                    infoLocalPD = PDConfigReader.read(streamLocalPD);
+
+                    if (infoLocalPD != null)
+                    {
+                        return (Proxy) PDProxy.newInstance(infoLocalPD);
+                    }
+                    else
+                    {
+                        _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
+                        return null;
+                    }
+                }
+                else
+                {
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' non è presente o valida la PD locale. ");
+                    return null;
+                }
+            }
+            else if (String.valueOf(result).startsWith("4") || String.valueOf(result).startsWith("5"))
+            {
+
+                byte[] ris = post.getResponseBody();
+                post.releaseConnection();
+                _log.error("[HttpPDProxyLoader::getRemotely] Errore imprevisto nella chiamata al servizio naming: HTTP response : " + new String(ris));
+
+                if (streamLocalPD != null)
+                {
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verrà delegata alla creazione del Proxy ");
+                    infoLocalPD = PDConfigReader.read(streamLocalPD);
+
+                    if (infoLocalPD != null)
+                    {
+                        return (Proxy) PDProxy.newInstance(infoLocalPD);
+                    }
+                    else
+                    {
+                        _log
+                                .debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
+                        return null;
+                    }
+                }
+                else
+                {
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' non è presente o valida la PD locale. ");
+                    return null;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            _log.error("[HttpPDProxyLoader::getRemotely] - Errore nella creazione della PD verrà restituita PD null : ", ex);
+            return null;
+        }
+
+        InputStream responseInputStream = null;
+
+        try
+        {
+            responseInputStream = post.getResponseBodyAsStream();
+        }
+        catch (IOException ioe)
+        {
+            _log.error("[HttpPDProxyLoader::getRemotely] Errore nel reperimento del Response Body in formato stream :" + ioe.getMessage());
+            return null;
+        }
+
+        Header plannedUpdateDateHdr = post.getResponseHeader(PLANNED_UPDATE_TIME);
+
+        Date plannedUpdDate = null;
+
+        if (plannedUpdateDateHdr != null)
+        {
+            String sPlannedUpd = plannedUpdateDateHdr.getValue();
+            try
+            {
+                plannedUpdDate = sdf.parse(sPlannedUpd);
+                _log.debug("[HttpPDProxyLoader::getRemotely] - ricevuta direttiva di PLANNED-UPDATE:" + plannedUpdDate);
+            }
+            catch (ParseException pe)
+            {
+                _log
+                        .warn("[HttpPDProxyLoader::getRemotely] - ricevuta direttiva ERRATA o NON VALORIZZATA di PLANNED-UPDATE:" + sPlannedUpd
+                                + " verrà ignorata");
+            }
+        }
+        try
+        {
+            String versionFilter = selector.servicever;
+            InfoPortaDelegata info = PDConfigReader.read(responseInputStream, versionFilter);
+            post.releaseConnection();
+
+            if (streamLocalPD != null)
+                infoLocalPD = PDConfigReader.read(streamLocalPD);
+
+            if (info == null)
+            {
+                if (infoLocalPD != null)
+                {
+                    return (Proxy) PDProxy.newInstance(infoLocalPD);
+                }
+                else return null;
+            }
+            else
+            {
+
+                if (infoLocalPD != null)
+                    info = integrationInfoPD(info, infoLocalPD);
+
+                if (plch != null)
+                    plch.postLoadAction(info);
+
+                Object prx = (PDProxy.newInstance(info));
+
+                if (timeout > 0)
+                    proxies.put(selector.keyToString(), prx, plannedUpdDate);
+
+                return (Proxy) prx;
+            }
+        }
+        catch (Exception e)
+        {
+            _log.error("[HttpPDProxyLoader::getRemotely] - Errore nell'acquisizione del PDProxy:" + e + "," + e.getMessage(), e);
+            return null;
+        }
+    }
+
+    /**
+     * imposta il nome del contesto di log (prefisso), propagandolo anche alla
+     * NameFilePDFactory utilizzata per realizzare il bypass.
+     * 
+     * @param acn
+     */
+    public static void setAppContextName(String acn)
+    {
+        _acn = acn;
+        if (bypassFactory != null)
+            bypassFactory.setAppContextName(acn);
+    }
+
+    public static String getAppContextName()
+    {
+        return _acn;
+    }
+
+    /**
+     * Imposta il Post Load Config Handler. Se è stata configurata una
+     * bypass-list la configurazione del post load config handler viene
+     * propagata anche alla NameFilePDFactory utilizzata per realizzare il
+     * bypass.
+     * 
+     * @param plch
+     *            il post load config handler da configurare
+     */
+    public static void setPostLoadConfigHandler(PostLoadConfigHandler postLoadConfigHandler)
+    {
+
+        Category _log = Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG);
+
+        _log.debug("[HttpPDProxyLoader::setPostLoadConfigHandler] - Impostato PostLoadConfigHandler.");
+
+        plch = postLoadConfigHandler;
+        if (bypassFactory != null)
+            bypassFactory.setPostLoadConfigHandler(plch);
+    }
+
+    private static class ProxyCache
+    {
+
+        private Hashtable<Object, TProxy> proxies = new Hashtable<Object, TProxy>();
+
+        private synchronized void put(Object selector, Object value, Date plannedUpdateDateHint)
+        {
+            TProxy t = new TProxy((Proxy) (value), plannedUpdateDateHint);
+            proxies.put(selector, t);
+        }
+
+        private synchronized Object get(Selector selector,InputStream streamLocalPD)throws ConfigException
+        {
+            Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY_CACHE);
+            _log.debug("[HttpPDProxyLoader.ProxyCache::get] - PD [" + selector + "] ricerca in cache :");
+
+            TProxy tp = (proxies.get(selector.keyToString()));
+            if (tp != null)
+            {
+                if (_log.isDebugEnabled())
+                {
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] - PD [" + selector + "] trovata in cache:");
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] -- inserita il " + tp.getTheTime());
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] -- planned update: " + tp.getPlannedUpdHint());
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] -- time-to-live (in minuti): " + timeout);
+                }
+
+                Date d = tp.getTheTime();
+                Date now = new Date();
+
+                if (!expired(now, d, tp.getPlannedUpdHint(), _log))
+                {
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy [" + selector + "] restituito dalla cache");
+                    return tp.getProxy();
+                }
+                else
+                {
+                    //Vecchio comportamento
+                    /*
+                    this.proxies.remove(selector);
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy["+ selector + "] trovato in cache ma troppo vecchio = > rimozione");
+                    return null;
+                    */
+                    
+                    //Nuovo comportamento da requisito di Standard
+                    //Se la cache è scaduta, viene ripetuta la chiamata sul Registry.
+                    //Se il registry è OK, tale chiamata refresha la cache da sè
+                    //Se il registry è KO, viene restituito il Proxy scaduto - DAN
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy [" + selector + "] ****** cache scaduta. Rieffettuo la getRemotly ******");
+                    getRemotely(streamLocalPD,selector);
+                    _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy [" + selector + "] ****** GetRemotly rieseguita ****** ");
+                    return tp.getProxy();
+                }
+            }
+            else return null;
+        }
+
+        private boolean expired(Date timeNow, Date timePD, Date plannedUpdate, Category log)
+        {
+            boolean plannedUpdateCrossed = false;
+            boolean timeToLiveExpired = false;
+
+            timeToLiveExpired = (timeNow.getTime() - timePD.getTime()) > timeout * 60000;
+            if (plannedUpdate != null)
+                plannedUpdateCrossed = timeNow.getTime() >= plannedUpdate.getTime();
+            if (log.isDebugEnabled())
+            {
+                log.debug("[HttpPDProxyLoader.ProxyCache::expired] - plannedUpdateCrossed=" + plannedUpdateCrossed);
+                log.debug("[HttpPDProxyLoader.ProxyCache::expired] - timeToLiveExpired=" + timeToLiveExpired);
+            }
+            return plannedUpdateCrossed || timeToLiveExpired;
+        }
+
+        private synchronized void clear()
+        {
+            proxies.clear();
+        }
+    }
+
+    private static class TProxy
+    {
+        Proxy p;
+
+        Date theTime;
+
+        Date plannedUpdHint = null;
+
+        public TProxy(Proxy pr, Date plannedUpdHint)
+        {
+            this.p = pr;
+            theTime = new Date();
+            this.plannedUpdHint = plannedUpdHint;
+        }
+
+        public Date getTheTime()
+        {
+            return this.theTime;
+        }
+
+        public Proxy getProxy()
+        {
+            return this.p;
+        }
+
+        public Date getPlannedUpdHint()
+        {
+            return plannedUpdHint;
+        }
+
+        public void setPlannedUpdHint(Date plannedUpdHint)
+        {
+            this.plannedUpdHint = plannedUpdHint;
+        }
+
+    }
+
+    //DV: TODO: Esiste una inner class simile a questa nel Factory: andrebbe portata fuori e
+    //rifattorizzata!
+    private static class Selector
+    {
+
+        private String ambiente;
+        private String cliente;
+        private String istanza;
+        private String prodotto;
+        private String service;
+        private String servicever;
+        private String binding;
+        private String purpose;
+        private String staging;
+
+        private String codice_prodotto_fruitore;
+        private String versione_prodotto_fruitore;
+        private String codice_componente_fruitore;
+        private String codice_cliente_fruitore;
+        private String codice_prodotto_fruitore_as;
+        private String versione_prodotto_fruitore_as;
+        private String codice_componente_fruitore_as;
+        private String codice_cliente_fruitore_as;
+
+        private void makeSelector(String invocParamPath)
+        {
+
+            Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+            Properties propInvocation = new Properties();
+
+            try
+            {
+            	InputStream is = HttpPDProxyLoader.class.getResourceAsStream(invocParamPath);
+            	_log.debug("[HttpPDProxyLoader.Selector::makeSelector] InputStream is " + is);
+                propInvocation.load(is);
+                _log.debug("[HttpPDProxyLoader.Selector::makeSelector] Properties file loaded ");
+            }
+            catch (Exception e)
+            {
+                _log.error("[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite file di properties");
+                throw new IllegalArgumentException(
+                        "[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite file di properties");
+            }
+
+            fillSelector(propInvocation);
+
+        }
+
+        private void makeSelector2(Properties propInvocation)
+        {
+
+            Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+            if (propInvocation == null || propInvocation.isEmpty())
+            {
+                _log
+                        .error("[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite l'oggetto Properties passato");
+                throw new IllegalArgumentException(
+                        "[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite l'oggetto Properties passato");
+            }
+
+            fillSelector(propInvocation);
+
+        }
+
+        private void fillSelector(Properties propInvocation)
+        {
+
+            Category _log = Categories.getLogger(getAppContextName(), Categories.PD_PROXY);
+
+            // Selettore univoco servizio
+            String id_servizio_call = propInvocation.getProperty(ID_SERVIZIO_CALL);
+            if (id_servizio_call == null || id_servizio_call.length() == 0)
+            {
+                _log.error("[HttpPDProxyLoader.Selector::makeSelector] Identificatore servizio parametro obbligatorio non valorizzato");
+                throw new IllegalArgumentException("[HttpPDProxyLoader.Selector::makeSelector] Identificatore servizio parametro obbligatorio non valorizzato");
+            }
+
+            StringTokenizer strTokServizio = new StringTokenizer(id_servizio_call, "|");
+
+            int nTokens = strTokServizio.countTokens();
+            if (nTokens != 6)
+                throw new IllegalArgumentException("il selettore [" + id_servizio_call
+                        + "] non rispetta le specifiche: deve avere 6 parametri separati da '|', mentre ne ha " + nTokens + "");
+
+            prodotto = strTokServizio.nextToken();
+            cliente = strTokServizio.nextToken();
+            service = strTokServizio.nextToken();
+            servicever = strTokServizio.nextToken();
+            istanza = strTokServizio.nextToken();
+            binding = strTokServizio.nextToken();
+
+            ambiente = propInvocation.getProperty(AMBIENTE_CALL);
+            if (ambiente == null || ambiente.length() == 0)
+            {
+                _log.error("[HttpPDProxyLoader.Selector::makeSelector] Ambiente di chiamata parametro obbligatorio non valorizzato");
+                throw new IllegalArgumentException("[HttpPDProxyLoader.Selector::makeSelector] Ambiente di chiamata parametro obbligatorio non valorizzato");
+            }
+
+            purpose = propInvocation.getProperty(PURPOSE_CALL);
+            staging = propInvocation.getProperty(STAGING_CALL);
+
+            codice_prodotto_fruitore = propInvocation.getProperty(CODICE_PRODOTTO_FRUITORE_CALL, "");
+            versione_prodotto_fruitore = propInvocation.getProperty(VERSIONE_PRODOTTO_FRUITORE_CALL, "");
+            codice_componente_fruitore = propInvocation.getProperty(CODICE_COMPONENTE_FRUITORE_CALL, "");
+            codice_cliente_fruitore = propInvocation.getProperty(CODICE_CLIENTE_FRUITORE_CALL, "");
+            codice_prodotto_fruitore_as = propInvocation.getProperty(CODICE_PRODOTTO_FRUITORE_AS_CALL, "");
+            versione_prodotto_fruitore_as = propInvocation.getProperty(VERSIONE_PRODOTTO_FRUITORE_AS_CALL, "");
+            codice_componente_fruitore_as = propInvocation.getProperty(CODICE_COMPONENTE_FRUITORE_AS_CALL, "");
+            codice_cliente_fruitore_as = propInvocation.getProperty(CODICE_CLIENTE_FRUITORE_AS_CALL, "");
+
+            /**
+             * Verifiche formali 1) servicever nel formato x.y.z 2) purpose in
+             * {RUNTIME|MONITOR|DIAG} (se presente) 3) staging in {TRUE|FALSE}
+             * (se presente)
+             */
+
+            checkServicever(servicever, id_servizio_call);
+            //Vecchio controllo: Bacato: non accettava versioni tipo 1.10.0. Inoltre avrebbe fatto passare versioni tipo 1.e.3!
+            /*
+            if (servicever.length() != 5 || servicever.charAt(1) != '.' || servicever.charAt(3) != '.')
+                throw new IllegalArgumentException("Il selettore [" + id_servizio_call + "] contiene un campo versione (" + servicever
+                        + ")in formato non valido (deve essere x.y.z)");
+			 */
+            if (purpose != null && purpose.length() > 0)
+            {
+                if (!purpose.equals(RUNTIME_VAL) && !purpose.equals(MONITOR_VAL) && !purpose.equals(DIAG_VAL))
+                    throw new IllegalArgumentException("Il selettore [" + id_servizio_call + "] contiene un valore del campo 'purpose' (" + purpose
+                            + ") non valido (deve essere uno tra RUNTIME,MONITOR,DIAG)");
+            }
+            else
+            {
+                purpose = RUNTIME_VAL;
+            }
+
+            if (staging != null && staging.length() > 0)
+            {
+                if (!staging.equals(TRUE_VAL) && !staging.equals(FALSE_VAL))
+                    throw new IllegalArgumentException("Il selettore [" + id_servizio_call + "] contiene un valore del campo 'staging' (" + staging
+                            + ") non valido (deve essere uno tra TRUE,FALSE)");
+            }
+            else
+            {
+                staging = FALSE_VAL;
+            }
+
+        }
+
+        public String toString()
+        {
+            String s = "Selettore:{" + "ambiente=" + ambiente + ",cliente=" + cliente + ",istanza=" + istanza + ",prodotto=" + prodotto + ",service=" + service
+                    + ",servicever=" + servicever + ",binding=" + binding + ",purpose=" + purpose + ",staging=" + staging + ",codice_prodotto_fruitore="
+                    + codice_prodotto_fruitore + ",versione_prodotto_fruitore=" + versione_prodotto_fruitore + ",codice_componente_fruitore="
+                    + codice_componente_fruitore + ",codice_cliente_fruitore=" + codice_cliente_fruitore + ",codice_prodotto_fruitore_as="
+                    + codice_prodotto_fruitore_as + ",versione_prodotto_fruitore_as=" + versione_prodotto_fruitore_as + ",codice_componente_fruitore_as="
+                    + codice_componente_fruitore_as + ",codice_cliente_fruitore_as=" + codice_cliente_fruitore_as + "}";
+
+            return s;
+        }
+
+        //N.B. Tale controllo viene anche fatto successivamente qui:
+        //HttpProxyLoader.loadProxy
+        //HttpProxyLoader.getRemotely(InputStream streamLocalPD,Selector selector)
+        //it.csi.csi.util.xml.PDConfigReader.read(InputStream is, String versionFilter)
+        //it.csi.csi.util.xml.PDConfigReader.parseOperationMetaData(Element currOpNode, String versionFilter)
+        //it.csi.csi.util.xml.PDConfigReader.versionLEQ(String v1, String v2)
+        // Mantenuto per coerenza storica - DV
+        private void checkServicever(String servicever, String selettore)
+        {
+        	final String errorMessage = "Il selettore [" + selettore + "] contiene un campo versione (" + 
+    									servicever + ")in formato non valido. \n" +
+    									" Il formato deve essere x.y.z dove x, y, z sono numerici con un numero variabile di cifre";
+
+        	StringTokenizer st = new StringTokenizer(servicever,".");
+        	if (st.countTokens() == 3)
+        	{
+        		try
+        		{
+        			Integer.parseInt(st.nextToken());
+        			Integer.parseInt(st.nextToken());
+        			Integer.parseInt(st.nextToken());
+        		}
+        		catch(NumberFormatException ex)
+        		{
+                    throw new IllegalArgumentException(errorMessage);
+                }
+        	}
+        	else
+        	{
+        	    throw new IllegalArgumentException(errorMessage);
+        	}
+        }
+
+        
+        private String keyToString()
+        {
+            return ambiente + "|" + cliente + "|" + istanza + "|" + prodotto + "|" + service + "|" + servicever + "|" + binding + "|" + purpose + "|" + staging;
+        }
+
+    }
+
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+
+«REM»
+==========================================================================================================================
+HANDLER SINGOLA ORCHESTRAZIONE
+Genera gli handler specifici dell'orchestrazione modellata
+==========================================================================================================================
+«ENDREM»
+
+«REM»Crea gli handler relativi ad una singola orchestrazione«ENDREM»
+«DEFINE svcflowHandlerFiles(ServiceDef sd, SOABEModel model, String source) FOR Operation»
+	«LET findOrchestrationForOperation(sd, model) AS currentOrchModel»
+		«IF currentOrchModel!=null»
+			«EXPAND svcflowHandlers(sd, model, source) FOR currentOrchModel»
+		«ELSE»
+			«ERROR "Inconsistenza: impossibile trovare l'orchestrazione relativa al servizio "+sd.codServizio+", op: "+this.name»
+		«ENDIF»
+	«ENDLET»
+«ENDDEFINE»
+
+
+«REM»Crea gli handler dell'orchestrazione«ENDREM»
+«DEFINE svcflowHandlers(ServiceDef sd, SOABEModel model, String source) FOR Orchestration»
+	«EXPAND svcflowHandler(this, sd, model, source) FOREACH this.nodes.nodes»
+«ENDDEFINE»
+
+
+«REM»Nodo generico: gestisce con un errore i casi di nodi non ancora implementati«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR Node»
+	«ERROR "Tipo di nodo non gestito"»
+«ENDDEFINE»
+
+
+«REM»StartNode: nodo di inizio dell'orchestrazione«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StartNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassName()»{
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»StopNode: nodo finale dell'orchestrazione«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR StopNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+«IF source == "csi"-»import java.util.Iterator;«ENDIF»
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName()»{
+
+	/**
+	 * Determina la modalit&agrave; di popolamento delle mappe degli errori.
+	 * @param args mappa contenente la configurazione del workflow
+	 * @param excMap rimappa le eccezioni interne con quelle restituibili dal servizio orchestrato
+	 * @param excMapMsg rimappa i messaggi di errore
+	 * @throws Exception in caso di errore
+	 * @generated
+	 */
+	protected void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception {
+	«IF source == "csi"-»
+		«EXPAND fillErrorMapsCsi(orch, sd, model) FOR this-»
+	«ELSEIF source == "cxf"-»
+		«EXPAND fillErrorMapsCxf(orch, sd, model) FOR this-»
+	«ENDIF»
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+«REM»Fill errors map: CSI version«ENDREM»
+«DEFINE fillErrorMapsCsi(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+Iterator<String> key_it = args.keySet().iterator();
+while (key_it.hasNext()) {
+	String currK = (String) key_it.next();
+	if (currK.startsWith(EXC_MAP_FROM_PARAM_PREFIX)){
+		String currFrom = (String)args.get(currK);
+		String index = currK.substring(currK.lastIndexOf(".")+1);
+		String currTo = (String)args.get(EXC_MAP_TO_PARAM_PREFIX+index);
+		String currMsg = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+index);
+		try{
+			Class fromClass = Class.forName(currFrom);
+			Class toClass = Class.forName(currTo);
+			excMap.put(fromClass,toClass);
+			excMapMsg.put(fromClass,currMsg);
+		}
+		catch(Exception e){
+			«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
+			throw new WorkflowException("Errore nell'inizializzazione dell'handler:"+e);
+		}
+	}
+}
+«ENDDEFINE»
+
+«REM»Fill errors map: CXF version«ENDREM»
+«DEFINE fillErrorMapsCxf(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+«IF orch.exceptionMappings!=null»
+«FOREACH orch.exceptionMappings.mapping AS currExcMap-»
+Class from«orch.exceptionMappings.mapping.indexOf(currExcMap)» = «replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.from))».class;
+Class to«orch.exceptionMappings.mapping.indexOf(currExcMap)» = «replaceJavaTypeSpecialChars(map2JavaTypeSDRelative(currExcMap.to))».class;
+String msg«orch.exceptionMappings.mapping.indexOf(currExcMap)» = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+"«orch.exceptionMappings.mapping.indexOf(currExcMap)»");
+excMap.put(from«orch.exceptionMappings.mapping.indexOf(currExcMap)», to«orch.exceptionMappings.mapping.indexOf(currExcMap)»);
+excMapMsg.put(from«orch.exceptionMappings.mapping.indexOf(currExcMap)», msg«orch.exceptionMappings.mapping.indexOf(currExcMap)»);
+«ENDFOREACH-»
+«ELSE»
+// NO EXCEPTION MAPPING: NOTHING TO DO
+«ENDIF»
+«ENDDEFINE»
+
+
+«REM»PAPDCall node: esegue una chiamata PA/PD ad un servizio CSI«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR PAPDCall»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import it.csi.csi.wrapper.*;
+
+import «baseHandlersPkg(model)».*;
+«IF !this.serviceConnector.useRegistry-»
+import «getFullServiceLocatorPkg(model)».*;
+«ENDIF»
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	public static final Logger logger = Logger.getLogger(LOGGER_PREFIX);
+	
+	
+	
+	/**
+ 	 * @generated
+ 	 */
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		
+		logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-START ");
+		try {
+		
+			«IF !this.serviceConnector.useRegistry-»
+			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
+			   («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)ServiceLocator.getInstance().getPD(localPDRes);		 
+			«ELSE»
+			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
+				getPD();                                                                                   
+			«ENDIF»
+			
+			/// valore degli input slot
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-binding parametri ");
+		«FOREACH this.paramBindings AS currPB-»
+		«LET currPB.slot AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+			(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»",ps);
+			
+		«ENDLET-»
+		«ENDFOREACH-»
+			
+			// binding dei parametri e richiamo del servizio 
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
+			«IF this.operation.returnType!=null-»
+			«map2JavaTypeSDRelative(this.operation.returnType)» result = pd.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
+			
+			/// inserimento risultato nello slot apposito
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-inserimento del risultato nello slot   "+"«getDataSlotAttrName(this.outputSlot)»");
+			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
+			«ELSE-»
+			// binding dei parametri e richiamo del servizio 
+			
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
+			pd.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
+			«ENDIF-»
+			
+		} catch (Exception e) {
+			DataSlotHelper.setLastError(e, ps);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
+			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			
+			logger.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			
+		}
+	}
+	
+	«IF this.serviceConnector.useRegistry-»
+	
+	/**
+ 	 * @generated
+ 	 */
+	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
+		logger.debug("[«specificHandlerClassName()»::getPD]-START  ");
+			
+		logger.debug("[«specificHandlerClassName()»::getPD]-reperimento PD da registry  ");
+		
+		logger.debug("[«specificHandlerClassName()»::getPD]--selector:\"+selectorRes+\"");
+		
+		logger.debug("[«specificHandlerClassName()»::getPD]--localPD:\"+localPDRes+\"");
+		java.util.Properties selectorProps = new java.util.Properties();
+		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
+		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
+			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
+				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
+		
+		logger.debug("[«specificHandlerClassName()»::getPD]-END ");
+		return tempPd;
+	}
+	«ENDIF-»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»WSCall node: esegue una chiamata via Web Service ad un servizio - > TODO: DA IMPLEMENTARE«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR WSCall»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «wsCallBaseHandlerClassName()»{
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		try {
+			«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» port = getPort(ps);
+			
+			/// valore degli input slot
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","binding parametri")»
+		«FOREACH this.paramBindings AS currPB-»
+		«LET currPB.slot AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+			(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»",ps);
+			
+		«ENDLET-»
+		«ENDFOREACH-»
+			
+			// binding dei parametri e richiamo del servizio 
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			«IF this.operation.returnType!=null-»
+			«map2JavaTypeSDRelative(this.operation.returnType)» result = port.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			/// inserimento risultato nello slot apposito
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","inserimento del risultato nello slot "+getDataSlotAttrName(this.outputSlot))»
+			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
+			«ELSE-»
+			// binding dei parametri e richiamo del servizio 
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo del metodo "+operation.name)»
+			pd.«operation.name»(
+			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
+			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
+			«ENDFOREACH-»
+			);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ok")»
+			«ENDIF-»
+		} catch (Exception e) {
+			DataSlotHelper.setLastError(e, ps);
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
+			«errorLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot","e")»
+		}
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	protected «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» getPort(PropertySet ps) {
+		«debugLog(specificHandlerClassName(),"getPort","START")»
+	
+        «fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)» client = 
+        	(«fullQualifiedWebServiceInterfaceName(this.serviceConnector.serviceDef)») ps.getObject(WSCLIENT_PARAM + "." + wsClientName);
+	
+		return client;
+	}	
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»CustomTransformation node: esegue una trasformazione custom tra DataSlot«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CustomTransformation»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customImport")»
+/// inserire qui eventuali import aggiuntive.
+«ENDPROTECT»
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «customTransformBaseHandlerClassName()»{
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	public Object getTransformedObject(Map<String, Object> inputs){
+		«debugLog(specificHandlerClassName(),"getTransformedObject","START")»		
+		«map2JavaTypeSDRelative(output.type)» outVal = 
+		 («map2JavaTypeSDRelative(output.type)»)(inputs.get(_outputSlotName));
+		
+		/// valore degli input slot
+		«FOREACH input AS currIn-»
+		«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+			(«map2JavaTypeSDRelative(currIn.type)»)inputs.get("«getDataSlotAttrName(currIn)»");
+		«ENDFOREACH-»
+		
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customTXLogic")»
+		/// inserire qui la logica di trasformazione
+		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"getTransformedObject","END")»
+		return outVal;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»DeclarativeTransformation node: esegue una trasformazione«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR DeclarativeTransformation»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «declTransformBaseHandlerClassName()»{
+
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public «specificHandlerClassName()»(String inSlotNames[],
+			Class inSlotTypes[], String outSlotName, Class outSlotType,
+			boolean initOutSlot) {
+			super(inSlotNames, inSlotTypes, outSlotName, outSlotType, initOutSlot);
+	}
+
+	/**
+ 	 * @generated
+ 	 */
+	public Object getTransformedObject(Map<String, Object> inputs){
+		
+		///// TODO
+		return null;
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»ForEach node: esegue un ciclo«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR ForEach»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()»{
+	
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»EndLoop node: termina un ciclo iniziato con un ForEach node«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR EndLoop»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassName()»{
+	/**
+ 	 * @generated
+ 	 */
+	@Override
+	public void eseguiFunctionHandler(Map transientVars, Map args,
+			PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»CheckCondition node: verifica una data condizione«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR CheckCondition»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+
+import «baseHandlersPkg(model)».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"customImport")»
+/// inserire qui eventuali import aggiuntive.
+«ENDPROTECT»
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassName()»{
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	public boolean evalCondition(PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"evalCondition","START")»
+		try{
+			/// valore degli input slot
+		
+		
+		«FOREACH input AS currIn-»
+			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
+				(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»", ps);
+		«ENDFOREACH-»
+		
+		
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("CHKLogic"+orch.operation.name+name)»//
+			/// inserire qui la logica del check. 
+			/// verra' preservata per successive rigenerazioni
+			return true;		
+		«ENDPROTECT»
+		}
+		catch(Throwable e){
+			«errorLog(specificHandlerClassName(),"evalCondition","errore durante l'esecuzione del check", "e")»
+			throw new WorkflowException("Errore durante l'esecuzione del check:"+e);
+		}
+		finally{
+			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
+		}
+	}
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
+«REM»
+UserDefinedOpNode: nodo completamente custom, esegue qualunque operazione l'utente voglia
+NOTA: da usare solo in casi estremi e di REALE necessita'«ENDREM»
+«DEFINE svcflowHandler(Orchestration orch, ServiceDef sd, SOABEModel model, String source) FOR UserDefinedOpNode»
+«FILE this.fullSpecificHandlerFile(orch.operation,model)»package «specificHandlersPkg(orch.operation,model)»;
+
+import java.util.Map;
+import org.apache.log4j.Logger;
+
+import com.opensymphony.module.propertyset.PropertySet;
+import com.opensymphony.workflow.WorkflowException;
+import com.opensymphony.workflow.FunctionProvider;
+
+import «baseHandlersPkg(model)».*;
+
+«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"extraImport")»
+// inserire qui eventuali import aggiuntive
+«ENDPROTECT»
+
+/**
+ * @generated
+ */
+public class «specificHandlerClassName()» implements FunctionProvider{
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * @generated
+	 */
+	protected Logger getLogger(String subsystem){
+	  if (subsystem!=null)
+	  	return Logger.getLogger(LOGGER_PREFIX+"."+subsystem);
+	  else
+	    return Logger.getLogger(LOGGER_PREFIX);
+	}
+	
+	/**
+ 	 * @generated
+ 	 */
+	public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
+		
+		this.initFunctionHandler(transientVars,args,ps);
+		
+		this.eseguiFunctionHandler(transientVars,args,ps);
+		
+		this.releaseFunctionHandler(transientVars,args,ps);
+	}
+
+		
+	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+		«debugLog(specificHandlerClassName(),"initFunctionHandler","START")»
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"init")»
+		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+	
+    private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
+    	«debugLog(specificHandlerClassName(),"releaseFunctionHandler","START")»
+    	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"release")»
+		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"releaseFunctionHandler","END")»
+	}
+    
+    
+	public void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException{
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","START")»
+		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"exec")»
+		«ENDPROTECT»
+		«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","END")»
+	}
+	
+	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID(sd.codServizio+orch.operation.name+this.name+"extraMethods")»
+	////// inserire qui eventuali metodi di supporto
+	«ENDPROTECT»
+	
+	}
+«ENDFILE»
+«ENDDEFINE»

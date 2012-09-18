@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="servicedef"
+    nsURI="http://www.csi.it/mddtools/servicedef" nsPrefix="servicedef">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentRoot">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="service" upperBound="-1"
+        eType="#//ServiceDef" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceDef">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codServizio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Codice del servizio. pu&amp;ograve; assumere un valore alfanumerico ed &amp;egrave;&#xD;&#xA;ammesso il separatore &amp;quot;_&amp;quot;.  &#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
+        eType="#//ServiceBinding" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Elenco dei binding (canali) su cui &amp;egrave; esposto il servizio.&#xD;&#xA;A seconda delle cartucce di generazione saranno o meno disponibili solo alcune&#xD;&#xA;tipologie di binding. &#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="monitorable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per il monotoraggio.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per le funzioni di &#xD;&#xA;diagnostica.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operations" upperBound="-1"
+        eType="#//Operation" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>Elenco delle operazioni esposte dal servizio&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="versione" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>Versione dell'interfaccia di sevizio.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" eType="#//Types"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>Elenco dei tipi (&lt;b>Entity&lt;/b> ed &lt;b>Exception&lt;/b>) definiti per il servizio&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="traceEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Se valorizzato a &lt;i>true&lt;/i> il servizio &amp;egrave; predisposto per il tracing delle chiamate.&#xD;&#xA;La funzione pu&amp;ograve; non essere prevista per tutte le cartucce.&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceType" eType="#//SrvTypeEnum"
+        defaultValueLiteral="appl">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Tipologia di servizio.&#xD;&#xA;Un servizio pu&amp;ograve; essere:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>applicativo&lt;/li>&#xD;&#xA;&lt;li>di orchestrazione&lt;/li>&#xD;&#xA;&lt;li>(infrastrutturale)&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="authLevel" eType="#//AuthLevelEnum"
+        defaultValueLiteral="A0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Livello di autenticazione/autorizzazione richiesta dal servizio. &#xD;&#xA;Pu&amp;ograve; valere:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>A0: servizio pubblico anonimo&lt;/li>&#xD;&#xA;&lt;li>A1: il sistema fruitore del servizio si deve autenticare e vi&amp;egrave; una &#xD;&#xA;       autorizzazione Role-Based all'utilizzo dei singoli metodi&lt;/li>&#xD;&#xA;&lt;li>A2: come A1, ma con in aggiunta la possibilit&amp;agrave; di tracciare l'utente&#xD;&#xA;      fisico che sta utilizzando il sistema fruitore.&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roles" upperBound="-1"
+        eType="#//Role" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="I ruoli previsti per l'autorizzazione del servizio"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codProdotto" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codComponente" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+        eType="#//ServiceDefAnnotation" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChannelSecurityLevelEnum">
+    <eLiterals name="C0"/>
+    <eLiterals name="C1"/>
+    <eLiterals name="C2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceBinding" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="codBinding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="channelSecurityLevel" eType="#//ChannelSecurityLevelEnum"
+        defaultValueLiteral="A0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>&#xD;&#xA;Livello di securizzazione di canale per il binding.&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>C0: il canale &amp;egrave; in chiaro&lt;/li>&#xD;&#xA;&lt;li>C1: il canale &amp;egrave; cifrato, senza client authentication&lt;/li>&#xD;&#xA;&lt;li>C2: il canale &amp;egrave; cifrato, con client authentication&lt;/li>&#xD;&#xA;&lt;/ul>&#xD;&#xA;&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EJBPABinding" eSuperTypes="#//ServiceBinding">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SOAPPABRBinding" eSuperTypes="#//ServiceBinding">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WSFADBinding" eSuperTypes="#//ServiceBinding">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WSBinding" eSuperTypes="#//ServiceBinding">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="endpoints" upperBound="-1"
+        eType="#//WSEndpoint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Operation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="params" upperBound="-1"
+        eType="#//Param" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="opType" eType="#//OpTypeEnum"
+        defaultValueLiteral="synch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="ecore:EClass typedef_metamodel.ecore#//Type">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="throws" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Exception">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="txType" eType="#//TXTypeEnum"
+        defaultValueLiteral="noTX">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="since" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="authorizedRoles" upperBound="-1"
+        eType="#//Role">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" eType="#//InputValidator"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Param">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass typedef_metamodel.ecore#//Type">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validator" eType="#//ParamValidator"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OpTypeEnum">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="synch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="asynch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="notify">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Types">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="types" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseTypes">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="baseTypes" upperBound="-1"
+        eType="ecore:EClass typedef_metamodel.ecore#//Type" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TXTypeEnum">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="noTX">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="newLocalTX">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SrvTypeEnum">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="infr">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="appl">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="orch">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AuthLevelEnum">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eLiterals name="A0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="A1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="A2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="A3">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InputValidator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ParamConstraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParamValidator">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueRangeConstraint" abstract="true"
+      eSuperTypes="#//SimpleValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueValorizationConstraint" eSuperTypes="#//SimpleValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mustNotBeNull" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomConstraint" eSuperTypes="#//SimpleValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="checkMethodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelativeConstraint" eSuperTypes="#//SimpleValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueConstraint" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleParamCoinstraint" eSuperTypes="#//ParamConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="param" eType="#//Param">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeParamConstraint" abstract="true"
+      eSuperTypes="#//ParamConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+        eType="#//ParamConstraint" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDParamConstraint" eSuperTypes="#//CompositeParamConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ORParamConstraint" eSuperTypes="#//CompositeParamConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParamConstraint" abstract="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTParamConstraint" eSuperTypes="#//CompositeParamConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeValueConstraint" abstract="true"
+      eSuperTypes="#//ValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" upperBound="-1"
+        eType="#//ValueConstraint" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDValueConstraint" eSuperTypes="#//CompositeValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ORValueConstraint" eSuperTypes="#//CompositeValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTValueConstraint" eSuperTypes="#//CompositeValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleValueConstraint" abstract="true"
+      eSuperTypes="#//ValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ContinuousRangeConstraint" eSuperTypes="#//ValueRangeConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperbound" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DiscreteRangeConstraint" eSuperTypes="#//ValueRangeConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="literals" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureConstraint" abstract="true" eSuperTypes="#//ValueConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeFeatureConstraint" abstract="true"
+      eSuperTypes="#//FeatureConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SimpleFeatureConstraint" eSuperTypes="#//FeatureConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" eType="#//ValueConstraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="ecore:EClass typedef_metamodel.ecore#//Entity">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass typedef_metamodel.ecore#//Feature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ANDFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ORFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NOTFeatureConstraint" eSuperTypes="#//CompositeFeatureConstraint">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="[[ TODO - add documentation here ]]"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceDefAnnotation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="source" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="details" upperBound="-1"
+        eType="#//SDAnnotationDetail" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SDAnnotationDetail">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Dettaglio dell'annotazione.&#xD;&#xA;Al momento le annotazioni previste sono:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>source=servicedef&#xD;&#xA;&#x9;&lt;ul>&#xD;&#xA;&#x9;&lt;li>key=java-fqn: value=full qualified name della classe java corrispondente all'interfaccia CSI del servizio.&#xD;&#xA;&#x9;&#x9;Necessaria per gestire situazioni legacy o che non rispettano lo standard di naming&lt;/li>&#xD;&#xA;&#x9;&lt;/ul>&#xD;&#xA;&lt;/li>&#xD;&#xA;&lt;/ul>"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WSEndpoint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="code" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inChannel" eType="#//WSEndpointChannel"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outChannel" eType="#//WSEndpointChannel"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="WSSecuritySpec" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSUsernameTokenAuth" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSSignature" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSTimestamp" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSEncrypt" eSuperTypes="#//WSSecuritySpec"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSEndpointChannel">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="wsSecurity" upperBound="-1"
+        eType="#//WSSecuritySpec" containment="true"/>
+  </eClassifiers>
+</ecore:EPackage>

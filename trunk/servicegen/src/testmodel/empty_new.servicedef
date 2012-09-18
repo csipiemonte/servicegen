@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ASCII"?>
+<servicedef:ServiceDef xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:servicedef="http://www.csi.it/mddtools/servicedef" xmlns:typedef="http://www.csi.it/mddtools/typedef" xsi:schemaLocation="http://www.csi.it/mddtools/servicedef java://it.csi.mddtools.servicedef.ServicedefPackage http://www.csi.it/mddtools/typedef java://it.csi.mddtools.typedef.TypedefPackage" codServizio="iride_pep" versione="1.0" codProdotto="iridev2" codComponente="iridepep">
+  <operations name="identificaUserPassword" returnType="//@types/@types.2" throws="//@types/@types.9 //@types/@types.8 //@types/@types.11 //@types/@types.17">
+    <params name="p0" type="//@types/@types.36"/>
+    <params name="p1" type="//@types/@types.36"/>
+  </operations>
+  <operations name="identificaUserPasswordPIN" returnType="//@types/@types.2" throws="//@types/@types.9 //@types/@types.8 //@types/@types.11 //@types/@types.17">
+    <params name="p0" type="//@types/@types.36"/>
+    <params name="p1" type="//@types/@types.36"/>
+    <params name="p2" type="//@types/@types.36"/>
+  </operations>
+  <operations name="identificaCertificato" returnType="//@types/@types.2" throws="//@types/@types.9 //@types/@types.13 //@types/@types.14 //@types/@types.11">
+    <params name="p0" type="//@types/@types.38"/>
+  </operations>
+  <operations name="isPersonaAutorizzataInUseCase" returnType="//@types/@types.35" throws="//@types/@types.9 //@types/@types.16 //@types/@types.12 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.0"/>
+  </operations>
+  <operations name="isPersonaInRuolo" returnType="//@types/@types.35" throws="//@types/@types.9 //@types/@types.15 //@types/@types.16">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.3"/>
+  </operations>
+  <operations name="getInfoPersonaInUseCase" returnType="//@types/@types.36" throws="//@types/@types.9 //@types/@types.16 //@types/@types.12 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.0"/>
+  </operations>
+  <operations name="findRuoliForPersonaInUseCase" returnType="//@types/@types.6" throws="//@types/@types.9 //@types/@types.16 //@types/@types.12 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.0"/>
+  </operations>
+  <operations name="findRuoliForPersonaInApplication" returnType="//@types/@types.6" throws="//@types/@types.9 //@types/@types.16 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findUseCasesForPersonaInApplication" returnType="//@types/@types.5" throws="//@types/@types.9 //@types/@types.16 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findActorsForPersonaInApplication" returnType="//@types/@types.7" throws="//@types/@types.9 //@types/@types.16 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.4"/>
+  </operations>
+  <operations name="findActorsForPersonaInUseCase" returnType="//@types/@types.7" throws="//@types/@types.9 //@types/@types.16 //@types/@types.12 //@types/@types.10">
+    <params name="p0" type="//@types/@types.2"/>
+    <params name="p1" type="//@types/@types.0"/>
+  </operations>
+  <operations name="isIdentitaAutentica" returnType="//@types/@types.35" throws="//@types/@types.9">
+    <params name="p0" type="//@types/@types.2"/>
+  </operations>
+  <operations name="getInfoPersonaSchema" returnType="//@types/@types.36" throws="//@types/@types.9 //@types/@types.15">
+    <params name="p0" type="//@types/@types.3"/>
+  </operations>
+  <types>
+    <types xsi:type="typedef:Entity" name="UseCase">
+      <features name="appId" type="//@types/@types.4"/>
+      <features name="id" type="//@types/@types.36"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Actor">
+      <features name="appId" type="//@types/@types.4"/>
+      <features name="id" type="//@types/@types.36"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Identita">
+      <features name="codFiscale" type="//@types/@types.36"/>
+      <features name="cognome" type="//@types/@types.36"/>
+      <features name="idProvider" type="//@types/@types.36"/>
+      <features name="livelloAutenticazione" type="//@types/@types.41"/>
+      <features name="mac" type="//@types/@types.36"/>
+      <features name="nome" type="//@types/@types.36"/>
+      <features name="rappresentazioneInterna" type="//@types/@types.36"/>
+      <features name="timestamp" type="//@types/@types.36"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Ruolo">
+      <features name="codiceDominio" type="//@types/@types.36"/>
+      <features name="codiceRuolo" type="//@types/@types.36"/>
+      <features name="mnemonico" type="//@types/@types.36"/>
+    </types>
+    <types xsi:type="typedef:Entity" name="Application">
+      <features name="id" type="//@types/@types.36"/>
+    </types>
+    <types xsi:type="typedef:TypedArray" name="Array of UseCase" componentType="//@types/@types.0"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Ruolo" componentType="//@types/@types.3"/>
+    <types xsi:type="typedef:TypedArray" name="Array of Actor" componentType="//@types/@types.1"/>
+    <types xsi:type="typedef:Exception" name="AuthException"/>
+    <types xsi:type="typedef:Exception" name="InternalException"/>
+    <types xsi:type="typedef:Exception" name="NoSuchApplicationException"/>
+    <types xsi:type="typedef:Exception" name="IdProviderNotFoundException"/>
+    <types xsi:type="typedef:Exception" name="NoSuchUseCaseException"/>
+    <types xsi:type="typedef:Exception" name="CertOutsideValidityException"/>
+    <types xsi:type="typedef:Exception" name="CertRevokedException"/>
+    <types xsi:type="typedef:Exception" name="BadRuoloException"/>
+    <types xsi:type="typedef:Exception" name="IdentitaNonAutenticaException"/>
+    <types xsi:type="typedef:Exception" name="MalformedUsernameException"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIWrappedBoolean" code="CSIBoolean" nillable="true"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIBoolean" componentType="//@types/@types.35"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIDouble" componentType="//@types/@types.42"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIFloat" componentType="//@types/@types.37"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIDate" code="CSIDate"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIInteger" componentType="//@types/@types.41"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIWrappedDouble" componentType="//@types/@types.28"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIWrappedFloat" code="CSIFloat" nillable="true"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIWrappedLong" code="CSILong" nillable="true"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIString" componentType="//@types/@types.36"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIWrappedDouble" code="CSIDouble" nillable="true"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIDate" componentType="//@types/@types.22"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIWrappedInteger" componentType="//@types/@types.43"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIWrappedLong" componentType="//@types/@types.26"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSILong" code="CSILong"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSILong" componentType="//@types/@types.32"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIWrappedBoolean" componentType="//@types/@types.18"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIBoolean" code="CSIBoolean"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIString" code="CSIString"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIFloat" code="CSIFloat"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIByte" componentType="//@types/@types.39"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIByte" code="CSIByte"/>
+    <types xsi:type="typedef:TypedArray" name="Array of CSIWrappedFloat" componentType="//@types/@types.25"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIInteger"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIDouble" code="CSIDouble"/>
+    <types xsi:type="typedef:CSIDatatype" name="CSIWrappedInteger" nillable="true"/>
+  </types>
+</servicedef:ServiceDef>
