@@ -764,6 +764,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		initEEnum(targetPlatformCodesEEnum, TargetPlatformCodes.class, "TargetPlatformCodes");
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS43);
+		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS_EAP6);
 
 		// Create resource
 		createResource(eNS_URI);

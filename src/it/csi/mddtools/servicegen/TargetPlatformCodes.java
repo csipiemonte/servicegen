@@ -57,7 +57,15 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JBOSS43(0, "JBoss43", "JBoss43");
+	JBOSS43(0, "JBoss43", "JBoss43"), /**
+	 * The '<em><b>JBoss EAP6</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JBOSS_EAP6_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	JBOSS_EAP6(0, "JBossEAP6", "JBossEAP6");
 
 	/**
 	 * The '<em><b>WLS92</b></em>' literal value.
@@ -96,6 +104,21 @@ public enum TargetPlatformCodes implements Enumerator {
 	public static final int JBOSS43_VALUE = 0;
 
 	/**
+	 * The '<em><b>JBoss EAP6</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>JBoss EAP6</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #JBOSS_EAP6
+	 * @model name="JBossEAP6"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int JBOSS_EAP6_VALUE = 0;
+
+	/**
 	 * An array of all the '<em><b>Target Platform Codes</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -105,6 +128,7 @@ public enum TargetPlatformCodes implements Enumerator {
 		new TargetPlatformCodes[] {
 			WLS92,
 			JBOSS43,
+			JBOSS_EAP6,
 		};
 
 	/**

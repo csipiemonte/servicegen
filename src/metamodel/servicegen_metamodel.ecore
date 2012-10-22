@@ -117,6 +117,7 @@
         <details key="documentation" value="[[ TODO - add documentation here ]]"/>
       </eAnnotations>
     </eLiterals>
+    <eLiterals name="JBossEAP6"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceComponent" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
