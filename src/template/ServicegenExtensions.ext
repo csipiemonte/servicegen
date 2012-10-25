@@ -765,3 +765,24 @@ String getCodeEndpoint(WSEndpoint endpoint) :
 
 String wsCallClientName(ServiceDef sd, WSEndpoint endpoint) :
 	toCamel(sd.codServizio).toFirstLower()+getCodeEndpoint(endpoint).toFirstUpper()+"Client";
+	
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+boolean isJbossPlatform(TargetPlatform targetPlatform):
+if (targetPlatform.code==TargetPlatformCodes::JBoss43|| targetPlatform.code==TargetPlatformCodes::JBossEAP6) then
+	true
+else 
+	false;
+	
+boolean isWebLogicPlatform(TargetPlatform targetPlatform):
+if (targetPlatform.code==TargetPlatformCodes::WLS92) then
+	true
+else 
+	false;			
+	
+boolean isJboss6eap(TargetPlatform targetPlatform):
+if (targetPlatform.code==TargetPlatformCodes::JBossEAP6) then
+	true
+else 
+	false;	
+	
