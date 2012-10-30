@@ -386,7 +386,7 @@ del servizio "«codServizio»".
 <isd:service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:«removeSeparator(serviceDef.codServizio)»">
   <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
                 scope="Application" methods="invokeSynch invokeAsynch">
-    <isd:option key="JNDIName" value="«fullPAJndiName(serviceDef, model)»"/>
+    <isd:option key="JNDIName" value="«jndName4PabrLink(serviceDef, model)»"/>
     <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
   </isd:provider>
   <isd:faultListener>org.apache.soap.server.ExceptionFaultListener</isd:faultListener>

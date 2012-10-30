@@ -746,7 +746,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 
 «REM»classi di startup per SPRING«ENDREM»
 «DEFINE springStartupFiles (SOABEModel model) FOR ManualImplCartridge»
-	«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43»
+	«IF isJbossPlatform(model.targetPlatform)»
 		«EXPAND loadStartupServiceMBeanFiles(model) FOR this»
 	«ELSE»
 		«EXPAND springStartupListener(model) FOR this»
@@ -769,7 +769,7 @@ public class SpringBeanLocator {
 	 * @generated
 	 */
 	public static Object getBean(String beanName) {
-«IF model.targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«IF isJbossPlatform(model.targetPlatform)-»
 		return «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup.LoadStartupService.getBean(beanName);
 «ELSE-»
 		return «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup.SpringStartupListener.getBean(beanName);

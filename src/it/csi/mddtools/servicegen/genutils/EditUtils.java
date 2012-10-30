@@ -26,7 +26,7 @@ import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedArray;
 
-// classi di utilità utilizzate nell'editor custom
+// classi di utilitï¿½ utilizzate nell'editor custom
 public class EditUtils {
 	
 	public static String formatConstraint(ValueConstraint iv){
@@ -154,6 +154,8 @@ public class EditUtils {
 	}
 	
 	public static String formatTypeLabel(it.csi.mddtools.typedef.Exception t){
+		if (t==null)
+			return "";
 		ServiceDef owner = getOwnerSD(t);
 		return (owner!=null? owner.getCodServizio()+"::"+t.getName() : "??::"+t.getName());
 	}

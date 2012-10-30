@@ -24,12 +24,12 @@ public class GenUtils {
 	public final static String ANNOTATION_KEY_PDPLUGIN = "csi-pd-plugin";
 	
 	/**
-	 * plugin pd ejb modalità vecchia (package ejb)
+	 * plugin pd ejb modalitï¿½ vecchia (package ejb)
 	 */
 	public final static String ANNOTATION_VALUE_PDPLUGIN_EJB1 = "ejbpa-1";
 	
 	/**
-	 * plugin pd ejb modalità nuova (package ejb20)
+	 * plugin pd ejb modalitï¿½ nuova (package ejb20)
 	 */
 	public final static String ANNOTATION_VALUE_PDPLUGIN_EJB2 = "ejbpa-2";
 	
@@ -56,6 +56,10 @@ public class GenUtils {
 	 */
 	public final static String ANNOTATION_VALUE_PA_PLATFORM_JBoss43 = "JBoss43";
 	
+	/**
+	 * pa su piattaforma JBoss6EAP
+	 */
+	public final static String ANNOTATION_VALUE_PA_PLATFORM_JBossEAP6 = "JBossEAP6";
 	
 	/**
 	 * Annotazione per PAPDServiceConnector per specificare la location 
@@ -67,7 +71,7 @@ public class GenUtils {
 	/**
 	 * Annotazione per PAPDServiceConnector per specificare gli artifact da scaricare 
 	 * a partire dalla posizione deducibile dal vlaore di "ANNOTATION_KEY_REPARTPOSITION".
-	 * es: iridev2-pep-intf-2.0.0 (non si deve aggiungere l'estensione che è automaticamente .jar)
+	 * es: iridev2-pep-intf-2.0.0 (non si deve aggiungere l'estensione che ï¿½ automaticamente .jar)
 	 */
 	public final static String ANNOTATION_KEY_REPARTARTIFACT = "repart-artifact";
 	
@@ -90,7 +94,7 @@ public class GenUtils {
 			ServiceImpl serviceImpl = (ServiceImpl) it_si.next();
 			if (!visited_si.contains(serviceImpl)){
 				if (serviceImpl.getServiceComponent()!= null && serviceImpl.getServiceComponent() instanceof ResourceBasedSC){
-					// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non è 
+					// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non ï¿½ 
 					// definita a livello di ResourceBasedSC ma delle sottoclassi
 					if (serviceImpl.getServiceComponent() instanceof ResourceBasedSimpleSC){
 						ResourceSet rs = ((ResourceBasedSimpleSC)serviceImpl.getServiceComponent()).getResourceSet();
@@ -114,7 +118,7 @@ public class GenUtils {
 	public static ArrayList<ResourceConnector> getAllResourceConnectors(ServiceImpl serviceImpl){
 		ArrayList<ResourceConnector> ris = new ArrayList<ResourceConnector>();
 		if (serviceImpl.getServiceComponent()!= null && serviceImpl.getServiceComponent() instanceof ResourceBasedSC){
-			// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non è 
+			// TODO pezza tmeporanea per risolvere il fatto che la reference "resourceSet" non ï¿½ 
 			// definita a livello di ResourceBasedSC ma delle sottoclassi
 			if (serviceImpl.getServiceComponent() instanceof ResourceBasedSimpleSC){
 				ris.addAll(((ResourceBasedSimpleSC)serviceImpl.getServiceComponent()).getResourceSet().getResources());

@@ -44,7 +44,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
   	«FOREACH service.bindings.typeSelect(servicedef::EJBPABinding) AS ejbpa»
   	<!-- ejb module relativo alla PA del servizio con codice binding=«ejbpa.codBinding». -->
 	<module>
-		<ejb>«getEJBPAJarName(service.codServizio,ejbpa.codBinding,service.serviceType.toString(), this)»</ejb>
+		<ejb>«getEJBPAJarName(service.codServizio,ejbpa.codBinding,service.serviceType.toString(), this)».jar</ejb>
   	</module>
   	«ENDFOREACH»
   	«FOREACH service.bindings.typeSelect(servicedef::SOAPPABRBinding) AS soapbr»
@@ -66,14 +66,14 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
   	</module>
   «ENDFOREACH»	
   «ENDLET»
-  «IF targetPlatform.code==TargetPlatformCodes::JBoss43 && serviceimpl.implCartridge != null && serviceimpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(serviceimpl.implCartridge)).useInjectedPojo-»
+  «IF isJbossPlatform(targetPlatform) && serviceimpl.implCartridge != null && serviceimpl.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(serviceimpl.implCartridge)).useInjectedPojo-»
   «EXPAND springStartupJbossModule(this) FOR serviceimpl-»
   «ENDIF-»
   «ENDFOREACH»
 </application>
 «ENDFILE»
 
-«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«IF isJbossPlatform(targetPlatform)-»
 «FILE "conf/ear/jboss-app.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <jboss-app>
   <!-- forza l'ordine di startup dei moduli in modo che il sar 

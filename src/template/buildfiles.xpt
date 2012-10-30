@@ -113,7 +113,7 @@ creazione del build.xml per ANT
 		</condition>
 		<mkdir dir="${build}/classes" />
 		«LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${build}/temp/${target}/APP-INF/lib" :
-     (this.targetPlatform.code==TargetPlatformCodes::JBoss43 ? "${build}/temp/${target}/lib" : "${build}/temp/${target}/lib"))
+     (isJbossPlatform(this.targetPlatform) ? "${build}/temp/${target}/lib" : "${build}/temp/${target}/lib"))
 		AS sharedLibsPath»
 		<mkdir dir="«sharedLibsPath»" />
 		<mkdir dir="${build}/archives/${target}" />
@@ -239,7 +239,7 @@ creazione del build.xml per ANT
 		
 		«EXPAND varSubstForRC FOREACH getAllResourceConnectors()»
 		
-		«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+		«IF isJbossPlatform(this.targetPlatform)»
 			«EXPAND varSubstForJBossClustering FOR this»
 		«ENDIF»
 		
@@ -437,7 +437,7 @@ creazione del build.xml per ANT
 		</jar>
 	</target>
 
-	«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+	«IF isJbossPlatform(targetPlatform)-»
     «FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
     <!-- generazione del pacchetto sar per lo startuplistener di jboss-->
 	<target name="_package-«impl.provides.codServizio.toLowerCase()»-sar" description="genera il pacchetto sar">
@@ -455,8 +455,8 @@ creazione del build.xml per ANT
 	
 	<target name="package-ear"  description="costruisce l&apos;ear"  
 		depends="compile-all, environment-config, _package-common-classes, _package-csiclientlibs-jar, _ejbpa-ejb-jars, _package-all-soappabr-wars, _package-all-wsfad-wars">
-«LET ((this.targetPlatform.code==TargetPlatformCodes::WLS92) ? "${temp}/${target}/APP-INF/lib" :
-     (this.targetPlatform.code==TargetPlatformCodes::JBoss43 ? "${temp}/${target}/lib" : "${temp}/${target}/APP-INF/lib"))
+«LET ((isWebLogicPlatform(this.targetPlatform)) ? "${temp}/${target}/APP-INF/lib" :
+     (isJbossPlatform(this.targetPlatform) ? "${temp}/${target}/lib" : "${temp}/${target}/APP-INF/lib"))
 AS sharedLibsPath»
 		<copy todir="«sharedLibsPath»">
 		    <!-- librerie infrastrutturali o client di servizi fruiti -->
@@ -466,7 +466,7 @@ AS sharedLibsPath»
 			<fileset dir="${build}/archives/${target}" includes="*client*.jar *common.jar" />
 		</copy>
 «ENDLET»
-«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«IF isJbossPlatform(targetPlatform)-»
 «FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
 		<antcall target="_package-«impl.provides.codServizio.toLowerCase()»-sar"/>
 «ENDFOREACH-»
@@ -986,7 +986,7 @@ spring-web-2.0.7.jar \
 spring-dao-2.0.7.jar \
 spring-jdbc-2.0.7.jar \
 «ENDIF-»
-«IF targetPlatform.code==TargetPlatformCodes::JBoss43-»
+«IF isJbossPlatform(targetPlatform)-»
 weblogic-client-3.0.0.jar \
 «ENDIF-»
 coop-trace-1.2.0.jar 
@@ -1034,7 +1034,7 @@ web.enabled = true
 «EXPAND envVarDefs FOREACH allRC-»
 «ENDLET-»
 
-«IF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+«IF isJbossPlatform(this.targetPlatform)»
 #Per i targets che prevedono un'architettura a cluster su application server JBoss scommentare la seguente riga e commentare la successiva
 #enableClustering = true
 enableClustering=false
@@ -1189,7 +1189,7 @@ creazione del file di configurazione IVY
 		<dependency org="bea" name="weblogic" rev="9.2.2.0">
 			<artifact name="weblogic-9.2.2.0" type="jar" />
 		</dependency>
-		«ELSEIF this.targetPlatform.code==TargetPlatformCodes::JBoss43»
+		«ELSEIF isJbossPlatform(this.targetPlatform)»
         <!-- librerie specifiche della target platform JBoss43 -->
 		<dependency org="others" name="jboss" rev="4.3.0">
 			<artifact name="jboss-j2ee-4.3.0" type="jar" />

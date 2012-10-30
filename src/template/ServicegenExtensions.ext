@@ -380,6 +380,15 @@ String fullPAJndiName(ServiceDef sd, SOABEModel model) :
 String fullPAJndiName(ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
 
+// jndi name con cui il PABR referenzia la PA
+String jndName4PabrLink(ServiceDef sd, SOABEModel model) :
+if (isJboss6eap(model.targetPlatform)) then
+	"java:app/"+ getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+
+	"/"+getPABeanName((EJBPABinding)(sd.bindings.selectFirst(b|true)), sd)+"!it.csi.csi.porte.ejb20.PortaApplicativaHome"
+else
+	fullPAJndiName(sd, model) 
+;
+
 String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
     
@@ -437,8 +446,9 @@ String asynchCounterTableName(ServiceDef sd) :
 	removeSeparator(sd.codServizio).toUpperCase()+"_COUNTER";    
 
 /// NAMING PACCHETTI
+/// N.B: getEJBPAJarName: rimossa estensione per poter sfruttare il metodo in altri punti
 String getEJBPAJarName(String codServ, String codBinding, String srvType, SOABEModel model) :
-	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".jar";
+	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase();
 
 String getPABRWarName(String codServ, String codBinding, String srvType, SOABEModel model) :
 	srvType+"-"+removeSeparator(codServ)+"-"+codBinding.toLowerCase()+".war";
@@ -785,4 +795,9 @@ if (targetPlatform.code==TargetPlatformCodes::JBossEAP6) then
 	true
 else 
 	false;	
-	
+
+boolean isJboss43(TargetPlatform targetPlatform):
+if (targetPlatform.code==TargetPlatformCodes::JBoss43) then
+	true
+else 
+	false;		
