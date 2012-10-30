@@ -381,7 +381,7 @@ String fullPAJndiName(ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"PA";
 
 // jndi name con cui il PABR referenzia la PA
-String jndName4PabrLink(ServiceDef sd, SOABEModel model) :
+String paHomeJNDIName4InternalLink(ServiceDef sd, SOABEModel model) :
 if (isJboss6eap(model.targetPlatform)) then
 	"java:app/"+ getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+
 	"/"+getPABeanName((EJBPABinding)(sd.bindings.selectFirst(b|true)), sd)+"!it.csi.csi.porte.ejb20.PortaApplicativaHome"
