@@ -434,13 +434,14 @@ String counterDSJndiName(ServiceDef sd, SOABEModel model) :
 	 	
 // tolto dal context l'ulteriore suffisso pabrsoap perch� appesantiva il context
 // senza dare valore aggiunto (il cod binding dovrebbe gi� discriminare)
-String pabrWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
-	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+String pabrWebContext(String codComponente, String codServ, String codBinding, String serviceType) :
+	codComponente.toLowerCase()+toCamel(serviceType.toString())+
+	toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
 
 // tolto dal context l'ulteriore suffisso wsfad perch� appesantiva il context
 // senza dare valore aggiunto (il cod binding dovrebbe gi� discriminare)
-String wsfadWebContext(String codServ, String codBinding, String serviceType, SOABEModel model) :
-	model.codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
+String wsfadWebContext(String codComponente, String codServ, String codBinding, String serviceType) :
+	codComponente.toLowerCase()+toCamel(serviceType.toString())+toCamel(removeSeparator(codServ))+codBinding.toLowerCase().toFirstUpper();
     
 String asynchCounterTableName(ServiceDef sd) :
 	removeSeparator(sd.codServizio).toUpperCase()+"_COUNTER";    
@@ -647,7 +648,7 @@ String getWSFADServerPrefixPlaceHolder(ServiceDef sd) :
 	"@"+getWSFADServerPrefixVar(sd)+"@";
 
 String getWSFADUrl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
-	getWSFADServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString(), model)+"/services/"+model.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
+	getWSFADServerPrefixPlaceHolder(sd)+"/"+wsfadWebContext(sd.codComponente, removeSeparator(sd.codServizio), codBinding, sd.serviceType.toString())+"/services/"+sd.codComponente.toLowerCase()+toCamel(removeSeparator(sd.codServizio));
 
 String getWSFADWsdl(ServiceDef sd, String codBinding, String serviceType, SOABEModel model) :
 	getWSFADUrl(sd, codBinding, serviceType, model)+"?wsdl";

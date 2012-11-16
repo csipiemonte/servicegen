@@ -87,7 +87,7 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 				</csi-endpoint>
 			«ELSEIF currBind.metaType == SOAPPABRBinding-»
 				<csi-endpoint pd-file="«getRegistryPDFileName(currSD, currBind, tp, this)»">
-					<override-url>«getPABRServerPrefixPlaceHolder(currSD)»/«pabrWebContext(currSD.codServizio, currBind.codBinding, currSD.serviceType.toString(), this)»/servlet/rpcrouter</override-url>
+					<override-url>«getPABRServerPrefixPlaceHolder(currSD)»/«pabrWebContext(currSD.codComponente,currSD.codServizio, currBind.codBinding, currSD.serviceType.toString())»/servlet/rpcrouter</override-url>
 				</csi-endpoint>
 			«ELSEIF currBind.metaType == WSFADBinding-»
 				<ws-endpoint wsdl="«getWSFADWsdl(currSD, currBind.codBinding, currSD.serviceType.toString(), this)»">
@@ -164,7 +164,7 @@ artefatti per deploy in servizio di naming (1 per componente prodotto)
 		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
 			<pluggable-pd name="«removeSeparator(sd.codServizio)»"
 			              class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-			              url-pa="«getPABRServerPrefixPlaceHolder(sd)»/«pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(), model)»/servlet/rpcrouter"
+			              url-pa="«getPABRServerPrefixPlaceHolder(sd)»/«pabrWebContext(sd.codComponente,sd.codServizio, this.codBinding, sd.serviceType.toString())»/servlet/rpcrouter"
 			              url-qm="">
 				<properties>
 					<!-- dummy property (elemento obbligatorio) -->

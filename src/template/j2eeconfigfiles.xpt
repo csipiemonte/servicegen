@@ -52,7 +52,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
   	<module>
     	<web>
       		<web-uri>«getPABRWarName(service.codServizio,soapbr.codBinding,service.serviceType.toString(),this)»</web-uri>
-      		<context-root>«pabrWebContext(service.codServizio,soapbr.codBinding,service.serviceType.toString(), this)»</context-root>
+      		<context-root>«pabrWebContext(service.codComponente,service.codServizio,soapbr.codBinding,service.serviceType.toString())»</context-root>
     	</web>
   	</module>
   	«ENDFOREACH»
@@ -61,7 +61,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
   	<module>
     	<web> 
       		<web-uri>«getWSFADWarName(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</web-uri>
-     		<context-root>«wsfadWebContext(service.codServizio,wsfad.codBinding,service.serviceType.toString(), this)»</context-root>
+     		<context-root>«wsfadWebContext(service.codComponente,service.codServizio,wsfad.codBinding,service.serviceType.toString())»</context-root>
     	</web>
   	</module>
   «ENDFOREACH»	

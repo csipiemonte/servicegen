@@ -185,7 +185,7 @@ staging=FALSE
         name="«actualPAUri»"
         «ENDLET-»
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
-        «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codServizio, this.codBinding, sd.serviceType.toString(),model)+"/servlet/rpcrouter" AS actualPAEndpoint-»
+        «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codComponente,sd.codServizio, this.codBinding, sd.serviceType.toString())+"/servlet/rpcrouter" AS actualPAEndpoint-»
         url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"
         «ENDLET-»
         url-qm="">
