@@ -3148,6 +3148,7 @@ import it.csi.csi.wrapper.*;
 import «baseHandlersPkg(model)».*;
 «IF !this.serviceConnector.useRegistry-»
 import «getFullServiceLocatorPkg(model)».*;
+import «getFullServiceLocatorPkg(sd,model)».*;
 «ENDIF»
 
 /**

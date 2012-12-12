@@ -150,6 +150,9 @@ String getFullServiceEJBPkg(String codServ, SOABEModel model) :
 String getFullServiceLocatorPkg(SOABEModel model) :
 	getFullEJBStdPkg(model)+".integration";	
 
+String getFullServiceLocatorPkg(ServiceDef sd, SOABEModel model) :
+	getFullEJBStdPkg(model)+"."+sd.codServizio.removeSeparator();	
+
 String getFullServiceTestPkg(String codServ, SOABEModel model) :
 	"test"+"."+removeSeparator(codServ);
 	
@@ -245,6 +248,10 @@ String fullServiceEJBClassesDir(String codServ, SOABEModel model) :
     
 String fullServiceLocatorClassDir(SOABEModel model) :
     fullEjbStdClassesDir(model)+"/integration";
+
+String fullServiceLocatorClassDir(ServiceDef sd, SOABEModel model) :
+    fullEjbStdClassesDir(model)+"/"+removeSeparator(sd.codServizio);
+
 
 String fullServiceEJBClassesDir(String codServ, SOABEModel model, Boolean client) :
 	if(!client) then
