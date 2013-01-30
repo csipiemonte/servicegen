@@ -85,6 +85,7 @@ public class ParamItemProvider
 			addNamePropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addConstraintPropertyDescriptor(object);
+			addInHeaderPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -151,6 +152,28 @@ public class ParamItemProvider
 				 false,
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In Header feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInHeaderPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Param_inHeader_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Param_inHeader_feature", "_UI_Param_type"),
+				 ServicedefPackage.Literals.PARAM__IN_HEADER,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -227,6 +250,7 @@ public class ParamItemProvider
 		switch (notification.getFeatureID(Param.class)) {
 			case ServicedefPackage.PARAM__NAME:
 			case ServicedefPackage.PARAM__TYPE:
+			case ServicedefPackage.PARAM__IN_HEADER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ServicedefPackage.PARAM__VALIDATOR:

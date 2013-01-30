@@ -885,6 +885,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getParam_InHeader() {
+		return (EAttribute)paramEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypes() {
 		return typesEClass;
 	}
@@ -1568,6 +1577,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEReference(paramEClass, PARAM__TYPE);
 		createEReference(paramEClass, PARAM__VALIDATOR);
 		createEReference(paramEClass, PARAM__CONSTRAINT);
+		createEAttribute(paramEClass, PARAM__IN_HEADER);
 
 		typesEClass = createEClass(TYPES);
 		createEReference(typesEClass, TYPES__TYPES);
@@ -1789,6 +1799,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEReference(getParam_Type(), theTypedefPackage.getType(), null, "type", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getParam_Validator(), this.getParamValidator(), null, "validator", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getParam_Constraint(), this.getValueConstraint(), null, "constraint", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getParam_InHeader(), ecorePackage.getEBoolean(), "inHeader", "false", 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typesEClass, Types.class, "Types", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypes_Types(), theTypedefPackage.getType(), null, "types", null, 0, -1, Types.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.Param#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Param#getValidator <em>Validator</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Param#getConstraint <em>Constraint</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Param#isInHeader <em>In Header</em>}</li>
  * </ul>
  * </p>
  *
@@ -163,5 +164,32 @@ public interface Param extends EObject {
 	 * @generated
 	 */
 	void setConstraint(ValueConstraint value);
+
+	/**
+	 * Returns the value of the '<em><b>In Header</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>In Header</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In Header</em>' attribute.
+	 * @see #setInHeader(boolean)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getParam_InHeader()
+	 * @model default="false"
+	 * @generated
+	 */
+	boolean isInHeader();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Param#isInHeader <em>In Header</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In Header</em>' attribute.
+	 * @see #isInHeader()
+	 * @generated
+	 */
+	void setInHeader(boolean value);
 
 } // Param

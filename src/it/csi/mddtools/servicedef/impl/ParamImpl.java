@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getValidator <em>Validator</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#getConstraint <em>Constraint</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ParamImpl#isInHeader <em>In Header</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,26 @@ public class ParamImpl extends EObjectImpl implements Param {
 	 * @ordered
 	 */
 	protected ValueConstraint constraint;
+
+	/**
+	 * The default value of the '{@link #isInHeader() <em>In Header</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInHeader()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean IN_HEADER_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInHeader() <em>In Header</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInHeader()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean inHeader = IN_HEADER_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -267,6 +288,27 @@ public class ParamImpl extends EObjectImpl implements Param {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInHeader() {
+		return inHeader;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInHeader(boolean newInHeader) {
+		boolean oldInHeader = inHeader;
+		inHeader = newInHeader;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.PARAM__IN_HEADER, oldInHeader, inHeader));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -294,6 +336,8 @@ public class ParamImpl extends EObjectImpl implements Param {
 			case ServicedefPackage.PARAM__CONSTRAINT:
 				if (resolve) return getConstraint();
 				return basicGetConstraint();
+			case ServicedefPackage.PARAM__IN_HEADER:
+				return isInHeader();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -317,6 +361,9 @@ public class ParamImpl extends EObjectImpl implements Param {
 				return;
 			case ServicedefPackage.PARAM__CONSTRAINT:
 				setConstraint((ValueConstraint)newValue);
+				return;
+			case ServicedefPackage.PARAM__IN_HEADER:
+				setInHeader((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -342,6 +389,9 @@ public class ParamImpl extends EObjectImpl implements Param {
 			case ServicedefPackage.PARAM__CONSTRAINT:
 				setConstraint((ValueConstraint)null);
 				return;
+			case ServicedefPackage.PARAM__IN_HEADER:
+				setInHeader(IN_HEADER_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -362,6 +412,8 @@ public class ParamImpl extends EObjectImpl implements Param {
 				return validator != null;
 			case ServicedefPackage.PARAM__CONSTRAINT:
 				return constraint != null;
+			case ServicedefPackage.PARAM__IN_HEADER:
+				return inHeader != IN_HEADER_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -378,6 +430,8 @@ public class ParamImpl extends EObjectImpl implements Param {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
+		result.append(", inHeader: ");
+		result.append(inHeader);
 		result.append(')');
 		return result.toString();
 	}

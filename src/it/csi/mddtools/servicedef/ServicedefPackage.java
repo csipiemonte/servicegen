@@ -591,13 +591,22 @@ public interface ServicedefPackage extends EPackage {
 	int PARAM__CONSTRAINT = 3;
 
 	/**
+	 * The feature id for the '<em><b>In Header</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM__IN_HEADER = 4;
+
+	/**
 	 * The number of structural features of the '<em>Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAM_FEATURE_COUNT = 4;
+	int PARAM_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
@@ -2083,6 +2092,17 @@ public interface ServicedefPackage extends EPackage {
 	EReference getParam_Constraint();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.Param#isInHeader <em>In Header</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>In Header</em>'.
+	 * @see it.csi.mddtools.servicedef.Param#isInHeader()
+	 * @see #getParam()
+	 * @generated
+	 */
+	EAttribute getParam_InHeader();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Types <em>Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3146,6 +3166,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PARAM__CONSTRAINT = eINSTANCE.getParam_Constraint();
+
+		/**
+		 * The meta object literal for the '<em><b>In Header</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PARAM__IN_HEADER = eINSTANCE.getParam_InHeader();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
