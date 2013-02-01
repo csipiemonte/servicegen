@@ -130,6 +130,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="[[ TODO - add documentation here ]]"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useLiteral" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="namespace" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WSBinding" eSuperTypes="#//ServiceBinding">
     <eStructuralFeatures xsi:type="ecore:EReference" name="endpoints" upperBound="-1"

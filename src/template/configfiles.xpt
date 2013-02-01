@@ -985,7 +985,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <namespace>http://xml.apache.org/axis/wsdd/</namespace>
  </service>
 
- <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler">
+ <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler" «IF this.useLiteral»use="literal"«ENDIF» >
   <parameter name="wsdlPortType" value="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" />
   <parameter name="allowedMethods" value="*"/>
   <parameter name="defPDResource" value="/defpdelegata_embedded_«removeSeparator(serviceDef.codServizio).toLowerCase()».xml"/>
@@ -1004,6 +1004,9 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   «FOREACH serviceDef.types.types.typeSelect(Exception) AS exception»
   <beanMapping languageSpecificType="java:«map2javaType(exception,serviceDef.codServizio,model)»" qname="ns10:«exception.name»" xmlns:ns10="urn:«model.codComponente»«removeSeparator(serviceDef.codServizio).toFirstUpper()»"/>
   «ENDFOREACH»
+  «IF namespace != null && namespace.length>0-»
+  <namespace>«namespace»</namespace>
+  «ENDIF-»
  </service>
 
  <service name="Version" provider="java:RPC">

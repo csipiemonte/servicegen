@@ -390,13 +390,31 @@ public interface ServicedefPackage extends EPackage {
 	int WSFAD_BINDING__CHANNEL_SECURITY_LEVEL = SERVICE_BINDING__CHANNEL_SECURITY_LEVEL;
 
 	/**
+	 * The feature id for the '<em><b>Use Literal</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSFAD_BINDING__USE_LITERAL = SERVICE_BINDING_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSFAD_BINDING__NAMESPACE = SERVICE_BINDING_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>WSFAD Binding</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WSFAD_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 0;
+	int WSFAD_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSBindingImpl <em>WS Binding</em>}' class.
@@ -1908,6 +1926,28 @@ public interface ServicedefPackage extends EPackage {
 	EClass getWSFADBinding();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSFADBinding#isUseLiteral <em>Use Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Literal</em>'.
+	 * @see it.csi.mddtools.servicedef.WSFADBinding#isUseLiteral()
+	 * @see #getWSFADBinding()
+	 * @generated
+	 */
+	EAttribute getWSFADBinding_UseLiteral();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSFADBinding#getNamespace <em>Namespace</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Namespace</em>'.
+	 * @see it.csi.mddtools.servicedef.WSFADBinding#getNamespace()
+	 * @see #getWSFADBinding()
+	 * @generated
+	 */
+	EAttribute getWSFADBinding_Namespace();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.WSBinding <em>WS Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3024,6 +3064,22 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EClass WSFAD_BINDING = eINSTANCE.getWSFADBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Literal</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSFAD_BINDING__USE_LITERAL = eINSTANCE.getWSFADBinding_UseLiteral();
+
+		/**
+		 * The meta object literal for the '<em><b>Namespace</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSFAD_BINDING__NAMESPACE = eINSTANCE.getWSFADBinding_Namespace();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.WSBindingImpl <em>WS Binding</em>}' class.

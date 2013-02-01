@@ -732,6 +732,24 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getWSFADBinding_UseLiteral() {
+		return (EAttribute)wsfadBindingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWSFADBinding_Namespace() {
+		return (EAttribute)wsfadBindingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getWSBinding() {
 		return wsBindingEClass;
 	}
@@ -1557,6 +1575,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		soappabrBindingEClass = createEClass(SOAPPABR_BINDING);
 
 		wsfadBindingEClass = createEClass(WSFAD_BINDING);
+		createEAttribute(wsfadBindingEClass, WSFAD_BINDING__USE_LITERAL);
+		createEAttribute(wsfadBindingEClass, WSFAD_BINDING__NAMESPACE);
 
 		wsBindingEClass = createEClass(WS_BINDING);
 		createEReference(wsBindingEClass, WS_BINDING__ENDPOINTS);
@@ -1779,6 +1799,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEClass(soappabrBindingEClass, SOAPPABRBinding.class, "SOAPPABRBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(wsfadBindingEClass, WSFADBinding.class, "WSFADBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getWSFADBinding_UseLiteral(), ecorePackage.getEBoolean(), "useLiteral", "false", 0, 1, WSFADBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWSFADBinding_Namespace(), ecorePackage.getEString(), "namespace", null, 0, 1, WSFADBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wsBindingEClass, WSBinding.class, "WSBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWSBinding_Endpoints(), this.getWSEndpoint(), null, "endpoints", null, 0, -1, WSBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
