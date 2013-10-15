@@ -741,8 +741,17 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWSFADBinding_Namespace() {
+	public EAttribute getWSFADBinding_UseWrapped() {
 		return (EAttribute)wsfadBindingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWSFADBinding_Namespace() {
+		return (EAttribute)wsfadBindingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1576,6 +1585,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		wsfadBindingEClass = createEClass(WSFAD_BINDING);
 		createEAttribute(wsfadBindingEClass, WSFAD_BINDING__USE_LITERAL);
+		createEAttribute(wsfadBindingEClass, WSFAD_BINDING__USE_WRAPPED);
 		createEAttribute(wsfadBindingEClass, WSFAD_BINDING__NAMESPACE);
 
 		wsBindingEClass = createEClass(WS_BINDING);
@@ -1800,6 +1810,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		initEClass(wsfadBindingEClass, WSFADBinding.class, "WSFADBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWSFADBinding_UseLiteral(), ecorePackage.getEBoolean(), "useLiteral", "false", 0, 1, WSFADBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getWSFADBinding_UseWrapped(), ecorePackage.getEBoolean(), "useWrapped", "false", 0, 1, WSFADBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getWSFADBinding_Namespace(), ecorePackage.getEString(), "namespace", null, 0, 1, WSFADBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(wsBindingEClass, WSBinding.class, "WSBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

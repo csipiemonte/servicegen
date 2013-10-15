@@ -399,13 +399,22 @@ public interface ServicedefPackage extends EPackage {
 	int WSFAD_BINDING__USE_LITERAL = SERVICE_BINDING_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Use Wrapped</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WSFAD_BINDING__USE_WRAPPED = SERVICE_BINDING_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Namespace</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WSFAD_BINDING__NAMESPACE = SERVICE_BINDING_FEATURE_COUNT + 1;
+	int WSFAD_BINDING__NAMESPACE = SERVICE_BINDING_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>WSFAD Binding</em>' class.
@@ -414,7 +423,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WSFAD_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 2;
+	int WSFAD_BINDING_FEATURE_COUNT = SERVICE_BINDING_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.WSBindingImpl <em>WS Binding</em>}' class.
@@ -1937,6 +1946,17 @@ public interface ServicedefPackage extends EPackage {
 	EAttribute getWSFADBinding_UseLiteral();
 
 	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSFADBinding#isUseWrapped <em>Use Wrapped</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use Wrapped</em>'.
+	 * @see it.csi.mddtools.servicedef.WSFADBinding#isUseWrapped()
+	 * @see #getWSFADBinding()
+	 * @generated
+	 */
+	EAttribute getWSFADBinding_UseWrapped();
+
+	/**
 	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.WSFADBinding#getNamespace <em>Namespace</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3072,6 +3092,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute WSFAD_BINDING__USE_LITERAL = eINSTANCE.getWSFADBinding_UseLiteral();
+
+		/**
+		 * The meta object literal for the '<em><b>Use Wrapped</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WSFAD_BINDING__USE_WRAPPED = eINSTANCE.getWSFADBinding_UseWrapped();
 
 		/**
 		 * The meta object literal for the '<em><b>Namespace</b></em>' attribute feature.

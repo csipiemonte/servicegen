@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isUseLiteral <em>Use Literal</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isUseWrapped <em>Use Wrapped</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#getNamespace <em>Namespace</em>}</li>
  * </ul>
  * </p>
@@ -61,6 +62,24 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	 */
 	protected boolean useLiteral = USE_LITERAL_EDEFAULT;
 
+	/**
+	 * The default value of the '{@link #isUseWrapped() <em>Use Wrapped</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseWrapped()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean USE_WRAPPED_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isUseWrapped() <em>Use Wrapped</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isUseWrapped()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean useWrapped = USE_WRAPPED_EDEFAULT;
 	/**
 	 * The default value of the '{@link #getNamespace() <em>Namespace</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -126,6 +145,27 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isUseWrapped() {
+		return useWrapped;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setUseWrapped(boolean newUseWrapped) {
+		boolean oldUseWrapped = useWrapped;
+		useWrapped = newUseWrapped;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.WSFAD_BINDING__USE_WRAPPED, oldUseWrapped, useWrapped));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getNamespace() {
 		return namespace;
 	}
@@ -152,6 +192,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		switch (featureID) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				return isUseLiteral();
+			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
+				return isUseWrapped();
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				return getNamespace();
 		}
@@ -168,6 +210,9 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		switch (featureID) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				setUseLiteral((Boolean)newValue);
+				return;
+			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
+				setUseWrapped((Boolean)newValue);
 				return;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				setNamespace((String)newValue);
@@ -187,6 +232,9 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				setUseLiteral(USE_LITERAL_EDEFAULT);
 				return;
+			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
+				setUseWrapped(USE_WRAPPED_EDEFAULT);
+				return;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				setNamespace(NAMESPACE_EDEFAULT);
 				return;
@@ -204,6 +252,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		switch (featureID) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				return useLiteral != USE_LITERAL_EDEFAULT;
+			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
+				return useWrapped != USE_WRAPPED_EDEFAULT;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
 		}
@@ -222,6 +272,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (useLiteral: ");
 		result.append(useLiteral);
+		result.append(", useWrapped: ");
+		result.append(useWrapped);
 		result.append(", namespace: ");
 		result.append(namespace);
 		result.append(')');
