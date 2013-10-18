@@ -382,10 +382,10 @@ context Orchestration if principalNameSlot != null ERROR "Il principalNameSlot d
 
 // Servizi con WSFAD binding e incroci useWrapped e UseLiteral
 context WSFADBinding ERROR "Il parametro useWrapped=true deve essere usato con useLiteral=true nel caso di WSFADBinding: "+loc():
-	(this.useWrapped && this.useLiteral) || (!this.useWrapped && !this.useLiteral) || (!this.useWrapped && this.useLiteral);
+	(this.styleWrapped && this.useLiteral) || (!this.styleWrapped && !this.useLiteral) || (!this.styleWrapped && this.useLiteral);
 
 
 context WSFADBinding WARNING "La combinazione useWrapped=false e useLiteral=true risulta deprecata in favore della "+ 
 	"combinazione  useWrapped=true e useLiteral=true nel caso di WSFADBinding: "+loc():
-	!(!this.useWrapped && this.useLiteral);		
+	!(!this.styleWrapped && this.useLiteral);		
 

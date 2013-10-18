@@ -985,13 +985,13 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <namespace>http://xml.apache.org/axis/wsdd/</namespace>
  </service>
 
- <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler" «IF this.useLiteral»use="literal"«ENDIF» «IF this.useWrapped»style="wrapped"«ENDIF» >
+ <service name="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" provider="Handler" «IF this.useLiteral»use="literal"«ENDIF» «IF this.styleWrapped»style="wrapped"«ENDIF» >
   <parameter name="wsdlPortType" value="«model.codComponente+removeSeparator(serviceDef.codServizio).toFirstUpper()»" />
   <parameter name="allowedMethods" value="*"/>
   <parameter name="defPDResource" value="/defpdelegata_embedded_«removeSeparator(serviceDef.codServizio).toLowerCase()».xml"/>
   <parameter name="className" value="«fullQualifiedServiceInterfaceName(serviceDef, model)»"/>
   <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
-  «LET (this.useWrapped && namespace != null && namespace.length>0) ? namespace : "urn:"+model.codComponente + removeSeparator(serviceDef.codServizio).toFirstUpper() AS beanMappingNamespace»
+  «LET (this.styleWrapped && namespace != null && namespace.length>0) ? namespace : "urn:"+model.codComponente + removeSeparator(serviceDef.codServizio).toFirstUpper() AS beanMappingNamespace»
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="«beanMappingNamespace»"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="«beanMappingNamespace»"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="«beanMappingNamespace»"/>
@@ -1007,7 +1007,7 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   «ENDFOREACH»
   «IF namespace != null && namespace.length>0-»
   <namespace>«namespace»</namespace>
-  «ELSEIF this.useWrapped-»
+  «ELSEIF this.styleWrapped-»
   <namespace>«beanMappingNamespace»</namespace>
   «ENDIF-»
   «ENDLET»
