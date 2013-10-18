@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isUseLiteral <em>Use Literal</em>}</li>
- *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isUseWrapped <em>Use Wrapped</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isStyleWrapped <em>Style Wrapped</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#getNamespace <em>Namespace</em>}</li>
  * </ul>
  * </p>
@@ -63,23 +63,23 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	protected boolean useLiteral = USE_LITERAL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isUseWrapped() <em>Use Wrapped</em>}' attribute.
+	 * The default value of the '{@link #isStyleWrapped() <em>Style Wrapped</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isUseWrapped()
+	 * @see #isStyleWrapped()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean USE_WRAPPED_EDEFAULT = false;
+	protected static final boolean STYLE_WRAPPED_EDEFAULT = false;
 	/**
-	 * The cached value of the '{@link #isUseWrapped() <em>Use Wrapped</em>}' attribute.
+	 * The cached value of the '{@link #isStyleWrapped() <em>Style Wrapped</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isUseWrapped()
+	 * @see #isStyleWrapped()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean useWrapped = USE_WRAPPED_EDEFAULT;
+	protected boolean styleWrapped = STYLE_WRAPPED_EDEFAULT;
 	/**
 	 * The default value of the '{@link #getNamespace() <em>Namespace</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -145,8 +145,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isUseWrapped() {
-		return useWrapped;
+	public boolean isStyleWrapped() {
+		return styleWrapped;
 	}
 
 	/**
@@ -154,11 +154,11 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setUseWrapped(boolean newUseWrapped) {
-		boolean oldUseWrapped = useWrapped;
-		useWrapped = newUseWrapped;
+	public void setStyleWrapped(boolean newStyleWrapped) {
+		boolean oldStyleWrapped = styleWrapped;
+		styleWrapped = newStyleWrapped;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.WSFAD_BINDING__USE_WRAPPED, oldUseWrapped, useWrapped));
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED, oldStyleWrapped, styleWrapped));
 	}
 
 	/**
@@ -192,8 +192,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		switch (featureID) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				return isUseLiteral();
-			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
-				return isUseWrapped();
+			case ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED:
+				return isStyleWrapped();
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				return getNamespace();
 		}
@@ -211,8 +211,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				setUseLiteral((Boolean)newValue);
 				return;
-			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
-				setUseWrapped((Boolean)newValue);
+			case ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED:
+				setStyleWrapped((Boolean)newValue);
 				return;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				setNamespace((String)newValue);
@@ -232,8 +232,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				setUseLiteral(USE_LITERAL_EDEFAULT);
 				return;
-			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
-				setUseWrapped(USE_WRAPPED_EDEFAULT);
+			case ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED:
+				setStyleWrapped(STYLE_WRAPPED_EDEFAULT);
 				return;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				setNamespace(NAMESPACE_EDEFAULT);
@@ -252,8 +252,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		switch (featureID) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
 				return useLiteral != USE_LITERAL_EDEFAULT;
-			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
-				return useWrapped != USE_WRAPPED_EDEFAULT;
+			case ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED:
+				return styleWrapped != STYLE_WRAPPED_EDEFAULT;
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				return NAMESPACE_EDEFAULT == null ? namespace != null : !NAMESPACE_EDEFAULT.equals(namespace);
 		}
@@ -272,8 +272,8 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (useLiteral: ");
 		result.append(useLiteral);
-		result.append(", useWrapped: ");
-		result.append(useWrapped);
+		result.append(", styleWrapped: ");
+		result.append(styleWrapped);
 		result.append(", namespace: ");
 		result.append(namespace);
 		result.append(')');

@@ -76,7 +76,7 @@ public class WSFADBindingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addUseLiteralPropertyDescriptor(object);
-			addUseWrappedPropertyDescriptor(object);
+			addStyleWrappedPropertyDescriptor(object);
 			addNamespacePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -105,19 +105,19 @@ public class WSFADBindingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Use Wrapped feature.
+	 * This adds a property descriptor for the Style Wrapped feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addUseWrappedPropertyDescriptor(Object object) {
+	protected void addStyleWrappedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_WSFADBinding_useWrapped_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_WSFADBinding_useWrapped_feature", "_UI_WSFADBinding_type"),
-				 ServicedefPackage.Literals.WSFAD_BINDING__USE_WRAPPED,
+				 getString("_UI_WSFADBinding_styleWrapped_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_WSFADBinding_styleWrapped_feature", "_UI_WSFADBinding_type"),
+				 ServicedefPackage.Literals.WSFAD_BINDING__STYLE_WRAPPED,
 				 true,
 				 false,
 				 false,
@@ -186,7 +186,7 @@ public class WSFADBindingItemProvider
 
 		switch (notification.getFeatureID(WSFADBinding.class)) {
 			case ServicedefPackage.WSFAD_BINDING__USE_LITERAL:
-			case ServicedefPackage.WSFAD_BINDING__USE_WRAPPED:
+			case ServicedefPackage.WSFAD_BINDING__STYLE_WRAPPED:
 			case ServicedefPackage.WSFAD_BINDING__NAMESPACE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

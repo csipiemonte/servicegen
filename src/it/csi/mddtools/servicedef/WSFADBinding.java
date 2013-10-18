@@ -34,7 +34,7 @@ package it.csi.mddtools.servicedef;
  * The following features are supported:
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#isUseLiteral <em>Use Literal</em>}</li>
- *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#isUseWrapped <em>Use Wrapped</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#isStyleWrapped <em>Style Wrapped</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#getNamespace <em>Namespace</em>}</li>
  * </ul>
  * </p>
@@ -73,31 +73,31 @@ public interface WSFADBinding extends ServiceBinding {
 	void setUseLiteral(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Use Wrapped</b></em>' attribute.
+	 * Returns the value of the '<em><b>Style Wrapped</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Use Wrapped</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Style Wrapped</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Wrapped</em>' attribute.
-	 * @see #setUseWrapped(boolean)
-	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getWSFADBinding_UseWrapped()
+	 * @return the value of the '<em>Style Wrapped</em>' attribute.
+	 * @see #setStyleWrapped(boolean)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getWSFADBinding_StyleWrapped()
 	 * @model default="false"
 	 * @generated
 	 */
-	boolean isUseWrapped();
+	boolean isStyleWrapped();
 
 	/**
-	 * Sets the value of the '{@link it.csi.mddtools.servicedef.WSFADBinding#isUseWrapped <em>Use Wrapped</em>}' attribute.
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.WSFADBinding#isStyleWrapped <em>Style Wrapped</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Use Wrapped</em>' attribute.
-	 * @see #isUseWrapped()
+	 * @param value the new value of the '<em>Style Wrapped</em>' attribute.
+	 * @see #isStyleWrapped()
 	 * @generated
 	 */
-	void setUseWrapped(boolean value);
+	void setStyleWrapped(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Namespace</b></em>' attribute.
