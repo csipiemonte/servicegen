@@ -167,7 +167,10 @@ public class WSFADBindingItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WSFADBinding)object).getNamespace();
+		String namespace = ((WSFADBinding)object).getNamespace();
+		String style = ((WSFADBinding)object).isStyleWrapped()?"Wrapped":"RPC";
+		String use = ((WSFADBinding)object).isUseLiteral()?"Literal":"Encoded";
+		String label = namespace + " ["+style+"/"+use+"]";
 		return label == null || label.length() == 0 ?
 			getString("_UI_WSFADBinding_type") :
 			getString("_UI_WSFADBinding_type") + " " + label;
