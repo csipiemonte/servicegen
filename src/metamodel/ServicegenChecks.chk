@@ -381,11 +381,11 @@ context Orchestration if principalNameSlot != null ERROR "Il principalNameSlot d
 	((CSIDatatype)this.principalNameSlot.type).code == CSIDatatypeCodes::CSIString;
 
 // Servizi con WSFAD binding e incroci useWrapped e UseLiteral
-context WSFADBinding ERROR "Il parametro useWrapped=true deve essere usato con useLiteral=true nel caso di WSFADBinding: "+loc():
+context WSFADBinding ERROR "Il parametro Style Wrapped=true deve essere usato con Use Literal=true nel caso di WSFADBinding: "+loc():
 	(this.styleWrapped && this.useLiteral) || (!this.styleWrapped && !this.useLiteral) || (!this.styleWrapped && this.useLiteral);
 
 
-context WSFADBinding WARNING "La combinazione useWrapped=false e useLiteral=true risulta deprecata in favore della "+ 
-	"combinazione  useWrapped=true e useLiteral=true nel caso di WSFADBinding: "+loc():
+context WSFADBinding WARNING "La combinazione Style Wrapped=false e Use Literal=true risulta deprecata in favore della "+ 
+	"combinazione  Style Wrapped=true e Use Literal=true nel caso di WSFADBinding: "+loc():
 	!(!this.styleWrapped && this.useLiteral);		
 
