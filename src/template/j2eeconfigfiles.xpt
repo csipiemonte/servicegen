@@ -510,10 +510,35 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
         <ejb-name>«getPABeanName(serviceDef)»</ejb-name>
         <jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
     </session>
+    
+    «LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+	«IF asynchOps.size>0»
+    
+    <session>
+    	<ejb-name>«getQMGRBeanName(serviceDef)»</ejb-name>
+       	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
+        <resource-ref>
+        	<res-ref-name>jdbc/counterDS</res-ref-name>
+        	<jndi-name>«counterDSJndiName(serviceDef, model)»</jndi-name>
+        </resource-ref>
+    </session>
+    
+    <message-driven>
+    	<ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
+    	<jndi-name>«fullLTRJndiName(serviceDef, model)»</jndi-name>
+        <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
+        <ejb-ref>
+        	<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
+         	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+         	<ejb-ref-name>ejb/pa</ejb-ref-name>
+         	<jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
+         </ejb-ref>
+    </message-driven>	
 
-    
-    
-    
+    «ENDIF»
+	«ENDLET»
    </enterprise-beans>
 
      <!--
