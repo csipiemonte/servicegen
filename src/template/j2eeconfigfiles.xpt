@@ -519,7 +519,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
        	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
         <resource-ref>
         	<res-ref-name>jdbc/counterDS</res-ref-name>
-        	<jndi-name>«counterDSJndiName(serviceDef, model)»</jndi-name>
+        	<jndi-name>java:«counterDSJndiName(serviceDef, model)»</jndi-name>
         </resource-ref>
     </session>
     
