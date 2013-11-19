@@ -356,7 +356,7 @@ file di configurazione per features asincrone
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
   <port-queue-map>
-    <!-- il nome della porta deve coincidere con il nasme nel pluggable-pd del client! -->
+    <!-- il nome della porta deve coincidere con il name nel pluggable-pd del client! -->
     <map port-name="«removeSeparator(codServizio)»" 
     	 queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
   </port-queue-map>
