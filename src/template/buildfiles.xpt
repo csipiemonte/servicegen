@@ -968,7 +968,7 @@ mail-1.2.jar \
 msgadp-jaxb-1.0.1.jar \
 soap-2.3.1.jar \
 util-perf-1.0.0.jar \
-axis-1.4.jar \
+axis-1.4.csi-1.0.0.jar \
 commons-discovery-0.2.jar \
 commons-logging-1.0.3 \
 wsdl4j-1.5.1.jar \
@@ -1202,9 +1202,8 @@ creazione del file di configurazione IVY
 		</dependency>
 		«ENDIF»
 	    
-	    <!-- dipendenze necessarie per la compilazione o per i test -->
-	    <dependency org="apache" name="axis" rev="1.4">
-			<artifact name="axis-jaxrpc-1.4" type="jar" />
+		<dependency org="csipiemonte" name="axiscsi" rev="1.0.0">
+			<artifact name="axis-1.4.csi-1.0.0" type="jar" />
 		</dependency>
 		
 		<dependency org="apache" name="axis-ant" rev="1.4">
