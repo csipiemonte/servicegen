@@ -348,8 +348,8 @@ creazione del build.xml per ANT
 			
 				<!-- risorse soggette a sostituzione -->
 				<fileset dir="${build}/temp/ejb/${service.name}">
-					<include name="*.xml"/>
-					<include name="*.properties"/>
+					<include name="**/*.xml"/>
+					<include name="**/*.properties"/>
 				</fileset>		
 								
 			    <metainf dir="${build}/temp/ejb/${service.name}/META-INF" >
@@ -365,24 +365,13 @@ creazione del build.xml per ANT
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/business/${service.name}/**"/>
 					<include name="«getOrganizationNamePathPrefix()»/*/«codComponente.toLowerCase()»/integration/${service.name}/**"/>
 				</fileset>						
-
-				<fileset dir="${conf}/ejb/${service.name}">
-					<include name="defpa*"/>
-					<include name="checked_resources*.xml"/>
-					<include name="defqmgr_*" />
-				</fileset>
-			
+						
 				<!-- risorse soggette a sostituzione -->
 				<fileset dir="${build}/temp/ejb/${service.name}">
-					<include name="*.xml"/>
-					<include name="*.properties"/>
+					<include name="**/*.xml"/>
+					<include name="**/*.properties"/>
 				</fileset>
 				
-				<metainf dir="${conf}/ejb/${service.name}/META-INF" >
-					<patternset id="all-xml" >
-						<include name="**/*.xml"/>
-					</patternset>
-				</metainf>
 			</jar>		
 		</else>
 		</if>
@@ -461,7 +450,8 @@ AS sharedLibsPath»
 		<copy todir="«sharedLibsPath»">
 		    <!-- librerie infrastrutturali o client di servizi fruiti -->
 			<fileset dir="${lib}"
-				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs}"
+				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs} "
+				excludes="${excludes.libs}"
 			/>
 			<fileset dir="${build}/archives/${target}" includes="*client*.jar *common.jar" />
 		</copy>
