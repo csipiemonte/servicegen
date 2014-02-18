@@ -243,6 +243,9 @@ creazione del build.xml per ANT
 			«EXPAND varSubstForJBossClustering FOR this»
 		«ENDIF»
 		
+		«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("environment-config")»
+		«ENDPROTECT»
+		
 	</target>
 
 	
