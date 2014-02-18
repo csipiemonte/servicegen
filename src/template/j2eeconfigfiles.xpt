@@ -448,7 +448,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
 			<initial-beans-in-free-pool>1</initial-beans-in-free-pool>
 		  </pool>
 		  <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
-		  <connection-factory-jndi-name>«queueConnectionFactoryJndiName()»</connection-factory-jndi-name>
+		  <connection-factory-jndi-name>«queueConnectionFactoryJndiName(model)»</connection-factory-jndi-name>
 		</message-driven-descriptor>
 		<ejb-reference-description>
 			<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
@@ -526,7 +526,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
     <message-driven>
     	<ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
     	<jndi-name>«fullLTRJndiName(serviceDef, model)»</jndi-name>
-        <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
+        <destination-jndi-name>queue/«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
         <ejb-ref>
         	<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
          	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
@@ -594,6 +594,14 @@ Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml 
       <param-name>servicedef-pabr1</param-name>
       <param-value>/WEB-INF/deploysoapejb-«removeSeparator(serviceDef.codServizio).toLowerCase()».xml</param-value>
     </init-param>
+    «LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+	«IF asynchOps.size>0»
+     <init-param>
+      <param-name>servicedef-qm</param-name>
+      <param-value>/WEB-INF/deploysoapejbqm-«removeSeparator(serviceDef.codServizio).toLowerCase()».xml</param-value>
+    </init-param>
+     «ENDIF»
+	«ENDLET»
     <load-on-startup>1000</load-on-startup>
   </servlet>
   <servlet>

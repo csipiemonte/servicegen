@@ -85,7 +85,7 @@ Genera i files della PA EJB
 	«ENDIF»
 	«LET serviceDef.operations.select(e|e.opType!= OpTypeEnum::synch) AS asynchOps»
 		«IF asynchOps.size>0»
-			«EXPAND papdconfigfiles::asynchCfgFiles(model, this) FOR serviceDef»
+			«EXPAND papdconfigfiles::asynchCfgFiles(serviceDef, model, this) FOR serviceDef»
 		«ENDIF»
 	«ENDLET»
 «ENDDEFINE»

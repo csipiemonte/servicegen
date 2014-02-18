@@ -418,8 +418,12 @@ String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
 
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // � 3.4.1
-String queueConnectionFactoryJndiName() :
-	"jms/QueueConnectionFactory";
+String queueConnectionFactoryJndiName(SOABEModel model):
+if (isJboss43(model.targetPlatform)) then
+		"/ConnectionFactory"
+else
+	"jms/QueueConnectionFactory"
+;
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
 // � 3.4.1
 String topicConnectionFactoryJndiName() :
@@ -429,7 +433,6 @@ String topicConnectionFactoryJndiName() :
 // � 3.4.2.2
 // nota: uso '.' invece che '/' perch� le librerie lo cercano col punto...
 String  paQueueJndiName(ServiceDef sd, String codBinding, SOABEModel model) :
-//	"queue/"+model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
 	model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
 	
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf

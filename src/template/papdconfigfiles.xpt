@@ -186,9 +186,9 @@ staging=FALSE
         «ENDLET-»
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
         «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codComponente,sd.codServizio, this.codBinding, sd.serviceType.toString())+"/servlet/rpcrouter" AS actualPAEndpoint-»
-        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"
+        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"        
+        url-qm="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»;urn:QMBR_«removeSeparator(sd.codServizio)»">
         «ENDLET-»
-        url-qm="">
         <properties>
         «IF sd.authLevel!=AuthLevelEnum::A0-»
         	<property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
@@ -338,7 +338,7 @@ file di configurazione per features asincrone
 ==========================================================================================================================
 «ENDREM»
 
-«DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDef»
+«DEFINE asynchCfgFiles(ServiceDef serviceDef,SOABEModel model, EJBPABinding pa) FOR ServiceDef»
 «FILE paConfigDir(model)+"/"+qmgrDefFileName(this)»<queue-manager-conf
   listening-url="*not-used*" name="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)».PDD_QMGR" >
   <jms-queue-jndi-props>
@@ -346,19 +346,27 @@ file di configurazione per features asincrone
 <!--    <prop name="java.naming.provider.url" value="t3://censerv1wls1.csi.it:7001" />-->
 <!--    <prop name="java.naming.factory.initial" value="weblogic.jndi.WLInitialContextFactory" />-->
   </jms-queue-jndi-props>
-  <jms-queue-connection-factory jndi-name="«queueConnectionFactoryJndiName()»" />
+  <jms-queue-connection-factory jndi-name="«queueConnectionFactoryJndiName(model)»" />
   <service-activator-config
     activated-interface="«fullQualifiedServiceInterfaceName(this, model)»"
     retry-delay="10000"
     max-retry="10"
-    counter-name="«asynchCounterTableName(this)»"
+    «IF (model.targetPlatform.code != null && model.targetPlatform.code==TargetPlatformCodes::JBoss43) || (model.targetPlatform == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
+    	counter-name="java:«counterDSJndiName(serviceDef, model)»"
+    «ELSE »
+    	counter-name="«counterDSJndiName(serviceDef, model)»"
+    «ENDIF»
   />
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
   <port-queue-map>
     <!-- il nome della porta deve coincidere con il name nel pluggable-pd del client! -->
-    <map port-name="«removeSeparator(codServizio)»" 
-    	 queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
+    <map port-name="«removeSeparator(codServizio)»"
+    «IF (model.targetPlatform.code != null && model.targetPlatform.code==TargetPlatformCodes::JBoss43) || (model.targetPlatform == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-» 
+    	 queue-jndi-name="queue/«paQueueJndiName(this, pa.codBinding, model)»" />
+    «ELSE »
+    	queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
+    «ENDIF»
   </port-queue-map>
 </queue-manager-conf>
 «ENDFILE»
@@ -371,7 +379,7 @@ del servizio "«codServizio»".
 1) creare la tabella del contatore per i retry lanciando lo script 
    "create_counter_«removeSeparator(this.codServizio)».sql"»;
 2) verificare l'esistenza sull'ambiente di deploy della QueueConnectionFactory
-   di nome "«queueConnectionFactoryJndiName()»";
+   di nome "«queueConnectionFactoryJndiName(model)»";
 3) creare un datasource con le seguenti caratteristiche:
    - name: Counter«toCamel(codServizio)»TxDS (standard opzionale)
    - jndi-name: «counterDSJndiName(this, model)»;
@@ -394,6 +402,26 @@ del servizio "«codServizio»".
   </isd:mappings>
 </isd:service>
 «ENDFILE»
+«LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+	«IF asynchOps.size>0»
+«FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio), model)+"/WEB-INF/deploysoapejbqm-"+removeSeparator(serviceDef.codServizio).toLowerCase()+".xml"»<?xml version="1.0" encoding="UTF-8"?>
+<isd:service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:QMBR_«removeSeparator(serviceDef.codServizio)»">
+
+  <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
+                scope="Application" methods="putCall">
+    <isd:option key="JNDIName" value="«fullQMGRJndiName(serviceDef, model)»"/>
+    <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
+    <isd:option key="csi.component.bridged" value="QM" />
+  </isd:provider>
+  
+  <isd:faultListener>org.apache.soap.server.ExceptionFaultListener</isd:faultListener>
+  <isd:mappings defaultRegistryClass="it.csi.csi.porte.soap.apache.GeneralizedMappingRegistry">
+  
+  </isd:mappings>
+</isd:service>
+«ENDFILE»
+«ENDIF»
+«ENDLET-»
 «ENDDEFINE»
 
 
