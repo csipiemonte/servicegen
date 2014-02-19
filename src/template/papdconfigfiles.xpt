@@ -186,9 +186,13 @@ staging=FALSE
         «ENDLET-»
         class="it.csi.csi.porte.soap.apache.PortaDelegataSoap"
         «LET customPAEndpoint != null ? customPAEndpoint: pabrWebContext(sd.codComponente,sd.codServizio, this.codBinding, sd.serviceType.toString())+"/servlet/rpcrouter" AS actualPAEndpoint-»
-        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»"        
+        url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»" 
+	«LET sd.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+		«IF asynchOps.size>0»              
         url-qm="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»;urn:QMBR_«removeSeparator(sd.codServizio)»">
-        «ENDLET-»
+        «ENDIF»
+     «ENDLET-»   
+     «ENDLET-»
         <properties>
         «IF sd.authLevel!=AuthLevelEnum::A0-»
         	<property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />
@@ -338,7 +342,7 @@ file di configurazione per features asincrone
 ==========================================================================================================================
 «ENDREM»
 
-«DEFINE asynchCfgFiles(ServiceDef serviceDef,SOABEModel model, EJBPABinding pa) FOR ServiceDef»
+«DEFINE asynchCfgFiles(SOABEModel model, EJBPABinding pa) FOR ServiceDef»
 «FILE paConfigDir(model)+"/"+qmgrDefFileName(this)»<queue-manager-conf
   listening-url="*not-used*" name="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)».PDD_QMGR" >
   <jms-queue-jndi-props>
@@ -352,10 +356,12 @@ file di configurazione per features asincrone
     retry-delay="10000"
     max-retry="10"
     «IF (model.targetPlatform.code != null && model.targetPlatform.code==TargetPlatformCodes::JBoss43) || (model.targetPlatform == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
-    	counter-name="java:«counterDSJndiName(serviceDef, model)»"
+    	counter-name="java:«counterDSJndiName(this, model)»"
     «ELSE »
-    	counter-name="«counterDSJndiName(serviceDef, model)»"
+    	counter-name="«asynchCounterTableName(this)»"
     «ENDIF»
+    
+    
   />
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
