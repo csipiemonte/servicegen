@@ -460,6 +460,7 @@ AS sharedLibsPath»
 		    <!-- librerie infrastrutturali o client di servizi fruiti -->
 			<fileset dir="${lib}"
 				includes="${app.support.libs} ${svcflow.libs} ${extra.app.libs} ${cooptrace.libs} "
+				excludes="${excludes.libs}"
 			/>
 			<fileset dir="${build}/archives/${target}" includes="*client*.jar *common.jar" />
 		</copy>
@@ -1004,6 +1005,13 @@ cooptrace.libs = coop-trace-1.2.0.jar
 # ricordarsi di includere nel file ivy.xml il loro download da repart
 
 extra.app.libs =
+
+«ENDPROTECT»
+
+«PROTECT CSTART '##' CEND '##' ID getRegionUID("excludeslibs"+codComponente)»
+# inserire qui le librerie extra da eliminare nel build
+
+excludes.libs =
 
 «ENDPROTECT»
 
