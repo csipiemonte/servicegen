@@ -355,13 +355,7 @@ file di configurazione per features asincrone
     activated-interface="«fullQualifiedServiceInterfaceName(this, model)»"
     retry-delay="10000"
     max-retry="10"
-    «IF (model.targetPlatform.code != null && model.targetPlatform.code==TargetPlatformCodes::JBoss43) || (model.targetPlatform == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-»
-    	counter-name="java:«counterDSJndiName(this, model)»"
-    «ELSE »
-    	counter-name="«asynchCounterTableName(this)»"
-    «ENDIF»
-    
-    
+   	counter-name="«asynchCounterTableName(this)»" 
   />
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
