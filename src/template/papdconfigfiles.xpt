@@ -355,18 +355,14 @@ file di configurazione per features asincrone
     activated-interface="«fullQualifiedServiceInterfaceName(this, model)»"
     retry-delay="10000"
     max-retry="10"
-   	counter-name="«asynchCounterTableName(this)»" 
+    counter-name="«asynchCounterTableName(this)»"
   />
   <!-- NOTA: il separatore nella PA NAME non deve essere '/' perche' il sistema
        lo ricerca come '.' -->
   <port-queue-map>
     <!-- il nome della porta deve coincidere con il name nel pluggable-pd del client! -->
-    <map port-name="«removeSeparator(codServizio)»"
-    «IF (model.targetPlatform.code != null && model.targetPlatform.code==TargetPlatformCodes::JBoss43) || (model.targetPlatform == null && model.targetPlatform.code==TargetPlatformCodes::JBoss43)-» 
-    	 queue-jndi-name="queue/«paQueueJndiName(this, pa.codBinding, model)»" />
-    «ELSE »
-    	queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
-    «ENDIF»
+    <map port-name="«removeSeparator(codServizio)»" 
+    	 queue-jndi-name="«paQueueJndiName(this, pa.codBinding, model)»" />
   </port-queue-map>
 </queue-manager-conf>
 «ENDFILE»
