@@ -511,6 +511,12 @@ AS sharedLibsPath»
 				<!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
 				«ENDPROTECT»
 			</tarfileset>
+			<tarfileset dir="${temp}/tar">
+				<include name="readme.txt"/>
+				«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID(codComponente+"package-all-tarincludes")»
+				<!-- inserire qui eventuali statement per includere oggetti extra nel tar -->
+				«ENDPROTECT»
+			</tarfileset>
 		</tar>
 
 		<delete>
@@ -1355,3 +1361,5 @@ ANT_HOME=ant_1_6_2
 IVY_VERSION=ivy_2_0_0
 «ENDFILE»
 «ENDDEFINE»
+
+

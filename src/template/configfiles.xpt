@@ -1142,3 +1142,9 @@ Istruzioni per l'utilizzo dei files contenuti in questa directory.
   JMS che serve alle librerie coop-trace per tracciare le chiamate a servizi.
 «ENDFILE»
 «ENDDEFINE»
+
+«DEFINE readmeTarDirectory FOR SOABEModel»
+«FILE getConfigRootDir()+"/tar/README.txt"»
+---
+«ENDFILE»
+«ENDDEFINE»

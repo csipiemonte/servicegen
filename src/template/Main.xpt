@@ -94,8 +94,11 @@ Metodo centralizzato per la genarazione del progetto
 				«EXPAND javafiles::typedefs(this, currsrv.codServizio) FOR currsrv.types»
 			«ENDFOREACH»
 		«ENDLET»
+		
+		«REM»Il file README.tst è unico per tutto il componente«ENDREM»
+		«EXPAND configfiles::readmeTarDirectory FOR this»
 
-		«REM»Il file log4j è unico per tutto il componente«ENDREM»
+		
 		«EXPAND configfiles::log4jfiles FOR this»
 
 		«REM»Se c'e' almeno un servizio cooptrace enabled creo le config di log apposite«ENDREM»
