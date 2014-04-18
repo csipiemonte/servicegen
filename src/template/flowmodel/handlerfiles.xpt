@@ -430,9 +430,9 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 		// delego alla sottoclasse il popolamento delle mappe degli errori
 		try {
 			fillErrorMaps(args, excMap, excMapMsg);
-		} catch (Exception e) {
+		} catch (WorkflowException e) {
 			«errorLog(stopNodeBaseHandlerClassName(),"initFunctionHandler","Errore nell'inizializzaizone dell handler:","e")»
-			throw new WorkflowException("Errore nell'inizializzazione dell'handler:" + e);
+			throw e;
 		}		
 
 	}
@@ -475,30 +475,20 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 						DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
 								ps);
 					} catch (IllegalArgumentException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						throw e1;
+						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 					} catch (InstantiationException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						//throw e1;
+						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 					} catch (IllegalAccessException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						//throw e1;
+						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 					} catch (java.lang.reflect.InvocationTargetException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						//throw e1;
+						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 					}
 				
 					
 				} catch (SecurityException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 				} catch (NoSuchMethodException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
 				}
 				
 			}
@@ -543,7 +533,7 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 	 * @throws Exception in caso di errore
 	 * @generated
 	 */
-	protected abstract void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception;
+	protected abstract void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws WorkflowException;
 
 }
 «ENDFILE»
@@ -3082,7 +3072,7 @@ public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassNa
 	 * @throws Exception in caso di errore
 	 * @generated
 	 */
-	protected void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws Exception {
+	protected void fillErrorMaps(Map args, Map<Class, Class> excMap, Map<Class, String> excMapMsg) throws WorkflowException {
 	«IF source == "csi"-»
 		«EXPAND fillErrorMapsCsi(orch, sd, model) FOR this-»
 	«ELSEIF source == "cxf"-»
@@ -3160,7 +3150,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
-	public static final Logger logger = Logger.getLogger(LOGGER_PREFIX);
+	public static final Logger LOGGER = Logger.getLogger(LOGGER_PREFIX);
 	
 	
 	
@@ -3171,7 +3161,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 	public void eseguiFunctionHandler(Map transientVars, Map args,
 			PropertySet ps) throws WorkflowException {
 		
-		logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-START ");
+		LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-START ");
 		try {
 		
 			«IF !this.serviceConnector.useRegistry-»
@@ -3184,7 +3174,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			
 			/// valore degli input slot
 			
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-binding parametri ");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-binding parametri ");
 		«FOREACH this.paramBindings AS currPB-»
 		«LET currPB.slot AS currIn-»
 			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
@@ -3195,7 +3185,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			
 			// binding dei parametri e richiamo del servizio 
 			
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
 			«IF this.operation.returnType!=null-»
 			«map2JavaTypeSDRelative(this.operation.returnType)» result = pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
@@ -3203,30 +3193,30 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			«ENDFOREACH-»
 			);
 			
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
 			
 			/// inserimento risultato nello slot apposito
 			
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-inserimento del risultato nello slot   "+"«getDataSlotAttrName(this.outputSlot)»");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-inserimento del risultato nello slot   "+"«getDataSlotAttrName(this.outputSlot)»");
 			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
 			«ELSE-»
 			// binding dei parametri e richiamo del servizio 
 			
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo del metodo  "+"«operation.name»");
 			pd.«operation.name»(
 			«FOREACH this.operation.params AS currParam SEPARATOR ","-»
 			«"slot_"+this.paramBindings.select(pb|pb.param==currParam).first().slot.name»
 			«ENDFOREACH-»
 			);
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
 			«ENDIF-»
 			
 		} catch (Exception e) {
 			DataSlotHelper.setLastError(e, ps);
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
-			logger.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
 			
-			logger.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
+			LOGGER.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
 			
 		}
 	}
@@ -3237,20 +3227,20 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
  	 * @generated
  	 */
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
-		logger.debug("[«specificHandlerClassName()»::getPD]-START  ");
+		LOGGER.debug("[«specificHandlerClassName()»::getPD]-START  ");
 			
-		logger.debug("[«specificHandlerClassName()»::getPD]-reperimento PD da registry  ");
+		LOGGER.debug("[«specificHandlerClassName()»::getPD]-reperimento PD da registry  ");
 		
-		logger.debug("[«specificHandlerClassName()»::getPD]--selector:\"+selectorRes+\"");
+		LOGGER.debug("[«specificHandlerClassName()»::getPD]--selector:\"+selectorRes+\"");
 		
-		logger.debug("[«specificHandlerClassName()»::getPD]--localPD:\"+localPDRes+\"");
+		LOGGER.debug("[«specificHandlerClassName()»::getPD]--localPD:\"+localPDRes+\"");
 		java.util.Properties selectorProps = new java.util.Properties();
 		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
 		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
 			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
 				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
 		
-		logger.debug("[«specificHandlerClassName()»::getPD]-END ");
+		LOGGER.debug("[«specificHandlerClassName()»::getPD]-END ");
 		return tempPd;
 	}
 	«ENDIF-»
@@ -3576,7 +3566,7 @@ public class «specificHandlerClassName()» extends «checkCondBaseHandlerClassN
 			return true;		
 		«ENDPROTECT»
 		}
-		catch(Throwable e){
+		catch(Exception e){
 			«errorLog(specificHandlerClassName(),"evalCondition","errore durante l'esecuzione del check", "e")»
 			throw new WorkflowException("Errore durante l'esecuzione del check:"+e);
 		}
