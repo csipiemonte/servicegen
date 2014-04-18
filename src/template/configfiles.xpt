@@ -363,7 +363,7 @@ versions. We strongly recommend you download and install
             } else {
                 return url.toString();
             }
-        } catch (Throwable t){
+        } catch (Exception t){
         }
         return null;
     }
