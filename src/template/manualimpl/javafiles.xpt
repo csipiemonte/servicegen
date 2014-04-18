@@ -640,7 +640,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 							+ ex+"Forzata RollBack Transazione", ex);
 	}
 	«ENDIF-»
-     catch(Throwable ex){
+     catch(Exception ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
         	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
@@ -725,7 +725,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
      «ENDIF»
      «ENDPROTECT»
      	}
-     catch(Throwable ex){
+     catch(Exception ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
         	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
