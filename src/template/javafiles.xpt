@@ -789,8 +789,7 @@ public class «name» extends
 	«IF this.exceptionType == typedef::CSIExceptionTypes::USER»UserException
 	«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::SYSTEM»SystemException
 	«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::UNRECOVERABLE»UnrecoverableException
-	«ENDIF»
-{
+	«ENDIF» {
 
     /**
      * il serial version UID di una eccezione csi &egrave; sempre "1" perch&egrave; le
