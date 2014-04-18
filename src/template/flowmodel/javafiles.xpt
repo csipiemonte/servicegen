@@ -548,9 +548,9 @@ public class «serviceImplClassName()» {
 	 
 	 	Object retVal = persistentParams.get("result");
      	// se il valore di ritorno e'un'eccezione occorre rilanciarla (anche se metodo void)
-      	if (retVal != null && retVal instanceof Throwable) {
-      	    logger.error("[«serviceImplClassName(this)»::methodName] - Errore occorso nell'esecuzione del flusso\"+retVal+\"",(Throwable)retVal);
-     		throw (Throwable)retVal;
+      	if (retVal != null && retVal instanceof Exception) {
+      	    logger.error("[«serviceImplClassName(this)»::methodName] - Errore occorso nell'esecuzione del flusso\"+retVal+\"",(Exception)retVal);
+     		throw (Exception)retVal;
      	}
      
      	else{
@@ -558,7 +558,7 @@ public class «serviceImplClassName()» {
      	}
   
      	}
-     catch(Throwable ex){
+     catch(Exception ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
         	logger.error("[«serviceImplClassName(this)»::methodName] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
@@ -717,8 +717,7 @@ public class «serviceImplClassName()» {
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
+  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws» {
      Logger logger = getLogger(null);
 	 logger.debug("[«implClassName»::«name»] - START");
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
@@ -740,7 +739,7 @@ public class «serviceImplClassName()» {
      «ENDPROTECT»
      }
      
-     catch(Throwable ex){
+     catch(Exception ex){
         if (CSIException.class.isAssignableFrom(ex.getClass())){
         	logger.error("[«implClassName»::«name»] - Errore CSI occorso durante l'esecuzione del metodo:"+ex, ex);
      		throw (CSIException)ex;
@@ -780,8 +779,8 @@ public class «serviceImplClassName()» {
   )
   throws
   	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
-  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
+  «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws» {
+
      
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
 	 
