@@ -526,7 +526,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
     <message-driven>
     	<ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
     	<jndi-name>«fullLTRJndiName(serviceDef, model)»</jndi-name>
-        <destination-jndi-name>queue/«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
+        <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
         <ejb-ref>
         	<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
          	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
