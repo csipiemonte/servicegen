@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: servicegen;singleton:=true
-Bundle-Version: 2.3.0.006
+Bundle-Version: 3.0.0.001
 Bundle-ClassPath: .
 Bundle-Activator: it.csi.mddtools.typedef.provider.Typedef_metamodelEditPlugin$Implementation
 Bundle-Vendor: %providerName
@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.core.runtime;visibility:=reexport,
  org.apache.commons.httpclient;bundle-version="3.1.0";visibility:=reexport,
  org.apache.commons.codec;bundle-version="1.3.0";visibility:=reexport,
  org.apache.commons.logging;bundle-version="1.1.1";visibility:=reexport,
- mddtools;bundle-version="1.2.0";visibility:=reexport
+ mddtools;bundle-version="3.0.0";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Export-Package: it.csi.mddtools.appresources,
  it.csi.mddtools.appresources.impl,
