@@ -96,7 +96,9 @@ public interface «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException;
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+		it.csi.coopdiag.api.CalledResource[] alreadyChecked )	«noSonarTag("EIAS")»
+		throws it.csi.csi.wrapper.CSIException;	«noSonarTag("EIAS")»
 	
 	/**
 	 * @generated
@@ -142,7 +144,7 @@ public interface «serviceInterfaceName()»{
    * @generated
    */
   «ENDPROTECT»
-  public «map2javaType(this.returnType,codServ, model)» «this.name» (
+  public «map2javaType(this.returnType,codServ, model)» «this.name» (	«noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -151,11 +153,13 @@ public interface «serviceInterfaceName()»{
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
     	«ENDIF»	
     «ENDIF»
-    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException 
-  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»;
+    «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg «noSonarTag("EIAS")»«ENDIF»
+  )	«noSonarTag("EIAS")»
+  throws «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.CSIException, «noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.UnrecoverableException «noSonarTag("EIAS")»
+  «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»; «noSonarTag("EIAS")»
 «ENDDEFINE»
 
 «REM»documenta i constraint sul parametro
@@ -172,7 +176,7 @@ public interface «serviceInterfaceName()»{
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» ( «noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -182,19 +186,21 @@ public interface «serviceInterfaceName()»{
     	«ENDIF»	
     «ENDIF»
     «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException,
-  	java.rmi.RemoteException
+  )	«noSonarTag("EIAS")»
+  throws	«noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.CSIException, «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.UnrecoverableException, «noSonarTag("EIAS")»
+  	java.rmi.RemoteException	«noSonarTag("EIAS")»
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»;
 «ENDDEFINE»
 
 «DEFINE paramDef (SOABEModel model, String codServ, boolean addComma) FOR Param»
-	«map2javaType(this.type,codServ,model)» «name»«IF addComma»,«ENDIF»
+	«map2javaType(this.type,codServ,model)» «name»«IF addComma»,«ENDIF» «noSonarTag("EIAS")»
 «ENDDEFINE»
 
 «DEFINE exceptionInThrowsClause (SOABEModel model,String codServ)FOR Exception»
-  ,«map2JavaTypeSDRelative(this)»
+  ,«map2JavaTypeSDRelative(this)» 
 «ENDDEFINE»
 
 
@@ -224,19 +230,26 @@ public interface «serviceRemoteInterfaceName()» extends javax.ejb.EJBObject{
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
+	public boolean testResources()	«noSonarTag("EIAS")»
+		throws  it.csi.csi.wrapper.CSIException,	«noSonarTag("EIAS")»
+		java.rmi.RemoteException; «noSonarTag("EIAS")»
 	«ENDIF»
 	
 	«IF this.diagEnabled»
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+		it.csi.coopdiag.api.CalledResource[] alreadyChecked ) «noSonarTag("EIAS")»
+		throws it.csi.csi.wrapper.CSIException,	«noSonarTag("EIAS")»
+		java.rmi.RemoteException; «noSonarTag("EIAS")»
 	
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException,java.rmi.RemoteException;
+	public boolean hasSelfCheck()	«noSonarTag("EIAS")»
+		throws it.csi.csi.wrapper.CSIException,	«noSonarTag("EIAS")»
+		java.rmi.RemoteException; «noSonarTag("EIAS")»
 	«ENDIF»
 }
 	«ENDFILE»
@@ -259,19 +272,23 @@ public interface «serviceLocalInterfaceName()» extends javax.ejb.EJBLocalObjec
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
+	public boolean testResources()	«noSonarTag("EIAS")» 
+	throws  it.csi.csi.wrapper.CSIException; «noSonarTag("EIAS")»
 	«ENDIF»
 	
 	«IF this.diagEnabled»
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException;
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+	it.csi.coopdiag.api.CalledResource[] alreadyChecked ) «noSonarTag("EIAS")» 
+	throws it.csi.csi.wrapper.CSIException; «noSonarTag("EIAS")»
 	
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
+	public boolean hasSelfCheck()	«noSonarTag("EIAS")»
+	throws it.csi.csi.wrapper.CSIException; «noSonarTag("EIAS")»
 	«ENDIF»
 }
 	«ENDFILE»	
@@ -353,7 +370,7 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» ( «noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -363,9 +380,11 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
     	«ENDIF»	
     «ENDIF»
     «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
+  )	«noSonarTag("EIAS")»
+  throws	«noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.CSIException,	«noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.UnrecoverableException «noSonarTag("EIAS")»
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
      try{

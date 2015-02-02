@@ -112,7 +112,8 @@ public class «serviceBeanClassName()» implements SessionBean{
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
+	public boolean testResources()	«noSonarTag("EIAS")» 
+	throws  it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")» 
 		return delegate.testResources();
 	}
 	«ENDIF»
@@ -120,14 +121,17 @@ public class «serviceBeanClassName()» implements SessionBean{
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+	it.csi.coopdiag.api.CalledResource[] alreadyChecked ) «noSonarTag("EIAS")» 
+	throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		return delegate.selfCheck(alreadyChecked);
 	}
 	
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
+	public boolean hasSelfCheck() «noSonarTag("EIAS")» 
+	throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		return delegate.hasSelfCheck();
 	}
 	«ENDIF»
@@ -349,7 +353,8 @@ public class «serviceImplClassName()» {
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
+	public boolean testResources() «noSonarTag("EIAS")» 
+		throws  it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		Logger logger = getLogger(null);
 		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
 		InvocationNode in = new InvocationNode();
@@ -368,7 +373,9 @@ public class «serviceImplClassName()» {
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+		it.csi.coopdiag.api.CalledResource[] alreadyChecked ) «noSonarTag("EIAS")» 
+		throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		Logger logger = getLogger(null);
 	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
 		InvocationNode in = new InvocationNode();
@@ -386,7 +393,8 @@ public class «serviceImplClassName()» {
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
+	public boolean hasSelfCheck() «noSonarTag("EIAS")» 
+		throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		return true;
 	}
 	«ENDIF»
@@ -514,7 +522,8 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException{
+	public boolean testResources() «noSonarTag("EIAS")» 
+	throws  it.csi.csi.wrapper.CSIException{	«noSonarTag("EIAS")»
 		Logger logger = getLogger(null);
 		logger.debug("[«serviceImplClassName()»::testResources()] BEGIN");
 		InvocationNode in = new InvocationNode();
@@ -533,7 +542,9 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public it.csi.coopdiag.api.InvocationNode selfCheck( it.csi.coopdiag.api.CalledResource[] alreadyChecked ) throws it.csi.csi.wrapper.CSIException{
+	public it.csi.coopdiag.api.InvocationNode selfCheck( «noSonarTag("EIAS")» 
+		it.csi.coopdiag.api.CalledResource[] alreadyChecked ) «noSonarTag("EIAS")» 
+			throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		Logger logger = getLogger(null);
 	 	logger.debug("[«serviceImplClassName()»::selfCheck] - BEGIN");
 		InvocationNode in = new InvocationNode();
@@ -551,7 +562,8 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException{
+	public boolean hasSelfCheck() «noSonarTag("EIAS")»
+	throws it.csi.csi.wrapper.CSIException{ «noSonarTag("EIAS")»
 		return true;
 	}
 	«ENDIF»
@@ -593,7 +605,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ,model)» «this.name» (
+  public «map2javaType(this.returnType,codServ,model)» «this.name» ( «noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -604,9 +616,11 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
     «ENDIF»
     «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
     «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF» java.security.Principal principal«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
+  )	«noSonarTag("EIAS")»
+  throws	«noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.CSIException, «noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.UnrecoverableException	«noSonarTag("EIAS")»
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
      Logger logger = getLogger(null);
@@ -663,7 +677,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
   /**
    * @generated
    */
-  public «map2javaType(this.returnType,codServ, model)» «this.name» (
+  public «map2javaType(this.returnType,codServ, model)» «this.name» ( «noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
     		«EXPAND template::javafiles::paramDef (model,codServ,false) FOREACH params.select(e|e==params.last())»
@@ -674,9 +688,11 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
     «ENDIF»
     «IF this.opType != OpTypeEnum::synch»«IF params!=null && params.size>0»,«ENDIF» it.csi.csi.util.DatiMessaggio datiMsg«ENDIF»
     «IF sd.authLevel != AuthLevelEnum::A0»«IF this.params.size>0», «ENDIF»java.security.Principal principal«ENDIF»
-  )
-  throws
-  	it.csi.csi.wrapper.CSIException, it.csi.csi.wrapper.SystemException, it.csi.csi.wrapper.UnrecoverableException
+  ) «noSonarTag("EIAS")»
+  throws «noSonarTag("EIAS")»
+  	it.csi.csi.wrapper.CSIException, «noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.SystemException,	«noSonarTag("EIAS")» 
+  	it.csi.csi.wrapper.UnrecoverableException	«noSonarTag("EIAS")»
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
   {
      Logger logger = getLogger(null);
