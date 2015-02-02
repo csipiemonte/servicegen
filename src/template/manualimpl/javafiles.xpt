@@ -622,7 +622,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
   	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")»
   	it.csi.csi.wrapper.UnrecoverableException	«noSonarTag("EIAS")»
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
+  { «noSonarTag("EIAS")»
      Logger logger = getLogger(null);
 	 logger.debug("[«implClassName»::«name»] - START");
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»
@@ -694,7 +694,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
   	it.csi.csi.wrapper.SystemException,	«noSonarTag("EIAS")» 
   	it.csi.csi.wrapper.UnrecoverableException	«noSonarTag("EIAS")»
   «EXPAND template::javafiles::exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
+  { «noSonarTag("EIAS")»
      Logger logger = getLogger(null);
 	 logger.debug("[«implClassName»::«name»] - START");
 	 «IF sd.authLevel != AuthLevelEnum::A0»logger.debug("[«implClassName»::«name»] - caller principal:"+principal);«ENDIF»

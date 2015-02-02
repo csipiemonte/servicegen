@@ -386,7 +386,7 @@ Classe dell'EJB che implementa il servizio (tramite delegate)
   	it.csi.csi.wrapper.SystemException, «noSonarTag("EIAS")»
   	it.csi.csi.wrapper.UnrecoverableException «noSonarTag("EIAS")»
   «EXPAND exceptionInThrowsClause(model,codServ) FOREACH throws»
-  {
+  { «noSonarTag("EIAS")»
      try{
      	
      	logger.debug("[«serviceBeanClassName(codServ)»::«this.name»()] - START");

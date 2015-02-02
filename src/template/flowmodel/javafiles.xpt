@@ -399,9 +399,7 @@ import org.apache.log4j.Logger;
       try {
         me = new ServiceLocator();
       } catch(Exception se) {
-        System.err.println(se);
         logger.error("[«getFullServiceLocatorPkg(model)».ServiceLocator::methodName] - errore non gestito nell'esecuzione del flusso",se);
-        //se.printStackTrace(System.err);
       }
     }		
     

@@ -1741,12 +1741,12 @@ public class «httpPDProxyLoaderClassName()»
         catch (ConfigException cfE)
         {
             msgError = cfE.getMessage();
-            _log.error("[HttpPDProxyLoader::static initializer] - Errore Configurazione " + cfE.getMessage());
+            _log.error("[HttpPDProxyLoader::static initializer] - Errore Configurazione " + cfE.getMessage(), cfE);
         }
         catch (Exception e)
         {
             msgError = e.getMessage();
-            _log.error("[HttpPDProxyLoader::static initializer] - Errore Generico " + e.getMessage());
+            _log.error("[HttpPDProxyLoader::static initializer] - Errore Generico " + e.getMessage(), e);
         }
     }
 
@@ -1863,9 +1863,9 @@ public class «httpPDProxyLoaderClassName()»
             {
                 Categories.getLogger(getAppContextName(), Categories.CSI_CONFIG).error(
                         "[HttpPDProxyLoader::init] -Impossibile inizializzare l'Http Proxy Loader: provider url [" + s_providerURL + "] non ben formato: "
-                                + ex.getMessage());
+                                + ex.getMessage(), ex);
                 throw new ConfigException("Impossibile inizializzare l'Http Proxy Loader: provider url [" + s_providerURL + "] non ben formato: "
-                        + ex.getMessage());
+                        + ex.getMessage(), ex);
             }
         }
         else
@@ -1904,7 +1904,7 @@ public class «httpPDProxyLoaderClassName()»
             }
             catch (Exception e)
             {
-                _log.error("[HttpPDProxyLoader::configure] - File di configurazione csinaming.properties assente in root principale da CLASSLOADER.");
+                _log.error("[HttpPDProxyLoader::configure] - File di configurazione csinaming.properties assente in root principale da CLASSLOADER.", e);
             }
 
             _log.debug("[HttpPDProxyLoader::configure] - Verifica policy di gestione runtime...");
@@ -2567,7 +2567,7 @@ public class «httpPDProxyLoaderClassName()»
         }
         catch (IOException ioe)
         {
-            _log.error("[HttpPDProxyLoader::getRemotely] Errore nel reperimento del Response Body in formato stream :" + ioe.getMessage());
+            _log.error("[HttpPDProxyLoader::getRemotely] Errore nel reperimento del Response Body in formato stream :" + ioe.getMessage(), ioe);
             return null;
         }
 
@@ -2587,7 +2587,7 @@ public class «httpPDProxyLoaderClassName()»
             {
                 _log
                         .warn("[HttpPDProxyLoader::getRemotely] - ricevuta direttiva ERRATA o NON VALORIZZATA di PLANNED-UPDATE:" + sPlannedUpd
-                                + " verrà ignorata");
+                                + " verra' ignorata", pe);
             }
         }
         try
@@ -2826,7 +2826,7 @@ public class «httpPDProxyLoaderClassName()»
             }
             catch (Exception e)
             {
-                _log.error("[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite file di properties");
+                _log.error("[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite file di properties", e);
                 throw new IllegalArgumentException(
                         "[HttpPDProxyLoader.Selector::makeSelector] Impossibile valorizzare il contesto di invocazione tramite file di properties");
             }
