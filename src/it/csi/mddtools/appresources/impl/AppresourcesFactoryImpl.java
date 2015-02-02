@@ -45,7 +45,7 @@ public class AppresourcesFactoryImpl extends EFactoryImpl implements Appresource
 	 */
 	public static AppresourcesFactory init() {
 		try {
-			AppresourcesFactory theAppresourcesFactory = (AppresourcesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools/appresources"); 
+			AppresourcesFactory theAppresourcesFactory = (AppresourcesFactory)EPackage.Registry.INSTANCE.getEFactory(AppresourcesPackage.eNS_URI);
 			if (theAppresourcesFactory != null) {
 				return theAppresourcesFactory;
 			}

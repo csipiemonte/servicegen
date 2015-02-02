@@ -45,7 +45,7 @@ public class SvcorchFactoryImpl extends EFactoryImpl implements SvcorchFactory {
 	 */
 	public static SvcorchFactory init() {
 		try {
-			SvcorchFactory theSvcorchFactory = (SvcorchFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools/svcorch"); 
+			SvcorchFactory theSvcorchFactory = (SvcorchFactory)EPackage.Registry.INSTANCE.getEFactory(SvcorchPackage.eNS_URI);
 			if (theSvcorchFactory != null) {
 				return theSvcorchFactory;
 			}

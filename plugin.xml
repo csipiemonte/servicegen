@@ -87,4 +87,84 @@
       </metaModel>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated resources_metamodel -->
+      <package
+            uri="http://www.csi.it/mddtools/appresources"
+            class="it.csi.mddtools.appresources.AppresourcesPackage"
+            genModel="src/metamodel/resources_metamodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated resources_metamodel -->
+      <factory
+            uri="http://www.csi.it/mddtools/appresources"
+            class="it.csi.mddtools.appresources.provider.AppresourcesItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated servicedef_metamodel -->
+      <package
+            uri="http://www.csi.it/mddtools/servicedef"
+            class="it.csi.mddtools.servicedef.ServicedefPackage"
+            genModel="src/metamodel/servicedef_metamodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated servicedef_metamodel -->
+      <factory
+            uri="http://www.csi.it/mddtools/servicedef"
+            class="it.csi.mddtools.servicedef.provider.ServicedefItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated svcorch -->
+      <package
+            uri="http://www.csi.it/mddtools/svcorch"
+            class="it.csi.mddtools.svcorch.SvcorchPackage"
+            genModel="src/metamodel/svcorch.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated svcorch -->
+      <factory
+            uri="http://www.csi.it/mddtools/svcorch"
+            class="it.csi.mddtools.svcorch.provider.SvcorchItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated typedef_metamodel -->
+      <package
+            uri="http://www.csi.it/mddtools/typedef"
+            class="it.csi.mddtools.typedef.TypedefPackage"
+            genModel="src/metamodel/typedef_metamodel.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated typedef_metamodel -->
+      <factory
+            uri="http://www.csi.it/mddtools/typedef"
+            class="it.csi.mddtools.typedef.provider.TypedefItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
 </plugin>

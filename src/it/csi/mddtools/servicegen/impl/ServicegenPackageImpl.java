@@ -781,13 +781,13 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * @generated
 	 */
 	protected void createGenModel_1Annotations() {
-		String source = "GenModel";																									
+		String source = "GenModel";	
 		addAnnotation
 		  (getServiceComponent_ImplCartridge(), 
 		   source, 
 		   new String[] {
 			 "documentation", "[[ TODO - add documentation here ]]"
-		   });													
+		   });
 	}
 
 } //ServicegenPackageImpl

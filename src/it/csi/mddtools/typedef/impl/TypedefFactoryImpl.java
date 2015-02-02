@@ -58,7 +58,7 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 	 */
 	public static TypedefFactory init() {
 		try {
-			TypedefFactory theTypedefFactory = (TypedefFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools/typedef"); 
+			TypedefFactory theTypedefFactory = (TypedefFactory)EPackage.Registry.INSTANCE.getEFactory(TypedefPackage.eNS_URI);
 			if (theTypedefFactory != null) {
 				return theTypedefFactory;
 			}

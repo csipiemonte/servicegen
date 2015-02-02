@@ -46,7 +46,7 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	 */
 	public static ServicedefFactory init() {
 		try {
-			ServicedefFactory theServicedefFactory = (ServicedefFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools/servicedef"); 
+			ServicedefFactory theServicedefFactory = (ServicedefFactory)EPackage.Registry.INSTANCE.getEFactory(ServicedefPackage.eNS_URI);
 			if (theServicedefFactory != null) {
 				return theServicedefFactory;
 			}

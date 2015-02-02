@@ -46,7 +46,7 @@ public class ServicegenFactoryImpl extends EFactoryImpl implements ServicegenFac
 	 */
 	public static ServicegenFactory init() {
 		try {
-			ServicegenFactory theServicegenFactory = (ServicegenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.csi.it/mddtools/servicegen"); 
+			ServicegenFactory theServicegenFactory = (ServicegenFactory)EPackage.Registry.INSTANCE.getEFactory(ServicegenPackage.eNS_URI);
 			if (theServicegenFactory != null) {
 				return theServicegenFactory;
 			}
