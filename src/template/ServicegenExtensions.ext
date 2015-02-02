@@ -25,6 +25,13 @@ import servicedef;
 import appresources;
 
 
+String noSonarTag(String reason) :
+	let noNoSonar = getProperty("servicegen.noNOSONAR"):
+	if (noNoSonar == null || noNoSonar != "true") then
+	"//NOSONAR  Reason:"+reason
+	else
+	"";
+	
 /// standard generici J2EE Csi piemonte
 /// N.B: prevista la possibilit� di modificare il nome della organization, 
 /// nel rispetto del resto degli standard, per permettere la gestione di situazioni

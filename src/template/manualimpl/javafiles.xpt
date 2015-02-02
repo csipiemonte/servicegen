@@ -795,6 +795,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class LoadStartupService implements LoadStartupServiceMBean {
 
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
+	public static final Logger LOGGER = Logger.getLogger(LOGGER_PREFIX);
+	
 	/** Spring BeanFactory that provides the namespace for this EJB 
 	* @generated
 	*/
@@ -823,14 +829,14 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 	 * @generated
  	 */
 	public void printMessage() {
-		System.out.println(message);
+		LOGGER.info(message);
 	}
 
 	/**
 	 * @generated
  	 */
 	public void start() throws Exception {
-		System.out.println("Messaggio di avvio MBEAN=" + message);
+		LOGGER.debug("Messaggio di avvio MBEAN=" + message);
 		try {
 			String [] springCfg = new String[]{
 				"META-INF/«impl.provides.codServizio.toLowerCase()»BeanContext.xml",
@@ -840,9 +846,10 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);
 
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e);
+			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e);
+			throw e;
 		}
-		System.out.println("Chiamata da MBEAN eseguita!!!!");
+		LOGGER.debug("Chiamata da MBEAN eseguita!!!!");
 	}
 
 	/**
@@ -857,7 +864,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e);
+			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e);
 		}
 
 		return beanObject;
@@ -867,7 +874,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 	 * @generated
  	 */
 	public void stop() {
-		System.out.println("Messaggio di stop MBEAN=" + message);
+		LOGGER.debug("Messaggio di stop MBEAN=" + message);
 	}
 }
 
@@ -914,6 +921,8 @@ public interface LoadStartupServiceMBean
 «LET (ServiceImpl)eContainer AS impl-»
 «FILE fullServiceEJBClassesDir(impl.provides.codServizio, model)+"/spring/startup/"+"SpringStartupListener.java"»package «getFullServiceEJBPkg(impl.provides.codServizio, model)».spring.startup;
 
+import org.apache.log4j.Logger;
+
 import org.springframework.beans.factory.access.BeanFactoryReference;
 import org.springframework.context.access.ContextBeanFactoryReference;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -926,6 +935,13 @@ import weblogic.application.ApplicationLifecycleEvent;
  * @generated
  */
 public class SpringStartupListener extends ApplicationLifecycleListener{
+	
+	/**
+	 * @generated
+	 */
+	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»";
+	public static final Logger LOGGER = Logger.getLogger(LOGGER_PREFIX);
+	
 	/**
 	 * @generated
  	 */
@@ -941,8 +957,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 	 * @generated
  	 */
 	public void preStart(ApplicationLifecycleEvent evt) {
-
-
+		// metodo intenzionalmente vuoto
 	}
 
 	/**
@@ -959,7 +974,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);			
 			
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e); 
+			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e); 
 		}
 		
 	}
@@ -976,7 +991,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 			
 		} catch (Exception e) {
-			System.out.println("Attenzione si è verificata un'eccezione: " + e); 
+			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e); 
 		}
 		
 		return beanObject;
@@ -986,14 +1001,14 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 	 * @generated
  	 */
 	public void preStop(ApplicationLifecycleEvent evt) {
-
+		// metodo intenzionalmente vuoto
 	} 
 
 	/**
 	 * @generated
  	 */
 	public void postStop(ApplicationLifecycleEvent evt) {
-
+		// metodo intenzionalmente vuoto
 	}
 	
 }

@@ -90,7 +90,7 @@ public interface «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public boolean testResources() throws  it.csi.csi.wrapper.CSIException;
+	public boolean testResources() throws  it.csi.csi.wrapper.CSIException; «noSonarTag("EIAS")»
 	«ENDIF»
 	«IF this.diagEnabled»
 	/**
@@ -101,7 +101,7 @@ public interface «serviceInterfaceName()»{
 	/**
 	 * @generated
 	 */
-	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException;
+	public boolean hasSelfCheck() throws it.csi.csi.wrapper.CSIException; «noSonarTag("EIAS")»
 	«ENDIF»
 }
 	«ENDFILE»
@@ -731,7 +731,11 @@ public class «name» implements java.io.Serializable {
 	 * @generated
 	 */
 	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
+	«IF type.metaType==CSIDatatype && ((CSIDatatype)type).code==CSIDatatypeCodes::CSIDate-»
+		«name» = (val == null? null : new java.util.Date(val.getTime()));
+	«ELSE-»
 		«name» = val;
+	«ENDIF-»
 	}
 	
 	«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)»
@@ -753,7 +757,11 @@ public class «name» implements java.io.Serializable {
    	 */
   	«ENDPROTECT»
 	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
+	«IF type.metaType==CSIDatatype && ((CSIDatatype)type).code==CSIDatatypeCodes::CSIDate-»
+		return («name» == null ? null : new java.util.Date(«name».getTime()));
+	«ELSE-»
 		return «name»;
+	«ENDIF-»
 	}
 «ENDDEFINE»
 
