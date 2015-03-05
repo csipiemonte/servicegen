@@ -752,6 +752,17 @@ public class «name» implements java.io.Serializable {
 	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
 	«IF type.metaType==CSIDatatype && ((CSIDatatype)type).code==CSIDatatypeCodes::CSIDate-»
 		«name» = (val == null? null : new java.util.Date(val.getTime()));
+	«ELSEIF type.metaType==TypedArray-»
+		if (val==null) {
+			«name» = null;
+		}
+		else{
+			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
+			«name» = new «map2javaType(((TypedArray)type).componentType,codServ,model)»[val.length];
+			for(int i=0; i<val.length; i++){ «noSonarTag("NOTINJ13")»
+				«name»[i] = val[i]; «noSonarTag("NOTINJ13")»
+			} «noSonarTag("NOTINJ13")»
+		}
 	«ELSE-»
 		«name» = val;
 	«ENDIF-»
@@ -778,6 +789,18 @@ public class «name» implements java.io.Serializable {
 	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
 	«IF type.metaType==CSIDatatype && ((CSIDatatype)type).code==CSIDatatypeCodes::CSIDate-»
 		return («name» == null ? null : new java.util.Date(«name».getTime()));
+	«ELSEIF type.metaType==TypedArray-»
+		if («name»==null) {
+			return null;
+		}
+		else{
+			// non si puo' usare System.arrayCopy perche' i DTO devono essere compilati Java 1.3
+			«map2javaType(type,codServ,model)» copy = new «map2javaType(((TypedArray)type).componentType,codServ,model)»[«name».length];
+			for(int i=0; i<«name».length; i++){ «noSonarTag("NOTINJ13")»
+				copy[i] = «name»[i]; «noSonarTag("NOTINJ13")»
+			} «noSonarTag("NOTINJ13")»
+			return copy;
+		}
 	«ELSE-»
 		return «name»;
 	«ENDIF-»
