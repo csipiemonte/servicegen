@@ -379,20 +379,37 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 /**
+ * ServiceLocator. 
+ * Classe di utilita' utilizzata per localizzare i servizi orchestrati.
+ * E' un singleton.
  * @generated
  */
  
  public class ServiceLocator {
  	
  	/**
+ 	* il prefisso del logger
  	* @generated
  	*/
- 	
  	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * il logger utilizzato per loggaqre le operazioni del ServiceLocator
+	 * @generated
+	 */
 	public static final Logger logger = Logger
 			.getLogger(LOGGER_PREFIX);
 			
+	/**
+	 * Istanza del singleton
+	 * @generated
+	 */
     private static ServiceLocator me;
+    
+    /**
+     * contiene i servizi gia' caricati in precedenza
+     * @generated
+     */
 	private Map cacheMap;
 
     static {
@@ -403,6 +420,12 @@ import org.apache.log4j.Logger;
       }
     }		
     
+    /**
+     * costruttore intenzionalmente privato come parte dell'implementazione del pattern
+     * di Singleton
+     * @throws exception
+     * @generated 
+     */
     private ServiceLocator() throws Exception  {
 	   
 	    logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::ServiceLocator()]-START  ");
@@ -413,10 +436,21 @@ import org.apache.log4j.Logger;
       
     }	
     
+    /**
+     * Restituisce l'istanza del singleton
+     * @return  l'istanza
+     * @generated
+     */
     static public ServiceLocator getInstance() {
       return me;
     }
     
+    
+    /**
+     * @param localPDRes la risorsa che contiene la PD locale
+     * @return la PD
+     * @generated
+     */
     public Object getPD(String localPDRes)
 			throws ConfigException {
 		logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::getPD]-START  ");
@@ -425,6 +459,7 @@ import org.apache.log4j.Logger;
 
 		logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::getPD]-reperimento PD da risorsa locale:\"+localPDRes+\"");
 		
+		// verifica se lo stub del servizio specificato e' gia' in cache
 		if (cacheMap.containsKey(localPDRes)) {
 
 			logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::getPD]-PD gia' presente in cache");
@@ -440,8 +475,10 @@ import org.apache.log4j.Logger;
 
 			it.csi.csi.porte.InfoPortaDelegata infoPD;
 			try {
+				// legge dalla risorsa la PD locale ed istanzia lo stub
 				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
 				tempPdObject = it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
+				// mette in cache lo stub appena istanziato
 				cacheMap.put(localPDRes, tempPdObject);
 				
 			} catch (Exception e) {

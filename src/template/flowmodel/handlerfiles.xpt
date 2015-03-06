@@ -92,6 +92,10 @@ public final static String LAST_ERROR_SLOT_NAME = "_lastError";
 public final static String LAST_CONDITION_VALUE_SLOT_NAME = "_lastConditionValue";
 
 /**
+ * restituisce l'eventuale ultimo errore presente nel contesto
+ * @param ps
+ * @return l'eccezione se presente 
+ * @throws Exception
  * @generated
  */
 public static Exception getLastError(PropertySet ps){
@@ -99,6 +103,9 @@ public static Exception getLastError(PropertySet ps){
 }
 
 /**
+ * imposta l'ultimo errore nell'apposito slot
+ * @param exc
+ * @param ps
  * @generated
  */
 public static void setLastError(Exception exc, PropertySet ps){
@@ -106,6 +113,8 @@ public static void setLastError(Exception exc, PropertySet ps){
 }
 
 /**
+ * @param ps
+ * @return il valore dell'ultima condizone valutata 
  * @generated
  */
 public static Boolean getLastConditionValue(PropertySet ps){
@@ -113,6 +122,9 @@ public static Boolean getLastConditionValue(PropertySet ps){
 }
 
 /**
+ * imposta il valore dell'ultima condizione valutata
+ * @param condVal il valore booleano
+ * @param ps
  * @generated
  */
 public static void setLastConditionValue(Boolean condVal, PropertySet ps){
@@ -120,6 +132,9 @@ public static void setLastConditionValue(Boolean condVal, PropertySet ps){
 }
 
 /**
+ * @param name il nome dello slot di cui si vuole leggere il valore
+ * @param ps
+ * @return il valore
  * @generated
  */
 public static Object getDataSlotValue(String name, PropertySet ps){
@@ -127,6 +142,10 @@ public static Object getDataSlotValue(String name, PropertySet ps){
 }
 
 /**
+ * imposta il valore dello slot specificato
+ * @param name il nome dello slot
+ * @param val il valore da impostare
+ * @param ps
  * @generated
  */
 public static void setDataSlotValue(String name, Object val, PropertySet ps) {
@@ -153,6 +172,9 @@ public static Object initDataSlotValue(Class type){
 }
 
 /**
+ * @param clname
+ * @return la classe di nome clname
+ * @throws ClassnotFoundException
  * @generated
  */
 public static Class classForName(String clname) throws ClassNotFoundException{
@@ -192,16 +214,22 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * Classe base di implementazione del nodo di Start.
+ * Ha il compito di reperire dal contesto i valori dei parametri di input
+ * dell'operazione e inserirli negli slot corrispondenti.
  * @generated
  */
 public abstract class «startNodeBaseHandlerClassName()» implements FunctionProvider {
 	
 	/**
+	 * il prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * Il logger da utilizzare per loggare le operazioni dell'handler
+	 * @param subsystem
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -212,26 +240,39 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 	}
 	
 	/**
+	 * prefisso dei parametri di configurazione dell'handler che determinano l'elenco degli 
+	 * slot da utilizzare come deposito dei valori dei parametri di input
  	 * @generated
  	 */
 	public final static String INPUT_BINDING_PARAM_PREFIX = "input.binding.";
 	
 	/**
+	 * elenco dei binding <nome parametro, nome slot>
  	 * @generated
  	 */
 	protected Map<String, String> _inputNameBindings;
 
 	/**
+	 * nome del parametro di configurazione dell'handler in cui viene configurato
+	 * il nome dello slot interno utilizzato per contenere un eventuale valorizzazione
+	 * del principal (ottenuto se il servizio e' soggetto ad autenticazione)
  	 * @generated
  	 */
 	public final static String CALLER_PRINCIPAL_NAME_SLOT_PARAM = "caller.principal.name.slot";
 
 	/**
+	 * slot interno utilizzato per contenere un eventuale valorizzazione
+	 * del principal (ottenuto se il servizio e' soggetto ad autenticazione)
  	 * @generated
  	 */
 	protected String _callerPrincipalNameSlot;
 
 	/**
+	 * esecuzione della logica dell'handler.
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void execute(Map transientVars, Map args, PropertySet ps)
@@ -245,6 +286,12 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 	}
 
 	/**
+	 * inizializzazione delll'handler: dalla configurazione dell'handler vengono letti i
+	 * binding <nome-parametro>=<nome_slot> 
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
@@ -280,6 +327,10 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void releaseFunctionHandler(Map transientVars, Map args,
@@ -342,6 +393,9 @@ import it.csi.csi.wrapper.*;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * Classe base dell'handler di stop dell'orchestrazione.
+ * Ha il compito di restituire al contesto eventuali errori e valori di ritorno, 
+ * prendendoli dagli appositi slot.
  * @generated
  */
 public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProvider {
@@ -402,6 +456,10 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 	Map<Class,String> excMapMsg = null;
 	
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void execute(Map transientVars, Map args, PropertySet ps)
@@ -415,6 +473,12 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 	}
 
 	/**
+	 * inizializza il mapping delle eccezioni, prendendolo dai parametri di configurazione dell'
+	 * handler.
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
@@ -438,6 +502,10 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void releaseFunctionHandler(Map transientVars, Map args,
@@ -569,16 +637,21 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * Classse base di implementazione del nodo PAPDCall.
  * @generated
  */
 public abstract class «papdCallBaseHandlerClassName()» implements FunctionProvider {
 	
 	/**
+	 * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per il log delle operazioni dell'handler
+	 * @param subsystem
+	 * @return il logger
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -589,21 +662,27 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProv
 	}
 	
 	/**
+	 * nome della risorsa che contiene il file del selettore
  	 * @generated
  	 */
 	protected String selectorRes=null;
 	
 	/**
+	 * nome della risorsa che contiene il file della PD locale
  	 * @generated
  	 */
 	protected String localPDRes=null;
 	
 	/**
+	 * nome del parametro di configurazione dell'handler che contiene la risorsa del
+	 * selettore
  	 * @generated
  	 */
 	public final static String SELECTORPD_PARAM="selectorPD";
 	
 	/**
+	 * nome del parametro di configurazione dell'handler che contiene la risorsa della
+	 * PD locale
  	 * @generated
  	 */
 	public final static String SERVICEPD_PARAM="servicePD";
@@ -622,6 +701,14 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProv
 	}
 
 	/**
+	 * Inizializzazione del function handler. 
+	 * Legge dalla configurazione dell'handler il percorso di:
+	 * - selettore
+	 * - local PD
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
@@ -652,6 +739,10 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProv
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void releaseFunctionHandler(Map transientVars, Map args,
@@ -659,6 +750,10 @@ public abstract class «papdCallBaseHandlerClassName()» implements FunctionProv
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public abstract void eseguiFunctionHandler(Map transientVars, Map args,
@@ -684,16 +779,19 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * classe base di implementazione del nodo WSCall.
  * @generated
  */
 public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvider {
 
     /**
+     * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 
 	/**
+	 * 
 	 * @generated
 	 */
 	public final static String WSCLIENT_PARAM = "wscall.client";
@@ -715,6 +813,10 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 	}
    
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     public void execute(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
@@ -727,6 +829,11 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 	}
 
 	/**
+	 * inizializzazione dell'handler.
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */	
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
@@ -746,12 +853,20 @@ public abstract class «wsCallBaseHandlerClassName()» implements FunctionProvid
 	}
 	
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
 	}
     
     /**
+     * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
@@ -777,16 +892,20 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * Classe base di implementazione del nodo ForEach.
  * @generated
  */
 public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 
 	/**
+	 * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per loggare le operazioni dell'handler
+	 * @param subsystem
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -797,36 +916,53 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 	}
 	
 	/**
+	 * nome del parametro di configurazione dell'handler che contiene il
+	 * nome dello slot che contiene la collection su cui e' necessario
+	 * iterare
  	 * @generated
  	 */
 	public final static String COLLECTION_SLOT_NAME_PARAM_NAME = "collection.slot.name";
 	
 	/**
+	 * nome del parametro di configurazione dell'handler che contiene il
+	 * nome dello slot in cui deve essere inserito ad ogni iterazione l'elemento
+	 * corrente della collezione su cui si sa iterando 
  	 * @generated
  	 */
 	public final static String ITEM_SLOT_NAME_PARAM_NAME = "item.slot.name";
 	
 	/**
+	 * suffisso utilizzato per determinare il nome dello slot (interno) in cui deve essere 
+	 * inserito l'iterator. 
  	 * @generated
  	 */
 	public final static String ITERATOR_SLOT_NAME_SUFFIX = "_for_each_iterator";
 	
 	/**
+	 * suffisso del nome dello slot interno in cui deve essere inserto il flag che indica se 
+	 * ci sono ancora elementi su cui iterare
  	 * @generated
  	 */
 	public final static String MORE_ELEMENTS_SLOT_NAME_SUFFIX = "_has_more_elements";
 	
 	/**
+	 * nome dello slot contenente la collection su cui si deve iterare
  	 * @generated
  	 */
 	protected String _collectionSlotName;
 	
 	/**
+	 * nome dello slot in cui ad ogni iterazione viene inserito l'elemento corrente
  	 * @generated
  	 */
 	protected String _itemSlotName;
 	
 	/**
+	 * esecuzione della logica
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void execute(Map transientVars, Map args, PropertySet ps)
@@ -840,6 +976,14 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 	}
 
 	/**
+	 * inizializzazione dell'handler.
+	 * vengono reperiti dalla configurazione dell'handler i nomi delgi slot destinati a:
+	 * - collection
+	 * - item corrente
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps)
@@ -860,6 +1004,10 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void releaseFunctionHandler(Map transientVars, Map args,
@@ -867,6 +1015,10 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
@@ -939,17 +1091,22 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * classe base di implementazione del nodo EndLoop.
+ * La logica e' definita totalmente nella sottoclasse specifica.
  * @generated
  */
 public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvider {
 
    
 	/**
+	 * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per loggare le attivita' dell'handler
+	 * @param subsystem
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -960,6 +1117,10 @@ public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvi
 	}
 	
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
@@ -972,6 +1133,10 @@ public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvi
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
@@ -979,12 +1144,20 @@ public abstract class «endLoopBaseHandlerClassName()» implements FunctionProvi
 	}
 	
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
 	}
     
     /**
+     * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public abstract void eseguiFunctionHandler(Map transientVars, Map args, PropertySet ps) throws  WorkflowException;
@@ -1009,16 +1182,21 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * classe base di implementazione del nodo CheckCondition
  * @generated
  */
 public abstract class «checkCondBaseHandlerClassName()» implements FunctionProvider {
 
 	/**
+	 * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per il log delle operazioni dell'handler
+	 * @param subsystem
+	 * @return il logger
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1029,11 +1207,17 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
 	}
 	
 	/**
+	 * nome dello slot (interno) in cui deve essere memorizzato l'esito (booleano)
+	 * dell'ultima condiizone verificata 
  	 * @generated
  	 */
    	public static final String LAST_CONDITION_VALUE_SLOT = "_lastConditionValue";
 
     /**
+     * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     public void execute(Map transientVars, Map args, PropertySet ps)	throws WorkflowException {
@@ -1046,6 +1230,10 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
 	}
 
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	private void initFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
@@ -1053,6 +1241,10 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
 	}
 	
 	/**
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
     private void releaseFunctionHandler(Map transientVars, Map args, PropertySet ps) throws WorkflowException {
@@ -1060,6 +1252,12 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
     
 	
 	/**
+	 * valuta la condizione (definita nel metodo evalConditon() della sottoclasse e
+	 * inserisce il valore risultante nell'apposito slot 
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
@@ -1073,7 +1271,7 @@ public abstract class «checkCondBaseHandlerClassName()» implements FunctionPro
 	}
 
 	/**
-	 * Deve essere implementata a seconda della condizione da verificare
+	 * Deve essere implementata nella sottoclasse  a seconda della condizione da verificare
 	 * @generated
 	 */
 	public abstract boolean evalCondition(PropertySet ps) throws WorkflowException;
@@ -1104,11 +1302,13 @@ import it.csi.svcflow.orchestrator.handler.*;
 public abstract class «customTransformBaseHandlerClassName()» implements FunctionProvider {
 
 	/**
+	 * il prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * Il logger da utilizzare per loggare le operazioni dell'handler
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1119,21 +1319,29 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	}
 	
 	/**
+	 * prefisso dei parametri della configurazione dell'handler dove sono configurati i
+	 * nomi degli slot di input alla trasformazione
  	 * @generated
  	 */
 	public static final String INPUT_SLOT_NAME_PARAM_PREFIX = "input.slot.name.";
 	
 	/**
+	 * prefisso dei parametri della configurazione dell'handler dove sono configurati i
+	 * tipi degli slot di input alla trasformazione
  	 * @generated
  	 */
 	public static final String INPUT_SLOT_CLASS_PARAM_PREFIX = "input.slot.class.";
 	
 	/**
+	 * prefisso dei parametri della configurazione dell'handler dove sono configurati i
+	 * nomi degli slot di output alla trasformazione
  	 * @generated
  	 */
 	public static final String OUTPUT_SLOT_NAME_PARAM = "output.slot.name";
 	
 	/**
+	 * prefisso dei parametri della configurazione dell'handler dove sono configurati i
+	 * tipi degli slot di output alla trasformazione
  	 * @generated
  	 */
 	public static final String OUTPUT_SLOT_CLASS_PARAM = "output.slot.class";
@@ -1174,6 +1382,12 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	}
 
 	/**
+	 * inizializza il function handler leggendo dalla configiurazione i nomi e i tipi
+	 * degli slot di input e output
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	protected void initFunctionHandler(Map transientVars, Map args,
@@ -1210,6 +1424,12 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	}
 
 	/**
+	 * Termina l'esecuzione del funciotn handler
+	 * (nessuna operazione)
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * throws WorkflowException
  	 * @generated
  	 */
 	protected void releaseFunctionHandler(Map transientVars, Map args,
@@ -1217,6 +1437,14 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	}
 
 	/**
+	 * Esecuzione della logica di trasformazione (delegata al metodo getTransformedObject()
+	 * ridefinito nella sottoclasse.
+	 * Prepara i valori degli slot in input e li passa al metodo di trasformazione.
+	 * Al termine inserisce nello slot di output il risultato della trasformazione
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public void eseguiFunctionHandler(Map transientVars, Map args,
@@ -1241,7 +1469,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	 * di trasformazione vera e propria.
 	 *  
 	 * @param inValues mappa contenente i valori dei dataSlot di input. Per trasformazioni
-	 * incrementali anche il dataSlot di output può essere un dataSlot di input.
+	 * incrementali anche il dataSlot di output puo' essere un dataSlot di input.
 	 * @return l'oggetto trasformato, che verrà rimpiazzato al valore eventualmente precedente
 	 * nel context.
 	 * @generated
@@ -1267,16 +1495,20 @@ import com.opensymphony.workflow.WorkflowException;
 import it.csi.svcflow.orchestrator.handler.*;
 
 /**
+ * Classe base per l'implementazione delle trasformazioni dichiarative
+ * N.B. Al momento uqesto tipo di trasformazione non e' ancora implementata.
  * @generated
  */
 public abstract class «declTransformBaseHandlerClassName()» extends «customTransformBaseHandlerClassName()» {
    
    	/**
+   	 * il prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * il logger
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1287,6 +1519,7 @@ public abstract class «declTransformBaseHandlerClassName()» extends «customTr
 	}
    	
 	/**
+	 * N.B: al momento non implementata
  	 * @generated
  	 */
 	public abstract Object getTransformedObject(Map<String, Object> inputs);
@@ -1311,16 +1544,21 @@ import com.opensymphony.workflow.WorkflowException;
 
 
 /**
+ * condiizone utilizzata per valutare se e' stata sollevata una eccezione. 
  * @generated
  */
 public class «excRaisedConditionClassName()» implements Condition {
 
 	/**
+	 * @prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per loggare le operazioni
+	 * @param subsystem
+	 * @return il logger
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1331,12 +1569,20 @@ public class «excRaisedConditionClassName()» implements Condition {
 	}
 	
 	/**
+	 * nome del parametro della configurazione che contiene l'elenco delle eccezioni 
+	 * gestite
  	 * @generated
  	 */
 	public final static String HANDLED_EXCEPTIONS_PARAM_NAME = "handled.exceptions";
 
 	
 	/**
+     * la condizione si deve ritenere verificata quando nell'apposito slot e' presente
+     * una eccezione compresa tra quelle gestite
+     * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
@@ -1397,16 +1643,23 @@ import com.opensymphony.workflow.WorkflowException;
 
 
 /**
+ * Implementa la condizione di permanenz/uscita nel/dal loop.
+ * La stessa classe e' utilizzata sia per determinare la condizione di permanenza
+ * (configurando il parametro BRANCH_PARAM_NAME (for.each.branch) a STAY (stay) )
+ * sia per determinare la condizione di uscita (configurando il parametro BRANCH_PARAM_NAME
+ * (for.each.branch) a EXIT (exit)).
  * @generated
  */
 public class «forEachConditionClassName()» implements Condition{
 
 	/**
+	 * il prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * il logger da utilizzare per loggare le operazioni dell'handler
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1417,6 +1670,7 @@ public class «forEachConditionClassName()» implements Condition{
 	}
 	
 	/**
+	 * 
  	 * @generated
  	 */
 	public final static String BRANCH_PARAM_NAME = "for.each.branch";
@@ -1432,19 +1686,26 @@ public class «forEachConditionClassName()» implements Condition{
 	public final static String EXIT="exit";
 	
 	/**
+	 * determina se la condizione e' da considerarsi verificata o meno.
+	 * Permette di determinare se il flusso prosegue con la logica del loop
+	 * o con la logica successiva al loop.
  	 * @generated
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
 			throws WorkflowException {
 		«debugLog(forEachConditionClassName(),"passesCondition","START")»
+		// nome dello slot che contiene la collectoin su cui il ForEach deve iterare
 		String collSN = (String)args.get(ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME);
-		if (collSN==null)
+		if (collSN==null){
+		    // non e' stato configurato il nome dello slot che contiene la collection
+		    // => errore
 			throw new WorkflowException("errore nella configurazione della condizione del for each: occorre configurare "+
 					"il parametro "+ForEachBaseHandler.COLLECTION_SLOT_NAME_PARAM_NAME+ 
 					" valorizzandolo coerentemente con il nodo for each corrispondente.");
-		
+		}
 		String branch = (String)args.get(BRANCH_PARAM_NAME);
 		«debugLog(forEachConditionClassName(),"passesCondition","branch:\"+branch+\"")»
+		// gl iunici valori ammessi per il parametro BRANCH_PARAM _NAME sono STAY o EXIT
 		if (branch == null || 
 			(!branch.equals(STAY)&&!branch.equals(EXIT))
 		){
@@ -1452,15 +1713,22 @@ public class «forEachConditionClassName()» implements Condition{
 					"il parametro "+BRANCH_PARAM_NAME+ 
 					" valorizzandolo con '"+STAY+"' o '"+EXIT+"'");
 		}
+		// La presenza di ulteriori elementi su cui iterare e' determinata dal valore di uno slot interno 
 		Boolean continueFlag = (Boolean)DataSlotHelper.getDataSlotValue(collSN+ForEachBaseHandler.MORE_ELEMENTS_SLOT_NAME_SUFFIX, ps);
-		if (continueFlag==null)
+		if (continueFlag==null){
+			// se lo slot non e' stato impostato suppongo che non si debba continuare
 			continueFlag=Boolean.FALSE;
+		}	
 		if (branch.equals(STAY)){
 			«debugLog(forEachConditionClassName(),"passesCondition","END")»
+			// se la condizione e' utilizzata per determinare la condizione di permanenza allora
+			// la condizione e' vera se lo e' anche il flag
 			return continueFlag.booleanValue();
 		}
 		else {
 			«debugLog(forEachConditionClassName(),"passesCondition","END")»
+			// se la condizione e' utilizzata per determinare la condizione di uscita allora
+			// la condizione e' vera se il flag e' falso
 			return !continueFlag.booleanValue();
 		}
 		
@@ -1483,16 +1751,21 @@ import com.opensymphony.workflow.WorkflowException;
 
 
 /**
+ * Utilizzata per determinare se, in un nodo CheckCondition, la condizione e' 
+ * stata soddisfatta
  * @generated
  */
 public class «lastConditionSatisfiedClassName()» implements Condition{
 
 	/**
+	 * prefisso del logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(this.codProdotto,this.codComponente)»";
 	
 	/**
+	 * logger da utilizzare per loggare le operazioni dell'handler
+	 * @param subsystem
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -1503,6 +1776,14 @@ public class «lastConditionSatisfiedClassName()» implements Condition{
 	}
 	
 	/**
+	 * verifica se la condiizone deve essere considerata soddisfatta o
+	 * meno.
+	 * La condizione e' soddisfatta se il valore reperito dal contesto tramite
+	 * DataSlotHelper.getLastConditionValue() e' true.
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	public boolean passesCondition(Map transientVars, Map args, PropertySet ps)
@@ -3053,6 +3334,9 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 /**
+ * Implementazione dello start node [«name»].
+ * L'implementazione dello start node non aggiunge nessuna logica a quella
+ * della superclasse.
  * @generated
  */
 public class «specificHandlerClassName()» extends «startNodeBaseHandlerClassName()»{
@@ -3075,6 +3359,7 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 /**
+ * Implementazione dello stop node [«name»].
  * @generated
  */
 public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassName()»{
@@ -3082,8 +3367,9 @@ public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassNa
 	/**
 	 * Determina la modalit&agrave; di popolamento delle mappe degli errori.
 	 * @param args mappa contenente la configurazione del workflow
-	 * @param excMap rimappa le eccezioni interne con quelle restituibili dal servizio orchestrato
-	 * @param excMapMsg rimappa i messaggi di errore
+	 * @param excMap viene riempita con i mapping delle eccezioni interne con quelle restituibili 
+	          dal servizio orchestrato
+	 * @param excMapMsg viene riempita con i mapping tra eccezioni e messaggi di errore
 	 * @throws Exception in caso di errore
 	 * @generated
 	 */
@@ -3100,13 +3386,18 @@ public class «specificHandlerClassName()» extends «stopNodeBaseHandlerClassNa
 
 «REM»Fill errors map: CSI version«ENDREM»
 «DEFINE fillErrorMapsCsi(Orchestration orch, ServiceDef sd, SOABEModel model) FOR StopNode»
+// itera sui parametri per cercare quelli che determinano
+// il mapping delle eccezioni
 Iterator<String> key_it = args.keySet().iterator();
 while (key_it.hasNext()) {
 	String currK = (String) key_it.next();
 	if (currK.startsWith(EXC_MAP_FROM_PARAM_PREFIX)){
+		// eccezione di partenza
 		String currFrom = (String)args.get(currK);
 		String index = currK.substring(currK.lastIndexOf(".")+1);
+		// eccezione in cui deve essere rimappata l'eccezione di partenza
 		String currTo = (String)args.get(EXC_MAP_TO_PARAM_PREFIX+index);
+		// messaggio da inserire dopo aver effettuato il remapping
 		String currMsg = (String)args.get(EXC_MAP_MSG_PARAM_PREFIX+index);
 		try{
 			Class fromClass = Class.forName(currFrom);
@@ -3157,19 +3448,39 @@ import «getFullServiceLocatorPkg(sd,model)».*;
 «ENDIF»
 
 /**
+ * Implementazione della specifica invocazione al servizio PAPD:
+ * - servizio [«this.serviceConnector.code»]
+ * - operation [«this.operation.name»]
+ «IF serviceConnector.useRegistry-»
+ * il servizio verra' richiamato tramite registry
+ «ELSE-»
+ * il servizio verra' richiamato tramite configurazione locale della PD
+ «ENDIF-»
  * @generated
  */
 public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassName()»{
 
 	/**
+	 * prefisso da utilizzare nei logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
+	
+	/**
+	 * Il logger utilizzato per loggare le operazioni di questo handler
+	 * @generated
+	 */
 	public static final Logger LOGGER = Logger.getLogger(LOGGER_PREFIX);
 	
 	
 	
 	/**
+	 * Esegue la chiamata all'operazione «operation.name» del servizio «serviceConnector.code»
+	 * Tramite Porta Delegata
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	@Override
@@ -3180,9 +3491,13 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 		try {
 		
 			«IF !this.serviceConnector.useRegistry-»
+			   // la porta delegata viene reperita tramite invocazione al servizio
+			   // di registry
 			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
 			   («fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)ServiceLocator.getInstance().getPD(localPDRes);		 
 			«ELSE»
+			   // la porta delegata viene caricata localmente da file di configurazione
+			   // xml
 			   «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» pd = 
 				getPD();                                                                                   
 			«ENDIF»
@@ -3192,6 +3507,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-binding parametri ");
 		«FOREACH this.paramBindings AS currPB-»
 		«LET currPB.slot AS currIn-»
+			// slot: «currIn.name»
 			«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
 			(«map2JavaTypeSDRelative(currIn.type)»)DataSlotHelper.getDataSlotValue("«getDataSlotAttrName(currIn)»",ps);
 			
@@ -3210,7 +3526,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			
 			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ok  ");
 			
-			/// inserimento risultato nello slot apposito
+			/// inserimento risultato nello slot apposito («getDataSlotAttrName(this.outputSlot)»)
 			
 			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-inserimento del risultato nello slot   "+"«getDataSlotAttrName(this.outputSlot)»");
 			DataSlotHelper.setDataSlotValue("«getDataSlotAttrName(this.outputSlot)»", result, ps);
@@ -3227,6 +3543,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 			«ENDIF-»
 			
 		} catch (Exception e) {
+			// l'eccezione viene inserita nel contesto per essere processata successivamente
 			DataSlotHelper.setLastError(e, ps);
 			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
 			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
@@ -3239,6 +3556,9 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 	«IF this.serviceConnector.useRegistry-»
 	
 	/**
+	 * Reperisce la port delegata dal servizio di registry
+	 * @return il proxy di PD restituito dal servizio di registry
+	 * @throws ConfigException in caso di problemi nel reperimento della configurazione
  	 * @generated
  	 */
 	protected «fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» getPD() throws ConfigException{
@@ -3250,7 +3570,10 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 		
 		LOGGER.debug("[«specificHandlerClassName()»::getPD]--localPD:\"+localPDRes+\"");
 		java.util.Properties selectorProps = new java.util.Properties();
+		// la PD locale serve per configurare eventuali specificita' del fruitore
+		// (es. le credenziali di autenticazione)
 		java.io.InputStream localPD = this.getClass().getResourceAsStream(localPDRes);
+		// reperimento della PD dal registry e merge con la PD locale
 		«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)» tempPd =
 			(«fullQualifiedServiceInterfaceName(this.serviceConnector.serviceDef, model)»)
 				HttpPDProxyLoader.loadProxy(selectorRes, localPD);
@@ -3379,16 +3702,21 @@ import «baseHandlersPkg(model)».*;
 «ENDPROTECT»
 
 /**
+ * Implementazione della custom transformation [«name»].
+ * la logica della trasformazione e' codificata in java nel metodo:
+ * getTransformedObject() 
  * @generated
  */
 public class «specificHandlerClassName()» extends «customTransformBaseHandlerClassName()»{
 
 	/**
+	 * il prefisso dei logger
 	 * @generated
 	 */
 	public static final String LOGGER_PREFIX = "«getLoggerPrefixForComponent(model.codProdotto,model.codComponente)»";
 	
 	/**
+	 * il logger utilizzato dall'handler
 	 * @generated
 	 */
 	protected Logger getLogger(String subsystem){
@@ -3398,6 +3726,14 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandler
 	    return Logger.getLogger(LOGGER_PREFIX);
 	}
 	
+	/**
+	 * Logica effettiva di trasformazione degli slot di input nel valore da inseirire
+	 * nello slot di output.
+	 * La logica e' codificata in java.
+	 * @param inputs mappa contenente gli input (nome dello slot e valore)
+	 * @return l'oggetto risultante dalla trasformazione degli input e che dovra' essere
+	 *         inserito nello sloti di output 
+	 */
 	public Object getTransformedObject(Map<String, Object> inputs){
 		«debugLog(specificHandlerClassName(),"getTransformedObject","START")»		
 		«map2JavaTypeSDRelative(output.type)» outVal = 
@@ -3405,6 +3741,7 @@ public class «specificHandlerClassName()» extends «customTransformBaseHandler
 		
 		/// valore degli input slot
 		«FOREACH input AS currIn-»
+		// slot [«currIn.name»]
 		«map2JavaTypeSDRelative(currIn.type)» slot_«currIn.name»  = 
 			(«map2JavaTypeSDRelative(currIn.type)»)inputs.get("«getDataSlotAttrName(currIn)»");
 		«ENDFOREACH-»
@@ -3434,6 +3771,8 @@ import «baseHandlersPkg(model)».*;
 
 
 /**
+ * Implementazione della trasformazione dichiarativa.
+ * questa classe non e' attualmente implementata.
  * @generated
  */
 public class «specificHandlerClassName()» extends «declTransformBaseHandlerClassName()»{
@@ -3463,6 +3802,7 @@ public class «specificHandlerClassName()» extends «declTransformBaseHandlerCl
 	}
 
 	/**
+	 * non attualmente implementata!!
  	 * @generated
  	 */
 	public Object getTransformedObject(Map<String, Object> inputs){
@@ -3488,6 +3828,8 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 /**
+ * Implementaizone specifica del nodo di loop [«name»].
+ * La classe specifica non aggiunge enssuna logica al comportamento della classe base
  * @generated
  */
 public class «specificHandlerClassName()» extends «forEachBaseHandlerClassName()»{
@@ -3510,10 +3852,17 @@ import com.opensymphony.workflow.WorkflowException;
 import «baseHandlersPkg(model)».*;
 
 /**
+ * Implementazione specifica del nodo di end (uscita) del loop
  * @generated
  */
 public class «specificHandlerClassName()» extends «endLoopBaseHandlerClassName()»{
 	/**
+	 * esegue la logica effettiva.
+	 * non aggiunge nulla rispetto alla logica generica
+	 * @param transientVars
+	 * @param args
+	 * @param ps
+	 * @throws WorkflowException
  	 * @generated
  	 */
 	@Override
