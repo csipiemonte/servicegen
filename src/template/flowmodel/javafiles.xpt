@@ -534,15 +534,8 @@ public class «serviceImplClassName()» {
 	 
 	 try {
      
-		 // inizializzazione e richiamo del flusso
-		 try{
-		 	OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,Integer.valueOf(0),persistentParams);
-		 }
-		 catch(WorkflowException wfe){
-		 	logger.error("[«serviceImplClassName(this)»::methodName] - errore non gestito nell'esecuzione del flusso",wfe);
-		 	UnrecoverableException ue = new UnrecoverableException("Errore non gestito nell'esecuzione del flusso: "+wfe.getMessage(),wfe);
-		 	throw ue;
-		 }
+		// inizializzazione e richiamo del flusso
+		OswMainEngine.esecuzioneWorkflow(remoteUser,workflowDescriptor,Integer.valueOf(0),persistentParams);
 	 
 	 	Object retVal = persistentParams.get("result");
      	// se il valore di ritorno e'un'eccezione occorre rilanciarla (anche se metodo void)

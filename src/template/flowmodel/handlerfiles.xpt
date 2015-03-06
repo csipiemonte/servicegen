@@ -469,21 +469,7 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 				java.lang.reflect.Constructor exCtr;
 				try {
 					exCtr = trgExcCl.getConstructor(String.class, Throwable.class);
-					«IF source=="csi"-»CSI«ENDIF-»Exception eToThrow;
-					try {
-						eToThrow = («IF source=="csi"-»CSI«ENDIF-»Exception)exCtr.newInstance(msg, e);
-						DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
-								ps);
-					} catch (IllegalArgumentException e1) {
-						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
-					} catch (InstantiationException e1) {
-						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
-					} catch (IllegalAccessException e1) {
-						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
-					} catch (java.lang.reflect.InvocationTargetException e1) {
-						throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
-					}
-				
+					setExceptionToThrow(msg, e, exCtr, ps);
 					
 				} catch (SecurityException e1) {
 					throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
@@ -518,6 +504,35 @@ public abstract class «stopNodeBaseHandlerClassName()» implements FunctionProv
 		«debugLog(stopNodeBaseHandlerClassName(),"eseguiFunctionHandler","END")»
 	}
 
+
+	/**
+	 * imposta nello slot di errore l'eccezione da rilanciare
+	 * @param msg il messaggio di errore
+	 * @param e l'eccezione originaria
+	 * @param exCtr costruttore dell'eccezione
+	 * @param ps
+	 */
+	protected void setExceptionToThrow(
+		String msg, 
+		Exception e, 
+		java.lang.reflect.Constructor exCtr,
+		PropertySet ps) throws WorkflowException {
+		«IF source=="csi"-»CSI«ENDIF-»Exception eToThrow;
+		try {
+			eToThrow = («IF source=="csi"-»CSI«ENDIF-»Exception)exCtr.newInstance(msg, e);
+			DataSlotHelper.setDataSlotValue(RETURN_ATTRIBUTE_NAME, eToThrow,
+				ps);
+		} catch (IllegalArgumentException e1) {
+			throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
+		} catch (InstantiationException e1) {
+			throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
+		} catch (IllegalAccessException e1) {
+			throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
+		} catch (java.lang.reflect.InvocationTargetException e1) {
+			throw new WorkflowException("errore nell'impostazione del valore dello slot di eccezione",e1);
+		}
+	}
+					
 	/**
 	 * verifica se l'eccezione e' una eccezione base di CSI.
 	 */
