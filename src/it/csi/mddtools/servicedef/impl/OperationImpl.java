@@ -25,6 +25,7 @@ import it.csi.mddtools.servicedef.OpTypeEnum;
 import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.Param;
 import it.csi.mddtools.servicedef.Role;
+import it.csi.mddtools.servicedef.SDDocumentation;
 import it.csi.mddtools.servicedef.ServicedefPackage;
 import it.csi.mddtools.servicedef.TXTypeEnum;
 
@@ -63,6 +64,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getSince <em>Since</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getAuthorizedRoles <em>Authorized Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getValidator <em>Validator</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,6 +200,16 @@ public class OperationImpl extends EObjectImpl implements Operation {
 	 * @ordered
 	 */
 	protected InputValidator validator;
+
+	/**
+	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDocumentation()
+	 * @generated
+	 * @ordered
+	 */
+	protected SDDocumentation documentation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -424,6 +436,49 @@ public class OperationImpl extends EObjectImpl implements Operation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SDDocumentation getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDocumentation(SDDocumentation newDocumentation, NotificationChain msgs) {
+		SDDocumentation oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicedefPackage.OPERATION__DOCUMENTATION, oldDocumentation, newDocumentation);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDocumentation(SDDocumentation newDocumentation) {
+		if (newDocumentation != documentation) {
+			NotificationChain msgs = null;
+			if (documentation != null)
+				msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.OPERATION__DOCUMENTATION, null, msgs);
+			if (newDocumentation != null)
+				msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.OPERATION__DOCUMENTATION, null, msgs);
+			msgs = basicSetDocumentation(newDocumentation, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.OPERATION__DOCUMENTATION, newDocumentation, newDocumentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -431,6 +486,8 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				return ((InternalEList<?>)getParams()).basicRemove(otherEnd, msgs);
 			case ServicedefPackage.OPERATION__VALIDATOR:
 				return basicSetValidator(null, msgs);
+			case ServicedefPackage.OPERATION__DOCUMENTATION:
+				return basicSetDocumentation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -462,6 +519,8 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				return getAuthorizedRoles();
 			case ServicedefPackage.OPERATION__VALIDATOR:
 				return getValidator();
+			case ServicedefPackage.OPERATION__DOCUMENTATION:
+				return getDocumentation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -505,6 +564,9 @@ public class OperationImpl extends EObjectImpl implements Operation {
 			case ServicedefPackage.OPERATION__VALIDATOR:
 				setValidator((InputValidator)newValue);
 				return;
+			case ServicedefPackage.OPERATION__DOCUMENTATION:
+				setDocumentation((SDDocumentation)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -544,6 +606,9 @@ public class OperationImpl extends EObjectImpl implements Operation {
 			case ServicedefPackage.OPERATION__VALIDATOR:
 				setValidator((InputValidator)null);
 				return;
+			case ServicedefPackage.OPERATION__DOCUMENTATION:
+				setDocumentation((SDDocumentation)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -574,6 +639,8 @@ public class OperationImpl extends EObjectImpl implements Operation {
 				return authorizedRoles != null && !authorizedRoles.isEmpty();
 			case ServicedefPackage.OPERATION__VALIDATOR:
 				return validator != null;
+			case ServicedefPackage.OPERATION__DOCUMENTATION:
+				return documentation != null;
 		}
 		return super.eIsSet(featureID);
 	}

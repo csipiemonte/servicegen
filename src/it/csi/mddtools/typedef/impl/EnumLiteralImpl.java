@@ -3,12 +3,15 @@
 package it.csi.mddtools.typedef.impl;
 
 import it.csi.mddtools.typedef.EnumLiteral;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -21,6 +24,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.EnumLiteralImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.EnumLiteralImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link it.csi.mddtools.typedef.impl.EnumLiteralImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +70,16 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 	 * @ordered
 	 */
 	protected String value = VALUE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDocumentation()
+	 * @generated
+	 * @ordered
+	 */
+	protected TDDocumentation documentation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -133,6 +147,63 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TDDocumentation getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDocumentation(TDDocumentation newDocumentation, NotificationChain msgs) {
+		TDDocumentation oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TypedefPackage.ENUM_LITERAL__DOCUMENTATION, oldDocumentation, newDocumentation);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDocumentation(TDDocumentation newDocumentation) {
+		if (newDocumentation != documentation) {
+			NotificationChain msgs = null;
+			if (documentation != null)
+				msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.ENUM_LITERAL__DOCUMENTATION, null, msgs);
+			if (newDocumentation != null)
+				msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.ENUM_LITERAL__DOCUMENTATION, null, msgs);
+			msgs = basicSetDocumentation(newDocumentation, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.ENUM_LITERAL__DOCUMENTATION, newDocumentation, newDocumentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
+				return basicSetDocumentation(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -140,6 +211,8 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 				return getName();
 			case TypedefPackage.ENUM_LITERAL__VALUE:
 				return getValue();
+			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
+				return getDocumentation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,6 +230,9 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 				return;
 			case TypedefPackage.ENUM_LITERAL__VALUE:
 				setValue((String)newValue);
+				return;
+			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
+				setDocumentation((TDDocumentation)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -176,6 +252,9 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 			case TypedefPackage.ENUM_LITERAL__VALUE:
 				setValue(VALUE_EDEFAULT);
 				return;
+			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
+				setDocumentation((TDDocumentation)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -192,6 +271,8 @@ public class EnumLiteralImpl extends EObjectImpl implements EnumLiteral {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TypedefPackage.ENUM_LITERAL__VALUE:
 				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
+				return documentation != null;
 		}
 		return super.eIsSet(featureID);
 	}

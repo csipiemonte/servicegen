@@ -941,6 +941,29 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.servicedef.SDDocumentation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SDDocumentationItemProvider sdDocumentationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.servicedef.SDDocumentation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSDDocumentationAdapter() {
+		if (sdDocumentationItemProvider == null) {
+			sdDocumentationItemProvider = new SDDocumentationItemProvider(this);
+		}
+
+		return sdDocumentationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1076,6 +1099,7 @@ public class ServicedefItemProviderAdapterFactory extends ServicedefAdapterFacto
 		if (wsTimestampItemProvider != null) wsTimestampItemProvider.dispose();
 		if (wsEncryptItemProvider != null) wsEncryptItemProvider.dispose();
 		if (wsEndpointChannelItemProvider != null) wsEndpointChannelItemProvider.dispose();
+		if (sdDocumentationItemProvider != null) sdDocumentationItemProvider.dispose();
 	}
 
 }

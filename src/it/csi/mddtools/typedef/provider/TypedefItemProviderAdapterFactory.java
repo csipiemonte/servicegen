@@ -366,6 +366,29 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.TDDocumentation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TDDocumentationItemProvider tdDocumentationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.TDDocumentation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTDDocumentationAdapter() {
+		if (tdDocumentationItemProvider == null) {
+			tdDocumentationItemProvider = new TDDocumentationItemProvider(this);
+		}
+
+		return tdDocumentationItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -476,6 +499,7 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 		if (typeLanguageBindingItemProvider != null) typeLanguageBindingItemProvider.dispose();
 		if (enumValItemProvider != null) enumValItemProvider.dispose();
 		if (enumLiteralItemProvider != null) enumLiteralItemProvider.dispose();
+		if (tdDocumentationItemProvider != null) tdDocumentationItemProvider.dispose();
 	}
 
 }

@@ -373,6 +373,15 @@ public interface ServicedefFactory extends EFactory {
 	WSEndpointChannel createWSEndpointChannel();
 
 	/**
+	 * Returns a new object of class '<em>SD Documentation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>SD Documentation</em>'.
+	 * @generated
+	 */
+	SDDocumentation createSDDocumentation();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

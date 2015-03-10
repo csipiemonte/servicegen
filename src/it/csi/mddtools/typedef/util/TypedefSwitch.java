@@ -28,6 +28,7 @@ import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypeLanguageBinding;
@@ -179,6 +180,12 @@ public class TypedefSwitch<T> extends Switch<T> {
 			case TypedefPackage.ENUM_LITERAL: {
 				EnumLiteral enumLiteral = (EnumLiteral)theEObject;
 				T result = caseEnumLiteral(enumLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TypedefPackage.TD_DOCUMENTATION: {
+				TDDocumentation tdDocumentation = (TDDocumentation)theEObject;
+				T result = caseTDDocumentation(tdDocumentation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -378,6 +385,21 @@ public class TypedefSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEnumLiteral(EnumLiteral object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>TD Documentation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>TD Documentation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTDDocumentation(TDDocumentation object) {
 		return null;
 	}
 

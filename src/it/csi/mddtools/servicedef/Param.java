@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.Param#getValidator <em>Validator</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Param#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Param#isInHeader <em>In Header</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Param#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -191,5 +192,31 @@ public interface Param extends EObject {
 	 * @generated
 	 */
 	void setInHeader(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Documentation</em>' containment reference.
+	 * @see #setDocumentation(SDDocumentation)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getParam_Documentation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	SDDocumentation getDocumentation();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Param#getDocumentation <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Documentation</em>' containment reference.
+	 * @see #getDocumentation()
+	 * @generated
+	 */
+	void setDocumentation(SDDocumentation value);
 
 } // Param

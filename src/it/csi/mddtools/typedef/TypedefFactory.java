@@ -148,6 +148,15 @@ public interface TypedefFactory extends EFactory {
 	EnumLiteral createEnumLiteral();
 
 	/**
+	 * Returns a new object of class '<em>TD Documentation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>TD Documentation</em>'.
+	 * @generated
+	 */
+	TDDocumentation createTDDocumentation();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

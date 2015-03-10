@@ -274,6 +274,10 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 				return createWSEndpointChannelAdapter();
 			}
 			@Override
+			public Adapter caseSDDocumentation(SDDocumentation object) {
+				return createSDDocumentationAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -948,6 +952,20 @@ public class ServicedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWSEndpointChannelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.servicedef.SDDocumentation <em>SD Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.servicedef.SDDocumentation
+	 * @generated
+	 */
+	public Adapter createSDDocumentationAdapter() {
 		return null;
 	}
 

@@ -309,6 +309,7 @@ public class ServiceDefItemProvider
 			childrenFeatures.add(ServicedefPackage.Literals.SERVICE_DEF__TYPES);
 			childrenFeatures.add(ServicedefPackage.Literals.SERVICE_DEF__ROLES);
 			childrenFeatures.add(ServicedefPackage.Literals.SERVICE_DEF__ANNOTATIONS);
+			childrenFeatures.add(ServicedefPackage.Literals.SERVICE_DEF__DOCUMENTATION);
 		}
 		return childrenFeatures;
 	}
@@ -383,6 +384,7 @@ public class ServiceDefItemProvider
 			case ServicedefPackage.SERVICE_DEF__TYPES:
 			case ServicedefPackage.SERVICE_DEF__ROLES:
 			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -439,6 +441,11 @@ public class ServiceDefItemProvider
 			(createChildParameter
 				(ServicedefPackage.Literals.SERVICE_DEF__ANNOTATIONS,
 				 ServicedefFactory.eINSTANCE.createServiceDefAnnotation()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.SERVICE_DEF__DOCUMENTATION,
+				 ServicedefFactory.eINSTANCE.createSDDocumentation()));
 	}
 
 	/**

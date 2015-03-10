@@ -28,6 +28,7 @@ import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypeLanguageBinding;
@@ -148,6 +149,10 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEnumLiteral(EnumLiteral object) {
 				return createEnumLiteralAdapter();
+			}
+			@Override
+			public Adapter caseTDDocumentation(TDDocumentation object) {
+				return createTDDocumentationAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -348,6 +353,20 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEnumLiteralAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.TDDocumentation <em>TD Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.TDDocumentation
+	 * @generated
+	 */
+	public Adapter createTDDocumentationAdapter() {
 		return null;
 	}
 

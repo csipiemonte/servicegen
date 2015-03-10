@@ -20,6 +20,7 @@
  */
 package it.csi.mddtools.typedef.impl;
 
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -46,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +83,16 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * @ordered
 	 */
 	protected EList<TypeAnnotation> annotations;
+
+	/**
+	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDocumentation()
+	 * @generated
+	 * @ordered
+	 */
+	protected TDDocumentation documentation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -139,11 +151,56 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TDDocumentation getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDocumentation(TDDocumentation newDocumentation, NotificationChain msgs) {
+		TDDocumentation oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TypedefPackage.TYPE__DOCUMENTATION, oldDocumentation, newDocumentation);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDocumentation(TDDocumentation newDocumentation) {
+		if (newDocumentation != documentation) {
+			NotificationChain msgs = null;
+			if (documentation != null)
+				msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.TYPE__DOCUMENTATION, null, msgs);
+			if (newDocumentation != null)
+				msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.TYPE__DOCUMENTATION, null, msgs);
+			msgs = basicSetDocumentation(newDocumentation, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.TYPE__DOCUMENTATION, newDocumentation, newDocumentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TypedefPackage.TYPE__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+			case TypedefPackage.TYPE__DOCUMENTATION:
+				return basicSetDocumentation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -160,6 +217,8 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 				return getName();
 			case TypedefPackage.TYPE__ANNOTATIONS:
 				return getAnnotations();
+			case TypedefPackage.TYPE__DOCUMENTATION:
+				return getDocumentation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,6 +239,9 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends TypeAnnotation>)newValue);
 				return;
+			case TypedefPackage.TYPE__DOCUMENTATION:
+				setDocumentation((TDDocumentation)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -198,6 +260,9 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 			case TypedefPackage.TYPE__ANNOTATIONS:
 				getAnnotations().clear();
 				return;
+			case TypedefPackage.TYPE__DOCUMENTATION:
+				setDocumentation((TDDocumentation)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -214,6 +279,8 @@ public abstract class TypeImpl extends EObjectImpl implements Type {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case TypedefPackage.TYPE__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
+			case TypedefPackage.TYPE__DOCUMENTATION:
+				return documentation != null;
 		}
 		return super.eIsSet(featureID);
 	}

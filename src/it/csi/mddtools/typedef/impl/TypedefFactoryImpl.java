@@ -30,6 +30,7 @@ import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypeLanguageBinding;
 import it.csi.mddtools.typedef.TypedArray;
@@ -101,6 +102,7 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 			case TypedefPackage.TYPE_LANGUAGE_BINDING: return createTypeLanguageBinding();
 			case TypedefPackage.ENUM_VAL: return createEnumVal();
 			case TypedefPackage.ENUM_LITERAL: return createEnumLiteral();
+			case TypedefPackage.TD_DOCUMENTATION: return createTDDocumentation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -258,6 +260,16 @@ public class TypedefFactoryImpl extends EFactoryImpl implements TypedefFactory {
 	public EnumLiteral createEnumLiteral() {
 		EnumLiteralImpl enumLiteral = new EnumLiteralImpl();
 		return enumLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TDDocumentation createTDDocumentation() {
+		TDDocumentationImpl tdDocumentation = new TDDocumentationImpl();
+		return tdDocumentation;
 	}
 
 	/**

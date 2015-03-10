@@ -30,6 +30,8 @@
         <details key="documentation" value="Annotazioni associate al tipo. Le informaziopni contenute in questo campo&#xD;&#xA;sono utilizzate per ottenere particolari comportamenti in fase di &#xD;&#xA;generazione.&#xD;&#xA;Vedere la documentazione della metaclasse &lt;b>TypeAnnotation&lt;/b> per&#xD;&#xA;i dettagli sulle possibili valorizzazioni."/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//TDDocumentation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSIDatatype" eSuperTypes="#//Type">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -77,6 +79,8 @@
         <details key="documentation" value="Tipo del campo. Può essere valorizzato con:&#xD;&#xA;&lt;ul>&#xD;&#xA;&lt;li>un tipo semplice&#xD;&#xA;&lt;li>un tipo complesso&#xD;&#xA;&lt;li>un tipo array&#xD;&#xA;&lt;/ul>"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//TDDocumentation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CSIDatatypeCodes">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -250,5 +254,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="EnumLiteral">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//TDDocumentation"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TDDocumentation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="doc" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

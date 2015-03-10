@@ -50,6 +50,7 @@ import it.csi.mddtools.servicedef.ParamValidator;
 import it.csi.mddtools.servicedef.RelativeConstraint;
 import it.csi.mddtools.servicedef.Role;
 import it.csi.mddtools.servicedef.SDAnnotationDetail;
+import it.csi.mddtools.servicedef.SDDocumentation;
 import it.csi.mddtools.servicedef.SOAPPABRBinding;
 import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.servicedef.ServiceDef;
@@ -426,6 +427,13 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass sdDocumentationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum channelSecurityLevelEnumEEnum = null;
 
 	/**
@@ -678,6 +686,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getServiceDef_Documentation() {
+		return (EReference)serviceDefEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getServiceBinding() {
 		return serviceBindingEClass;
 	}
@@ -867,6 +884,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getOperation_Documentation() {
+		return (EReference)operationEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getParam() {
 		return paramEClass;
 	}
@@ -914,6 +940,15 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 */
 	public EAttribute getParam_InHeader() {
 		return (EAttribute)paramEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParam_Documentation() {
+		return (EReference)paramEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1488,6 +1523,24 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getSDDocumentation() {
+		return sdDocumentationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSDDocumentation_Doc() {
+		return (EAttribute)sdDocumentationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getChannelSecurityLevelEnum() {
 		return channelSecurityLevelEnumEEnum;
 	}
@@ -1574,6 +1627,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_PRODOTTO);
 		createEAttribute(serviceDefEClass, SERVICE_DEF__COD_COMPONENTE);
 		createEReference(serviceDefEClass, SERVICE_DEF__ANNOTATIONS);
+		createEReference(serviceDefEClass, SERVICE_DEF__DOCUMENTATION);
 
 		serviceBindingEClass = createEClass(SERVICE_BINDING);
 		createEAttribute(serviceBindingEClass, SERVICE_BINDING__COD_BINDING);
@@ -1601,6 +1655,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEAttribute(operationEClass, OPERATION__SINCE);
 		createEReference(operationEClass, OPERATION__AUTHORIZED_ROLES);
 		createEReference(operationEClass, OPERATION__VALIDATOR);
+		createEReference(operationEClass, OPERATION__DOCUMENTATION);
 
 		paramEClass = createEClass(PARAM);
 		createEAttribute(paramEClass, PARAM__NAME);
@@ -1608,6 +1663,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		createEReference(paramEClass, PARAM__VALIDATOR);
 		createEReference(paramEClass, PARAM__CONSTRAINT);
 		createEAttribute(paramEClass, PARAM__IN_HEADER);
+		createEReference(paramEClass, PARAM__DOCUMENTATION);
 
 		typesEClass = createEClass(TYPES);
 		createEReference(typesEClass, TYPES__TYPES);
@@ -1710,6 +1766,9 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		wsEndpointChannelEClass = createEClass(WS_ENDPOINT_CHANNEL);
 		createEReference(wsEndpointChannelEClass, WS_ENDPOINT_CHANNEL__WS_SECURITY);
 
+		sdDocumentationEClass = createEClass(SD_DOCUMENTATION);
+		createEAttribute(sdDocumentationEClass, SD_DOCUMENTATION__DOC);
+
 		// Create enums
 		channelSecurityLevelEnumEEnum = createEEnum(CHANNEL_SECURITY_LEVEL_ENUM);
 		opTypeEnumEEnum = createEEnum(OP_TYPE_ENUM);
@@ -1799,6 +1858,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEAttribute(getServiceDef_CodProdotto(), ecorePackage.getEString(), "codProdotto", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getServiceDef_CodComponente(), ecorePackage.getEString(), "codComponente", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getServiceDef_Annotations(), this.getServiceDefAnnotation(), null, "annotations", null, 0, -1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getServiceDef_Documentation(), this.getSDDocumentation(), null, "documentation", null, 0, 1, ServiceDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(serviceBindingEClass, ServiceBinding.class, "ServiceBinding", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getServiceBinding_CodBinding(), ecorePackage.getEString(), "codBinding", null, 0, 1, ServiceBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1826,6 +1886,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEAttribute(getOperation_Since(), ecorePackage.getEString(), "since", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOperation_AuthorizedRoles(), this.getRole(), null, "authorizedRoles", null, 0, -1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOperation_Validator(), this.getInputValidator(), null, "validator", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOperation_Documentation(), this.getSDDocumentation(), null, "documentation", null, 0, 1, Operation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(paramEClass, Param.class, "Param", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getParam_Name(), ecorePackage.getEString(), "name", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1833,6 +1894,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		initEReference(getParam_Validator(), this.getParamValidator(), null, "validator", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getParam_Constraint(), this.getValueConstraint(), null, "constraint", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getParam_InHeader(), ecorePackage.getEBoolean(), "inHeader", "false", 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getParam_Documentation(), this.getSDDocumentation(), null, "documentation", null, 0, 1, Param.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typesEClass, Types.class, "Types", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypes_Types(), theTypedefPackage.getType(), null, "types", null, 0, -1, Types.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1934,6 +1996,9 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 		initEClass(wsEndpointChannelEClass, WSEndpointChannel.class, "WSEndpointChannel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getWSEndpointChannel_WsSecurity(), this.getWSSecuritySpec(), null, "wsSecurity", null, 0, -1, WSEndpointChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(sdDocumentationEClass, SDDocumentation.class, "SDDocumentation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSDDocumentation_Doc(), ecorePackage.getEString(), "doc", null, 0, 1, SDDocumentation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(channelSecurityLevelEnumEEnum, ChannelSecurityLevelEnum.class, "ChannelSecurityLevelEnum");

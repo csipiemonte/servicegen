@@ -112,6 +112,7 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 			case ServicedefPackage.WS_TIMESTAMP: return createWSTimestamp();
 			case ServicedefPackage.WS_ENCRYPT: return createWSEncrypt();
 			case ServicedefPackage.WS_ENDPOINT_CHANNEL: return createWSEndpointChannel();
+			case ServicedefPackage.SD_DOCUMENTATION: return createSDDocumentation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -531,6 +532,16 @@ public class ServicedefFactoryImpl extends EFactoryImpl implements ServicedefFac
 	public WSEndpointChannel createWSEndpointChannel() {
 		WSEndpointChannelImpl wsEndpointChannel = new WSEndpointChannelImpl();
 		return wsEndpointChannel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SDDocumentation createSDDocumentation() {
+		SDDocumentationImpl sdDocumentation = new SDDocumentationImpl();
+		return sdDocumentation;
 	}
 
 	/**

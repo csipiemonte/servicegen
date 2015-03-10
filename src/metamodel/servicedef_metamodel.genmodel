@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
-    editDirectory="/servicegen/src" modelPluginID="servicegen" modelName="Servicedef_metamodel"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    usedGenPackages="typedef_metamodel.genmodel#//typedef">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src" editDirectory="/servicegen/src"
+    modelPluginID="servicegen" modelName="Servicedef_metamodel" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false" usedGenPackages="typedef_metamodel.genmodel#//typedef">
   <foreignModel>servicedef_metamodel.ecore</foreignModel>
   <genPackages prefix="Servicedef" basePackage="it.csi.mddtools" disposableProviderFactory="true"
       ecorePackage="servicedef_metamodel.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//ChannelSecurityLevelEnum">
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//ChannelSecurityLevelEnum/C0"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//ChannelSecurityLevelEnum/C1"/>
+      <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//ChannelSecurityLevelEnum/C2"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="servicedef_metamodel.ecore#//OpTypeEnum">
       <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//OpTypeEnum/synch"/>
       <genEnumLiterals ecoreEnumLiteral="servicedef_metamodel.ecore#//OpTypeEnum/asynch"/>
@@ -43,13 +46,25 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/serviceType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/authLevel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/roles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/codProdotto"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDef/codComponente"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/annotations"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDef/documentation"/>
     </genClasses>
     <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//ServiceBinding">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceBinding/codBinding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceBinding/channelSecurityLevel"/>
     </genClasses>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//EJBPABinding"/>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//SOAPPABRBinding"/>
-    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSFADBinding"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSFADBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//WSFADBinding/useLiteral"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//WSFADBinding/styleWrapped"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//WSFADBinding/namespace"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSBinding">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//WSBinding/endpoints"/>
+    </genClasses>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//Operation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/params"/>
@@ -60,12 +75,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Operation/since"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/authorizedRoles"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/validator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Operation/documentation"/>
     </genClasses>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//Param">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Param/name"/>
       <genFeatures createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/type"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/validator"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/constraint"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//Param/inHeader"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Param/documentation"/>
     </genClasses>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//Types">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//Types/types"/>
@@ -126,5 +144,29 @@
     <genClasses ecoreClass="servicedef_metamodel.ecore#//ANDFeatureConstraint"/>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//ORFeatureConstraint"/>
     <genClasses ecoreClass="servicedef_metamodel.ecore#//NOTFeatureConstraint"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//ServiceDefAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//ServiceDefAnnotation/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//ServiceDefAnnotation/details"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//SDAnnotationDetail">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//SDAnnotationDetail/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//SDAnnotationDetail/value"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSEndpoint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//WSEndpoint/code"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//WSEndpoint/inChannel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//WSEndpoint/outChannel"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="servicedef_metamodel.ecore#//WSSecuritySpec"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSUsernameTokenAuth"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSSignature"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSTimestamp"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSEncrypt"/>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//WSEndpointChannel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference servicedef_metamodel.ecore#//WSEndpointChannel/wsSecurity"/>
+    </genClasses>
+    <genClasses ecoreClass="servicedef_metamodel.ecore#//SDDocumentation">
+      <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute servicedef_metamodel.ecore#//SDDocumentation/doc"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getSince <em>Since</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getAuthorizedRoles <em>Authorized Roles</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getValidator <em>Validator</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.Operation#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -293,5 +294,31 @@ public interface Operation extends EObject {
 	 * @generated
 	 */
 	void setValidator(InputValidator value);
+
+	/**
+	 * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Documentation</em>' containment reference.
+	 * @see #setDocumentation(SDDocumentation)
+	 * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation_Documentation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	SDDocumentation getDocumentation();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.servicedef.Operation#getDocumentation <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Documentation</em>' containment reference.
+	 * @see #getDocumentation()
+	 * @generated
+	 */
+	void setDocumentation(SDDocumentation value);
 
 } // Operation

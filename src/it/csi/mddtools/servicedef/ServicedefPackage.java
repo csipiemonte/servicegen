@@ -242,13 +242,22 @@ public interface ServicedefPackage extends EPackage {
 	int SERVICE_DEF__ANNOTATIONS = 13;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_DEF__DOCUMENTATION = 14;
+
+	/**
 	 * The number of structural features of the '<em>Service Def</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_DEF_FEATURE_COUNT = 14;
+	int SERVICE_DEF_FEATURE_COUNT = 15;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.
@@ -563,13 +572,22 @@ public interface ServicedefPackage extends EPackage {
 	int OPERATION__VALIDATOR = 8;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPERATION__DOCUMENTATION = 9;
+
+	/**
 	 * The number of structural features of the '<em>Operation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPERATION_FEATURE_COUNT = 9;
+	int OPERATION_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.ParamImpl <em>Param</em>}' class.
@@ -627,13 +645,22 @@ public interface ServicedefPackage extends EPackage {
 	int PARAM__IN_HEADER = 4;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAM__DOCUMENTATION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Param</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PARAM_FEATURE_COUNT = 5;
+	int PARAM_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
@@ -1637,6 +1664,34 @@ public interface ServicedefPackage extends EPackage {
 	int WS_ENDPOINT_CHANNEL_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.servicedef.impl.SDDocumentationImpl <em>SD Documentation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.servicedef.impl.SDDocumentationImpl
+	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSDDocumentation()
+	 * @generated
+	 */
+	int SD_DOCUMENTATION = 47;
+
+	/**
+	 * The feature id for the '<em><b>Doc</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SD_DOCUMENTATION__DOC = 0;
+
+	/**
+	 * The number of structural features of the '<em>SD Documentation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SD_DOCUMENTATION_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1644,7 +1699,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getChannelSecurityLevelEnum()
 	 * @generated
 	 */
-	int CHANNEL_SECURITY_LEVEL_ENUM = 47;
+	int CHANNEL_SECURITY_LEVEL_ENUM = 48;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.OpTypeEnum <em>Op Type Enum</em>}' enum.
@@ -1654,7 +1709,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getOpTypeEnum()
 	 * @generated
 	 */
-	int OP_TYPE_ENUM = 48;
+	int OP_TYPE_ENUM = 49;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.TXTypeEnum <em>TX Type Enum</em>}' enum.
@@ -1664,7 +1719,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getTXTypeEnum()
 	 * @generated
 	 */
-	int TX_TYPE_ENUM = 49;
+	int TX_TYPE_ENUM = 50;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.SrvTypeEnum <em>Srv Type Enum</em>}' enum.
@@ -1674,7 +1729,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSrvTypeEnum()
 	 * @generated
 	 */
-	int SRV_TYPE_ENUM = 50;
+	int SRV_TYPE_ENUM = 51;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.servicedef.AuthLevelEnum <em>Auth Level Enum</em>}' enum.
@@ -1684,7 +1739,7 @@ public interface ServicedefPackage extends EPackage {
 	 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getAuthLevelEnum()
 	 * @generated
 	 */
-	int AUTH_LEVEL_ENUM = 51;
+	int AUTH_LEVEL_ENUM = 52;
 
 
 	/**
@@ -1871,6 +1926,17 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getServiceDef_Annotations();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.ServiceDef#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.servicedef.ServiceDef#getDocumentation()
+	 * @see #getServiceDef()
+	 * @generated
+	 */
+	EReference getServiceDef_Documentation();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.ServiceBinding <em>Service Binding</em>}'.
@@ -2098,6 +2164,17 @@ public interface ServicedefPackage extends EPackage {
 	EReference getOperation_Validator();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.Operation#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.servicedef.Operation#getDocumentation()
+	 * @see #getOperation()
+	 * @generated
+	 */
+	EReference getOperation_Documentation();
+
+	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Param <em>Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2161,6 +2238,17 @@ public interface ServicedefPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getParam_InHeader();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.servicedef.Param#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.servicedef.Param#getDocumentation()
+	 * @see #getParam()
+	 * @generated
+	 */
+	EReference getParam_Documentation();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.Types <em>Types</em>}'.
@@ -2818,6 +2906,27 @@ public interface ServicedefPackage extends EPackage {
 	EReference getWSEndpointChannel_WsSecurity();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.servicedef.SDDocumentation <em>SD Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>SD Documentation</em>'.
+	 * @see it.csi.mddtools.servicedef.SDDocumentation
+	 * @generated
+	 */
+	EClass getSDDocumentation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.servicedef.SDDocumentation#getDoc <em>Doc</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Doc</em>'.
+	 * @see it.csi.mddtools.servicedef.SDDocumentation#getDoc()
+	 * @see #getSDDocumentation()
+	 * @generated
+	 */
+	EAttribute getSDDocumentation_Doc();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3030,6 +3139,14 @@ public interface ServicedefPackage extends EPackage {
 		EReference SERVICE_DEF__ANNOTATIONS = eINSTANCE.getServiceDef_Annotations();
 
 		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVICE_DEF__DOCUMENTATION = eINSTANCE.getServiceDef_Documentation();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ServiceBindingImpl <em>Service Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3210,6 +3327,14 @@ public interface ServicedefPackage extends EPackage {
 		EReference OPERATION__VALIDATOR = eINSTANCE.getOperation_Validator();
 
 		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPERATION__DOCUMENTATION = eINSTANCE.getOperation_Documentation();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.ParamImpl <em>Param</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3258,6 +3383,14 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PARAM__IN_HEADER = eINSTANCE.getParam_InHeader();
+
+		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PARAM__DOCUMENTATION = eINSTANCE.getParam_Documentation();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.TypesImpl <em>Types</em>}' class.
@@ -3838,6 +3971,24 @@ public interface ServicedefPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WS_ENDPOINT_CHANNEL__WS_SECURITY = eINSTANCE.getWSEndpointChannel_WsSecurity();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.impl.SDDocumentationImpl <em>SD Documentation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.servicedef.impl.SDDocumentationImpl
+		 * @see it.csi.mddtools.servicedef.impl.ServicedefPackageImpl#getSDDocumentation()
+		 * @generated
+		 */
+		EClass SD_DOCUMENTATION = eINSTANCE.getSDDocumentation();
+
+		/**
+		 * The meta object literal for the '<em><b>Doc</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SD_DOCUMENTATION__DOC = eINSTANCE.getSDDocumentation_Doc();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.servicedef.ChannelSecurityLevelEnum <em>Channel Security Level Enum</em>}' enum.

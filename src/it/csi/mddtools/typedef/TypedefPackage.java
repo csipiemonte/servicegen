@@ -135,13 +135,22 @@ public interface TypedefPackage extends EPackage {
 	int TYPE__ANNOTATIONS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__DOCUMENTATION = 2;
+
+	/**
 	 * The number of structural features of the '<em>Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = 2;
+	int TYPE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
@@ -170,6 +179,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int CSI_DATATYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CSI_DATATYPE__DOCUMENTATION = TYPE__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Code</b></em>' attribute.
@@ -227,6 +245,15 @@ public interface TypedefPackage extends EPackage {
 	int ENTITY__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY__DOCUMENTATION = TYPE__DOCUMENTATION;
+
+	/**
 	 * The feature id for the '<em><b>Features</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -282,13 +309,22 @@ public interface TypedefPackage extends EPackage {
 	int FEATURE__TYPE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE__DOCUMENTATION = 2;
+
+	/**
 	 * The number of structural features of the '<em>Feature</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_FEATURE_COUNT = 2;
+	int FEATURE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TypedArrayImpl <em>Typed Array</em>}' class.
@@ -317,6 +353,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPED_ARRAY__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ARRAY__DOCUMENTATION = TYPE__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Component Type</b></em>' reference.
@@ -363,6 +408,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXCEPTION__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXCEPTION__DOCUMENTATION = TYPE__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Exception Type</b></em>' attribute.
@@ -483,6 +537,15 @@ public interface TypedefPackage extends EPackage {
 	 * @ordered
 	 */
 	int PRIMITIVE_TYPE__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__DOCUMENTATION = TYPE__DOCUMENTATION;
 
 	/**
 	 * The feature id for the '<em><b>Typeset Name</b></em>' attribute.
@@ -613,6 +676,15 @@ public interface TypedefPackage extends EPackage {
 	int ENUM_VAL__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL__DOCUMENTATION = TYPE__DOCUMENTATION;
+
+	/**
 	 * The feature id for the '<em><b>Value Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -668,13 +740,50 @@ public interface TypedefPackage extends EPackage {
 	int ENUM_LITERAL__VALUE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL__DOCUMENTATION = 2;
+
+	/**
 	 * The number of structural features of the '<em>Enum Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENUM_LITERAL_FEATURE_COUNT = 2;
+	int ENUM_LITERAL_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.TDDocumentationImpl <em>TD Documentation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.TDDocumentationImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTDDocumentation()
+	 * @generated
+	 */
+	int TD_DOCUMENTATION = 13;
+
+	/**
+	 * The feature id for the '<em><b>Doc</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TD_DOCUMENTATION__DOC = 0;
+
+	/**
+	 * The number of structural features of the '<em>TD Documentation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TD_DOCUMENTATION_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
@@ -684,7 +793,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
 	 * @generated
 	 */
-	int CSI_DATATYPE_CODES = 13;
+	int CSI_DATATYPE_CODES = 14;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
@@ -694,7 +803,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
 	 * @generated
 	 */
-	int CSI_EXCEPTION_TYPES = 14;
+	int CSI_EXCEPTION_TYPES = 15;
 
 
 	/**
@@ -749,6 +858,17 @@ public interface TypedefPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getType_Annotations();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.typedef.Type#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.typedef.Type#getDocumentation()
+	 * @see #getType()
+	 * @generated
+	 */
+	EReference getType_Documentation();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.CSIDatatype <em>CSI Datatype</em>}'.
@@ -845,6 +965,17 @@ public interface TypedefPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeature_Type();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.typedef.Feature#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.typedef.Feature#getDocumentation()
+	 * @see #getFeature()
+	 * @generated
+	 */
+	EReference getFeature_Documentation();
 
 	/**
 	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TypedArray <em>Typed Array</em>}'.
@@ -1125,6 +1256,38 @@ public interface TypedefPackage extends EPackage {
 	EAttribute getEnumLiteral_Value();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.typedef.EnumLiteral#getDocumentation <em>Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Documentation</em>'.
+	 * @see it.csi.mddtools.typedef.EnumLiteral#getDocumentation()
+	 * @see #getEnumLiteral()
+	 * @generated
+	 */
+	EReference getEnumLiteral_Documentation();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.TDDocumentation <em>TD Documentation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>TD Documentation</em>'.
+	 * @see it.csi.mddtools.typedef.TDDocumentation
+	 * @generated
+	 */
+	EClass getTDDocumentation();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.TDDocumentation#getDoc <em>Doc</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Doc</em>'.
+	 * @see it.csi.mddtools.typedef.TDDocumentation#getDoc()
+	 * @see #getTDDocumentation()
+	 * @generated
+	 */
+	EAttribute getTDDocumentation_Doc();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1211,6 +1374,14 @@ public interface TypedefPackage extends EPackage {
 		EReference TYPE__ANNOTATIONS = eINSTANCE.getType_Annotations();
 
 		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE__DOCUMENTATION = eINSTANCE.getType_Documentation();
+
+		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.CSIDatatypeImpl <em>CSI Datatype</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1287,6 +1458,14 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EReference FEATURE__TYPE = eINSTANCE.getFeature_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FEATURE__DOCUMENTATION = eINSTANCE.getFeature_Documentation();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TypedArrayImpl <em>Typed Array</em>}' class.
@@ -1511,6 +1690,32 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ENUM_LITERAL__VALUE = eINSTANCE.getEnumLiteral_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Documentation</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_LITERAL__DOCUMENTATION = eINSTANCE.getEnumLiteral_Documentation();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.TDDocumentationImpl <em>TD Documentation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.TDDocumentationImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getTDDocumentation()
+		 * @generated
+		 */
+		EClass TD_DOCUMENTATION = eINSTANCE.getTDDocumentation();
+
+		/**
+		 * The meta object literal for the '<em><b>Doc</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TD_DOCUMENTATION__DOC = eINSTANCE.getTDDocumentation_Doc();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.

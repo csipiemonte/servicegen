@@ -23,6 +23,7 @@ package it.csi.mddtools.servicedef.impl;
 import it.csi.mddtools.servicedef.AuthLevelEnum;
 import it.csi.mddtools.servicedef.Operation;
 import it.csi.mddtools.servicedef.Role;
+import it.csi.mddtools.servicedef.SDDocumentation;
 import it.csi.mddtools.servicedef.ServiceBinding;
 import it.csi.mddtools.servicedef.ServiceDef;
 import it.csi.mddtools.servicedef.ServiceDefAnnotation;
@@ -67,6 +68,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodProdotto <em>Cod Prodotto</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodComponente <em>Cod Componente</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -302,6 +304,16 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * @ordered
 	 */
 	protected EList<ServiceDefAnnotation> annotations;
+
+	/**
+	 * The cached value of the '{@link #getDocumentation() <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDocumentation()
+	 * @generated
+	 * @ordered
+	 */
+	protected SDDocumentation documentation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -607,6 +619,49 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SDDocumentation getDocumentation() {
+		return documentation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDocumentation(SDDocumentation newDocumentation, NotificationChain msgs) {
+		SDDocumentation oldDocumentation = documentation;
+		documentation = newDocumentation;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ServicedefPackage.SERVICE_DEF__DOCUMENTATION, oldDocumentation, newDocumentation);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDocumentation(SDDocumentation newDocumentation) {
+		if (newDocumentation != documentation) {
+			NotificationChain msgs = null;
+			if (documentation != null)
+				msgs = ((InternalEObject)documentation).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.SERVICE_DEF__DOCUMENTATION, null, msgs);
+			if (newDocumentation != null)
+				msgs = ((InternalEObject)newDocumentation).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ServicedefPackage.SERVICE_DEF__DOCUMENTATION, null, msgs);
+			msgs = basicSetDocumentation(newDocumentation, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ServicedefPackage.SERVICE_DEF__DOCUMENTATION, newDocumentation, newDocumentation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -620,6 +675,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return ((InternalEList<?>)getRoles()).basicRemove(otherEnd, msgs);
 			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
 				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
+				return basicSetDocumentation(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -660,6 +717,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return getCodComponente();
 			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
 				return getAnnotations();
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
+				return getDocumentation();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -719,6 +778,9 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				getAnnotations().clear();
 				getAnnotations().addAll((Collection<? extends ServiceDefAnnotation>)newValue);
 				return;
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
+				setDocumentation((SDDocumentation)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -773,6 +835,9 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
 				getAnnotations().clear();
 				return;
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
+				setDocumentation((SDDocumentation)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -813,6 +878,8 @@ public class ServiceDefImpl extends EObjectImpl implements ServiceDef {
 				return COD_COMPONENTE_EDEFAULT == null ? codComponente != null : !COD_COMPONENTE_EDEFAULT.equals(codComponente);
 			case ServicedefPackage.SERVICE_DEF__ANNOTATIONS:
 				return annotations != null && !annotations.isEmpty();
+			case ServicedefPackage.SERVICE_DEF__DOCUMENTATION:
+				return documentation != null;
 		}
 		return super.eIsSet(featureID);
 	}

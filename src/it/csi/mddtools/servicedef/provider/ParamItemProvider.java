@@ -191,6 +191,7 @@ public class ParamItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(ServicedefPackage.Literals.PARAM__VALIDATOR);
+			childrenFeatures.add(ServicedefPackage.Literals.PARAM__DOCUMENTATION);
 		}
 		return childrenFeatures;
 	}
@@ -254,6 +255,7 @@ public class ParamItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case ServicedefPackage.PARAM__VALIDATOR:
+			case ServicedefPackage.PARAM__DOCUMENTATION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -275,6 +277,11 @@ public class ParamItemProvider
 			(createChildParameter
 				(ServicedefPackage.Literals.PARAM__VALIDATOR,
 				 ServicedefFactory.eINSTANCE.createParamValidator()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.PARAM__DOCUMENTATION,
+				 ServicedefFactory.eINSTANCE.createSDDocumentation()));
 	}
 
 	/**

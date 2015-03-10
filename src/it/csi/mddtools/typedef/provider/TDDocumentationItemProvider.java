@@ -3,8 +3,7 @@
 package it.csi.mddtools.typedef.provider;
 
 
-import it.csi.mddtools.typedef.EnumLiteral;
-import it.csi.mddtools.typedef.TypedefFactory;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.TypedefPackage;
 
 import java.util.Collection;
@@ -15,7 +14,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -28,12 +26,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link it.csi.mddtools.typedef.EnumLiteral} object.
+ * This is the item provider adapter for a {@link it.csi.mddtools.typedef.TDDocumentation} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class EnumLiteralItemProvider 
+public class TDDocumentationItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -47,7 +45,7 @@ public class EnumLiteralItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnumLiteralItemProvider(AdapterFactory adapterFactory) {
+	public TDDocumentationItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,28 +60,27 @@ public class EnumLiteralItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addValuePropertyDescriptor(object);
+			addDocPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Doc feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addDocPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EnumLiteral_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EnumLiteral_name_feature", "_UI_EnumLiteral_type"),
-				 TypedefPackage.Literals.ENUM_LITERAL__NAME,
+				 getString("_UI_TDDocumentation_doc_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TDDocumentation_doc_feature", "_UI_TDDocumentation_type"),
+				 TypedefPackage.Literals.TD_DOCUMENTATION__DOC,
 				 true,
-				 false,
+				 true,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -91,81 +88,28 @@ public class EnumLiteralItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Value feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addValuePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EnumLiteral_value_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EnumLiteral_value_feature", "_UI_EnumLiteral_type"),
-				 TypedefPackage.Literals.ENUM_LITERAL__VALUE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(TypedefPackage.Literals.ENUM_LITERAL__DOCUMENTATION);
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns EnumLiteral.gif.
+	 * This returns TDDocumentation.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EnumLiteral"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TDDocumentation"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	@Override
 	public String getText(Object object) {
-		EnumLiteral lit = (EnumLiteral)object;
-		String label = (lit.getName() != null? lit.getName() : "???")+
-		" = "+(lit.getValue()!=null ? lit.getValue() : "???");
-		return 
-			getString("_UI_EnumLiteral_type") + " " + label;
+		String label = crop(((TDDocumentation)object).getDoc());
+		return label == null || label.length() == 0 ?
+			getString("_UI_TDDocumentation_type") :
+			getString("_UI_TDDocumentation_type") + " " + label;
 	}
 	
 
@@ -180,13 +124,9 @@ public class EnumLiteralItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(EnumLiteral.class)) {
-			case TypedefPackage.ENUM_LITERAL__NAME:
-			case TypedefPackage.ENUM_LITERAL__VALUE:
+		switch (notification.getFeatureID(TDDocumentation.class)) {
+			case TypedefPackage.TD_DOCUMENTATION__DOC:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case TypedefPackage.ENUM_LITERAL__DOCUMENTATION:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -202,11 +142,6 @@ public class EnumLiteralItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_LITERAL__DOCUMENTATION,
-				 TypedefFactory.eINSTANCE.createTDDocumentation()));
 	}
 
 	/**

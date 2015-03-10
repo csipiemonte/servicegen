@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.Type#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.Type#getAnnotations <em>Annotations</em>}</li>
+ *   <li>{@link it.csi.mddtools.typedef.Type#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  *
@@ -97,5 +98,31 @@ public interface Type extends EObject {
 	 * @generated
 	 */
 	EList<TypeAnnotation> getAnnotations();
+
+	/**
+	 * Returns the value of the '<em><b>Documentation</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Documentation</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Documentation</em>' containment reference.
+	 * @see #setDocumentation(TDDocumentation)
+	 * @see it.csi.mddtools.typedef.TypedefPackage#getType_Documentation()
+	 * @model containment="true"
+	 * @generated
+	 */
+	TDDocumentation getDocumentation();
+
+	/**
+	 * Sets the value of the '{@link it.csi.mddtools.typedef.Type#getDocumentation <em>Documentation</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Documentation</em>' containment reference.
+	 * @see #getDocumentation()
+	 * @generated
+	 */
+	void setDocumentation(TDDocumentation value);
 
 } // Type

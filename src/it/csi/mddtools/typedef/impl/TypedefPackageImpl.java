@@ -30,6 +30,7 @@ import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
+import it.csi.mddtools.typedef.TDDocumentation;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypeAnnotation;
 import it.csi.mddtools.typedef.TypeLanguageBinding;
@@ -142,6 +143,13 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * @generated
 	 */
 	private EClass enumLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass tdDocumentationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -268,6 +276,15 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getType_Documentation() {
+		return (EReference)typeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCSIDatatype() {
 		return csiDatatypeEClass;
 	}
@@ -342,6 +359,15 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 */
 	public EReference getFeature_Type() {
 		return (EReference)featureEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeature_Documentation() {
+		return (EReference)featureEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -583,6 +609,33 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEnumLiteral_Documentation() {
+		return (EReference)enumLiteralEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTDDocumentation() {
+		return tdDocumentationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTDDocumentation_Doc() {
+		return (EAttribute)tdDocumentationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCSIDatatypeCodes() {
 		return csiDatatypeCodesEEnum;
 	}
@@ -630,6 +683,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		typeEClass = createEClass(TYPE);
 		createEAttribute(typeEClass, TYPE__NAME);
 		createEReference(typeEClass, TYPE__ANNOTATIONS);
+		createEReference(typeEClass, TYPE__DOCUMENTATION);
 
 		csiDatatypeEClass = createEClass(CSI_DATATYPE);
 		createEAttribute(csiDatatypeEClass, CSI_DATATYPE__CODE);
@@ -642,6 +696,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		featureEClass = createEClass(FEATURE);
 		createEAttribute(featureEClass, FEATURE__NAME);
 		createEReference(featureEClass, FEATURE__TYPE);
+		createEReference(featureEClass, FEATURE__DOCUMENTATION);
 
 		typedArrayEClass = createEClass(TYPED_ARRAY);
 		createEReference(typedArrayEClass, TYPED_ARRAY__COMPONENT_TYPE);
@@ -676,6 +731,10 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		enumLiteralEClass = createEClass(ENUM_LITERAL);
 		createEAttribute(enumLiteralEClass, ENUM_LITERAL__NAME);
 		createEAttribute(enumLiteralEClass, ENUM_LITERAL__VALUE);
+		createEReference(enumLiteralEClass, ENUM_LITERAL__DOCUMENTATION);
+
+		tdDocumentationEClass = createEClass(TD_DOCUMENTATION);
+		createEAttribute(tdDocumentationEClass, TD_DOCUMENTATION__DOC);
 
 		// Create enums
 		csiDatatypeCodesEEnum = createEEnum(CSI_DATATYPE_CODES);
@@ -724,6 +783,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getType_Annotations(), this.getTypeAnnotation(), null, "annotations", null, 0, -1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getType_Documentation(), this.getTDDocumentation(), null, "documentation", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(csiDatatypeEClass, CSIDatatype.class, "CSIDatatype", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCSIDatatype_Code(), this.getCSIDatatypeCodes(), "code", null, 0, 1, CSIDatatype.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -736,6 +796,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getFeature_Name(), ecorePackage.getEString(), "name", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFeature_Type(), this.getType(), null, "type", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeature_Documentation(), this.getTDDocumentation(), null, "documentation", null, 0, 1, Feature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typedArrayEClass, TypedArray.class, "TypedArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedArray_ComponentType(), this.getType(), null, "componentType", null, 0, 1, TypedArray.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -770,6 +831,10 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		initEClass(enumLiteralEClass, EnumLiteral.class, "EnumLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEnumLiteral_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEnumLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnumLiteral_Documentation(), this.getTDDocumentation(), null, "documentation", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(tdDocumentationEClass, TDDocumentation.class, "TDDocumentation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getTDDocumentation_Doc(), ecorePackage.getEString(), "doc", null, 0, 1, TDDocumentation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(csiDatatypeCodesEEnum, CSIDatatypeCodes.class, "CSIDatatypeCodes");
