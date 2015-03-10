@@ -48,45 +48,6 @@
             uri="http://www.csi.it/mddtools/typedef">
       </package>
    </extension>
-   <extension
-         point="org.eclipse.xtend.typesystem.emf.checks">
-      <metaModel
-            nsURI="http://www.csi.it/mddtools/servicegen"
-            override="false">
-         <checkFile
-               path="metamodel/ServicegenChecks">
-         </checkFile>
-      </metaModel>
-      <metaModel
-            nsURI="http://www.csi.it/mddtools/typedef"
-            override="false">
-         <checkFile
-               path="metamodel/ServicegenChecks">
-         </checkFile>
-      </metaModel>
-      <metaModel
-            nsURI="http://www.csi.it/mddtools/servicedef"
-            override="false">
-         <checkFile
-               path="metamodel/ServicegenChecks">
-         </checkFile>
-      </metaModel>
-      <metaModel
-            nsURI="http://www.csi.it/mddtools/appresources"
-            override="false">
-         <checkFile
-               path="metamodel/ServicegenChecks">
-         </checkFile>
-      </metaModel>
-      <metaModel
-            nsURI="http://www.csi.it/mddtools/svcorch"
-            override="false">
-         <checkFile
-               path="metamodel/ServicegenChecks">
-         </checkFile>
-      </metaModel>
-   </extension>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated resources_metamodel -->
       <package

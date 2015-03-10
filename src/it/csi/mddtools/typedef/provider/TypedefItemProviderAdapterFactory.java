@@ -320,6 +320,52 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.EnumVal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumValItemProvider enumValItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.EnumVal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumValAdapter() {
+		if (enumValItemProvider == null) {
+			enumValItemProvider = new EnumValItemProvider(this);
+		}
+
+		return enumValItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link it.csi.mddtools.typedef.EnumLiteral} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumLiteralItemProvider enumLiteralItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link it.csi.mddtools.typedef.EnumLiteral}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEnumLiteralAdapter() {
+		if (enumLiteralItemProvider == null) {
+			enumLiteralItemProvider = new EnumLiteralItemProvider(this);
+		}
+
+		return enumLiteralItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -428,6 +474,8 @@ public class TypedefItemProviderAdapterFactory extends TypedefAdapterFactory imp
 		if (tdAnnotationDetailItemProvider != null) tdAnnotationDetailItemProvider.dispose();
 		if (primitiveTypeItemProvider != null) primitiveTypeItemProvider.dispose();
 		if (typeLanguageBindingItemProvider != null) typeLanguageBindingItemProvider.dispose();
+		if (enumValItemProvider != null) enumValItemProvider.dispose();
+		if (enumLiteralItemProvider != null) enumLiteralItemProvider.dispose();
 	}
 
 }

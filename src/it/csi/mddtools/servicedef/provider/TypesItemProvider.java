@@ -190,6 +190,11 @@ public class TypesItemProvider
 			(createChildParameter
 				(ServicedefPackage.Literals.TYPES__TYPES,
 				 TypedefFactory.eINSTANCE.createPrimitiveType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(ServicedefPackage.Literals.TYPES__TYPES,
+				 TypedefFactory.eINSTANCE.createEnumVal()));
 	}
 
 	/**

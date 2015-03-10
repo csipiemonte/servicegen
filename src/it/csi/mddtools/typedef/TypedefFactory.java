@@ -130,6 +130,24 @@ public interface TypedefFactory extends EFactory {
 	TypeLanguageBinding createTypeLanguageBinding();
 
 	/**
+	 * Returns a new object of class '<em>Enum Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Val</em>'.
+	 * @generated
+	 */
+	EnumVal createEnumVal();
+
+	/**
+	 * Returns a new object of class '<em>Enum Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Enum Literal</em>'.
+	 * @generated
+	 */
+	EnumLiteral createEnumLiteral();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

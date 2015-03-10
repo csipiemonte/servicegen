@@ -23,6 +23,8 @@ package it.csi.mddtools.typedef.util;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.EnumLiteral;
+import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
@@ -138,6 +140,14 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTypeLanguageBinding(TypeLanguageBinding object) {
 				return createTypeLanguageBindingAdapter();
+			}
+			@Override
+			public Adapter caseEnumVal(EnumVal object) {
+				return createEnumValAdapter();
+			}
+			@Override
+			public Adapter caseEnumLiteral(EnumLiteral object) {
+				return createEnumLiteralAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -310,6 +320,34 @@ public class TypedefAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeLanguageBindingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.EnumVal <em>Enum Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.EnumVal
+	 * @generated
+	 */
+	public Adapter createEnumValAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link it.csi.mddtools.typedef.EnumLiteral <em>Enum Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see it.csi.mddtools.typedef.EnumLiteral
+	 * @generated
+	 */
+	public Adapter createEnumLiteralAdapter() {
 		return null;
 	}
 

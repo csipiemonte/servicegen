@@ -585,6 +585,98 @@ public interface TypedefPackage extends EPackage {
 	int TYPE_LANGUAGE_BINDING_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.EnumValImpl <em>Enum Val</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.EnumValImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEnumVal()
+	 * @generated
+	 */
+	int ENUM_VAL = 11;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL__NAME = TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL__ANNOTATIONS = TYPE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Value Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL__VALUE_TYPE = TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Literals</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL__LITERALS = TYPE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Enum Val</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_VAL_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link it.csi.mddtools.typedef.impl.EnumLiteralImpl <em>Enum Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see it.csi.mddtools.typedef.impl.EnumLiteralImpl
+	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEnumLiteral()
+	 * @generated
+	 */
+	int ENUM_LITERAL = 12;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Enum Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_LITERAL_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -592,7 +684,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIDatatypeCodes()
 	 * @generated
 	 */
-	int CSI_DATATYPE_CODES = 11;
+	int CSI_DATATYPE_CODES = 13;
 
 	/**
 	 * The meta object id for the '{@link it.csi.mddtools.typedef.CSIExceptionTypes <em>CSI Exception Types</em>}' enum.
@@ -602,7 +694,7 @@ public interface TypedefPackage extends EPackage {
 	 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getCSIExceptionTypes()
 	 * @generated
 	 */
-	int CSI_EXCEPTION_TYPES = 12;
+	int CSI_EXCEPTION_TYPES = 14;
 
 
 	/**
@@ -969,6 +1061,70 @@ public interface TypedefPackage extends EPackage {
 	EAttribute getTypeLanguageBinding_NullValueLiteral();
 
 	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.EnumVal <em>Enum Val</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Val</em>'.
+	 * @see it.csi.mddtools.typedef.EnumVal
+	 * @generated
+	 */
+	EClass getEnumVal();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.typedef.EnumVal#getValueType <em>Value Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value Type</em>'.
+	 * @see it.csi.mddtools.typedef.EnumVal#getValueType()
+	 * @see #getEnumVal()
+	 * @generated
+	 */
+	EReference getEnumVal_ValueType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link it.csi.mddtools.typedef.EnumVal#getLiterals <em>Literals</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Literals</em>'.
+	 * @see it.csi.mddtools.typedef.EnumVal#getLiterals()
+	 * @see #getEnumVal()
+	 * @generated
+	 */
+	EReference getEnumVal_Literals();
+
+	/**
+	 * Returns the meta object for class '{@link it.csi.mddtools.typedef.EnumLiteral <em>Enum Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Enum Literal</em>'.
+	 * @see it.csi.mddtools.typedef.EnumLiteral
+	 * @generated
+	 */
+	EClass getEnumLiteral();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.EnumLiteral#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see it.csi.mddtools.typedef.EnumLiteral#getName()
+	 * @see #getEnumLiteral()
+	 * @generated
+	 */
+	EAttribute getEnumLiteral_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link it.csi.mddtools.typedef.EnumLiteral#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see it.csi.mddtools.typedef.EnumLiteral#getValue()
+	 * @see #getEnumLiteral()
+	 * @generated
+	 */
+	EAttribute getEnumLiteral_Value();
+
+	/**
 	 * Returns the meta object for enum '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1303,6 +1459,58 @@ public interface TypedefPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TYPE_LANGUAGE_BINDING__NULL_VALUE_LITERAL = eINSTANCE.getTypeLanguageBinding_NullValueLiteral();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.EnumValImpl <em>Enum Val</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.EnumValImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEnumVal()
+		 * @generated
+		 */
+		EClass ENUM_VAL = eINSTANCE.getEnumVal();
+
+		/**
+		 * The meta object literal for the '<em><b>Value Type</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_VAL__VALUE_TYPE = eINSTANCE.getEnumVal_ValueType();
+
+		/**
+		 * The meta object literal for the '<em><b>Literals</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENUM_VAL__LITERALS = eINSTANCE.getEnumVal_Literals();
+
+		/**
+		 * The meta object literal for the '{@link it.csi.mddtools.typedef.impl.EnumLiteralImpl <em>Enum Literal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see it.csi.mddtools.typedef.impl.EnumLiteralImpl
+		 * @see it.csi.mddtools.typedef.impl.TypedefPackageImpl#getEnumLiteral()
+		 * @generated
+		 */
+		EClass ENUM_LITERAL = eINSTANCE.getEnumLiteral();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENUM_LITERAL__NAME = eINSTANCE.getEnumLiteral_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENUM_LITERAL__VALUE = eINSTANCE.getEnumLiteral_Value();
 
 		/**
 		 * The meta object literal for the '{@link it.csi.mddtools.typedef.CSIDatatypeCodes <em>CSI Datatype Codes</em>}' enum.

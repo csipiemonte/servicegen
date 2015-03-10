@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="typedef"
-    nsURI="http://www.csi.it/mddtools/typedef" nsPrefix="typedef">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="typedef" nsURI="http://www.csi.it/mddtools/typedef" nsPrefix="typedef">
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="documentation" value="Questo package contiene le metaclassi necessarie per modellare i tipi&#xD;&#xA;(di base e definiti da utente) utilizzati nelle interfacce dei servizi."/>
   </eAnnotations>
@@ -243,5 +241,15 @@
         <details key="documentation" value="Utilizzato in congiunzione con &lt;i>nillable==true&lt;/i> sull'elemento&#xD;&#xA;padre &lt;b>PrimitiveType&lt;/p>. &#xD;&#xA;Permette di impostare il valore nullo da utilizzare per il linguaggio in oggetto.&#xD;&#xA;Es. per java: &lt;code>nullValueLiteral=null&lt;/code> "/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumVal" eSuperTypes="#//Type">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//Type"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="literals" upperBound="-1"
+        eType="#//EnumLiteral" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumLiteral">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

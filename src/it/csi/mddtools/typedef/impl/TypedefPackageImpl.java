@@ -25,6 +25,8 @@ import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.CSIExceptionTypes;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.EnumLiteral;
+import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
@@ -126,6 +128,20 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * @generated
 	 */
 	private EClass typeLanguageBindingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumValEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass enumLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -513,6 +529,60 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getEnumVal() {
+		return enumValEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumVal_ValueType() {
+		return (EReference)enumValEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEnumVal_Literals() {
+		return (EReference)enumValEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEnumLiteral() {
+		return enumLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEnumLiteral_Name() {
+		return (EAttribute)enumLiteralEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEnumLiteral_Value() {
+		return (EAttribute)enumLiteralEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCSIDatatypeCodes() {
 		return csiDatatypeCodesEEnum;
 	}
@@ -599,6 +669,14 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__DEFAULT_INIT_VALUE);
 		createEAttribute(typeLanguageBindingEClass, TYPE_LANGUAGE_BINDING__NULL_VALUE_LITERAL);
 
+		enumValEClass = createEClass(ENUM_VAL);
+		createEReference(enumValEClass, ENUM_VAL__VALUE_TYPE);
+		createEReference(enumValEClass, ENUM_VAL__LITERALS);
+
+		enumLiteralEClass = createEClass(ENUM_LITERAL);
+		createEAttribute(enumLiteralEClass, ENUM_LITERAL__NAME);
+		createEAttribute(enumLiteralEClass, ENUM_LITERAL__VALUE);
+
 		// Create enums
 		csiDatatypeCodesEEnum = createEEnum(CSI_DATATYPE_CODES);
 		csiExceptionTypesEEnum = createEEnum(CSI_EXCEPTION_TYPES);
@@ -637,6 +715,7 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		typedArrayEClass.getESuperTypes().add(this.getType());
 		exceptionEClass.getESuperTypes().add(this.getType());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
+		enumValEClass.getESuperTypes().add(this.getType());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(documentRootEClass, DocumentRoot.class, "DocumentRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -683,6 +762,14 @@ public class TypedefPackageImpl extends EPackageImpl implements TypedefPackage {
 		initEAttribute(getTypeLanguageBinding_LangSpecificNS(), ecorePackage.getEString(), "langSpecificNS", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTypeLanguageBinding_DefaultInitValue(), ecorePackage.getEString(), "defaultInitValue", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTypeLanguageBinding_NullValueLiteral(), ecorePackage.getEString(), "nullValueLiteral", null, 0, 1, TypeLanguageBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumValEClass, EnumVal.class, "EnumVal", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getEnumVal_ValueType(), this.getType(), null, "valueType", null, 0, 1, EnumVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEnumVal_Literals(), this.getEnumLiteral(), null, "literals", null, 0, -1, EnumVal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(enumLiteralEClass, EnumLiteral.class, "EnumLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEnumLiteral_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEnumLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, EnumLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(csiDatatypeCodesEEnum, CSIDatatypeCodes.class, "CSIDatatypeCodes");

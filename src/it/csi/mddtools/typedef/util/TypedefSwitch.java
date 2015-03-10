@@ -23,6 +23,8 @@ package it.csi.mddtools.typedef.util;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.DocumentRoot;
 import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.EnumLiteral;
+import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Feature;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.TDAnnotationDetail;
@@ -164,6 +166,19 @@ public class TypedefSwitch<T> extends Switch<T> {
 			case TypedefPackage.TYPE_LANGUAGE_BINDING: {
 				TypeLanguageBinding typeLanguageBinding = (TypeLanguageBinding)theEObject;
 				T result = caseTypeLanguageBinding(typeLanguageBinding);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TypedefPackage.ENUM_VAL: {
+				EnumVal enumVal = (EnumVal)theEObject;
+				T result = caseEnumVal(enumVal);
+				if (result == null) result = caseType(enumVal);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TypedefPackage.ENUM_LITERAL: {
+				EnumLiteral enumLiteral = (EnumLiteral)theEObject;
+				T result = caseEnumLiteral(enumLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -333,6 +348,36 @@ public class TypedefSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTypeLanguageBinding(TypeLanguageBinding object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Val</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Val</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumVal(EnumVal object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Enum Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Enum Literal</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEnumLiteral(EnumLiteral object) {
 		return null;
 	}
 
