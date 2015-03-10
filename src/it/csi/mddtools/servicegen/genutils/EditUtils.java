@@ -21,6 +21,7 @@ import it.csi.mddtools.servicedef.ContinuousRangeConstraint;
 import it.csi.mddtools.servicedef.DiscreteRangeConstraint;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.Entity;
+import it.csi.mddtools.typedef.EnumVal;
 import it.csi.mddtools.typedef.Exception;
 import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
@@ -136,12 +137,18 @@ public class EditUtils {
 			return formatTypeLabel((Exception)t);
 		else if(t instanceof TypedArray)
 			return formatTypeLabel((TypedArray)t);
+		else if (t instanceof EnumVal)
+			return formatTypeLabel((EnumVal)t);
 		else
 			throw new IllegalArgumentException("tipo non gestito");
 	}
 	
 	public static String formatTypeLabel(CSIDatatype t){
 		return (t.isNillable()?"Wrapped":"")+t.getCode().getLiteral();
+	}
+	
+	public static String formatTypeLabel(EnumVal t){
+		return "EnumVal "+t.getName();
 	}
 	
 	public static String formatTypeLabel(PrimitiveType t){

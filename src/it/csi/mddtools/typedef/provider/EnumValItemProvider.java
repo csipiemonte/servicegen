@@ -3,20 +3,27 @@
 package it.csi.mddtools.typedef.provider;
 
 
+import it.csi.mddtools.servicedef.Operation;
+import it.csi.mddtools.svcorch.SrvCall;
+import it.csi.mddtools.svcorch.SvcorchPackage;
+import it.csi.mddtools.typedef.CSIDatatype;
+import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.EnumVal;
+import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -56,24 +63,54 @@ public class EnumValItemProvider extends TypeItemProvider {
 	 * This adds a property descriptor for the Value Type feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addValueTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EnumVal_valueType_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EnumVal_valueType_feature", "_UI_EnumVal_type"),
-				 TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
+//		itemPropertyDescriptors.add
+//			(createItemPropertyDescriptor
+//				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+//				 getResourceLocator(),
+//				 getString("_UI_EnumVal_valueType_feature"),
+//				 getString("_UI_PropertyDescriptor_description", "_UI_EnumVal_valueType_feature", "_UI_EnumVal_type"),
+//				 TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
+//				 true,
+//				 false,
+//				 true,
+//				 null,
+//				 null,
+//				 null));
+		
+		
+		itemPropertyDescriptors.add(new ItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getString("_UI_EnumVal_valueType_feature"), getString(
+						"_UI_PropertyDescriptor_description",
+						"_UI_EnumVal_valueType_feature",
+						"_UI_EnumVal_type"),
+				
+				TypedefPackage.eINSTANCE.getEnumVal_ValueType(),
+				true) {
+			protected Collection getComboBoxObjects(Object object) {
+				Collection<Type> allTypes = (Collection<Type>)super.getComboBoxObjects(object);
+				List<Type> acceptedTypes = new ArrayList<Type>();
+				Iterator<Type> it_t = allTypes.iterator();
+				while (it_t.hasNext()) {
+					Type currType = it_t.next();
+					if (currType instanceof CSIDatatype){
+						// attualmente accetto solo CSIInteger, CSIWrappedInteger e CSIString
+						if (((CSIDatatype)currType).getCode() == CSIDatatypeCodes.CSI_INTEGER || 
+								((CSIDatatype)currType).getCode() == CSIDatatypeCodes.CSI_STRING){
+							acceptedTypes.add(currType);
+						}
+					}
+				}
+				return acceptedTypes;
+			}
+		});
 	}
 
+	
 	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
