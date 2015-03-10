@@ -130,8 +130,8 @@ public class EnumLiteralItemProvider
 	@Override
 	public String getText(Object object) {
 		EnumLiteral lit = (EnumLiteral)object;
-		String label = lit.getName() != null? lit.getName() : "???"+
-		"-"+lit.getValue()!=null ? lit.getValue() : "???";
+		String label = (lit.getName() != null? lit.getName() : "???")+
+		" = "+(lit.getValue()!=null ? lit.getValue() : "???");
 		return 
 			getString("_UI_EnumLiteral_type") + " " + label;
 	}

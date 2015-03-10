@@ -514,6 +514,9 @@ String map2javaSimpleType(Type type) :
 	else 
   		"???";
 
+// per la cartiuccia CSI!!
+String mapEnumTypeToLiteralType(EnumVal type) :
+	map2javaSimpleType((CSIDatatype)type.valueType);
 
 String map2javaType(Type type, String codServ, SOABEModel model) :
 	if (type==null) then
@@ -523,6 +526,8 @@ String map2javaType(Type type, String codServ, SOABEModel model) :
 	else if (type.metaType==Entity) then
 		//fullQualifiedEntitiesPkg(codServ, model)+"."+type.name.toFirstUpper() 
 		map2JavaTypeSDRelative((Entity)type)
+	else if (type.metaType==EnumVal) then
+		mapEnumTypeToLiteralType(((EnumVal)type))
 	else 
 		//map2javaType(((TypedArray)type).componentType, codServ, model)+"[]";
 		map2JavaTypeSDRelative((TypedArray)type);
@@ -613,8 +618,22 @@ String defaultInitVal(Type type) :
 		"null"
 	else if (type.metaType==CSIDatatype) then
 		defaultSimpleInitVal(type)
+	else if (type.metaType==EnumVal) then
+		enumInitVal((EnumVal)type)
 	else
 		"null";
+
+
+// se il tipo base e' nullable allora il vlaore di default
+// e' null. se il tipo base non e' nillable allora
+// il valore di default della enum e' il valore del primo
+// literal (preso senza nessuna elaborazione);
+String enumInitVal(EnumVal type):
+	let baseType = (CSIDatatype)type.valueType :
+	if (baseType.nillable) then 
+		"null"
+	else
+		type.literals.first().value;
 
 String defaultSimpleInitVal(Type type) :
 	let code = ((CSIDatatype)type).code :
@@ -637,7 +656,25 @@ String defaultSimpleInitVal(Type type) :
   		(nillable ? "0" : "0")
 	else 
   		"???";
-  	
+
+// tipi ammessi:
+// - CSIInteger, CSIWrappedInteger, CSIString
+// (- xsd:int, xsd:nillableint, xsd:string, xsd:nillablestring) 
+boolean isEnumValueTypeLegal(EnumVal ev) :
+let vt = ev.valueType :
+if (vt.metaType==CSIDatatype) then
+	isEnumValueCSITypeLegal((CSIDatatype)vt)
+else if (vt.metaType==PrimitiveType) then
+	isEnumValuePrimitiveTypeLegal((PrimitiveType)vt)
+else false;
+
+boolean isEnumValueCSITypeLegal(CSIDatatype t) :
+if (t.code==CSIDatatypeCodes::CSIInteger || t.code==CSIDatatypeCodes::CSIString) then true else false;
+
+// pe ril momento la cartuccua CXF non e' supportata!!!
+boolean isEnumValuePrimitiveTypeLegal(PrimitiveType t) :
+false;
+
 /// restituisce la service impl data una service def.
 /// serve come soluzione temporanea per la gestioen di impl-cartridge e service-component
 /// senza modificare drasticamente il meccanismo di generazione che � basato sul loop

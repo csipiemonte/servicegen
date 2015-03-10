@@ -74,11 +74,20 @@ context Types ERROR "TD6: i tipi definiti nel contesto di un servizio possono so
 	this.types.select(e|e.metaType==CSIDatatype).size==0 &&
 	this.types.select(e|e.metaType==TypedArray && ((TypedArray)e).componentType.metaType==CSIDatatype).size==0;
 	
-// TD7(ERROR): un typed array non pu� contenere classi eccezione n� tipi array
-context TypedArray ERROR "TD7: un array tipato non pu� contenere eccezioni o tipi array annidati" :
+// TD7(ERROR): un typed array non puo' contenere classi eccezione ne' tipi array
+context TypedArray ERROR "TD7: un array tipato non puo' contenere eccezioni o tipi array annidati" :
     this.componentType.metaType!=Exception &&
     this.componentType.metaType!=TypedArray;
 
+// TD8(ERROR): una EnumVal deve avere il tipo valore impostato
+context EnumVal ERROR "TD8: e' necessario impostare il tipo valore di ogni EnumVal."+loc() :
+	this.valueType != null;
+	
+// TD8(ERROR): i tipi valore ammessi per gli EnumVal sono solo: CSIInteger, CSIWrappedInteger, CSIString,
+// XSD:int,xsd:nillableint, xsd:string, xsd:nillablestring
+context EnumVal ERROR "TD9: i tipi valore ammessi per un enum val sono solo: CSIInteger, CSIWrappedInteger, CSIString."+ loc():
+	isEnumValueTypeLegal(this);
+ 
 /////////////////////////////////////////
 // vincoli sulla definizione di servizio
 /////////////////////////////////////////

@@ -15,6 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -46,8 +47,31 @@ public class EnumValItemProvider extends TypeItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addValueTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Value Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValueTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EnumVal_valueType_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EnumVal_valueType_feature", "_UI_EnumVal_type"),
+				 TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -62,7 +86,6 @@ public class EnumValItemProvider extends TypeItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE);
 			childrenFeatures.add(TypedefPackage.Literals.ENUM_VAL__LITERALS);
 		}
 		return childrenFeatures;
@@ -119,7 +142,6 @@ public class EnumValItemProvider extends TypeItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(EnumVal.class)) {
-			case TypedefPackage.ENUM_VAL__VALUE_TYPE:
 			case TypedefPackage.ENUM_VAL__LITERALS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -137,36 +159,6 @@ public class EnumValItemProvider extends TypeItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createCSIDatatype()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createEntity()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createTypedArray()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createException()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createPrimitiveType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(TypedefPackage.Literals.ENUM_VAL__VALUE_TYPE,
-				 TypedefFactory.eINSTANCE.createEnumVal()));
 
 		newChildDescriptors.add
 			(createChildParameter
