@@ -693,15 +693,38 @@ DATA TYPES GENERATION
 
 «DEFINE typedefs (SOABEModel model,String codServ) FOR Types»
 	«EXPAND javaEntityClass(model,codServ) FOREACH (List[Entity])this.types.select(e|e.metaType==Entity && !e.isTypedefAnnotated())»
+	«EXPAND javaEnumClass(model,codServ) FOREACH (List[EnumVal])this.types.select(e|e.metaType==EnumVal && !e.isTypedefAnnotated())»
 	«EXPAND javaExceptionClass(model,codServ) FOREACH (List[Exception])this.types.select(e|e.metaType==Exception && !e.isTypedefAnnotated())»
 «ENDDEFINE»
 
 
 «REM»
 ***************************************************************
-classe dei dto (entity) usate nella signature del servizio
+classe dei dto (entity e enum) usate nella signature del servizio
 ***************************************************************
 «ENDREM»
+«DEFINE javaEnumClass(SOABEModel model,String codServ) FOR EnumVal»
+«FILE fullEntitiesDir(codServ, model)+"/"+name+"ValEnum.java"»
+package «fullQualifiedEntitiesPkg(codServ, model)»;
+
+/** 
+ * Costanti relative al tipo enumerativo «name».
+ * Sono utilizzabili per una corretta valorizzazione di parametri o 
+ * proprieta' di tipo EnumVal. 
+ */
+public class «name»ValEnum implements java.io.Serializable {
+«FOREACH literals AS currLit»
+	/**
+	 * costante [«currLit.name»] = «currLit.value».
+	 */
+	public static final «this.valueType.map2javaType(codServ, model)» «currLit.name» = «currLit.value»;
+	
+«ENDFOREACH»
+}
+«ENDFILE»
+«ENDDEFINE»
+
+
 «DEFINE javaEntityClass(SOABEModel model,String codServ) FOR Entity»
 «FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
 package «fullQualifiedEntitiesPkg(codServ, model)»;

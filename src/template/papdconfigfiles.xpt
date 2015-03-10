@@ -189,10 +189,11 @@ staging=FALSE
         url-pa="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»" 
 	«LET sd.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
 		«IF asynchOps.size>0»              
-        url-qm="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»;urn:QMBR_«removeSeparator(sd.codServizio)»">
+        url-qm="«getPAURLPlaceHolder(sd)»/«actualPAEndpoint»;urn:QMBR_«removeSeparator(sd.codServizio)»"
         «ENDIF»
      «ENDLET-»   
      «ENDLET-»
+     >
         <properties>
         «IF sd.authLevel!=AuthLevelEnum::A0-»
         	<property name="csi.auth.basic" value="«getCsiAuthCredentialsPlaceHolder(sd)»" />

@@ -552,7 +552,10 @@ String map2JavaTypeSDRelative(Type type) :
 	else if (type.metaType==TypedArray) then
 		map2JavaTypeSDRelative((TypedArray)type) // [DM] aggiunto per orchestrazione
 	else if (type.metaType==PrimitiveType) then
-		map2JavaTypeSDRelative((PrimitiveType)type); // [DM] aggiunto per orchestrazione con CXF
+		map2JavaTypeSDRelative((PrimitiveType)type)// [DM] aggiunto per orchestrazione con CXF
+	else if (type.metaType==EnumVal) then
+		map2javaSimpleType(((EnumVal)type).valueType);
+
 	//else 
 	//	map2JavaTypeSDRelative(((TypedArray)type).componentType)+"[]";
 
