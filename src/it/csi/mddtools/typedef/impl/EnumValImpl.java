@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class EnumValImpl extends TypeImpl implements EnumVal {
 	/**
-	 * The cached value of the '{@link #getValueType() <em>Value Type</em>}' containment reference.
+	 * The cached value of the '{@link #getValueType() <em>Value Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getValueType()
@@ -82,6 +82,14 @@ public class EnumValImpl extends TypeImpl implements EnumVal {
 	 * @generated
 	 */
 	public Type getValueType() {
+		if (valueType != null && valueType.eIsProxy()) {
+			InternalEObject oldValueType = (InternalEObject)valueType;
+			valueType = (Type)eResolveProxy(oldValueType);
+			if (valueType != oldValueType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TypedefPackage.ENUM_VAL__VALUE_TYPE, oldValueType, valueType));
+			}
+		}
 		return valueType;
 	}
 
@@ -90,14 +98,8 @@ public class EnumValImpl extends TypeImpl implements EnumVal {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetValueType(Type newValueType, NotificationChain msgs) {
-		Type oldValueType = valueType;
-		valueType = newValueType;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TypedefPackage.ENUM_VAL__VALUE_TYPE, oldValueType, newValueType);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public Type basicGetValueType() {
+		return valueType;
 	}
 
 	/**
@@ -106,17 +108,10 @@ public class EnumValImpl extends TypeImpl implements EnumVal {
 	 * @generated
 	 */
 	public void setValueType(Type newValueType) {
-		if (newValueType != valueType) {
-			NotificationChain msgs = null;
-			if (valueType != null)
-				msgs = ((InternalEObject)valueType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.ENUM_VAL__VALUE_TYPE, null, msgs);
-			if (newValueType != null)
-				msgs = ((InternalEObject)newValueType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TypedefPackage.ENUM_VAL__VALUE_TYPE, null, msgs);
-			msgs = basicSetValueType(newValueType, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.ENUM_VAL__VALUE_TYPE, newValueType, newValueType));
+		Type oldValueType = valueType;
+		valueType = newValueType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TypedefPackage.ENUM_VAL__VALUE_TYPE, oldValueType, valueType));
 	}
 
 	/**
@@ -139,8 +134,6 @@ public class EnumValImpl extends TypeImpl implements EnumVal {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case TypedefPackage.ENUM_VAL__VALUE_TYPE:
-				return basicSetValueType(null, msgs);
 			case TypedefPackage.ENUM_VAL__LITERALS:
 				return ((InternalEList<?>)getLiterals()).basicRemove(otherEnd, msgs);
 		}
@@ -156,7 +149,8 @@ public class EnumValImpl extends TypeImpl implements EnumVal {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TypedefPackage.ENUM_VAL__VALUE_TYPE:
-				return getValueType();
+				if (resolve) return getValueType();
+				return basicGetValueType();
 			case TypedefPackage.ENUM_VAL__LITERALS:
 				return getLiterals();
 		}

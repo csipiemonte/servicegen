@@ -613,7 +613,7 @@ public interface TypedefPackage extends EPackage {
 	int ENUM_VAL__ANNOTATIONS = TYPE__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Value Type</b></em>' containment reference.
+	 * The feature id for the '<em><b>Value Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1071,10 +1071,10 @@ public interface TypedefPackage extends EPackage {
 	EClass getEnumVal();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link it.csi.mddtools.typedef.EnumVal#getValueType <em>Value Type</em>}'.
+	 * Returns the meta object for the reference '{@link it.csi.mddtools.typedef.EnumVal#getValueType <em>Value Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value Type</em>'.
+	 * @return the meta object for the reference '<em>Value Type</em>'.
 	 * @see it.csi.mddtools.typedef.EnumVal#getValueType()
 	 * @see #getEnumVal()
 	 * @generated
@@ -1471,7 +1471,7 @@ public interface TypedefPackage extends EPackage {
 		EClass ENUM_VAL = eINSTANCE.getEnumVal();
 
 		/**
-		 * The meta object literal for the '<em><b>Value Type</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Value Type</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

@@ -243,8 +243,7 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnumVal" eSuperTypes="#//Type">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//Type"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="valueType" eType="#//Type"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="literals" upperBound="-1"
         eType="#//EnumLiteral" containment="true"/>
   </eClassifiers>
