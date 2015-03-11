@@ -739,11 +739,17 @@ package «fullQualifiedEntitiesPkg(codServ, model)»;
  * Costanti relative al tipo enumerativo «name».
  * Sono utilizzabili per una corretta valorizzazione di parametri o 
  * proprieta' di tipo EnumVal. 
+ «IF documentation!=null-»
+ «formatDocText(documentation.doc, true)»
+ «ENDIF-»
  */
 public class «name»ValEnum implements java.io.Serializable {
 «FOREACH literals AS currLit»
 	/**
 	 * costante [«currLit.name»] = «currLit.value».
+	 «IF currLit.documentation!=null-»
+	 «formatDocText(currLit.documentation.doc, true)»
+	 «ENDIF-»
 	 */
 	public static final «this.valueType.map2javaType(codServ, model)» «currLit.name» = «currLit.value»;
 	
