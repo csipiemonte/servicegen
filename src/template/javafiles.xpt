@@ -109,8 +109,31 @@ public interface «serviceInterfaceName()»{
 	«ENDFILE»
 «ENDDEFINE»
 
-«DEFINE operationDeclaration (SOABEModel model, String codServ) FOR Operation»
-  «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+«DEFINE operationJavadoc(SOABEModel model, String codServ) FOR Operation-»
+«IF documentation!=null-»
+  /**
+   * Operation «name».
+   
+   «formatDocText(documentation.doc, true)»
+   
+   * L'operazione e' presente a partire dalla versione «since==null || since.length==0 ? "iniziale" : since» dell'interfaccia.
+   * L'operazione e' di tipo «opType==OpTypeEnum::synch ? "sincrono" : (opType==OpTypeEnum::asynch ? "asincrono point-to-point" : "notifica asincrona")».
+   
+   «FOREACH params AS par-»
+   * @param «par.name» «formatDocText(par.documentation.doc, false)»
+   	«REM»«EXPAND paramConstraintsDoc FOR par»«ENDREM»
+   «ENDFOREACH-»
+   * @return «map2javaType(this.returnType, codServ, model)»
+   «FOREACH throws AS exc-»
+   * @throws «exc.name»
+   «ENDFOREACH-» 
+   * @throws CSIException (eccezione base rilanciata dall'infrastruttura di cooperazione)
+   * @throws SystemException in caso di errore di sistema (connessione, comunicazione, ecc.)
+   * @throws UnrecoverableException in caso di errore imprevisto e non recuperabile
+   * @generated
+   */
+«ELSE-»
+«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
   /**
    * Inserire qui la documentazione del metodo «name».
    * Descrivere dettagliatamente:
@@ -130,20 +153,25 @@ public interface «serviceInterfaceName()»{
    * <li> le eccezioni rilanciate (nelle sezioni apposite sottostanti)
    * <li> il tipo di ritorno
    * </ul>
-   «FOREACH params AS par»
+   «FOREACH params AS par-»
    * @param «par.name» [documentazione del parametro (vedere sopra per consigli sulla documentazione)]
    	«REM»«EXPAND paramConstraintsDoc FOR par»«ENDREM»
-   «ENDFOREACH»
+   «ENDFOREACH-»
    * @return «map2javaType(this.returnType, codServ, model)»
-   «FOREACH throws AS exc»
+   «FOREACH throws AS exc-»
    * @throws «exc.name»
-   «ENDFOREACH»
+   «ENDFOREACH-»
    * @throws CSIException (eccezione base rilanciata dall'infrastruttura di cooperazione)
    * @throws SystemException in caso di errore di sistema (connessione, comunicazione, ecc.)
    * @throws UnrecoverableException in caso di errore imprevisto e non recuperabile
    * @generated
    */
   «ENDPROTECT»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE operationDeclaration (SOABEModel model, String codServ) FOR Operation»
+  «EXPAND operationJavadoc(model, codServ) FOR this-»
   public «map2javaType(this.returnType,codServ, model)» «this.name» (	«noSonarTag("EIAS")»
     «IF params != null && params.size > 0»
     	«IF params.size==1»
@@ -724,12 +752,15 @@ public class «name»ValEnum implements java.io.Serializable {
 «ENDFILE»
 «ENDDEFINE»
 
-
-«DEFINE javaEntityClass(SOABEModel model,String codServ) FOR Entity»
-«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
-package «fullQualifiedEntitiesPkg(codServ, model)»;
-
-  «PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+«REM»documentazione classe«ENDREM»
+«DEFINE javaEntityClassJavadoc(SOABEModel model,String codServ) FOR Entity-»
+«IF this.documentation != null-»
+  /**
+   «formatDocText(this.documentation.doc, true)»
+   * @generated
+   */
+«ELSE-»
+«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
   /**
    * Inserire qui la documentazione della classe «name».
    * Consigli:
@@ -746,6 +777,14 @@ package «fullQualifiedEntitiesPkg(codServ, model)»;
    * @generated
    */
   «ENDPROTECT»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE javaEntityClass(SOABEModel model,String codServ) FOR Entity»
+«FILE fullEntitiesDir(codServ, model)+"/"+name+".java"»
+package «fullQualifiedEntitiesPkg(codServ, model)»;
+
+  «EXPAND javaEntityClassJavadoc(model, codServ) FOR this-»
 public class «name» implements java.io.Serializable {
 	// il serial version UID e' impostato in base a quanto configurato nel modello
 	/**
@@ -763,6 +802,36 @@ public class «name» implements java.io.Serializable {
 «ENDFILE»	
 «ENDDEFINE»
 
+«DEFINE featureJavadoc(SOABEModel model, String codServ, String ownerName) FOR Feature»
+«IF this.documentation!=null-»
+	/**
+	 * Property associata alla feature [«name»].
+	 «formatDocText(documentation.doc, true)»
+	 * @return il valore della property
+	 * @generated
+	 */
+«ELSE-»
+«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)»
+  	/**
+   	 * Inserire qui la documentazione dell'attributo «name». 
+   	 * Descrivere:
+   	 * <ul>
+	 *      <li>se l'attributo deve essere sempre valoriuzzato o meno
+	 *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
+     *          dimensioni massime in caso di stringa o tipo array, eventuale necessit&agrave;
+     *          di corrispondenza con una particolare codifica, che pu&ograve; essere prefissata
+     *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
+     *          di un'applicazione)
+     *      <li>se ci sono particolari vincoli di valorizzazione relativi al valore di
+     *          altri attributi della stessa classe.
+     *      <li>...
+     *      </ul>
+     * @generated 
+   	 */
+  	«ENDPROTECT»
+«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE featureDef (SOABEModel model, String codServ, String ownerName) FOR Feature»
 	/**
 	 * @generated
@@ -770,6 +839,8 @@ public class «name» implements java.io.Serializable {
 	private «map2javaType(type,codServ,model)» «name» = «defaultInitVal(type)»;
 	
 	/**
+	 * Imposta il valore della property [«name»]
+	 * @param val il valore da impostare
 	 * @generated
 	 */
 	public void set«name.toFirstUpper()»(«map2javaType(type,codServ,model)» val){
@@ -791,24 +862,7 @@ public class «name» implements java.io.Serializable {
 	«ENDIF-»
 	}
 	
-	«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+ownerName+name)»
-  	/**
-   	 * Inserire qui la documentazione dell'attributo «name». 
-   	 * Descrivere:
-   	 * <ul>
-	 *      <li>se l'attributo deve essere sempre valoriuzzato o meno
-	 *      <li>se ci sono dei vincoli sulla valorizzazione (es. range numerico,
-     *          dimensioni massime in caso di stringa o tipo array, eventuale necessit&agrave;
-     *          di corrispondenza con una particolare codifica, che pu&ograve; essere prefissata
-     *          (es. da un elenco predefinito) oppure dinamica (presente su un archivio
-     *          di un'applicazione)
-     *      <li>se ci sono particolari vincoli di valorizzazione relativi al valore di
-     *          altri attributi della stessa classe.
-     *      <li>...
-     *      </ul>
-     * @generated 
-   	 */
-  	«ENDPROTECT»
+	«EXPAND featureJavadoc(model, codServ, ownerName) FOR this-»
 	public «map2javaType(type,codServ,model)» get«name.toFirstUpper()»(){
 	«IF type.metaType==CSIDatatype && ((CSIDatatype)type).code==CSIDatatypeCodes::CSIDate-»
 		return («name» == null ? null : new java.util.Date(«name».getTime()));
@@ -844,20 +898,7 @@ import it.csi.csi.wrapper.SystemException;
 import it.csi.csi.wrapper.UserException;
 import it.csi.csi.wrapper.UnrecoverableException;
 
-«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
-  /**
-   * Inserire qui la documentazione dell'eccezione «name».
-   * Consigli:
-   * <ul>
-   * <li> Dire se l'eccezione rappresenta una condizione di errore oppure 
-   *      una casistica eccezionale applicativa
-   * <li> Potrebbe essere meglio non dettagliare tanto la documentazione dell'
-   *      eccezione quanto la documentazione delle clausole "throws" nei metodi
-   *      che rilanciano effettivamente quest'eccezione
-   * </ul>
-   * @generated
-   */
-  «ENDPROTECT»
+«EXPAND exceptionJavadoc(model, codServ) FOR this-»
 public class «name» extends 
 	«IF this.exceptionType == typedef::CSIExceptionTypes::USER»UserException
 	«ELSEIF this.exceptionType == typedef::CSIExceptionTypes::SYSTEM»SystemException
@@ -902,7 +943,32 @@ public class «name» extends
 	«ENDFILE»
 «ENDDEFINE»
 
-
+«DEFINE exceptionJavadoc(SOABEModel model, String codServ) FOR Exception-»
+«IF documentation!=null-»
+  /**
+   * Eccezione «name».
+   * L'eccezione e' di tipo: «this.exceptionType.toString()».
+   *
+   «formatDocText(documentation.doc, true)»
+   * @generated
+   */
+«ELSE-»
+«PROTECT CSTART '////{' CEND '////}' ID getRegionUID("doc"+model.codComponente+codServ+name)»
+  /**
+   * Inserire qui la documentazione dell'eccezione «name».
+   * Consigli:
+   * <ul>
+   * <li> Dire se l'eccezione rappresenta una condizione di errore oppure 
+   *      una casistica eccezionale applicativa
+   * <li> Potrebbe essere meglio non dettagliare tanto la documentazione dell'
+   *      eccezione quanto la documentazione delle clausole "throws" nei metodi
+   *      che rilanciano effettivamente quest'eccezione
+   * </ul>
+   * @generated
+   */
+  «ENDPROTECT»
+«ENDIF-»
+«ENDDEFINE»
 
 «REM»
 ==========================================================================================================================

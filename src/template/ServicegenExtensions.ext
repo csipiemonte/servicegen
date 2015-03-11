@@ -864,3 +864,7 @@ if (targetPlatform.code==TargetPlatformCodes::JBoss43) then
 	true
 else 
 	false;		
+	
+/// formattazione documentazione
+String formatDocText(String s, boolean trailingStar) :
+ (trailingStar ? "* " : " ")+s.replaceAll("\n","\n* ");
