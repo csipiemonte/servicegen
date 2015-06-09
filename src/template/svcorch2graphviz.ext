@@ -32,7 +32,7 @@ create dot::GraphvizModel toGraphvizModel(svcorch::Orchestration orch) :
 	addGraph(orchestrationGraph(orch))->
 	this;
 
-create dot::MainGraph orchestrationGraph(svcorch::Orchestration orch) :
+create dot::DotGraph orchestrationGraph(svcorch::Orchestration orch) :
 	orch.mapToGraph()->
 	this.setName("orch_"+orch.operation.name)->
 	this.addStatements(orch.orchestrationSubgraph().stmts)->
