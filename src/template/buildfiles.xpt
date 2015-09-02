@@ -875,12 +875,12 @@ AS sharedLibsPath»
  		<equals arg1="${enableClustering}" arg2="true" />
  	<then>
 	    <replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="&lt;clustered&gt;True&lt;/clustered&gt;">
-		    <include name="**/jboss.xml"/>
+		    <include name="**/jboss*.xml"/>
   		</replace>	
   	</then>	
   	<else>
   		<replace dir="${build}/temp/ejb" token="@@@@CLUSTER_AWARE@@@@"  value="">
-		    <include name="**/jboss.xml"/>
+		    <include name="**/jboss*.xml"/>
   		</replace>
   	</else>
   	</if>	
