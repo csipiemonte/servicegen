@@ -408,8 +408,15 @@ String fullQMGRJndiName(ServiceDef sd, SOABEModel model) :
     
 String fullQMGRJndiName(ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"QMGR";
+
+// nel caso JB6 il formato e': 
+// java:app/appl-testasynch-ejbpa/TestasynchQMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome
+String qmgrJndiNameForDeploysoap(ServiceDef sd, SOABEModel model):
+if (isJboss6eap(model.targetPlatform)) then "java:app/"+getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+"/"+toCamel(sd.codServizio)+"QMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome"
+else 
+	fullQMGRJndiName(sd, model);
     
-/// in realt� non dovrebbe servire...
+/// in realta' non dovrebbe servire...
 String fullLTRJndiName(ServiceDef sd, SOABEModel model) :
     model.codComponente+".ejb."+toCamel(sd.serviceType.toString())+toCamel(sd.codServizio)+"LTR";
 
@@ -424,30 +431,32 @@ String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
     sd.codComponente+".ejb."+toCamel(sd.codServizio)+"Srv";    
 
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// � 3.4.1
+// p. 3.4.1
 String queueConnectionFactoryJndiName(SOABEModel model):
 if (isJboss43(model.targetPlatform)) then
 		"/ConnectionFactory"
+else if (isJboss6eap(model.targetPlatform)) then
+	"java:/jms/QueueConnectionFactory"
 else
 	"jms/QueueConnectionFactory"
 ;
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// � 3.4.1
+// p. 3.4.1
 String topicConnectionFactoryJndiName() :
 	"jms/TopicConnectionFactory";
 		
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// � 3.4.2.2
+// p. 3.4.2.2
 // nota: uso '.' invece che '/' perch� le librerie lo cercano col punto...
 String  paQueueJndiName(ServiceDef sd, String codBinding, SOABEModel model) :	
 	if ( isJbossPlatform(model.targetPlatform)) then
-		"queue/"+model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue"
+		"java:/queue/"+model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue"
 	else 
 		model.codComponente.toLowerCase()+".jms."+toCamel(sd.codServizio)+"PAQueue";
 	
 	
 // da http://dsp.csi.it/dsp/opencms/dsp/it/standard/standard/docs/DSP_STD_0000_GUI_150606_V01_NamingOggettiJ2EE.pdf
-// � 3.4.3
+// p. 3.4.3
 String  paTopicJndiName(ServiceDef sd, SOABEModel model) :
 	model.codComponente.toLowerCase()+"/jms/"+toCamel(sd.codServizio)+"Topic";
 

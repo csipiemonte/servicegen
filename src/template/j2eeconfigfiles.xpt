@@ -115,7 +115,7 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
 ==========================================================================================================================
 PA/PD BINDING EJB MODULE CONFIGURATION
 Crea il descrittore generico ejb-jar.xml
-Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.xml o jboss.xml)
+Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.xml (WLS92) o jboss.xml (JB4) o jboss-ejb3.xml (JB6))
 ==========================================================================================================================
 «ENDREM»
 
@@ -208,9 +208,38 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
             <ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
             <ejb-class>it.csi.csi.asynch.queuemgr.ejb.QueueListenerBean</ejb-class>
             <transaction-type>Container</transaction-type>
-            <message-driven-destination>
+«IF isJboss6eap(model.targetPlatform)»
+			<!-- confiugurazione della coda di attivazione -->
+			<activation-config>
+	        	<activation-config-property>
+	      	    	<activation-config-property-name>messagingType</activation-config-property-name>
+	     	    	<activation-config-property-value>javax.jms.MessageListener</activation-config-property-value>
+	         	</activation-config-property>
+	         	<activation-config-property>
+	     	   		<activation-config-property-name>destinationType</activation-config-property-name>
+	     	   		<activation-config-property-value>javax.jms.Queue</activation-config-property-value>
+	         	</activation-config-property>
+	         	<activation-config-property>
+	     	   		<activation-config-property-name>destination</activation-config-property-name>
+	     	   		<activation-config-property-value>«paQueueJndiName(serviceDef, codBinding, model)»</activation-config-property-value>
+	         	</activation-config-property>
+	         	<activation-config-property>
+	     	   		<activation-config-property-name>connectionFactoryName</activation-config-property-name>
+	     	   		<activation-config-property-value>java:/jms/QueueConnectionFactory</activation-config-property-value>
+	     		</activation-config-property>
+	         	<activation-config-property>
+	           		<activation-config-property-name>useJNDI</activation-config-property-name>
+	     	   		<activation-config-property-value>true</activation-config-property-value>
+	     		</activation-config-property>
+	     	</activation-config>
+	     	
+«ELSE»
+			<!-- confiugurazione della coda di attivazione -->
+			<message-driven-destination>
                 <destination-type>javax.jms.Queue</destination-type>
             </message-driven-destination>
+«ENDIF»            
+            
             <env-entry>
                 <description />
                 <env-entry-name>defasynchmgr</env-entry-name>
@@ -564,6 +593,100 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
 
 </jboss>
 «ENDFILE»
+
+«REM»jboss-ejb3.xml«ENDREM»
+«FILE paConfigDir(serviceDef, model)+"/META-INF/jboss-ejb3.xml"»<?xml version="1.1" encoding="UTF-8"?>
+<jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
+               xmlns="http://java.sun.com/xml/ns/javaee"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:c="urn:clustering:1.0"
+               xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd 
+http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+               version="3.1"
+               impl-version="2.0">
+	@@@@CLUSTER_AWARE@@@@
+
+    «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	<!-- Gli utenti del servizio devono essere definiti nel realm "services" -->
+	<security-domain>java:/jaas/services</security-domain> 
+	«ENDIF»
+   	<enterprise-beans>
+
+    <!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>«getServiceBeanName(serviceDef)»</ejb-name>
+        «REM»<jndi-name>«fullServiceJndiName(serviceDef, model)»</jndi-name>«ENDREM»
+    </session>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+    <session>
+        <ejb-name>«getPABeanName(serviceDef)»</ejb-name>
+        «REM»<jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>«ENDREM»
+    </session>
+    
+    «LET serviceDef.operations.select(op|op.opType != OpTypeEnum::synch) AS asynchOps»
+	«IF asynchOps.size>0»
+    
+    <session>
+    	<ejb-name>«getQMGRBeanName(serviceDef)»</ejb-name>
+       	«REM»<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>«ENDREM»
+        <resource-ref>
+        	<res-ref-name>jdbc/counterDS</res-ref-name>
+        	<lookup-name>java:/«counterDSJndiName(serviceDef, model)»</lookup-name>
+        </resource-ref>
+    </session>
+    
+    «REM»<message-driven>
+    	<ejb-name>«getAsyncLtrBeanName(serviceDef)»</ejb-name>
+    	<!-- <jndi-name>«fullLTRJndiName(serviceDef, model)»</jndi-name> -->
+        <destination-jndi-name>«paQueueJndiName(serviceDef,codBinding, model)»</destination-jndi-name>
+        <ejb-ref>
+        	<ejb-ref-name>ejb/asynchMgr</ejb-ref-name>
+         	<jndi-name>«fullQMGRJndiName(serviceDef, model)»</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+         	<ejb-ref-name>ejb/pa</ejb-ref-name>
+         	<jndi-name>«fullPAJndiName(serviceDef, model)»</jndi-name>
+         </ejb-ref>
+    </message-driven>
+    «ENDREM»	
+
+    «ENDIF»
+	«ENDLET»
+   </enterprise-beans>
+
+     <!--
+       To specify your own assembly descriptor info here, add a file to your
+       XDoclet merge directory called jboss-assembly-descriptor.xml that contains
+       the <assembly-descriptor></assembly-descriptor> markup.
+     -->
+   <assembly-descriptor>
+    <!-- message destinations -->
+     <!--
+       To specify additional message-destination elements, add a file in the merge
+       directory called jboss-message-destinations.ent that contains them.
+     -->
+   </assembly-descriptor>
+
+  «REM» <resource-managers>
+   </resource-managers> «ENDREM»
+
+  <!--
+    | for container settings, you can merge in jboss-container.xml
+    | this can contain <invoker-proxy-bindings/> and <container-configurations/>
+  -->
+
+</jboss:ejb-jar>
+«ENDFILE»
+
 
 «ENDDEFINE»
 

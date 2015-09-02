@@ -406,7 +406,7 @@ del servizio "«codServizio»".
 
   <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
                 scope="Application" methods="putCall">
-    <isd:option key="JNDIName" value="«fullQMGRJndiName(serviceDef, model)»"/>
+    <isd:option key="JNDIName" value="«qmgrJndiNameForDeploysoap(serviceDef, model)»"/>
     <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
     <isd:option key="csi.component.bridged" value="QM" />
   </isd:provider>
