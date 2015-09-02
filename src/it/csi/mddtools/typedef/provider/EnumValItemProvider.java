@@ -9,6 +9,7 @@ import it.csi.mddtools.svcorch.SvcorchPackage;
 import it.csi.mddtools.typedef.CSIDatatype;
 import it.csi.mddtools.typedef.CSIDatatypeCodes;
 import it.csi.mddtools.typedef.EnumVal;
+import it.csi.mddtools.typedef.PrimitiveType;
 import it.csi.mddtools.typedef.Type;
 import it.csi.mddtools.typedef.TypedefFactory;
 import it.csi.mddtools.typedef.TypedefPackage;
@@ -98,9 +99,20 @@ public class EnumValItemProvider extends TypeItemProvider {
 				while (it_t.hasNext()) {
 					Type currType = it_t.next();
 					if (currType instanceof CSIDatatype){
+						// ramo nel caso di servizi CSI
 						// attualmente accetto solo CSIInteger, CSIWrappedInteger e CSIString
 						if (((CSIDatatype)currType).getCode() == CSIDatatypeCodes.CSI_INTEGER || 
 								((CSIDatatype)currType).getCode() == CSIDatatypeCodes.CSI_STRING){
+							acceptedTypes.add(currType);
+						}
+					}
+					if (currType instanceof PrimitiveType){
+						// ramo nel caso di servizi CXF
+						// attualmente accetto solo xsd:int, xsd:string
+						PrimitiveType currPT = (PrimitiveType)currType;
+						if ("int".equals(currPT.getName())||"nillableInt".equals(currPT.getName())||
+								"integer".equals(currPT.getName())||"nillableInteger".equals(currPT.getName())||
+								"string".equals(currPT.getName())){
 							acceptedTypes.add(currType);
 						}
 					}
