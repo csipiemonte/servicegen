@@ -411,7 +411,7 @@ String fullQMGRJndiName(ServiceDef sd) :
 
 // nel caso JB6 il formato e': 
 // java:app/appl-testasynch-ejbpa/TestasynchQMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome
-String qmgrJndiNameForDeploysoap(ServiceDef sd, SOABEModel model):
+String qmgrJndiNameForInternalLink(ServiceDef sd, SOABEModel model):
 if (isJboss6eap(model.targetPlatform)) then "java:app/"+getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+"/"+toCamel(sd.codServizio)+"QMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome"
 else 
 	fullQMGRJndiName(sd, model);

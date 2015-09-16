@@ -997,6 +997,8 @@ if (container.startsWith("Tomcat Web Server/3.2")) {
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="«beanMappingNamespace»"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UnrecoverableException" qname="ns5:UnrecoverableException" xmlns:ns5="«beanMappingNamespace»"/>
   <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="«beanMappingNamespace»"/>
+  <!-- mapping dell'oggetto DatiMessaggio utilizzato nelle chiamate asincrone -->
+  <beanMapping languageSpecificType="java:it.csi.csi.util.DatiMessaggio" qname="ns7:DatiMessaggio" xmlns:ns7="«beanMappingNamespace»"/>
   <!-- mapping delle user defined entities -->
   «FOREACH serviceDef.types.types.typeSelect(Entity) AS bean»
   <beanMapping languageSpecificType="java:«map2javaType(bean,serviceDef.codServizio,model)»" qname="ns10:«bean.name»" xmlns:ns10="«beanMappingNamespace»"/>

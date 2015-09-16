@@ -278,7 +278,7 @@ staging=FALSE
         name="«removeSeparator(sd.codServizio)»"
         class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
         url-pa="«paHomeJNDIName4InternalLink(sd, model)»"
-        url-qm="">
+        url-qm="«qmgrJndiNameForInternalLink(sd, model)»">
         <properties>
         </properties>
       </pluggable-pd>
@@ -406,7 +406,7 @@ del servizio "«codServizio»".
 
   <isd:provider type="it.csi.csi.porte.soap.apache.StatelessEJBProvider"
                 scope="Application" methods="putCall">
-    <isd:option key="JNDIName" value="«qmgrJndiNameForDeploysoap(serviceDef, model)»"/>
+    <isd:option key="JNDIName" value="«qmgrJndiNameForInternalLink(serviceDef, model)»"/>
     <isd:option key="app.context.name" value="«getLoggerPrefixForComponent(model.codProdotto, model.codComponente)»" />
     <isd:option key="csi.component.bridged" value="QM" />
   </isd:provider>
