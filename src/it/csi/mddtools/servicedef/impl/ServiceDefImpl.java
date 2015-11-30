@@ -53,6 +53,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getCodServizio <em>Cod Servizio</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getBindings <em>Bindings</em>}</li>
@@ -70,7 +71,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.ServiceDefImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -36,10 +36,10 @@ package it.csi.mddtools.typedef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.TypedArray#getComponentType <em>Component Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getTypedArray()
  * @model

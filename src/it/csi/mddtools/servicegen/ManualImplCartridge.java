@@ -34,10 +34,10 @@ package it.csi.mddtools.servicegen;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.ManualImplCartridge#isUseInjectedPojo <em>Use Injected Pojo</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicegen.ServicegenPackage#getManualImplCartridge()
  * @model

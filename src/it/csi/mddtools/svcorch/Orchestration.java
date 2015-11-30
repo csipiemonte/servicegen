@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getNodes <em>Nodes</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getGlobalSlots <em>Global Slots</em>}</li>
@@ -42,7 +43,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getExceptionMappings <em>Exception Mappings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Orchestration#getPrincipalNameSlot <em>Principal Name Slot</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getOrchestration()
  * @model

@@ -52,6 +52,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getBaseTypes <em>Base Types</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getCodProdotto <em>Cod Prodotto</em>}</li>
@@ -63,7 +64,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.SOABEModelImpl#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -33,10 +33,10 @@ package it.csi.mddtools.typedef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.Exception#getExceptionType <em>Exception Type</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getException()
  * @model

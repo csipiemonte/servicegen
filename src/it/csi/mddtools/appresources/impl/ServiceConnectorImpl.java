@@ -41,13 +41,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getServiceDef <em>Service Def</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getBinding <em>Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceConnectorImpl#isUseRegistry <em>Use Registry</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

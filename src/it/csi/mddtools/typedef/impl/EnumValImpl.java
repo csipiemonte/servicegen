@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.EnumValImpl#getValueType <em>Value Type</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.EnumValImpl#getLiterals <em>Literals</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -35,11 +35,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.Entity#getFeatures <em>Features</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.Entity#getVersionuid <em>Versionuid</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getEntity()
  * @model

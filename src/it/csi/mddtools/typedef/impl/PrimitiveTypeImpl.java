@@ -33,12 +33,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.PrimitiveTypeImpl#getTypesetName <em>Typeset Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.PrimitiveTypeImpl#isNillable <em>Nillable</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.PrimitiveTypeImpl#getLanguageBindings <em>Language Bindings</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

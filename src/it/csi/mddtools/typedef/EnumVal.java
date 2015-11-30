@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.EnumVal#getValueType <em>Value Type</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.EnumVal#getLiterals <em>Literals</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getEnumVal()
  * @model

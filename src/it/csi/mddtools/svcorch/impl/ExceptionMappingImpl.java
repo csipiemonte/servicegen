@@ -38,12 +38,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ExceptionMappingImpl#getMsg <em>Msg</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ExceptionMappingImpl#getFrom <em>From</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ExceptionMappingImpl#getTo <em>To</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

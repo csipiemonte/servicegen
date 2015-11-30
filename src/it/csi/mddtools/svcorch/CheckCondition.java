@@ -30,12 +30,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getThenNode <em>Then Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getElseNode <em>Else Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.CheckCondition#getInput <em>Input</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getCheckCondition()
  * @model

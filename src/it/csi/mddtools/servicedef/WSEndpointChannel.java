@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.WSEndpointChannel#getWsSecurity <em>Ws Security</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getWSEndpointChannel()
  * @model

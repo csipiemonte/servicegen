@@ -42,11 +42,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.TDAnnotationDetail#getKey <em>Key</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.TDAnnotationDetail#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getTDAnnotationDetail()
  * @model

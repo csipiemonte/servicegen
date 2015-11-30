@@ -36,11 +36,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl#getKey <em>Key</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.RCAnnotationDetailImpl#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

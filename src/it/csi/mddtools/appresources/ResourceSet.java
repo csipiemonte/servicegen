@@ -35,10 +35,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.ResourceSet#getResources <em>Resources</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getResourceSet()
  * @model

@@ -33,12 +33,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isUseLiteral <em>Use Literal</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#isStyleWrapped <em>Style Wrapped</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSFADBindingImpl#getNamespace <em>Namespace</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

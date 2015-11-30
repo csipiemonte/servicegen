@@ -33,6 +33,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.SrvCall#getOperation <em>Operation</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.SrvCall#getServiceConnector <em>Service Connector</em>}</li>
@@ -40,7 +41,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link it.csi.mddtools.svcorch.SrvCall#getOutputSlot <em>Output Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.SrvCall#getOnException <em>On Exception</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getSrvCall()
  * @model abstract="true"

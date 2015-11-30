@@ -32,11 +32,11 @@ package it.csi.mddtools.servicedef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint#getLowerbound <em>Lowerbound</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ContinuousRangeConstraint#getUpperbound <em>Upperbound</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getContinuousRangeConstraint()
  * @model

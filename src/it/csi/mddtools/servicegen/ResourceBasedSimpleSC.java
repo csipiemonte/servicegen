@@ -34,10 +34,10 @@ import it.csi.mddtools.appresources.ResourceSet;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.ResourceBasedSimpleSC#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicegen.ServicegenPackage#getResourceBasedSimpleSC()
  * @model

@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getParams <em>Params</em>}</li>
@@ -49,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getValidator <em>Validator</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.Operation#getDocumentation <em>Documentation</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getOperation()
  * @model

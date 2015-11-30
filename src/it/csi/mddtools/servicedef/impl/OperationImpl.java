@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getParams <em>Params</em>}</li>
@@ -66,7 +67,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getValidator <em>Validator</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.OperationImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

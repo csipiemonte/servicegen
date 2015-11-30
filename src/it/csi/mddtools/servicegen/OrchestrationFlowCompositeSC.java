@@ -36,11 +36,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getOrchestrations <em>Orchestrations</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.OrchestrationFlowCompositeSC#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicegen.ServicegenPackage#getOrchestrationFlowCompositeSC()
  * @model

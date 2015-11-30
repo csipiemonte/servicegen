@@ -35,10 +35,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.EndLoopImpl#getLoopHeadNode <em>Loop Head Node</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

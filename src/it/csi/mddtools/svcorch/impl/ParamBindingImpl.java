@@ -40,11 +40,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ParamBindingImpl#getSlot <em>Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.ParamBindingImpl#getParam <em>Param</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

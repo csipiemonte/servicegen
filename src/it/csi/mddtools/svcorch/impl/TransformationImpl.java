@@ -40,12 +40,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#getInput <em>Input</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#getOutput <em>Output</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.TransformationImpl#isInitOutSlot <em>Init Out Slot</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -34,13 +34,13 @@ import it.csi.mddtools.servicedef.ServiceDef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getServiceDef <em>Service Def</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getBinding <em>Binding</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#getSelector <em>Selector</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceConnector#isUseRegistry <em>Use Registry</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceConnector()
  * @model abstract="true"

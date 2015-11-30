@@ -32,12 +32,12 @@ package it.csi.mddtools.servicedef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#isUseLiteral <em>Use Literal</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#isStyleWrapped <em>Style Wrapped</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.WSFADBinding#getNamespace <em>Namespace</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getWSFADBinding()
  * @model

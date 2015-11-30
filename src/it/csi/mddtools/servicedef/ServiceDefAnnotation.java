@@ -31,11 +31,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDefAnnotation#getSource <em>Source</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.ServiceDefAnnotation#getDetails <em>Details</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getServiceDefAnnotation()
  * @model

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl#getLang <em>Lang</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl#getLangSpecificType <em>Lang Specific Type</em>}</li>
@@ -29,7 +30,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl#getDefaultInitValue <em>Default Init Value</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeLanguageBindingImpl#getNullValueLiteral <em>Null Value Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

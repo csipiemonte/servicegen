@@ -31,11 +31,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.ParamBinding#getSlot <em>Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ParamBinding#getParam <em>Param</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getParamBinding()
  * @model

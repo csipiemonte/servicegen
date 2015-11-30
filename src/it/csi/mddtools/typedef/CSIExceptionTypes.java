@@ -151,6 +151,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * Returns the '<em><b>CSI Exception Types</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CSIExceptionTypes get(String literal) {
@@ -167,6 +169,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * Returns the '<em><b>CSI Exception Types</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CSIExceptionTypes getByName(String name) {
@@ -183,6 +187,8 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * Returns the '<em><b>CSI Exception Types</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
 	 * @generated
 	 */
 	public static CSIExceptionTypes get(int value) {

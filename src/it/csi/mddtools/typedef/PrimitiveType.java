@@ -22,12 +22,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.PrimitiveType#getTypesetName <em>Typeset Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.PrimitiveType#isNillable <em>Nillable</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.PrimitiveType#getLanguageBindings <em>Language Bindings</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getPrimitiveType()
  * @model

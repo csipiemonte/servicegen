@@ -28,10 +28,10 @@ package it.csi.mddtools.svcorch;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.EndLoop#getLoopHeadNode <em>Loop Head Node</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getEndLoop()
  * @model

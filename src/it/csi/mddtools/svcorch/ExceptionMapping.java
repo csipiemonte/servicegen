@@ -29,12 +29,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.ExceptionMapping#getMsg <em>Msg</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ExceptionMapping#getFrom <em>From</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ExceptionMapping#getTo <em>To</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getExceptionMapping()
  * @model

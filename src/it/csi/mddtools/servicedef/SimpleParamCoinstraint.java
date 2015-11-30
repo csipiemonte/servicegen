@@ -32,11 +32,11 @@ package it.csi.mddtools.servicedef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint#getParam <em>Param</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.SimpleParamCoinstraint#getConstraint <em>Constraint</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getSimpleParamCoinstraint()
  * @model

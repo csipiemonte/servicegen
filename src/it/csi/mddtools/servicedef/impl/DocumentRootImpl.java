@@ -44,10 +44,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.DocumentRootImpl#getService <em>Service</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

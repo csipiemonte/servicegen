@@ -34,10 +34,10 @@ import it.csi.mddtools.servicedef.WSEndpoint;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.RPCWebServiceConnector#getEndpoint <em>Endpoint</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getRPCWebServiceConnector()
  * @model

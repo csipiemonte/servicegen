@@ -41,12 +41,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl#getConstraint <em>Constraint</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl#getEntity <em>Entity</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.SimpleFeatureConstraintImpl#getFeature <em>Feature</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

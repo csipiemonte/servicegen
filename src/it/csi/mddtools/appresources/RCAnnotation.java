@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.RCAnnotation#getSource <em>Source</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.RCAnnotation#getDetails <em>Details</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getRCAnnotation()
  * @model

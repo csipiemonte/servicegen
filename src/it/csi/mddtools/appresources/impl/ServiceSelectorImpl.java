@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl#getCodProd <em>Cod Prod</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl#getCodServ <em>Cod Serv</em>}</li>
@@ -45,7 +46,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl#getAmbiente <em>Ambiente</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.impl.ServiceSelectorImpl#getCodBinding <em>Cod Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

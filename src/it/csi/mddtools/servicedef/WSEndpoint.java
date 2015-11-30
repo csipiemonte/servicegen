@@ -15,12 +15,12 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.WSEndpoint#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.WSEndpoint#getInChannel <em>In Channel</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.WSEndpoint#getOutChannel <em>Out Channel</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicedef.ServicedefPackage#getWSEndpoint()
  * @model

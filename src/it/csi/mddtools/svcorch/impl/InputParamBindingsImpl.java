@@ -44,10 +44,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.InputParamBindingsImpl#getInputParams <em>Input Params</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

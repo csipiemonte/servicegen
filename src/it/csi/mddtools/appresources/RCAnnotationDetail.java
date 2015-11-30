@@ -43,6 +43,12 @@ import org.eclipse.emf.ecore.EObject;
  * 					Serve per permettere al generatore di generare le direttive di scaricamento da repart delle librerie client</li>
  * 			</ul>
  * 			</li>
+ *                      <li>per i binding di tipo PAPD:
+ * 			<ul>
+ * 				<li>key="csi-pd-cache": value="true" o "false";
+ * 					Serve per indicare se la PD deve essere mantenuta in cache o meno</li>
+ * 			</ul>
+ * 			</li>
  * 			<li>per i binding EJB:
  * 			<ul>
  * 				<li>key="csi-pd-plugin": value="ejb-1" o "ejb-2";
@@ -74,11 +80,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.RCAnnotationDetail#getKey <em>Key</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.RCAnnotationDetail#getValue <em>Value</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getRCAnnotationDetail()
  * @model

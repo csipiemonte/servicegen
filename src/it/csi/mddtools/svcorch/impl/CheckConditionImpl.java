@@ -39,12 +39,12 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.CheckConditionImpl#getThenNode <em>Then Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.CheckConditionImpl#getElseNode <em>Else Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.CheckConditionImpl#getInput <em>Input</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

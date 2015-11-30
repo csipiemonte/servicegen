@@ -33,10 +33,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.impl.ManualImplCartridgeImpl#isUseInjectedPojo <em>Use Injected Pojo</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -44,12 +44,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getAnnotations <em>Annotations</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.TypeImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

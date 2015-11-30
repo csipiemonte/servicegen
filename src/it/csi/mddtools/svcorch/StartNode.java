@@ -28,10 +28,10 @@ package it.csi.mddtools.svcorch;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.StartNode#getNext <em>Next</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getStartNode()
  * @model

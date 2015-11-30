@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getBaseTypes <em>Base Types</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getCodProdotto <em>Cod Prodotto</em>}</li>
@@ -49,7 +50,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getTargetPlatform <em>Target Platform</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.SOABEModel#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.servicegen.ServicegenPackage#getSOABEModel()
  * @model

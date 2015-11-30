@@ -26,12 +26,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSEndpointImpl#getCode <em>Code</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSEndpointImpl#getInChannel <em>In Channel</em>}</li>
  *   <li>{@link it.csi.mddtools.servicedef.impl.WSEndpointImpl#getOutChannel <em>Out Channel</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

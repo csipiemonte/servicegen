@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getGlobalSlots <em>Global Slots</em>}</li>
@@ -56,7 +57,6 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getExceptionMappings <em>Exception Mappings</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.OrchestrationImpl#getPrincipalNameSlot <em>Principal Name Slot</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.appresources.ServiceSelector#getCodProd <em>Cod Prod</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceSelector#getCodServ <em>Cod Serv</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.appresources.ServiceSelector#getAmbiente <em>Ambiente</em>}</li>
  *   <li>{@link it.csi.mddtools.appresources.ServiceSelector#getCodBinding <em>Cod Binding</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.appresources.AppresourcesPackage#getServiceSelector()
  * @model

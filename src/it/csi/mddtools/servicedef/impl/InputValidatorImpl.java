@@ -39,10 +39,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.InputValidatorImpl#getConstraint <em>Constraint</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

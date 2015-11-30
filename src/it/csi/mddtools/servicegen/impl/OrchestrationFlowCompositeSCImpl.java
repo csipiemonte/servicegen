@@ -48,11 +48,11 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getOrchestrations <em>Orchestrations</em>}</li>
  *   <li>{@link it.csi.mddtools.servicegen.impl.OrchestrationFlowCompositeSCImpl#getResourceSet <em>Resource Set</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

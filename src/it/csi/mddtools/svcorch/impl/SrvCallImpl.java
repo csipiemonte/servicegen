@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.impl.SrvCallImpl#getOperation <em>Operation</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.SrvCallImpl#getServiceConnector <em>Service Connector</em>}</li>
@@ -58,7 +59,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link it.csi.mddtools.svcorch.impl.SrvCallImpl#getOutputSlot <em>Output Slot</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.impl.SrvCallImpl#getOnException <em>On Exception</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

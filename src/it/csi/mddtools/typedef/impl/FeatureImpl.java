@@ -40,12 +40,12 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.impl.FeatureImpl#getName <em>Name</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.FeatureImpl#getType <em>Type</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.impl.FeatureImpl#getDocumentation <em>Documentation</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

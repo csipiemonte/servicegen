@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.servicedef.impl.SDDocumentationImpl#getDoc <em>Doc</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

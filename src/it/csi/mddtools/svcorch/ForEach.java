@@ -28,13 +28,13 @@ package it.csi.mddtools.svcorch;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.ForEach#getCollection <em>Collection</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ForEach#getItem <em>Item</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ForEach#getFirstLoopNode <em>First Loop Node</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.ForEach#getAfterLoopNode <em>After Loop Node</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getForEach()
  * @model

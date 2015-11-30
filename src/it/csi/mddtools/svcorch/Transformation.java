@@ -30,12 +30,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.svcorch.Transformation#getInput <em>Input</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Transformation#getOutput <em>Output</em>}</li>
  *   <li>{@link it.csi.mddtools.svcorch.Transformation#isInitOutSlot <em>Init Out Slot</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.svcorch.SvcorchPackage#getTransformation()
  * @model abstract="true"

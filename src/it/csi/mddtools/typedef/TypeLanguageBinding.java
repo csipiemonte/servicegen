@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link it.csi.mddtools.typedef.TypeLanguageBinding#getLang <em>Lang</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.TypeLanguageBinding#getLangSpecificType <em>Lang Specific Type</em>}</li>
@@ -22,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link it.csi.mddtools.typedef.TypeLanguageBinding#getDefaultInitValue <em>Default Init Value</em>}</li>
  *   <li>{@link it.csi.mddtools.typedef.TypeLanguageBinding#getNullValueLiteral <em>Null Value Literal</em>}</li>
  * </ul>
- * </p>
  *
  * @see it.csi.mddtools.typedef.TypedefPackage#getTypeLanguageBinding()
  * @model
