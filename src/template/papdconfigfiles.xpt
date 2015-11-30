@@ -125,7 +125,7 @@ staging=FALSE
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        name="«removeSeparator(sd.codServizio)»"
+        name="«model.codComponente».«removeSeparator(sd.codServizio)».ejb"
         «LET pdPluginFQN == null ? "it.csi.csi.porte.ejb20.PortaDelegataEJB" : pdPluginFQN AS actPDPluginFQN-»
         class="«actPDPluginFQN»"
         «ENDLET-»
@@ -275,7 +275,7 @@ staging=FALSE
     <url-pa>**not used**</url-pa>
     <pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
       <pluggable-pd
-        name="«removeSeparator(sd.codServizio)»"
+        name="«model.codComponente».«removeSeparator(sd.codServizio)».ejb"
         class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
         url-pa="«paHomeJNDIName4InternalLink(sd, model)»"
         url-qm="«qmgrJndiNameForInternalLink(sd, model)»">
