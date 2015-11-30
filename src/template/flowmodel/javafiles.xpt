@@ -18,6 +18,7 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT servicegen»
 «IMPORT servicedef»
 «IMPORT typedef»
+«IMPORT appresources»
 «IMPORT template::javavalidator»
 
 «EXTENSION template::ServicegenExtensions»
@@ -447,6 +448,28 @@ import org.apache.log4j.Logger;
     
     
     /**
+     * @param localPDRes il path della risorsa che identifica il servizio
+     * @return true se per quel servizio e' necessario mantenere
+     * in cache la PD.
+     */
+    private boolean mustCachePD(String localPDRes){
+    	logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::mustCachePD("+localPDRes+")]-START  ");
+    	boolean mustCache = true;
+    	«LET model.resourceSet.resources.typeSelect(PDPAServiceConnector)
+    		.select(rc|rc.annotations.select(a|a.source=="appresources" && a.details.select(ad|ad.key=="csi-pd-cache" && ad.value=="false").size>0).size>0)	
+    						   AS allPAPDNotToCache-»
+    	«FOREACH allPAPDNotToCache AS currPAPDNotToCache»
+    	«LET currPAPDNotToCache.binding.metaType == EJBPABinding ? pdEJBDefFileName((EJBPABinding)(currPAPDNotToCache.binding),currPAPDNotToCache.serviceDef) : pdSOAPDefFileName((SOAPPABRBinding)(currPAPDNotToCache.binding),currPAPDNotToCache.serviceDef) AS pdFilename-»
+    	if ("«pdFilename»".equals(localPDRes)){ mustCache=false; }
+    	«ENDLET-»
+    	«ENDFOREACH»
+    	«ENDLET-» 
+    	logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::mustCachePD]- mustCache? "+mustCache);
+    	logger.debug("[«getFullServiceLocatorPkg(model)».ServiceLocator::mustCachePD]-END  ");
+    	return mustCache;
+    }
+    
+    /**
      * @param localPDRes la risorsa che contiene la PD locale
      * @return la PD
      * @generated
@@ -478,8 +501,10 @@ import org.apache.log4j.Logger;
 				// legge dalla risorsa la PD locale ed istanzia lo stub
 				infoPD = it.csi.csi.util.xml.PDConfigReader.read(localPD);
 				tempPdObject = it.csi.csi.porte.proxy.PDProxy.newInstance(infoPD);
-				// mette in cache lo stub appena istanziato
-				cacheMap.put(localPDRes, tempPdObject);
+				// mette in cache lo stub appena istanziato (se necessario)
+				if (mustCachePD(localPDRes)){
+					cacheMap.put(localPDRes, tempPdObject);
+				}
 				
 			} catch (Exception e) {
 			logger.error("[«getFullServiceLocatorPkg( model)».ServiceLocator::getPD] - Errore nella lettura della configurazione da "+ localPDRes,e);
