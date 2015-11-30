@@ -3545,11 +3545,7 @@ public class «specificHandlerClassName()» extends «papdCallBaseHandlerClassNa
 		} catch (Exception e) {
 			// l'eccezione viene inserita nel contesto per essere processata successivamente
 			DataSlotHelper.setLastError(e, ps);
-			«debugLog(specificHandlerClassName(),"eseguiFunctionHandler","richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot")»
-			LOGGER.debug("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
-			
-			LOGGER.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione \"+e+\" nell'apposito slot  ");
-			
+			LOGGER.error("[«specificHandlerClassName()»::eseguiFunctionHandler]-richiamo ko, inserimento eccezione "+e+" nell'apposito slot  ", e);
 		}
 	}
 	
