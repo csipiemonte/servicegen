@@ -460,7 +460,7 @@ import org.apache.log4j.Logger;
     						   AS allPAPDNotToCache-»
     	«FOREACH allPAPDNotToCache AS currPAPDNotToCache»
     	«LET currPAPDNotToCache.binding.metaType == EJBPABinding ? pdEJBDefFileName((EJBPABinding)(currPAPDNotToCache.binding),currPAPDNotToCache.serviceDef) : pdSOAPDefFileName((SOAPPABRBinding)(currPAPDNotToCache.binding),currPAPDNotToCache.serviceDef) AS pdFilename-»
-    	if ("«pdFilename»".equals(localPDRes)){ mustCache=false; }
+    	if ("/«pdFilename»".equals(localPDRes)){ mustCache=false; }
     	«ENDLET-»
     	«ENDFOREACH»
     	«ENDLET-» 
