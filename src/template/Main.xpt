@@ -19,9 +19,6 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT servicedef»
 «IMPORT typedef»
 «IMPORT appresources»
-«IMPORT template::configfiles»
-«IMPORT template::papdconfigfiles»
-«IMPORT papdconfigfiles»
 
 «EXTENSION template::ServicegenExtensions»
 
@@ -60,6 +57,7 @@ Metodo centralizzato per la genarazione del progetto
 		«EXPAND buildfiles::buildEnvProperties FOR this»
 		«EXPAND buildfiles::ivyfiles FOR this»
 		«EXPAND buildfiles::aboutfiles FOR this»
+		«EXPAND buildfiles::clientLibIvyArtifactFiles FOR this»
 
 		«REM»
 		poi è necessario configurare i componenti j2ee necessari per l'implementazione

@@ -103,7 +103,25 @@ String getIntegrationPkg(SOABEModel model) :
 	        
 String getSQLSrcDir(SOABEModel model) :
 	"src/sql";
-	    
+
+// definizioni per pubblicazione client su artifactory
+
+
+String getArtifactoryConfigRootDir(SOABEModel model) :
+  getConfigRootDir(model)+"/artifactory";
+
+String getArtifactoryConfigRootDir(ServiceDef sd, SOABEModel model) :
+  getArtifactoryConfigRootDir(model)+"/"+sd.codServizio.toLowerCase();
+
+String getClientLibArtifactFilePath(ServiceDef sd, SOABEModel model) :
+	getArtifactoryConfigRootDir(sd, model)+"/ivy-"+getClientLibArtifactName(sd, model)+".xml";
+
+String getClientLibArtifactName(ServiceDef sd, SOABEModel model):
+model.codComponente.toLowerCase()+"-"+removeSeparator(sd.codServizio)+"-client";	    
+
+String getClientLibArtifactNameWithVersion(ServiceDef sd, SOABEModel model):
+getClientLibArtifactName(sd, model)+"-"+sd.versione+".0";
+
 // STD: DSP_STD_0000_GUI_081007_V02_Logging.pdf#4.2
 String getLoggerPrefixForComponent(String codProd, String codComponent) :
 	codComponent.toLowerCase();

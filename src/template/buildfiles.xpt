@@ -80,6 +80,28 @@ creazione del build.xml per ANT
 	</target>
 
 
+
+	<!-- -->
+	<!-- ############################################################ -->
+	<!-- # preparazione artefatto per il deploy su repart           # --> 
+	<!-- # (in dist/${target})                                      # -->
+	<!-- ############################################################ -->
+	<target name="package-deployable-artifact" depends="environment-config, _package-csiclientlibs-jar">
+		<mkdir dir="dist/csipiemonte"/>
+«FOREACH getProvidedServices() AS currService»
+«LET "dist/csipiemonte/"+getClientLibArtifactName(currService, this)+"/"+currService.versione+".0" AS artifactDir-»
+		<!-- artefatto per il servizio «currService.codServizio» -->
+		<mkdir dir="«artifactDir»"/>
+		<mkdir dir="«artifactDir»/lib/"/>
+		<copydir dest="«artifactDir»/lib" src="build/archives/${target}" includes="«getClientLibArtifactNameWithVersion(currService, this)».jar"></copydir>
+		<copy file="build/temp/artifactory/«currService.codServizio»/«"ivy-"+getClientLibArtifactName(currService, this)+".xml"»" todir="dist/csipiemonte/«getClientLibArtifactName(currService, this)»/«currService.versione».0"></copy>
+«ENDLET-»
+«ENDFOREACH»
+		<zip destfile="dist/«this.codProdotto»-«this.codComponente»-artifacts.zip" basedir="dist" includes="csipiemonte/**">
+		</zip>
+	</target>
+
+
 	<target name="all-targets" description="Esegue il build per le varie distribuzioni in sequenza.">
 	«PROTECT CSTART '<!--' CEND '-->' ID getRegionUID("all-targets")»
 		<!-- inserire il richiamo dei build per gli ambienti previsti dal progetto -->
@@ -1357,4 +1379,25 @@ IVY_VERSION=ivy_2_0_0
 «ENDFILE»
 «ENDDEFINE»
 
+«REM»comment«ENDREM»
 
+«DEFINE clientLibIvyArtifactFiles FOR SOABEModel»
+«LET this.getProvidedServices() AS allProvidedServices»
+«FOREACH allProvidedServices AS currService»
+«EXPAND clientLibIvyArtifactFile(this) FOR currService»
+«ENDFOREACH»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE clientLibIvyArtifactFile(SOABEModel model) FOR ServiceDef»
+«FILE getClientLibArtifactFilePath(this, model)»<ivy-module version="1.0">
+    <info
+        organisation="csipiemonte"
+        module="«getClientLibArtifactName(this, model)»"
+        revision="«this.versione».0" />
+    <publications>
+        <artifact name="«getClientLibArtifactNameWithVersion(this, model)»" type="jar" />   
+    </publications>
+</ivy-module>
+«ENDFILE»
+«ENDDEFINE»

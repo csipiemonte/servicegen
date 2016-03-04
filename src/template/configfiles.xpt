@@ -18,8 +18,6 @@ e le limitazioni secondo i termini della Licenza.
 «IMPORT servicegen»
 «IMPORT servicedef»
 «IMPORT typedef»
-«IMPORT template::papdconfigfiles»
-«IMPORT template::j2eeconfigfiles»
 
 «EXTENSION template::ServicegenExtensions»
 
