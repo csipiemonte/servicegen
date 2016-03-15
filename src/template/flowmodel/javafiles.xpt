@@ -168,7 +168,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 		/// Inizializzazione risorse
 		«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initResources"+codServizio)»
         // inserire qui il codice di inziializzazione risorse:
-        // non verrà cancellato dalle successive rignerazioni
+        // non verr&agrave; cancellato dalle successive rignerazioni
         // esempio di cose da fare:
         // -- leggere environment entry o context jndi 
         // -- inizializzare datasource, altre risorse
@@ -204,7 +204,7 @@ public class «serviceBeanClassName()» implements SessionBean{
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro).
 In caso di livello di sicurezza > A0 viene aggiunto un parametro
-che conterrà il principal derivante dal SessionContext [STDAPS-82]
+che conterra' il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
 «DEFINE javaServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
@@ -339,7 +339,7 @@ public class «serviceImplClassName()» {
 	public void init(Object initOptions){
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("initImpl"+codServizio)»
 	// inserire qui il codice di inizializzazione della implementazione
-	// non verrà sovrascritto da successive rigenerazioni
+	// non verr&agrave; sovrascritto da successive rigenerazioni
 	«ENDPROTECT»
 	}
 	
@@ -357,7 +357,7 @@ public class «serviceImplClassName()» {
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
+	// non verr&agrave; sovrascritto da successive rigenerazioni.
 	«ENDPROTECT»
 }
 	«ENDFILE»
@@ -530,7 +530,7 @@ import org.apache.log4j.Logger;
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro)
 In caso di livello di sicurezza > A0 viene aggiunto un parametro
-che conterrà il principal derivante dal SessionContext [STDAPS-82]
+che conterra' il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
 «DEFINE javaOrchServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»
@@ -744,7 +744,7 @@ public class «serviceImplClassName()» {
 	«PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implOtherMethods"+codServizio)»
 	// inserire qui la dichiarazione di eventuali metodi aggiuntivi utili
 	// per l'implementazione.
-	// non verrà sovrascritto da successive rigenerazioni.
+	// non verr&agrave; sovrascritto da successive rigenerazioni.
 	«ENDPROTECT»
 }
 	«ENDFILE»
@@ -780,12 +780,12 @@ public class «serviceImplClassName()» {
 	 
 	 «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeLocals"+implClassName+"_"+name)»
 	 // inserire qui la dichiarazione di variabili locali al metodo
-	 // non verrà sovrascritto nelle successive rigenerazioni
+	 // non verr&agrave; sovrascritto nelle successive rigenerazioni
 	 «ENDPROTECT»
 	 try {
      «PROTECT CSTART '/*' CEND '*/' ID getRegionUID("implCodeStmt"+implClassName+"_"+name)»
      // inserire qui il codice di implementazione del metodo '«name»'.
-     // non verrà sovrascritto nelle successive rigenerazioni
+     // non verr&agrave; sovrascritto nelle successive rigenerazioni
 	 
      «IF returnType!=null»return «defaultInitVal(returnType)»;
      «ENDIF»

@@ -1470,7 +1470,7 @@ public abstract class «customTransformBaseHandlerClassName()» implements Funct
 	 *  
 	 * @param inValues mappa contenente i valori dei dataSlot di input. Per trasformazioni
 	 * incrementali anche il dataSlot di output puo' essere un dataSlot di input.
-	 * @return l'oggetto trasformato, che verrà rimpiazzato al valore eventualmente precedente
+	 * @return l'oggetto trasformato, che verr&agrave; rimpiazzato al valore eventualmente precedente
 	 * nel context.
 	 * @generated
 	 */
@@ -1883,13 +1883,13 @@ import org.apache.log4j.Category;
  * <li>codice del servizio (interfaccia)
  * <li>versione dell'interfaccia di servizio (&lt;maj&gt;.&lt;min&gt;),
  * <li>codice binding (identifica, all'interno di una stessa interfaccia di
- * servizio, modalità di fruizione differenti, ad es. per differenti tecnologie
+ * servizio, modalit&agrave; di fruizione differenti, ad es. per differenti tecnologie
  * o utilizzando differenti canali di comunicazione.
- * <li>finalità: (il servizio di naming potrebbe modificare l'interfaccia
- * restituita per particolari finalità)
+ * <li>finalit&agrave;: (il servizio di naming potrebbe modificare l'interfaccia
+ * restituita per particolari finalit&agrave;)
  * <ul>
- * <li>RUNTIME: servizio per operatività applicativa (è il valore utilizzato
- * dai fruitori durante l'operatività)
+ * <li>RUNTIME: servizio per operativit&agrave; applicativa (è il valore utilizzato
+ * dai fruitori durante l'operativit&agrave;)
  * <li>MONITOR: servizio per monitoraggio (utilizzato dal test-agent)
  * <li>DIAG: servizio per diagnostica (utilizzato dal framework coop-diag e
  * dalla servlet centralizzata di diagnostica)
@@ -1903,14 +1903,14 @@ import org.apache.log4j.Category;
  * dei servizi utilizzati, rendendo perciò del tutto trasparente, nella maggior
  * parte dei casi, eventuali migrazioni del servizio. I fruitori con
  * configurazioni personalizate in porta delegata possono inviare
- * l'inforamazioni della stessa tramite inputStream che verrà integrato con
+ * l'inforamazioni della stessa tramite inputStream che verr&agrave; integrato con
  * l'informazioni restituite dal naming/registry. Vedere la documentazione del
  * metodo <code>loadProxy</code> per i dettagli circa i parametri da
  * utilizzare per creare il contesto di invocazione con il selettore di
  * servizio. Per permettere una migrazione più graduale da un meccanismo basato
- * su configurazioni locali al fruitore, la classe prevede la possibilità di
- * elencare una serie di porte delegate per le quali la configurazione non sarà
- * richiesta al servizio di naming ma verrà caricata in locale, con le regole
+ * su configurazioni locali al fruitore, la classe prevede la possibilit&agrave; di
+ * elencare una serie di porte delegate per le quali la configurazione non sar&agrave;
+ * richiesta al servizio di naming ma verr&agrave; caricata in locale, con le regole
  * della classe {@link it.csi.csi.porte.NameFilePDFactory}.
  * 
  * <h4>Modifiche a runtime della configurazione porta delegata lato fruitore</h4>
@@ -1920,7 +1920,7 @@ import org.apache.log4j.Category;
  * fruitore a fruitore, o addirittura a runtime, devono essere inserite
  * esplicitamente <b>dopo</b> aver ottenuto la configurazione di PD generica
  * dal servizio di naming. Per fare ciò la factory mette a disposizione un
- * meccanismo di pluggabilità apposito che si utilizza:
+ * meccanismo di pluggabilit&agrave; apposito che si utilizza:
  * <ol>
  * <li> realizzando una classe che implementa l'interfaccia
  * {@link it.csi.csi.porte.PostLoadConfigHandler} e che contiene le operazioni
@@ -1931,7 +1931,7 @@ import org.apache.log4j.Category;
  * La configurazione della factory avviene tramite il metodo
  * <code>configure</code> che verifica properties di sistema e nella , root
  * principale dell'applicazione tramite CLASSLOADER , la presenza di un file di
- * configurazione(opzionale) csinaming.properties personalizzato. Le proprietà
+ * configurazione(opzionale) csinaming.properties personalizzato. Le propriet&agrave;
  * supportate sono le seguenti: <table border="1">
  * <tr>
  * <td><b>nome</b></td>
@@ -2047,7 +2047,7 @@ public class «httpPDProxyLoaderClassName()»
     }
 
     /**
-     * Proprietà di configurazione della classe
+     * Propriet&agrave; di configurazione della classe
      * 
      */
     
@@ -2065,13 +2065,13 @@ public class «httpPDProxyLoaderClassName()»
     public static final String PLANNED_UPDATE_TIME = "csinaming.planned.update.time";
 
     /**
-     * Valori ammessi proprietà csinaming.runtime.policy
+     * Valori ammessi propriet&agrave; csinaming.runtime.policy
      */
     public static final String IMPLICIT_ONLY_RUNTIME_POLICY = "implicit-only";
     public static final String IMPLICIT_OVERWRITABLE_RUNTIME_POLICY = "implicit-overwritable";
 
     /**
-     * Codifica proprietà csinaming.runtime.policy
+     * Codifica propriet&agrave; csinaming.runtime.policy
      */
     protected static final int IMPLICIT_ONLY = 0;
     protected static final int IMPLICIT_OVERWRITABLE = 1;
@@ -2400,7 +2400,7 @@ public class «httpPDProxyLoaderClassName()»
      * 
      * 
      * <h4>Formato del file di properties (contesto di invocazione)</h4>
-     * Il file conterrà nell'ordine:
+     * Il file conterr&agrave; nell'ordine:
      * <ol>
      * <li>id.servizio = Identificatore univoco servizio - serie di codici
      * separati con pipe :
@@ -2415,13 +2415,13 @@ public class «httpPDProxyLoaderClassName()»
      * per gestire installazioni multiple dello stesso prodotto in un
      * determinato ambiente/cliente.
      * <li>BINDING: codice binding (identifica, all'interno di una stessa
-     * interfaccia di servizio, modalità di fruizione differenti, ad es. per
+     * interfaccia di servizio, modalit&agrave; di fruizione differenti, ad es. per
      * differenti tecnologie o utilizzando differenti canali di comunicazione.
      * </ul>
      * <li>ambiente=codice ambiente di runtime (produzione, sviluppo, test,
      * test-utente...).
-     * <li>purpose= (opzinale) scopo/finalità (il servizio di naming potrebbe
-     * modificare l'interfaccia restituita per particolari finalità).Default
+     * <li>purpose= (opzinale) scopo/finalit&agrave; (il servizio di naming potrebbe
+     * modificare l'interfaccia restituita per particolari finalit&agrave;).Default
      * RUNTIME.
      * <ul>
      * <li>RUNTIME: esecuzione appplicativa (default).
@@ -2501,7 +2501,7 @@ public class «httpPDProxyLoaderClassName()»
      * momento della richiesta di quella PD, se <br>
      * <code>[tempo-corrente]-[tempo-inserimento] &gt; [time-to-live-globale]</code>
      * l'istanza viene dichiarata non valida. Il secondo meccanismo, più
-     * complesso, prevede la possibilità di controllare in modo più fine il
+     * complesso, prevede la possibilit&agrave; di controllare in modo più fine il
      * ciclo di permanenza della PD in cache.
      * <h5>hint-based cache expiry</h5>
      * Il secondo meccanismo di expiry della cache è basato su un sistema di
@@ -2799,7 +2799,7 @@ public class «httpPDProxyLoaderClassName()»
 
                 if (streamLocalPD != null)
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verrà delegata alla creazione del Proxy ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verr&agrave; delegata alla creazione del Proxy ");
                     infoLocalPD = PDConfigReader.read(streamLocalPD);
 
                     if (infoLocalPD != null)
@@ -2808,13 +2808,13 @@ public class «httpPDProxyLoaderClassName()»
                     }
                     else
                     {
-                        _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
+                        _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
                         return null;
                     }
                 }
                 else
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' non è presente o valida la PD locale. ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' non è presente o valida la PD locale. ");
                     return null;
                 }
             }
@@ -2827,7 +2827,7 @@ public class «httpPDProxyLoaderClassName()»
 
                 if (streamLocalPD != null)
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verrà delegata alla creazione del Proxy ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Presente porta locale , verr&agrave; delegata alla creazione del Proxy ");
                     infoLocalPD = PDConfigReader.read(streamLocalPD);
 
                     if (infoLocalPD != null)
@@ -2837,13 +2837,13 @@ public class «httpPDProxyLoaderClassName()»
                     else
                     {
                         _log
-                                .debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
+                                .debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' , problemi nel reperire l'informazione remota e nel leggere la configurazione locale. ");
                         return null;
                     }
                 }
                 else
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituirà una PD 'null' non è presente o valida la PD locale. ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' non è presente o valida la PD locale. ");
                     return null;
                 }
             }
@@ -2851,7 +2851,7 @@ public class «httpPDProxyLoaderClassName()»
         }
         catch (Exception ex)
         {
-            _log.error("[HttpPDProxyLoader::getRemotely] - Errore nella creazione della PD verrà restituita PD null : ", ex);
+            _log.error("[HttpPDProxyLoader::getRemotely] - Errore nella creazione della PD verr&agrave; restituita PD null : ", ex);
             return null;
         }
 
