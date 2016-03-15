@@ -219,7 +219,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggab
 		return (Logger)Categories.getLogger(getAppContextName(), Categories.PFH+"."+_fhi.getName());
 	}
 	
-    //// metodi di utilità per i constraints
+    //// metodi di utilita' per i constraints
     public static boolean checkMustBeNull(Object value, Param par, Vector messages){
       if(value == null)
       	return true;

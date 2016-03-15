@@ -370,7 +370,7 @@ file di configurazione per features asincrone
 
 «REM»file di istruzioni per creazione code e tabelle«ENDREM»
 «FILE getDocsRootDir(model)+"/"+removeSeparator(codServizio)+"/README_ASYNCH.txt"»
-Istruzioni per la creazione degli oggetti di supporto all'asincronicità
+Istruzioni per la creazione degli oggetti di supporto all'asincronicita'
 del servizio "«codServizio»".
 
 1) creare la tabella del contatore per i retry lanciando lo script 
@@ -465,7 +465,7 @@ files per coop-trace:
 «DEFINE cooptrace_logger_cfg FOR SOABEModel»
 #-------------------------------------------------------------------------
 # Configurazione log per COOP-TRACE per il componente «codComponente»
-# L'output va sull'appender complessivo già definito per il componente
+# L'output va sull'appender complessivo gia' definito per il componente
 # ma può essere acceso/spento separatamente
 #-------------------------------------------------------------------------
 log4j.logger.«codComponente».cooptrace=ERROR, «codComponente».file

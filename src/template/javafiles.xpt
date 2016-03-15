@@ -497,7 +497,7 @@ SERVICE DELEGATE CLASSES
 classe del 'delegate' che implementa effettivamente il servizio
 (l'implementazione dei metodi di business va qui dentro).
 In caso di livello di sicurezza > A0 viene aggiunto un parametro
-che conterrà il principal derivante dal SessionContext [STDAPS-82]
+che conterra' il principal derivante dal SessionContext [STDAPS-82]
 ***************************************************************
 «ENDREM»
 «DEFINE javaServiceDelegateClassFile(SOABEModel model) FOR ServiceDef»

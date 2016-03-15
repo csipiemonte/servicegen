@@ -49,7 +49,7 @@ RESOURCE CONNECTOR FILES
 «ENDDEFINE»
 
 
-«REM»PDPAServiceConnector con EJBPABinding: connettore a servizio CSI in modalità PA/PD«ENDREM»
+«REM»PDPAServiceConnector con EJBPABinding: connettore a servizio CSI in modalita' PA/PD«ENDREM»
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, EJBPABinding bnd) FOR PDPAServiceConnector»
 	«LET getServiceTargetPlatform() AS paplatform»
 		«LET pdEjbPluginFQN() AS pdPluginFQN»
@@ -62,7 +62,7 @@ RESOURCE CONNECTOR FILES
 «ENDDEFINE»
 
 
-«REM»PDPAServiceConnector con SOAPPABRBinding: connettore a servizio CSI in modalità SOAP PA Bridge«ENDREM»
+«REM»PDPAServiceConnector con SOAPPABRBinding: connettore a servizio CSI in modalita' SOAP PA Bridge«ENDREM»
 «DEFINE papdconnectorFiles(ServiceDef context, SOABEModel model, SOAPPABRBinding bnd) FOR PDPAServiceConnector»
 	«LET getCustomSoapPAEndpoint() AS customPAEndpoint»
 		«LET getCustomSoapPAUri() AS customPAUri»
