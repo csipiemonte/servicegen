@@ -466,7 +466,7 @@ files per coop-trace:
 #-------------------------------------------------------------------------
 # Configurazione log per COOP-TRACE per il componente «codComponente»
 # L'output va sull'appender complessivo gia' definito per il componente
-# ma può essere acceso/spento separatamente
+# ma puo'essere acceso/spento separatamente
 #-------------------------------------------------------------------------
 log4j.logger.«codComponente».cooptrace=ERROR, «codComponente».file
 log4j.additivity.«codComponente».cooptrace =false
@@ -474,8 +474,8 @@ log4j.additivity.«codComponente».cooptrace =false
 «ENDDEFINE»
 
 «REM»
-Questa configurazione è da rivedere perchè non si capisce bene
-qual'è l'appender su cui deve scrivere.
+Questa configurazione e' da rivedere perche' non si capisce bene
+qual'e' l'appender su cui deve scrivere.
 «ENDREM»
 «DEFINE cooptrace_stopwatch_cfg FOR SOABEModel»
 log4j.logger.«codComponente».cooptrace.util.stopwatch =ERROR, «codComponente».util.stopwatch.file

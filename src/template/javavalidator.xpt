@@ -44,8 +44,8 @@ import org.apache.log4j.Logger;
 /**
  * Permette di validare il valore presente in uno dei parametri a fronte di 
  * 
- * Se la validazione è OK il PFH non fa niente di specifico. Se invece la validazione
- * è KO il pfh inserisce nell'attributo eccezione una eccezione di tipo 
+ * Se la validazione e' OK il PFH non fa niente di specifico. Se invece la validazione
+ * e' KO il pfh inserisce nell'attributo eccezione una eccezione di tipo 
  * JValidationException.
  * @author 869
  * @generated
@@ -58,7 +58,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggab
 	private String _acn;
 		
 	/**
-	 * skip.if.previous.error: true=> skippa se nei passi precedenti c'è stato un errore
+	 * skip.if.previous.error: true=> skippa se nei passi precedenti c'e' stato un errore
 	 * @generated
 	 */
 	public final static String PROP_SKIP_IF_PREVIOUS_ERROR="skip.if.previous.error";
@@ -150,7 +150,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggab
 		log.debug("[«serviceValidatorClassName(this)»::doOnInvokeSynch] - BEGIN");
 		if(mustSkip){
 			if (prevRes.getException()!=null){
-				log.debug("[«serviceValidatorClassName(this)»::doOnInvokeSynch] - i passi precedenti hanno trovato un'eccezione ed è presente la direttiva must-skip.");
+				log.debug("[«serviceValidatorClassName(this)»::doOnInvokeSynch] - i passi precedenti hanno trovato un'eccezione ed e' presente la direttiva must-skip.");
 				return prevRes;
 			}
 		}
@@ -224,7 +224,7 @@ public class «serviceValidatorClassName(this)» implements FunctHandler, Loggab
       if(value == null)
       	return true;
       else{
-        messages.add("Il parametro "+par.getName()+" non è stato valorizzato");
+        messages.add("Il parametro "+par.getName()+" non e' stato valorizzato");
       	return false;
       }
     }

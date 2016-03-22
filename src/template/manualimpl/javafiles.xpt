@@ -224,7 +224,7 @@ public class «serviceBeanClassName()» implements SessionBean{
         // -- inizializzare datasource, altre risorse
         // -- inserire le options in 'implInitOptions': saranno poi 
         //    passate al metodo initImpl()
-        // NOTA: il contenuto specifico dell'oggetto implInitOptions è
+        // NOTA: il contenuto specifico dell'oggetto implInitOptions e'
         // specifico di ogni applicazione		
 		«ENDPROTECT» 
 	    /// creazione dell'implementazione
@@ -363,7 +363,7 @@ public class «serviceImplClassName()» {
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[«serviceImplClassName()»::testResources()] : si e' verificato un errore  "
 							+ ex);
 			throw ex;
 		}
@@ -382,7 +382,7 @@ public class «serviceImplClassName()» {
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[«serviceImplClassName()»::selfCheck()] si e' verificato un errore  "
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
@@ -532,7 +532,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[«serviceImplClassName()»::testResources()] : si e' verificato un errore  "
 							+ ex);
 			throw ex;
 		}
@@ -551,7 +551,7 @@ public class «serviceImplClassName()» implements «serviceInterfaceName()»{
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[«serviceImplClassName()»::selfCheck()] si e' verificato un errore  "
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
@@ -863,7 +863,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);
 
 		} catch (Exception e) {
-			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e);
+			LOGGER.error("Attenzione si e' verificata un'eccezione: " + e, e);
 			throw e;
 		}
 		LOGGER.debug("Chiamata da MBEAN eseguita!!!!");
@@ -881,7 +881,7 @@ public class LoadStartupService implements LoadStartupServiceMBean {
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 
 		} catch (Exception e) {
-			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e);
+			LOGGER.error("Attenzione si e' verificata un'eccezione: " + e, e);
 		}
 
 		return beanObject;
@@ -991,7 +991,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 			beanFactoryReference = new ContextBeanFactoryReference(ctx);			
 			
 		} catch (Exception e) {
-			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e); 
+			LOGGER.error("Attenzione si e' verificata un'eccezione: " + e, e); 
 		}
 		
 	}
@@ -1008,7 +1008,7 @@ public class SpringStartupListener extends ApplicationLifecycleListener{
 			beanObject = beanFactoryReference.getFactory().getBean(beanName);
 			
 		} catch (Exception e) {
-			LOGGER.error("Attenzione si è verificata un'eccezione: " + e, e); 
+			LOGGER.error("Attenzione si e' verificata un'eccezione: " + e, e); 
 		}
 		
 		return beanObject;

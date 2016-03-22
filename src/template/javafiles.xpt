@@ -1020,7 +1020,7 @@ Genera i files per la configurazione di OsWorkflow, ovvero:
 </workflows>
 «ENDFILE»
 
-«REM»Workflow Configuration file (forse è un duplicato)«ENDREM»
+«REM»Workflow Configuration file (forse e' un duplicato)«ENDREM»
 «REM»«EXPAND svcflowDefinitionFile(this, model) FOREACH operations»«ENDREM»
 «ENDDEFINE»
 

@@ -45,7 +45,7 @@ Metodo centralizzato per la genarazione del progetto
 «DEFINE svn_project(boolean useExternalDaoBeans) FOR SOABEModel»
 	«LET codComponente AS svn_project_dir»
 		«REM»
-		per ogni componente è necessario creare la struttura del progetto SVN:
+		per ogni componente e' necessario creare la struttura del progetto SVN:
 		- build.xml
 		- build.properties
 		- ivy
@@ -60,7 +60,7 @@ Metodo centralizzato per la genarazione del progetto
 		«EXPAND buildfiles::clientLibIvyArtifactFiles FOR this»
 
 		«REM»
-		poi è necessario configurare i componenti j2ee necessari per l'implementazione
+		poi e' necessario configurare i componenti j2ee necessari per l'implementazione
 		della platform CSI over J2EE:
 		- per tutti:
 			-- application.xml che contiene tutti i moduli (1 per binding in sostanza)
@@ -93,7 +93,7 @@ Metodo centralizzato per la genarazione del progetto
 			«ENDFOREACH»
 		«ENDLET»
 		
-		«REM»Il file README.tst è unico per tutto il componente«ENDREM»
+		«REM»Il file README.tst e' unico per tutto il componente«ENDREM»
 		«EXPAND configfiles::readmeTarDirectory FOR this»
 
 		
@@ -104,7 +104,7 @@ Metodo centralizzato per la genarazione del progetto
 			«EXPAND papdconfigfiles::cooptracefiles FOR this»
 		«ENDIF»
 
-		«REM»se c'è almeno una cartridge FlowModelImpl creo le classi base degli handler«ENDREM»
+		«REM»se c'e' almeno una cartridge FlowModelImpl creo le classi base degli handler«ENDREM»
 		«IF serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==FlowModelImplCartridge).size>0»
 			«EXPAND template::flowmodel::handlerfiles::baseHandlers("csi") FOR this»
 		«ENDIF»

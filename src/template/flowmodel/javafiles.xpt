@@ -174,7 +174,7 @@ public class «serviceBeanClassName()» implements SessionBean{
         // -- inizializzare datasource, altre risorse
         // -- inserire le options in 'implInitOptions': saranno poi 
         //    passate al metodo initImpl()
-        // NOTA: il contenuto specifico dell'oggetto implInitOptions è
+        // NOTA: il contenuto specifico dell'oggetto implInitOptions e'
         // specifico di ogni applicazione		
 		«ENDPROTECT» 
 	    /// creazione dell'implementazione
@@ -299,7 +299,7 @@ public class «serviceImplClassName()» {
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[«serviceImplClassName()»::testResources()] : si e' verificato un errore  "
 							+ ex);
 			throw ex;
 		}
@@ -316,7 +316,7 @@ public class «serviceImplClassName()» {
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[«serviceImplClassName()»::selfCheck()] si e' verificato un errore  "
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
@@ -686,7 +686,7 @@ public class «serviceImplClassName()» {
 			return schk.testResources();
 		} catch (CSIException ex) {
 			logger
-					.error("[«serviceImplClassName()»::testResources()] : si è verificato un errore  "
+					.error("[«serviceImplClassName()»::testResources()] : si e' verificato un errore  "
 							+ ex);
 			throw ex;
 		}
@@ -703,7 +703,7 @@ public class «serviceImplClassName()» {
 		try {
 			return schk.selfCheck(alreadyChecked);
 		} catch (CSIException ex) {
-			logger.error("[«serviceImplClassName()»::selfCheck()] si è verificato un errore  "
+			logger.error("[«serviceImplClassName()»::selfCheck()] si e' verificato un errore  "
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");

@@ -309,7 +309,7 @@ public abstract class «startNodeBaseHandlerClassName()» implements FunctionPro
 			StringTokenizer stok = new StringTokenizer(currArgVal,"=");
 			if (stok.countTokens()!=2)
 				throw new WorkflowException("Errore nell'inizializzazione del workflow: il formato del parametro "+
-						currArgName+" deve essere <nomeparametro>=<nomedataslot>, invece è "+currArgVal);
+						currArgName+" deve essere <nomeparametro>=<nomedataslot>, invece e' "+currArgVal);
 			else{
 				String currInput=stok.nextToken();
 				String currDS = stok.nextToken();
@@ -992,9 +992,9 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 		String collSN = (String)args.get(COLLECTION_SLOT_NAME_PARAM_NAME);
 		String itemSN = (String)args.get(ITEM_SLOT_NAME_PARAM_NAME);
 		if (collSN==null || collSN.length()==0)
-			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+COLLECTION_SLOT_NAME_PARAM_NAME);
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non e' stato impostato il parametro "+COLLECTION_SLOT_NAME_PARAM_NAME);
 		if (itemSN==null || itemSN.length()==0)
-			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non è stato impostato il parametro "+ITEM_SLOT_NAME_PARAM_NAME);
+			throw new WorkflowException("Errore nell'inizializzazione dell handler ForEach: non e' stato impostato il parametro "+ITEM_SLOT_NAME_PARAM_NAME);
 		//
 		_collectionSlotName=collSN.trim();
 		_itemSlotName=itemSN.trim();
@@ -1036,7 +1036,7 @@ public class «forEachBaseHandlerClassName()» implements FunctionProvider {
 			// la collection dovrebbe essere di tipo array (garantito da check) 
 			if (!collectionVal.getClass().isArray())
 				throw new WorkflowException("Errore durante iniziualizzazione ForEach: il tipo della collection "+_collectionSlotName+
-						" non è un typed array ma "+collectionVal.getClass());
+						" non e' un typed array ma "+collectionVal.getClass());
 			else{
 				// ok vai
 				ArrayList coll = new ArrayList();
@@ -1609,7 +1609,7 @@ public class «excRaisedConditionClassName()» implements Condition {
 					return true;
 				}
 			}
-			// se arrivo qui non è stata trovata l'eccezione
+			// se arrivo qui non e' stata trovata l'eccezione
 			«debugLog(excRaisedConditionClassName(),"passesCondition","END")»
 			return false;
 		}
@@ -1874,11 +1874,11 @@ import org.apache.log4j.Category;
  * delegate in base alle seguenti chiavi:
  * <ol>
  * <li>codice ambiente di runtime (produzione, sviluppo, test, test-utente...),
- * <li>codice dell'ente/cliente per cui è rilasciato il servizio
+ * <li>codice dell'ente/cliente per cui e' rilasciato il servizio
  * <li>progressivo di installazione nello stesso ambiente (serve per gestire
  * installazioni multiple dello stesso prodotto in un determinato
  * ambiente/cliente
- * <li>codice del prodotto su cui è basato il rilascio che implementa il
+ * <li>codice del prodotto su cui e' basato il rilascio che implementa il
  * servizio,
  * <li>codice del servizio (interfaccia)
  * <li>versione dell'interfaccia di servizio (&lt;maj&gt;.&lt;min&gt;),
@@ -1888,26 +1888,26 @@ import org.apache.log4j.Category;
  * <li>finalit&agrave;: (il servizio di naming potrebbe modificare l'interfaccia
  * restituita per particolari finalit&agrave;)
  * <ul>
- * <li>RUNTIME: servizio per operativit&agrave; applicativa (è il valore utilizzato
+ * <li>RUNTIME: servizio per operativit&agrave; applicativa (e' il valore utilizzato
  * dai fruitori durante l'operativit&agrave;)
  * <li>MONITOR: servizio per monitoraggio (utilizzato dal test-agent)
  * <li>DIAG: servizio per diagnostica (utilizzato dal framework coop-diag e
  * dalla servlet centralizzata di diagnostica)
  * </ul>
  * <li>flag di staging: serve per permettere ad un test-agent di verificare i
- * binding durante la fase di installazione (mentre il binding è in fase di
+ * binding durante la fase di installazione (mentre il binding e' in fase di
  * "staging").
  * </ol>
  * L'utilizzo di questo loader permette ai fruitori di evitare di incorporare
  * tra i file di configurazione distribuiti anche quello delle porte delegate
- * dei servizi utilizzati, rendendo perciò del tutto trasparente, nella maggior
+ * dei servizi utilizzati, rendendo percio' del tutto trasparente, nella maggior
  * parte dei casi, eventuali migrazioni del servizio. I fruitori con
  * configurazioni personalizate in porta delegata possono inviare
  * l'inforamazioni della stessa tramite inputStream che verr&agrave; integrato con
  * l'informazioni restituite dal naming/registry. Vedere la documentazione del
  * metodo <code>loadProxy</code> per i dettagli circa i parametri da
  * utilizzare per creare il contesto di invocazione con il selettore di
- * servizio. Per permettere una migrazione più graduale da un meccanismo basato
+ * servizio. Per permettere una migrazione piu' graduale da un meccanismo basato
  * su configurazioni locali al fruitore, la classe prevede la possibilit&agrave; di
  * elencare una serie di porte delegate per le quali la configurazione non sar&agrave;
  * richiesta al servizio di naming ma verr&agrave; caricata in locale, con le regole
@@ -1915,11 +1915,11 @@ import org.apache.log4j.Category;
  * 
  * <h4>Modifiche a runtime della configurazione porta delegata lato fruitore</h4>
  * 
- * Poichè il file di configurazione è mantenuto in un repository comune per
+ * Poiche' il file di configurazione e' mantenuto in un repository comune per
  * tutti i fruitori del servizio, alcune impostazioni che possono variare da
  * fruitore a fruitore, o addirittura a runtime, devono essere inserite
  * esplicitamente <b>dopo</b> aver ottenuto la configurazione di PD generica
- * dal servizio di naming. Per fare ciò la factory mette a disposizione un
+ * dal servizio di naming. Per fare cio' la factory mette a disposizione un
  * meccanismo di pluggabilit&agrave; apposito che si utilizza:
  * <ol>
  * <li> realizzando una classe che implementa l'interfaccia
@@ -1941,9 +1941,9 @@ import org.apache.log4j.Category;
  * <tr>
  * <td>csinaming.provider.url</td>
  * <td>url http del servizio di naming</td>
- * <td>opzionale; se non è specificato nessun valore il valore viene desunto
+ * <td>opzionale; se non e' specificato nessun valore il valore viene desunto
  * dall'environment di sistema (ad esempio potrebbe essere preimpostato negli
- * ambienti di runtime server). Se impostato a livello di sistema può essere
+ * ambienti di runtime server). Se impostato a livello di sistema puo' essere
  * sovrascritto o meno a seconda del valore della property
  * runtime.environment.policy (v.)</td>
  * </tr>
@@ -1956,7 +1956,7 @@ import org.apache.log4j.Category;
  * <tr>
  * <td>csinaming.runtime.policy</td>
  * <td>policy di gestione delle impostazioni implicite e relativi controlli.
- * Può valere:
+ * Puo' valere:
  * <ul>
  * <li>implicit-only: i valori delle property csinaming.provider.url e
  * csinaming.runtime.code devono essere presenti nel system environment e non
@@ -1964,20 +1964,20 @@ import org.apache.log4j.Category;
  * quello dichiarato nei selettori (pena errore).
  * <li>implicit-overwritable: i valori delle property csinaming.provider.url e
  * csinaming.runtime.core sono utilizzate se sono definite nel system
- * environment. Il provider.url può essere inoltre sovrascritto; il codice
+ * environment. Il provider.url puo' essere inoltre sovrascritto; il codice
  * ambiente, se presente nel system environment, viene confrontato con quello
  * richiesto nel selettore ed una discordanza produce un messaggio di WARN sui
  * log applicativi.
  * </ul>
  * </td>
  * <td>opzionale; default=implicit-overwritable, a meno che non sia impostato a
- * livello di system environment (in questo caso non può essere sovrascritto).
+ * livello di system environment (in questo caso non puo' essere sovrascritto).
  * (v.)</td>
  * </tr>
  * <tr>
  * <td>csinaming.global.timetolive</td>
  * <td>tempo di permanenza in cache di uno stub valido</td>
- * <td>opzionale; default=120 min; viene ignorato da impostazioni più
+ * <td>opzionale; default=120 min; viene ignorato da impostazioni piu'
  * specifiche gestite a runtime tramite header restituiti dal servizio di
  * naming.</td>
  * </tr>
@@ -2278,9 +2278,9 @@ public class «httpPDProxyLoaderClassName()»
                 if (isNullOrEmpty(sEnvironmentCode))
                 {
                     _log
-                            .error("[HttpPDProxyLoader::configure] - impossibile inizializzare il loader: se la policy è 'implicit-only' e' necessario impostare a livello di sistema la property csinaming.runtime.code");
+                            .error("[HttpPDProxyLoader::configure] - impossibile inizializzare il loader: se la policy e' 'implicit-only' e' necessario impostare a livello di sistema la property csinaming.runtime.code");
                     throw new ConfigException(
-                            "impossibile inizializzare: se la policy è 'implicit-only' e' necessario impostare a livello di sistema la property "
+                            "impossibile inizializzare: se la policy e' 'implicit-only' e' necessario impostare a livello di sistema la property "
                                     + "csinaming.runtime.code");
                 }
                 else
@@ -2406,9 +2406,9 @@ public class «httpPDProxyLoaderClassName()»
      * separati con pipe :
      * CODICEPRODOTTO|CLIENTE|SERVIZIO|VERSIONE|ISTANZA|BINDING
      * <ul>
-     * <li>CODICEPRODOTTO: codice del prodotto su cui è basato il rilascio che
+     * <li>CODICEPRODOTTO: codice del prodotto su cui e' basato il rilascio che
      * implementa il servizio.
-     * <li>CLIENTE: codice dell'ente/cliente per cui è rilasciato il servizio.
+     * <li>CLIENTE: codice dell'ente/cliente per cui e' rilasciato il servizio.
      * <li>SERVIZIO: codice del servizio (interfaccia).
      * <li>VERSIONE: versione dell'interfaccia di servizio (x.y.z).
      * <li>ISTANZA: progressivo di installazione nello stesso ambiente (serve
@@ -2431,7 +2431,7 @@ public class «httpPDProxyLoaderClassName()»
      * diagnostica).
      * </ul>
      * <li>staging= (opzionale) flag (TURE/FALSE) utilizzata durante le
-     * operazioni di verifica installazione. L'utilizzo normale è FALSE.
+     * operazioni di verifica installazione. L'utilizzo normale e' FALSE.
      * <li>codice.prodotto.fruitore= (opzionale) codice prodotto fruitore per
      * verifica contratto.
      * <li>versione.prodotto.fruitore= (opzionale) versione prodotto fruitore
@@ -2452,13 +2452,13 @@ public class «httpPDProxyLoaderClassName()»
      * 
      * <h4>Reperimento della PD </h4>
      * A fronte della richiesta di una PD fornendo un determinato file di
-     * properties, il comportamento della classe loader è il seguente:
+     * properties, il comportamento della classe loader e' il seguente:
      * <ol>
      * <li>si verifica la correttezza formale della property id.servizio. La
      * forma &egrave; corretta se:
      * <ul>
      * <li>&egrave; composto da 6 componenti separate da '|' ;
-     * <li>la quarta componente (versione servizio) è nel formato
+     * <li>la quarta componente (versione servizio) e' nel formato
      * major.minor.patch;
      * <li>l'ottava componente ("purpose"), se presente, ha uno dei valori
      * previsti (|monitor|diag);
@@ -2472,9 +2472,9 @@ public class «httpPDProxyLoaderClassName()»
      * <li>viene verificata la presenza in cache di una occorrenza ancora
      * valida della PD selezionata.
      * <ul>
-     * <li>se l'occorrenza è valida viene restituita per l'utilizzo del
+     * <li>se l'occorrenza e' valida viene restituita per l'utilizzo del
      * servizio
-     * <li>se l'occorrenza non è più valida:
+     * <li>se l'occorrenza non e' piu' valida:
      * <ul>
      * <li>viene rimossa dalla cache
      * <li>viene invocato il servizio di csinaming
@@ -2492,26 +2492,26 @@ public class «httpPDProxyLoaderClassName()»
      * <ol>
      * <li>un meccansimo basato su un time-to-live definto a livello globale
      * (impostabile tramite apposita property di configurazione);
-     * <li>un meccansimo più complesso, associabile al singolo binding, che può
+     * <li>un meccansimo piu' complesso, associabile al singolo binding, che puo'
      * essere comandato mediante direttive server-side
      * </ol>
      * <h5>time to live based cache expiry</h5>
      * Il primo meccanismo prevede che una istanza di PD sia inserita in cache
-     * con associata l'informazione dell' istante in cui è stata inserita. Al
+     * con associata l'informazione dell' istante in cui e' stata inserita. Al
      * momento della richiesta di quella PD, se <br>
      * <code>[tempo-corrente]-[tempo-inserimento] &gt; [time-to-live-globale]</code>
-     * l'istanza viene dichiarata non valida. Il secondo meccanismo, più
-     * complesso, prevede la possibilit&agrave; di controllare in modo più fine il
+     * l'istanza viene dichiarata non valida. Il secondo meccanismo, piu'
+     * complesso, prevede la possibilit&agrave; di controllare in modo piu' fine il
      * ciclo di permanenza della PD in cache.
      * <h5>hint-based cache expiry</h5>
-     * Il secondo meccanismo di expiry della cache è basato su un sistema di
+     * Il secondo meccanismo di expiry della cache e' basato su un sistema di
      * <em>hint</em> (suggerimenti) controllabili centralmente sul servizio di
      * csinaming. Questo meccanismo prevede due tipi di <em>hint</em>:
      * <ul>
      * <li>PLANNED_UPDATE_DATE: utilizzato per istruire la factory circa
-     * l'approssimarsi di rilascio previsto del servizio. Se ad esempio è
+     * l'approssimarsi di rilascio previsto del servizio. Se ad esempio e'
      * previsto un rilascio alle 17:00 del 20/02/2007, nelle ore precedenti
-     * all'installazione si può decidere di inviare il corrispondente hint ai
+     * all'installazione si puo' decidere di inviare il corrispondente hint ai
      * client di quel binding. In questo modo la factory si prepara a invalidare
      * la cache non appena si supera la data/ora prevista.
      * </ul>
@@ -2814,7 +2814,7 @@ public class «httpPDProxyLoaderClassName()»
                 }
                 else
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' non è presente o valida la PD locale. ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituira' una PD 'null' non e' presente o valida la PD locale. ");
                     return null;
                 }
             }
@@ -2843,7 +2843,7 @@ public class «httpPDProxyLoaderClassName()»
                 }
                 else
                 {
-                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituir&agrave; una PD 'null' non è presente o valida la PD locale. ");
+                    _log.debug("[HttpPDProxyLoader::getRemotely] - Il proxy loader restituira' una PD 'null' non e' presente o valida la PD locale. ");
                     return null;
                 }
             }
@@ -2946,7 +2946,7 @@ public class «httpPDProxyLoaderClassName()»
     }
 
     /**
-     * Imposta il Post Load Config Handler. Se è stata configurata una
+     * Imposta il Post Load Config Handler. Se e' stata configurata una
      * bypass-list la configurazione del post load config handler viene
      * propagata anche alla NameFilePDFactory utilizzata per realizzare il
      * bypass.
@@ -3011,9 +3011,9 @@ public class «httpPDProxyLoaderClassName()»
                     */
                     
                     //Nuovo comportamento da requisito di Standard
-                    //Se la cache è scaduta, viene ripetuta la chiamata sul Registry.
-                    //Se il registry è OK, tale chiamata refresha la cache da sè
-                    //Se il registry è KO, viene restituito il Proxy scaduto - DAN
+                    //Se la cache e' scaduta, viene ripetuta la chiamata sul Registry.
+                    //Se il registry e' OK, tale chiamata refresha la cache da se'
+                    //Se il registry e' KO, viene restituito il Proxy scaduto - DAN
                     _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy [" + selector + "] ****** cache scaduta. Rieffettuo la getRemotly ******");
                     getRemotely(streamLocalPD,selector);
                     _log.debug("[HttpPDProxyLoader.ProxyCache::get] proxy [" + selector + "] ****** GetRemotly rieseguita ****** ");
