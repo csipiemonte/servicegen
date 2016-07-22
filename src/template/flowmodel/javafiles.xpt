@@ -320,7 +320,7 @@ public class «serviceImplClassName()» {
 					+ ex);
 		}
 		logger.debug("[«serviceImplClassName()»::selfCheck] - END");
-		// restituisco l’invocation node
+		// restituisco l'invocation node
 		return in;
 	}
 	
