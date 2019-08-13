@@ -43,6 +43,10 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * The '<em><b>USER</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * UserException
+	 * <!-- end-model-doc -->
 	 * @see #USER_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +57,10 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * The '<em><b>SYSTEM</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * SystemException
+	 * <!-- end-model-doc -->
 	 * @see #SYSTEM_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +71,10 @@ public enum CSIExceptionTypes implements Enumerator {
 	 * The '<em><b>UNRECOVERABLE</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * L'eccezione di questo tipo sono definite come sottoclassi di
+	 * UnrecoverableException
+	 * <!-- end-model-doc -->
 	 * @see #UNRECOVERABLE_VALUE
 	 * @generated
 	 * @ordered

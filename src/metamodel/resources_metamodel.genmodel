@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src"
-    editDirectory="/servicegen/src" modelPluginID="servicegen" modelName="Resources_metamodel"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
-    usedGenPackages="servicedef_metamodel.genmodel#//servicedef typedef_metamodel.genmodel#//typedef">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/servicegen/src" editDirectory="/servicegen/src"
+    modelPluginID="servicegen" modelName="Resources_metamodel" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false" usedGenPackages="servicedef_metamodel.genmodel#//servicedef typedef_metamodel.genmodel#//typedef">
   <foreignModel>resources_metamodel.ecore</foreignModel>
   <genPackages prefix="Appresources" basePackage="it.csi.mddtools" disposableProviderFactory="true"
       ecorePackage="resources_metamodel.ecore#/">
     <genClasses image="false" ecoreClass="resources_metamodel.ecore#//ResourceConnector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ResourceConnector/code"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//ResourceConnector/annotations"/>
     </genClasses>
     <genClasses ecoreClass="resources_metamodel.ecore#//PDPAServiceConnector"/>
     <genClasses ecoreClass="resources_metamodel.ecore#//FileSystemConnector"/>
     <genClasses ecoreClass="resources_metamodel.ecore#//JDBCDataSourceConnector"/>
     <genClasses ecoreClass="resources_metamodel.ecore#//LdapJndiConnector"/>
-    <genClasses ecoreClass="resources_metamodel.ecore#//RPCWebServiceConnector"/>
+    <genClasses ecoreClass="resources_metamodel.ecore#//RPCWebServiceConnector">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//RPCWebServiceConnector/endpoint"/>
+    </genClasses>
     <genClasses ecoreClass="resources_metamodel.ecore#//ServiceSelector">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codProd"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceSelector/codServ"/>
@@ -32,6 +33,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//ServiceConnector/serviceDef"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//ServiceConnector/binding"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//ServiceConnector/selector"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//ServiceConnector/useRegistry"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//RCAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//RCAnnotation/source"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference resources_metamodel.ecore#//RCAnnotation/details"/>
+    </genClasses>
+    <genClasses ecoreClass="resources_metamodel.ecore#//RCAnnotationDetail">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//RCAnnotationDetail/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute resources_metamodel.ecore#//RCAnnotationDetail/value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -43,6 +43,9 @@ public enum AuthLevelEnum implements Enumerator {
 	 * The '<em><b>A0</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #A0_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum AuthLevelEnum implements Enumerator {
 	 * The '<em><b>A1</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #A1_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +69,9 @@ public enum AuthLevelEnum implements Enumerator {
 	 * The '<em><b>A2</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #A2_VALUE
 	 * @generated
 	 * @ordered
@@ -73,6 +82,9 @@ public enum AuthLevelEnum implements Enumerator {
 	 * The '<em><b>A3</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #A3_VALUE
 	 * @generated
 	 * @ordered

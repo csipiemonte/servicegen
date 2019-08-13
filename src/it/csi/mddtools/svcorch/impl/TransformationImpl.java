@@ -270,7 +270,7 @@ public abstract class TransformationImpl extends OpNodeImpl implements Transform
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (initOutSlot: ");
 		result.append(initOutSlot);
 		result.append(')');

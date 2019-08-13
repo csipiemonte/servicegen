@@ -208,7 +208,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ServicegenPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -222,12 +222,16 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		if (isInited) return (ServicegenPackage)EPackage.Registry.INSTANCE.getEPackage(ServicegenPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ServicegenPackageImpl theServicegenPackage = (ServicegenPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ServicegenPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ServicegenPackageImpl());
+		Object registeredServicegenPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ServicegenPackageImpl theServicegenPackage = registeredServicegenPackage instanceof ServicegenPackageImpl ? (ServicegenPackageImpl)registeredServicegenPackage : new ServicegenPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
+		AppresourcesPackage.eINSTANCE.eClass();
+		ServicedefPackage.eINSTANCE.eClass();
 		SvcorchPackage.eINSTANCE.eClass();
+		TypedefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theServicegenPackage.createPackageContents();
@@ -238,7 +242,6 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		// Mark meta-data to indicate it can't be changed
 		theServicegenPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ServicegenPackage.eNS_URI, theServicegenPackage);
 		return theServicegenPackage;
@@ -765,6 +768,7 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WLS92);
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS43);
 		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.JBOSS_EAP6);
+		addEEnumLiteral(targetPlatformCodesEEnum, TargetPlatformCodes.WILDFLY17);
 
 		// Create resource
 		createResource(eNS_URI);
@@ -781,12 +785,12 @@ public class ServicegenPackageImpl extends EPackageImpl implements ServicegenPac
 	 * @generated
 	 */
 	protected void createGenModel_1Annotations() {
-		String source = "GenModel";	
+		String source = "GenModel";
 		addAnnotation
-		  (getServiceComponent_ImplCartridge(), 
-		   source, 
+		  (getServiceComponent_ImplCartridge(),
+		   source,
 		   new String[] {
-			 "documentation", "[[ TODO - add documentation here ]]"
+			   "documentation", "[[ TODO - add documentation here ]]"
 		   });
 	}
 

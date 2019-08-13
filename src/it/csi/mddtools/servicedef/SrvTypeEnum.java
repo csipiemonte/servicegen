@@ -43,6 +43,9 @@ public enum SrvTypeEnum implements Enumerator {
 	 * The '<em><b>Infr</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #INFR_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum SrvTypeEnum implements Enumerator {
 	 * The '<em><b>Appl</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #APPL_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +69,9 @@ public enum SrvTypeEnum implements Enumerator {
 	 * The '<em><b>Orch</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #ORCH_VALUE
 	 * @generated
 	 * @ordered

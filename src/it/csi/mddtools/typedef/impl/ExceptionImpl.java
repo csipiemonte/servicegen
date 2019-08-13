@@ -170,7 +170,7 @@ public class ExceptionImpl extends TypeImpl implements it.csi.mddtools.typedef.E
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (exceptionType: ");
 		result.append(exceptionType);
 		result.append(')');

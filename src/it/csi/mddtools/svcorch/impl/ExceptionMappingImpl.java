@@ -293,7 +293,7 @@ public class ExceptionMappingImpl extends EObjectImpl implements ExceptionMappin
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (msg: ");
 		result.append(msg);
 		result.append(')');

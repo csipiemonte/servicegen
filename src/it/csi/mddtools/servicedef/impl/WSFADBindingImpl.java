@@ -269,7 +269,7 @@ public class WSFADBindingImpl extends ServiceBindingImpl implements WSFADBinding
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (useLiteral: ");
 		result.append(useLiteral);
 		result.append(", styleWrapped: ");

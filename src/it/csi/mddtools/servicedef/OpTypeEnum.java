@@ -43,6 +43,9 @@ public enum OpTypeEnum implements Enumerator {
 	 * The '<em><b>Synch</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #SYNCH_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum OpTypeEnum implements Enumerator {
 	 * The '<em><b>Asynch</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #ASYNCH_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +69,9 @@ public enum OpTypeEnum implements Enumerator {
 	 * The '<em><b>Notify</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #NOTIFY_VALUE
 	 * @generated
 	 * @ordered

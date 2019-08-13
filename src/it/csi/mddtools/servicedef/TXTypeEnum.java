@@ -43,6 +43,9 @@ public enum TXTypeEnum implements Enumerator {
 	 * The '<em><b>No TX</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #NO_TX_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum TXTypeEnum implements Enumerator {
 	 * The '<em><b>New Local TX</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #NEW_LOCAL_TX_VALUE
 	 * @generated
 	 * @ordered

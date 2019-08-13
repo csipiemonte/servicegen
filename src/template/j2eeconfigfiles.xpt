@@ -81,6 +81,19 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-applicati
   <module-order>strict</module-order>
 </jboss-app>
 «ENDFILE-»
+
+«IF isWildfly17(targetPlatform)»
+ «FILE "conf/ear/jboss-deployment-structure.xml"»<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+  <deployment>
+    <dependencies>
+      <module name="org.springframework.spring" export="true" meta-inf="export"/>
+    </dependencies>
+  </deployment>
+</jboss-deployment-structure>
+ «ENDFILE»
+«ENDIF»
+
 «FOREACH this.serviceimplementations.select(si|si.implCartridge!=null && si.implCartridge.metaType==ManualImplCartridge && ((ManualImplCartridge)(si.implCartridge)).useInjectedPojo) AS impl-»
 «FILE "conf/sar/"+impl.provides.codServizio.toLowerCase()+"/META-INF/jboss-service.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <server>  
@@ -515,8 +528,10 @@ Crea i descrittori specifici per l'Application Server scelto (weblogic-ejb-jar.x
 	@@@@CLUSTER_AWARE@@@@
 
     «IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	«IF !isWildfly17(model.targetPlatform)-»
 	<!-- Gli utenti del servizio devono essere definiti nel realm "services" -->
 	<security-domain>java:/jaas/services</security-domain> 
+	«ENDIF-»
 	«ENDIF»
    	<enterprise-beans>
 
@@ -786,7 +801,9 @@ Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml 
 «FILE getSpecificWarConfigRootDir("pabr",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
 	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	«IF !isWildfly17(model.targetPlatform)-»
 	<security-domain>java:/jaas/services</security-domain>
+	«ENDIF-»
 	«ENDIF»
 </jboss-web>
 «ENDFILE»
@@ -906,7 +923,9 @@ Crea i descrittori specifici per l'Application Server selezionato (weblogic.xml 
 «FILE getSpecificWarConfigRootDir("wsfad",removeSeparator(serviceDef.codServizio),model)+"/WEB-INF/jboss-web.xml"»<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
 	«IF serviceDef.authLevel!=AuthLevelEnum::A0»
+	«IF !isWildfly17(model.targetPlatform)-»
 	<security-domain>java:/jaas/services</security-domain>
+	«ENDIF-»
 	«ENDIF»
 </jboss-web>
 «ENDFILE»

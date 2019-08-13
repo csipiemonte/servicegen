@@ -2,7 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: servicegen;singleton:=true
-Bundle-Version: 3.3.0.006
+Automatic-Module-Name: servicegen
+Bundle-Version: 3.4.0.001
 Bundle-ClassPath: .
 Bundle-Activator: it.csi.mddtools.servicegen.provider.Servicegen_metamodelEditPlugin$Implementation
 Bundle-Vendor: %providerName

@@ -43,6 +43,9 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * The '<em><b>WLS92</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #WLS92_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * The '<em><b>JBoss43</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * [[ TODO - add documentation here ]]
+	 * <!-- end-model-doc -->
 	 * @see #JBOSS43_VALUE
 	 * @generated
 	 * @ordered
@@ -65,7 +71,15 @@ public enum TargetPlatformCodes implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JBOSS_EAP6(0, "JBossEAP6", "JBossEAP6");
+	JBOSS_EAP6(0, "JBossEAP6", "JBossEAP6"), /**
+	 * The '<em><b>Wildfly17</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WILDFLY17_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	WILDFLY17(4, "Wildfly17", "Wildfly17");
 
 	/**
 	 * The '<em><b>WLS92</b></em>' literal value.
@@ -119,6 +133,17 @@ public enum TargetPlatformCodes implements Enumerator {
 	public static final int JBOSS_EAP6_VALUE = 0;
 
 	/**
+	 * The '<em><b>Wildfly17</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #WILDFLY17
+	 * @model name="Wildfly17"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int WILDFLY17_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>Target Platform Codes</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -129,6 +154,7 @@ public enum TargetPlatformCodes implements Enumerator {
 			WLS92,
 			JBOSS43,
 			JBOSS_EAP6,
+			WILDFLY17,
 		};
 
 	/**
@@ -186,6 +212,7 @@ public enum TargetPlatformCodes implements Enumerator {
 	public static TargetPlatformCodes get(int value) {
 		switch (value) {
 			case WLS92_VALUE: return WLS92;
+			case WILDFLY17_VALUE: return WILDFLY17;
 		}
 		return null;
 	}

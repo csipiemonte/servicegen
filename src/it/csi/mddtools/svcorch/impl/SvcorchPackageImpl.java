@@ -263,7 +263,7 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link SvcorchPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -277,12 +277,15 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		if (isInited) return (SvcorchPackage)EPackage.Registry.INSTANCE.getEPackage(SvcorchPackage.eNS_URI);
 
 		// Obtain or create and register package
-		SvcorchPackageImpl theSvcorchPackage = (SvcorchPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof SvcorchPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new SvcorchPackageImpl());
+		Object registeredSvcorchPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		SvcorchPackageImpl theSvcorchPackage = registeredSvcorchPackage instanceof SvcorchPackageImpl ? (SvcorchPackageImpl)registeredSvcorchPackage : new SvcorchPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		AppresourcesPackage.eINSTANCE.eClass();
+		ServicedefPackage.eINSTANCE.eClass();
+		TypedefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theSvcorchPackage.createPackageContents();
@@ -293,7 +296,6 @@ public class SvcorchPackageImpl extends EPackageImpl implements SvcorchPackage {
 		// Mark meta-data to indicate it can't be changed
 		theSvcorchPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(SvcorchPackage.eNS_URI, theSvcorchPackage);
 		return theSvcorchPackage;

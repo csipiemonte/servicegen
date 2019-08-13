@@ -374,7 +374,7 @@ public abstract class ServiceConnectorImpl extends ResourceConnectorImpl impleme
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (useRegistry: ");
 		result.append(useRegistry);
 		result.append(')');

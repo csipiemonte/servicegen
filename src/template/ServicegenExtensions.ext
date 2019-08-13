@@ -414,7 +414,7 @@ String fullPAJndiName(ServiceDef sd) :
 
 // jndi name con cui il PABR referenzia la PA
 String paHomeJNDIName4InternalLink(ServiceDef sd, SOABEModel model) :
-if (isJboss6eap(model.targetPlatform)) then
+if (isJboss6eap(model.targetPlatform) || isWildfly17(model.targetPlatform)) then
 	"java:app/"+ getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+
 	"/"+getPABeanName((EJBPABinding)(sd.bindings.selectFirst(b|true)), sd)+"!it.csi.csi.porte.ejb20.PortaApplicativaHome"
 else
@@ -430,7 +430,7 @@ String fullQMGRJndiName(ServiceDef sd) :
 // nel caso JB6 il formato e': 
 // java:app/appl-testasynch-ejbpa/TestasynchQMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome
 String qmgrJndiNameForInternalLink(ServiceDef sd, SOABEModel model):
-if (isJboss6eap(model.targetPlatform)) then "java:app/"+getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+"/"+toCamel(sd.codServizio)+"QMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome"
+if (isJboss6eap(model.targetPlatform)||isWildfly17(model.targetPlatform)) then "java:app/"+getEJBPAJarName(sd.codServizio,"ejbpa",sd.serviceType.toString(),model)+"/"+toCamel(sd.codServizio)+"QMGR!it.csi.csi.asynch.queuemgr.ejb.QueueMgrHome"
 else 
 	fullQMGRJndiName(sd, model);
     
@@ -453,7 +453,7 @@ String fullServiceJndiName(EJBPABinding sb, ServiceDef sd) :
 String queueConnectionFactoryJndiName(SOABEModel model):
 if (isJboss43(model.targetPlatform)) then
 		"/ConnectionFactory"
-else if (isJboss6eap(model.targetPlatform)) then
+else if (isJboss6eap(model.targetPlatform)||isWildfly17(model.targetPlatform)) then
 	"java:/jms/QueueConnectionFactory"
 else
 	"jms/QueueConnectionFactory"
@@ -869,7 +869,7 @@ String wsCallClientName(ServiceDef sd, WSEndpoint endpoint) :
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 boolean isJbossPlatform(TargetPlatform targetPlatform):
-if (targetPlatform.code==TargetPlatformCodes::JBoss43|| targetPlatform.code==TargetPlatformCodes::JBossEAP6) then
+if (targetPlatform.code==TargetPlatformCodes::JBoss43|| targetPlatform.code==TargetPlatformCodes::JBossEAP6|| targetPlatform.code==TargetPlatformCodes::Wildfly17) then
 	true
 else 
 	false;
@@ -888,6 +888,12 @@ else
 
 boolean isJboss43(TargetPlatform targetPlatform):
 if (targetPlatform.code==TargetPlatformCodes::JBoss43) then
+	true
+else 
+	false;		
+
+boolean isWildfly17(TargetPlatform targetPlatform):
+if (targetPlatform.code==TargetPlatformCodes::Wildfly17) then
 	true
 else 
 	false;		

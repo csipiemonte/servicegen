@@ -492,7 +492,7 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link ServicedefPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -506,7 +506,8 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		if (isInited) return (ServicedefPackage)EPackage.Registry.INSTANCE.getEPackage(ServicedefPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ServicedefPackageImpl theServicedefPackage = (ServicedefPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ServicedefPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ServicedefPackageImpl());
+		Object registeredServicedefPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ServicedefPackageImpl theServicedefPackage = registeredServicedefPackage instanceof ServicedefPackageImpl ? (ServicedefPackageImpl)registeredServicedefPackage : new ServicedefPackageImpl();
 
 		isInited = true;
 
@@ -522,7 +523,6 @@ public class ServicedefPackageImpl extends EPackageImpl implements ServicedefPac
 		// Mark meta-data to indicate it can't be changed
 		theServicedefPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ServicedefPackage.eNS_URI, theServicedefPackage);
 		return theServicedefPackage;

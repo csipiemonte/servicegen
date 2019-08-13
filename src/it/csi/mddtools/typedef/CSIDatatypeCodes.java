@@ -43,6 +43,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Integer</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su int o java.lang.Integer (se nillable==true)
+	 * <!-- end-model-doc -->
 	 * @see #CSI_INTEGER_VALUE
 	 * @generated
 	 * @ordered
@@ -53,6 +56,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI String</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su java.lang.String
+	 * <!-- end-model-doc -->
 	 * @see #CSI_STRING_VALUE
 	 * @generated
 	 * @ordered
@@ -63,6 +69,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Float</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su float o java.lang.Float (se nillable==true)
+	 * <!-- end-model-doc -->
 	 * @see #CSI_FLOAT_VALUE
 	 * @generated
 	 * @ordered
@@ -73,6 +82,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Double</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su double o java.lang.Double (se nillable==true)
+	 * <!-- end-model-doc -->
 	 * @see #CSI_DOUBLE_VALUE
 	 * @generated
 	 * @ordered
@@ -83,6 +95,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Boolean</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su boolean o java.lang.Boolean (se nillable==true)
+	 * <!-- end-model-doc -->
 	 * @see #CSI_BOOLEAN_VALUE
 	 * @generated
 	 * @ordered
@@ -93,6 +108,11 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Date</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su java.util.Date. Consigliato l'uso per gestire timestamp; non 
+	 * consigliato per gestire date prive di informazioni sull'ora. Usare stringhe
+	 * formattate.
+	 * <!-- end-model-doc -->
 	 * @see #CSI_DATE_VALUE
 	 * @generated
 	 * @ordered
@@ -103,6 +123,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Byte</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su byte o java.lang.Byte (se nillable==true). E' sconsigliata la versione nillable.
+	 * <!-- end-model-doc -->
 	 * @see #CSI_BYTE_VALUE
 	 * @generated
 	 * @ordered
@@ -113,6 +136,9 @@ public enum CSIDatatypeCodes implements Enumerator {
 	 * The '<em><b>CSI Long</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * mappato su long o java.lang.Long (se nillable==true)
+	 * <!-- end-model-doc -->
 	 * @see #CSI_LONG_VALUE
 	 * @generated
 	 * @ordered

@@ -500,6 +500,9 @@ AS sharedLibsPath»
 			<fileset dir="${temp}/ear" >
 				<include name="META-INF/*"/>
 			</fileset>
+			«IF isWildfly17(targetPlatform)-»
+			<metainf dir="${temp}/ear/" includes="jboss-deployment-structure.xml" />
+			«ENDIF-»
 			<manifest>
 				<attribute name="Built-By" value="${user.name}" />
 				<attribute name="Built-Date" value="${DSTAMP}" />
@@ -1268,6 +1271,11 @@ creazione del file di configurazione IVY
 «ENDDEFINE»
 
 «DEFINE springIvyDependencies FOR SOABEModel»
+«IF isWildfly17(this.targetPlatform)-»
+		<!-- librerie necessarie per l'implementazione spring -->
+		<dependency org="others" name="spring" rev="4.3.24.RELEASE" transitive="false" >
+		</dependency>
+«ELSE-»
 		<!-- librerie necessarie per l'implementazione spring -->
 		<dependency org="others" name="spring" rev="3.1.1.RELEASE" transitive="false" >
 	      <artifact name="spring-aop-3.1.1.RELEASE" type="jar" />
@@ -1280,8 +1288,9 @@ creazione del file di configurazione IVY
 	      <artifact name="spring-tx-3.1.1.RELEASE" type="jar" />
 	      <artifact name="spring-web-3.1.1.RELEASE" type="jar" />
 	    </dependency>
-	    <dependency org="others" name="aopalliance" rev="1.0" />
-	    
+«ENDIF-»
+		<dependency org="others" name="aopalliance" rev="1.0" />
+		
 «ENDDEFINE»
 
 «DEFINE pdpaIvyDependency FOR PDPAServiceConnector»

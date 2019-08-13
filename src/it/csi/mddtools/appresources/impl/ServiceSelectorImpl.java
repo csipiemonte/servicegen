@@ -483,7 +483,7 @@ public class ServiceSelectorImpl extends EObjectImpl implements ServiceSelector 
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
+		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (codProd: ");
 		result.append(codProd);
 		result.append(", codServ: ");

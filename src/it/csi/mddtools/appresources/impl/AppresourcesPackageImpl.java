@@ -35,6 +35,7 @@ import it.csi.mddtools.appresources.ServiceConnector;
 import it.csi.mddtools.appresources.ServiceSelector;
 
 import it.csi.mddtools.servicedef.ServicedefPackage;
+import it.csi.mddtools.typedef.TypedefPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
@@ -154,7 +155,7 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
-	 * 
+	 *
 	 * <p>This method is used to initialize {@link AppresourcesPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
@@ -168,12 +169,14 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		if (isInited) return (AppresourcesPackage)EPackage.Registry.INSTANCE.getEPackage(AppresourcesPackage.eNS_URI);
 
 		// Obtain or create and register package
-		AppresourcesPackageImpl theAppresourcesPackage = (AppresourcesPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof AppresourcesPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new AppresourcesPackageImpl());
+		Object registeredAppresourcesPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		AppresourcesPackageImpl theAppresourcesPackage = registeredAppresourcesPackage instanceof AppresourcesPackageImpl ? (AppresourcesPackageImpl)registeredAppresourcesPackage : new AppresourcesPackageImpl();
 
 		isInited = true;
 
 		// Initialize simple dependencies
 		ServicedefPackage.eINSTANCE.eClass();
+		TypedefPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theAppresourcesPackage.createPackageContents();
@@ -184,7 +187,6 @@ public class AppresourcesPackageImpl extends EPackageImpl implements Appresource
 		// Mark meta-data to indicate it can't be changed
 		theAppresourcesPackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(AppresourcesPackage.eNS_URI, theAppresourcesPackage);
 		return theAppresourcesPackage;
